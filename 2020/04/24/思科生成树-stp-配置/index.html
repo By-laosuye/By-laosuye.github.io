@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,Cisco," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="老苏叶的小窝" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="#实验拓扑图 实验步骤： 第一步：#分别配置pc的ip地址，以及给每个交换机创建vlan10,vlan20,vlan30,vlan40123456789101112131415161718192021222324# PC11 ip address 192.168.10.1  255.255.255.0          gateway 192.168.10.254      #pc12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="思科生成树(stp)配置">
+<meta property="og:url" content="https://gitee.com/laosuye/laosuye.git/2020/04/24/%E6%80%9D%E7%A7%91%E7%94%9F%E6%88%90%E6%A0%91-stp-%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="老苏叶的小窝">
+<meta property="og:description" content="#实验拓扑图 实验步骤： 第一步：#分别配置pc的ip地址，以及给每个交换机创建vlan10,vlan20,vlan30,vlan40123456789101112131415161718192021222324# PC11 ip address 192.168.10.1  255.255.255.0          gateway 192.168.10.254      #pc12">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200527001038.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200527001045.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200527001229.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200527001239.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200527001245.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200527001252.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200527001304.png">
+<meta property="article:published_time" content="2020-04-24T14:26:21.000Z">
+<meta property="article:modified_time" content="2024-06-20T01:37:04.000Z">
+<meta property="article:author" content="老苏叶">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Cisco">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/laosuye/TC/raw/master/20200527001038.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://gitee.com/laosuye/laosuye.git/2020/04/24/思科生成树-stp-配置/"/>
+
+
+
+
+
+  <title>思科生成树(stp)配置 | 老苏叶的小窝</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e8f796a0dc919d18055bb061f82a6395";";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">老苏叶的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gitee.com/laosuye/laosuye.git/2020/04/24/%E6%80%9D%E7%A7%91%E7%94%9F%E6%88%90%E6%A0%91-stp-%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="老苏叶">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatra.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老苏叶的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">思科生成树(stp)配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-24T22:26:21+08:00">
+                2020-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C/Cisco/" itemprop="url" rel="index">
+                    <span itemprop="name">Cisco</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C/Cisco/stp/" itemprop="url" rel="index">
+                    <span itemprop="name">stp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/04/24/%E6%80%9D%E7%A7%91%E7%94%9F%E6%88%90%E6%A0%91-stp-%E9%85%8D%E7%BD%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/24/%E6%80%9D%E7%A7%91%E7%94%9F%E6%88%90%E6%A0%91-stp-%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  935 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长"> 分钟
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <meta name="referrer" content="no-referrer">
+
+<h1 id="实验拓扑图"><a href="#实验拓扑图" class="headerlink" title="#实验拓扑图"></a>#实验拓扑图</h1><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001038.png" alt></p>
+<p>实验步骤：</p>
+<h1 id="第一步：-分别配置pc的ip地址，以及给每个交换机创建vlan10-vlan20-vlan30-vlan40"><a href="#第一步：-分别配置pc的ip地址，以及给每个交换机创建vlan10-vlan20-vlan30-vlan40" class="headerlink" title="第一步：#分别配置pc的ip地址，以及给每个交换机创建vlan10,vlan20,vlan30,vlan40"></a>第一步：#分别配置pc的ip地址，以及给每个交换机创建vlan10,vlan20,vlan30,vlan40</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># PC11 </span><br><span class="line">ip address 192.168.10.1  255.255.255.0          </span><br><span class="line">gateway 192.168.10.254      </span><br><span class="line">#pc12       </span><br><span class="line">ip address 192.168.20.1 255.255.255.0        </span><br><span class="line">gateway 192.168.20.254     </span><br><span class="line">#pc13        </span><br><span class="line">ip address 192.168.30.1 255.255.255.0         </span><br><span class="line">gateway 192.168.30.254     </span><br><span class="line">#pc14    </span><br><span class="line">ip address 192.168.40.1 255.255.255.0       </span><br><span class="line">gateway 192.168.40.254   </span><br><span class="line">#pc17     </span><br><span class="line">ip address 192.168.10.2 255.255.255.0     </span><br><span class="line">gateway 192.168.10.254   </span><br><span class="line">#pc16     </span><br><span class="line">ip address 192.168.20.2 255.255.255.0     </span><br><span class="line">gateway 192.168.20.254    </span><br><span class="line">#pc15   </span><br><span class="line">ip address 192.168.30.2 255.255.255.0    </span><br><span class="line">gateway 192.168.30.254  </span><br><span class="line">#pc 18  </span><br><span class="line">ip address 192.168.40.2 255.255.255.0   </span><br><span class="line">gateway 192.168.40.254</span><br></pre></td></tr></table></figure>
+
+<p># 分别给所有交换机创建vlan,保持vlan数据库保持一致</p>
+<p>#假如左上角的是sw1,右上角sw2,最下面是sw3</p>
+<h2 id="在全局配置模式下："><a href="#在全局配置模式下：" class="headerlink" title="# 在全局配置模式下："></a># 在全局配置模式下：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#vlan 10  , 20 ,30 ,40</span><br></pre></td></tr></table></figure>
+
+<p>#配置各个交换机上的端口链接是trunk</p>
+<h4 id="配置sw3"><a href="#配置sw3" class="headerlink" title="# 配置sw3"></a># 配置sw3</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># interface range f0&#x2F;1-2</span><br><span class="line"> switchport mode trunk  &#x2F;&#x2F;思科二层交换机不用封装dot1q，直接trunk</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置sw2"><a href="#配置sw2" class="headerlink" title="#配置sw2"></a>#配置sw2</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface range f0&#x2F;1-2</span><br><span class="line">switchport trunk encapsulation dot1q &#x2F;&#x2F;思科三层交换机必须封装dot1q,才能设置trunk链路</span><br><span class="line">switchport mode trunk</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置sw1"><a href="#配置sw1" class="headerlink" title="#配置sw1"></a>#配置sw1</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface range f0&#x2F;1-2</span><br><span class="line">switchport trunck  encapsulation dot1q &#x2F;&#x2F;思科三层交换机必须封装dot1q协议，才能设置trunk链路</span><br><span class="line">switchport mode trunk</span><br></pre></td></tr></table></figure>
+
+<p>#以上配置完之后，先确定根交换机，副根交换机，和接入层交换机，</p>
+<p> #我确定完之后，sw1为主根交换机，sw2为副根交换机，sw3为接入层交换机</p>
+<p># 配置，在sw1中，配置vlan10,vlan20,为主根，vlan30,vlan40,为次根</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 在全局配置模式下：</span><br><span class="line">spanning-tree vlan 10 priority  0 </span><br><span class="line">spanning-tree-vlan 20 priority 0</span><br><span class="line">spanning-tree-vlan 30 priority 4096</span><br><span class="line">spanning-tree-vlan 40 priority 4096</span><br><span class="line">&#x2F;&#x2F; #配置生成树的主根时，设置它的优先级，优先级默认是32768，比它小就越靠谱，</span><br><span class="line">#优先级默认是4096的倍数</span><br><span class="line">  </span><br><span class="line"> 配置，在sw2中，配置vlan30,vlan40,为主根，vlan10,vlan20,为次根</span><br><span class="line"> # 在全局配置模式下：</span><br><span class="line">spanning-tree vlan 10 priority  4096 </span><br><span class="line">spanning-tree-vlan 20 priority 4096</span><br><span class="line">spanning-tree-vlan 30 priority 0</span><br><span class="line">spanning-tree-vlan 40 priority 0</span><br><span class="line">&#x2F;&#x2F; #配置生成树的主根时，设置它的优先级，优先级默认是32768，比它小就越靠谱，</span><br><span class="line">#优先级默认是4096的倍数</span><br></pre></td></tr></table></figure>
+
+<h4 id="接下来打开端口f0-2"><a href="#接下来打开端口f0-2" class="headerlink" title="#接下来打开端口f0/2"></a>#接下来打开端口f0/2</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">intface f0&#x2F;2</span><br><span class="line">no shutdown</span><br></pre></td></tr></table></figure>
+
+<h3 id="如下图"><a href="#如下图" class="headerlink" title="#如下图"></a>#如下图</h3><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001045.png" alt></p>
+<h6 id="现在用命令ping-10-1-1-2-测试-看是否可以ping通-如果ping通的话，就说明生成树配置成功"><a href="#现在用命令ping-10-1-1-2-测试-看是否可以ping通-如果ping通的话，就说明生成树配置成功" class="headerlink" title="#现在用命令ping 10.1.1.2 测试 看是否可以ping通,如果ping通的话，就说明生成树配置成功"></a>#现在用命令ping 10.1.1.2 测试 看是否可以ping通,如果ping通的话，就说明生成树配置成功</h6><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001229.png" alt></p>
+<p>#从上图可以看书，是可以ping通的，说明没有出现环路，起到了负载均衡的作用，流量即可以走左边，又可以走右边，</p>
+<p>#要想到各个vlan 之间可以互通的话，就必须配置虚拟网关</p>
+<h4 id="配置-sw1-交换机，vlan10-vlan20-vlan30-vlan40-的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启-：ip-routing"><a href="#配置-sw1-交换机，vlan10-vlan20-vlan30-vlan40-的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启-：ip-routing" class="headerlink" title="#配置 sw1 交换机，vlan10.vlan20,vlan30,vlan40,的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启 ：ip routing"></a>#配置 sw1 交换机，vlan10.vlan20,vlan30,vlan40,的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启 ：ip routing</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">interface vlan 10</span><br><span class="line"> ip address 192.168.10.254 255.255.255.0</span><br><span class="line"> no shutdown</span><br><span class="line"> exit</span><br><span class="line"> interface vlan 20</span><br><span class="line"> ip address 192.168.20.254 255.255.255.0</span><br><span class="line"> no shutdown</span><br><span class="line"> exit</span><br><span class="line"> interface vlan 30</span><br><span class="line"> ip address 192.168.30.254 255.255.255.0</span><br><span class="line"> no shutdown </span><br><span class="line"> exit</span><br><span class="line"> interface vlan 40</span><br><span class="line"> ip address 192.168.40.254 255.255.255.0</span><br><span class="line"> no shutdown</span><br></pre></td></tr></table></figure>
+
+<h4 id="接下来用vlan10-网段的pc-ping-vlan-30-40之间的pc-如下图"><a href="#接下来用vlan10-网段的pc-ping-vlan-30-40之间的pc-如下图" class="headerlink" title="#接下来用vlan10 网段的pc ping vlan 30,40之间的pc 如下图"></a>#接下来用vlan10 网段的pc ping vlan 30,40之间的pc 如下图</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001239.png" alt></p>
+<p>#以上说明测试成功，vlan 之间可以互访了</p>
+<p>#接下来我关闭sw3 f0/1 .使他流量从副根上走，起到备份作用，如下图</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001245.png" alt></p>
+<h4 id="继续ping-vlan-30-vlan-40-如下图"><a href="#继续ping-vlan-30-vlan-40-如下图" class="headerlink" title="#继续ping vlan 30 ,vlan 40 如下图"></a>#继续ping vlan 30 ,vlan 40 如下图</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001252.png" alt></p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001304.png" alt></p>
+<p>#以上说明测试成功，说明起到备份作用</p>
+<p>#同理可得，右边线路坏了的话，会从左边走</p>
+<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><p>配置生成树，目的是为了防止物理环路的产生，防止广播风暴，好处是，可以起到负载均衡的作用，和链路的冗余备份</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="老苏叶 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="老苏叶 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+            <a href="/tags/Cisco/" rel="tag"><i class="fa fa-tag"></i> Cisco</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/24/Linux%E4%B8%8B%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/" rel="next" title="Linux下用户和组的管理">
+                <i class="fa fa-chevron-left"></i> Linux下用户和组的管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/25/Ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%AE%A1%E7%90%86/" rel="prev" title="Ftp服务器的配置与管理">
+                Ftp服务器的配置与管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatra.jpg"
+                alt="老苏叶" />
+            
+              <p class="site-author-name" itemprop="name">老苏叶</p>
+              <p class="site-description motion-element" itemprop="description">狂热的代码爱好者卑微的菜鸟程序员</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/By-laosuye/By-laosuye.github.io.git" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://39.106.175.113" target="_blank" title="空间">
+                      
+                        <i class="fa fa-fw fa-vk"></i>空间</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="/qq" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="/weixin" target="_blank" title="微信">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>微信</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验拓扑图"><span class="nav-text">#实验拓扑图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一步：-分别配置pc的ip地址，以及给每个交换机创建vlan10-vlan20-vlan30-vlan40"><span class="nav-text">第一步：#分别配置pc的ip地址，以及给每个交换机创建vlan10,vlan20,vlan30,vlan40</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在全局配置模式下："><span class="nav-text"># 在全局配置模式下：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置sw3"><span class="nav-text"># 配置sw3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置sw2"><span class="nav-text">#配置sw2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置sw1"><span class="nav-text">#配置sw1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接下来打开端口f0-2"><span class="nav-text">#接下来打开端口f0&#x2F;2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如下图"><span class="nav-text">#如下图</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#现在用命令ping-10-1-1-2-测试-看是否可以ping通-如果ping通的话，就说明生成树配置成功"><span class="nav-text">#现在用命令ping 10.1.1.2 测试 看是否可以ping通,如果ping通的话，就说明生成树配置成功</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-sw1-交换机，vlan10-vlan20-vlan30-vlan40-的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启-：ip-routing"><span class="nav-text">#配置 sw1 交换机，vlan10.vlan20,vlan30,vlan40,的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启 ：ip routing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接下来用vlan10-网段的pc-ping-vlan-30-40之间的pc-如下图"><span class="nav-text">#接下来用vlan10 网段的pc ping vlan 30,40之间的pc 如下图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继续ping-vlan-30-vlan-40-如下图"><span class="nav-text">#继续ping vlan 30 ,vlan 40 如下图</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结："><span class="nav-text">总结：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+       <div>
+       <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1342758142&auto=1&height=66"></iframe>
+       </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">老苏叶</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">39.1k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: '4ePJvrPIyoMuyL54g1K6fNGc-gzGzoHsz',
+        appKey: 'MKyiWYqHi0PIzxhH8jC1Q9pe',
+        placeholder: '留下你的爪印吧～',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

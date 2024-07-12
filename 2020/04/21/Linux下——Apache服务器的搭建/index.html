@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="服务器,Linux,Apache," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="老苏叶的小窝" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="第一步：我们先检查是否安装 apache服务器的软件1[root@localhost ~]# rpm -qa|grep httpd  第二步：使用yum方式安装apache服务器软件制作yum源文件并创建存储库1[root@localhost ~]# mkdir &#x2F;cdrom  挂载光盘12345678[root@localhost ~]# mount &#x2F;dev&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下——Apache服务器的搭建">
+<meta property="og:url" content="https://gitee.com/laosuye/laosuye.git/2020/04/21/Linux%E4%B8%8B%E2%80%94%E2%80%94Apache%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="老苏叶的小窝">
+<meta property="og:description" content="第一步：我们先检查是否安装 apache服务器的软件1[root@localhost ~]# rpm -qa|grep httpd  第二步：使用yum方式安装apache服务器软件制作yum源文件并创建存储库1[root@localhost ~]# mkdir &#x2F;cdrom  挂载光盘12345678[root@localhost ~]# mount &#x2F;dev&#x2F;">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234422.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234439.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234452.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234514.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234523.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234533.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234547.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234559.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234616.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234624.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234636.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234645.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234653.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234704.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234713.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234726.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234734.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234747.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234759.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234809.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234823.png">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234832.png">
+<meta property="article:published_time" content="2020-04-21T15:08:47.000Z">
+<meta property="article:modified_time" content="2024-06-20T01:38:04.000Z">
+<meta property="article:author" content="老苏叶">
+<meta property="article:tag" content="服务器">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Apache">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/laosuye/TC/raw/master/20200526234422.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://gitee.com/laosuye/laosuye.git/2020/04/21/Linux下——Apache服务器的搭建/"/>
+
+
+
+
+
+  <title>Linux下——Apache服务器的搭建 | 老苏叶的小窝</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e8f796a0dc919d18055bb061f82a6395";";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">老苏叶的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gitee.com/laosuye/laosuye.git/2020/04/21/Linux%E4%B8%8B%E2%80%94%E2%80%94Apache%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="老苏叶">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatra.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老苏叶的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux下——Apache服务器的搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-21T23:08:47+08:00">
+                2020-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">服务器</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/%E6%9C%8D%E5%8A%A1%E5%99%A8/Apache/" itemprop="url" rel="index">
+                    <span itemprop="name">Apache</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/04/21/Linux%E4%B8%8B%E2%80%94%E2%80%94Apache%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/21/Linux%E4%B8%8B%E2%80%94%E2%80%94Apache%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长"> 分钟
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <meta name="referrer" content="no-referrer">
+
+<h1 id="第一步：我们先检查是否安装-apache服务器的软件"><a href="#第一步：我们先检查是否安装-apache服务器的软件" class="headerlink" title="第一步：我们先检查是否安装 apache服务器的软件"></a>第一步：我们先检查是否安装 apache服务器的软件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa|grep httpd</span><br></pre></td></tr></table></figure>
+
+<h1 id="第二步：使用yum方式安装apache服务器软件"><a href="#第二步：使用yum方式安装apache服务器软件" class="headerlink" title="第二步：使用yum方式安装apache服务器软件"></a>第二步：使用yum方式安装apache服务器软件</h1><h2 id="制作yum源文件并创建存储库"><a href="#制作yum源文件并创建存储库" class="headerlink" title="制作yum源文件并创建存储库"></a>制作yum源文件并创建存储库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# mkdir &#x2F;cdrom</span><br></pre></td></tr></table></figure>
+
+<h2 id="挂载光盘"><a href="#挂载光盘" class="headerlink" title="挂载光盘"></a>挂载光盘</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# mount &#x2F;dev&#x2F;cdrom &#x2F;cdrom</span><br><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;yum.repos.d&#x2F;dvd.repo</span><br><span class="line">[dvd]</span><br><span class="line">name&#x3D;dvd</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;cdrom</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enabeld&#x3D;1</span><br><span class="line">[root@localhost ~]# yum install httpd –y  #安装httpd服务</span><br></pre></td></tr></table></figure>
+
+<h1 id="第三步：重新启动httpd服务"><a href="#第三步：重新启动httpd服务" class="headerlink" title="第三步：重新启动httpd服务"></a>第三步：重新启动httpd服务</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# service httpd restart</span><br><span class="line">Apache服务器的IP地址为：192.168.1.118</span><br><span class="line">Apache 服务器的虚拟主机IP地址为：192.168.1.148</span><br><span class="line">Apache 服务器的虚拟主机IP地址为：192.168.1.149</span><br><span class="line">Apache 服务器的域名为jcxy.com</span><br><span class="line">主机头：www.jcxy.com</span><br><span class="line">虚拟主机头：www1.jcxy.com</span><br><span class="line">虚拟主机头：www2.jcxy.com</span><br><span class="line">个人主页：个人用户bob  密码：123456</span><br></pre></td></tr></table></figure>
+
+<h2 id="不启用selinux安全"><a href="#不启用selinux安全" class="headerlink" title="不启用selinux安全"></a>不启用selinux安全</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@mail ~]# vim &#x2F;etc&#x2F;sysconfig&#x2F;selinux</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234422.png" alt></p>
+<p>改：SELINUX=permissive</p>
+<h1 id="4-修改apache服务器主配置文件"><a href="#4-修改apache服务器主配置文件" class="headerlink" title="4.修改apache服务器主配置文件"></a>4.修改apache服务器主配置文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@mail ~]# vi &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span><br><span class="line">改</span><br><span class="line">ServerName www.jcxy.com:80</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200526234439.png" style="zoom:200%;">
+
+<p>设置Apache默认站点的名称和端口号，这里的名称可以时IP地址，也可以是域名，如果是域名还需DNS的支持。 要做dns 添加一个A记录<a href="http://www.jcxy.com的主机头" target="_blank" rel="noopener">www.jcxy.com的主机头</a>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DocumentRoot &quot;&#x2F;var&#x2F;www&#x2F;html</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200526234452.png" style="zoom:200%;">
+
+<p>设置WEB站点的文档根目录。 可更改也可不更改 更改要更改文件夹selinux上下文属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DirectoryIndex index.html index.html.var</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200526234514.png" style="zoom:200%;">
+
+<p>设置每个目录中默认的网页文件名称，排在前面的优先 默认读取的是index.html网页文件</p>
+<p>UserDir disabled #用到个人主页的话将这行注释,使个人主页生效， UserDir public_html #将这行注释去掉使个人账号下的public_html目录下的index.html文件能在导航条运行</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234523.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">格式:www.jcxy.com&#x2F;~bob(用户个人主页自己定义)</span><br><span class="line">格式：192.168.1.118&#x2F;~bob  #用IP地址登陆</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234533.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;Directory &#x2F;home&#x2F;*&#x2F;public_html&gt;</span><br><span class="line"></span><br><span class="line">    AllowOverride FileInfo AuthConfig Limit</span><br><span class="line"></span><br><span class="line">    Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec</span><br><span class="line"></span><br><span class="line">    &lt;Limit GET POST OPTIONS&gt;</span><br><span class="line"></span><br><span class="line">        Order allow,deny</span><br><span class="line"></span><br><span class="line">        Allow from all</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;Limit&gt;</span><br><span class="line"></span><br><span class="line">    &lt;LimitExcept GET POST OPTIONS&gt;</span><br><span class="line"></span><br><span class="line">        Order deny,allow</span><br><span class="line"></span><br><span class="line">        Deny from all</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;LimitExcept&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;Directory&gt;</span><br><span class="line"></span><br><span class="line">#对个人主页的目录设置</span><br><span class="line"></span><br><span class="line">#意思是home下的个人用户目录下public_html目录下的index.html文件成为网页</span><br></pre></td></tr></table></figure>
+
+<h1 id="首先创建一个测试页"><a href="#首先创建一个测试页" class="headerlink" title="首先创建一个测试页"></a>首先创建一个测试页</h1><p>在终端输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@cmx2 ~]# useradd bob</span><br><span class="line">[root@cmx2 ~]# passwd bob</span><br><span class="line">[root@ns ~]# cd &#x2F;home&#x2F;bob</span><br><span class="line">[root@ns bob]# mkdir public_html   #创建个人目录下的public_html目录</span><br><span class="line">[root@ns bob]# cd public_html  </span><br><span class="line">[root@ns public_html]# echo 陈陈陈 &gt;index.html   #测试页</span><br><span class="line">[root@ns public_html]# chcon -R -h -t httpd_sys_content_t      &#x2F;home&#x2F;*&#x2F;public_html</span><br></pre></td></tr></table></figure>
+
+<p>更改selinux上下文的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ns bob]# chown bob:bob &#x2F;home&#x2F;bob&#x2F;public_html&#x2F;index.html</span><br><span class="line">[root@ns public_html]# chown bob:bob &#x2F;home&#x2F;bob&#x2F;public_html</span><br></pre></td></tr></table></figure>
+
+<p>更改个人主页的属主属组 这里是bob的个人主页 所以属主属组bob</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ns bob]# chmod 711 &#x2F;home&#x2F;bob</span><br></pre></td></tr></table></figure>
+
+<p>用户主目录普通用户可读可写可执行 别的用户只能执行的权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cmx2 public_html]# service httpd restart  #重启服务</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234547.png" alt></p>
+<p>简单的个人主页编写完成!</p>
+<h1 id="编写一个提供简单的虚拟目录"><a href="#编写一个提供简单的虚拟目录" class="headerlink" title="编写一个提供简单的虚拟目录"></a>编写一个提供简单的虚拟目录</h1><p>在vi /etc/httpd/conf/httpd.conf 下编辑</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234559.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Alias &#x2F;chen2&#x2F; &quot;&#x2F;c1&#x2F;public_html&#x2F;index.html&quot;#虚拟目录名称自定义  绝对路径自己创建</span><br></pre></td></tr></table></figure>
+
+<h2 id="为“-c1-public-html-index-html”目录建立别名。"><a href="#为“-c1-public-html-index-html”目录建立别名。" class="headerlink" title="为“/c1/public_html/index.html”目录建立别名。"></a>为“/c1/public_html/index.html”目录建立别名。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Directory &quot;&#x2F;c1&#x2F;public_html&#x2F;index.html&quot;&gt; </span><br><span class="line">Options Indexes MultiViews FollowSymLinks</span><br></pre></td></tr></table></figure>
+
+<p>三个选项 Indexes 服务器生成此目录的文件列表</p>
+<p>#MultiViews 服务器可使用符合链接链接到不在此目录的文件或目录,此参数若设在“localhost”区域中则无效</p>
+<p>Allowover None 控制项”none” 表示禁止使用全部指令,即禁止处理.htaccess文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">AllowOverride None</span><br><span class="line">     Order allow,deny</span><br><span class="line">     Allow from all</span><br><span class="line"> </span><br><span class="line"> 绝对路径在 &#x2F;c1&#x2F;public_html&#x2F;index.html</span><br><span class="line"> 虚拟目录名为&#x2F;chen2</span><br></pre></td></tr></table></figure>
+
+<h2 id="在终端输入："><a href="#在终端输入：" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@ns ~]# mkdir -p &#x2F;c1&#x2F;public_html  #创建绝对路径</span><br><span class="line">[root@ns ~]# cd &#x2F;c1&#x2F;public_html</span><br><span class="line">[root@ns public_html]# echo &#39;陈梦祥page!&#39;&gt;index.html #创建测试页 有符号加单引号括起来!</span><br><span class="line">[root@ns public_html]# chmod -R 777 &#x2F;c1&#x2F;public_html</span><br><span class="line">[root@ns public_html]# chcon -R -h -t httpd_sys_contnet_t &#x2F;c1&#x2F;public_html</span><br><span class="line">[root@ns public_html]# service httpd restart  #重启服务</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试:"></a>测试:</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234616.png" alt></p>
+<h1 id="创建一个虚拟目录提供两个账号登录"><a href="#创建一个虚拟目录提供两个账号登录" class="headerlink" title="创建一个虚拟目录提供两个账号登录"></a>创建一个虚拟目录提供两个账号登录</h1><p>在vi /etc/httpd/conf/httpd.conf 下编辑</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234624.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Alias &#x2F;chen3 &quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;test&quot;</span><br><span class="line">&lt;Directory &quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;test&quot;&gt; </span><br><span class="line">Order allow,deny</span><br><span class="line">Allow from all</span><br><span class="line">AllowOverride None</span><br><span class="line">AuthType Basic</span><br><span class="line">设置认证方式</span><br><span class="line">AuthName &quot;Please input username and password&quot;</span><br><span class="line">认证需要用户名和密码</span><br><span class="line">AuthUserFile &#x2F;etc&#x2F;httpd&#x2F;userpasswd</span><br><span class="line">httpd用户口令文件的路径</span><br><span class="line">Require valid-user</span><br><span class="line">Satisfy all</span><br><span class="line">同时使用主机名和用户名&#x2F;口令进行访问控制；若使用“Stisfy any”，则满足其一就允许访问。</span><br><span class="line">&lt;&#x2F;Directory&gt; </span><br><span class="line"> 虚拟目录名为:&#x2F;chen3</span><br><span class="line"> 用户：CMX1 密码：123456</span><br><span class="line"> 用户：CMX2 密码：123456</span><br><span class="line"> 绝对路径在: &#x2F;c2&#x2F;public_html&#x2F;index.html</span><br></pre></td></tr></table></figure>
+
+<h2 id="在终端输入：-1"><a href="#在终端输入：-1" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@ns ~]# mkdir -p &#x2F;var&#x2F;www&#x2F;html&#x2F;test</span><br><span class="line">root@ns ~]# cd &#x2F;var&#x2F;www&#x2F;html&#x2F;test</span><br><span class="line">[root@ns test]# echo &#39;this is my test page!&#39;&gt;index.html</span><br><span class="line">[root@ns public_html]# useradd CMX1</span><br><span class="line">[root@ns public_html]# useradd CMX2</span><br><span class="line">[root@ns public_html]# passwd CMX1</span><br><span class="line">[root@ns public_html]# passwd CMX2</span><br><span class="line">[root@ns public_html]# htpasswd -c &#x2F;etc&#x2F;httpd&#x2F;userpasswd CMX1 #添加虚拟目录 用户与密码</span><br><span class="line">[root@ns public_html]# htpasswd &#x2F;etc&#x2F;httpd&#x2F;userpasswd CMX2  #添加虚拟目录用户与密码</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234636.png" alt></p>
+<p>虚拟目录提供密码与密码的网页完成. </p>
+<p>搭建web虚拟主机</p>
+<p>添加网卡</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ns public_html]# vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-eth0</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234645.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">IPaddr：192.168.1.148</span><br><span class="line">IPaddr：192.168.1.149</span><br><span class="line">添加dns主机头 </span><br><span class="line">www1.jcxy.com </span><br><span class="line">www2.jcxy.com </span><br><span class="line">前提是你DNS在完成搭建的情况下</span><br><span class="line">[root@ns public_html]#vi &#x2F;var&#x2F;named&#x2F;jcxy.com.zone  编辑添加</span><br><span class="line">www1     IN    A       192.168.1.148</span><br><span class="line">www2     IN    A       192.168.1.148</span><br><span class="line">[root@ns public_html]# vi &#x2F;var&#x2F;named&#x2F;1.168.192.zone  编辑添加</span><br><span class="line">148   IN   PTR    www1.jcxy.com.</span><br><span class="line">148   IN   PTR    www2.jcxy.com.</span><br></pre></td></tr></table></figure>
+
+<h1 id="基于IP地址的web虚拟主机"><a href="#基于IP地址的web虚拟主机" class="headerlink" title="基于IP地址的web虚拟主机"></a>基于IP地址的web虚拟主机</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在vi &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf 下编辑</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234653.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#自己定义的虚拟网卡     </span><br><span class="line">ServerAdmin webmaster@www.jcxy.com  </span><br><span class="line">#主域名服务器的基础上     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx1  </span><br><span class="line">#web服务器放html页面的根目录 ,可以自己定义但你要改权限与selinux上下文属性     ServerName 192.168.1.148  </span><br><span class="line">#虚拟主机的IP地址     </span><br><span class="line">ErrorLog logs&#x2F;192.168.1.148-error_log  </span><br><span class="line">#错误日志存放位置 自动生成     </span><br><span class="line">CustomLog logs&#x2F;192.168.1.148-access_log common </span><br><span class="line">#链接日志位置  自动生成记录数  </span><br><span class="line"> &lt;&#x2F;VirtualHost&gt; </span><br><span class="line">#自己定义的虚拟网卡</span><br><span class="line">     ServerAdmin webmaster@www.jcxy.com </span><br><span class="line">#主域名服务器的基础上</span><br><span class="line">     DocumentRoot &#x2F;var&#x2F;www&#x2F; cmx2   </span><br><span class="line"> web服务器放html页面的根目录</span><br><span class="line"> ServerName 192.168.1.149 ErrorLog logs&#x2F;192.168.1.149-error_log</span><br><span class="line"> 错误日志</span><br><span class="line"> CustomLog logs&#x2F;192.168.1.149-access_log common</span><br><span class="line"> 链接日志</span><br><span class="line"> &lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在终端输入：-2"><a href="#在终端输入：-2" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx1  #创建我们存放html的目录  selinux上下文属性不需要更改此文件夹自带http脚本权限.</span><br><span class="line">[root@ns www]# cd cmx1</span><br><span class="line">[root@ns cmx1]# echo &#39;cmx1 page !&#39;&gt;index.html  #创建测试页  index.html (服务器只会读取index.html的网页文件)</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：-1"><a href="#测试：-1" class="headerlink" title="测试："></a>测试：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234704.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx2  #创建我们存放html的目录  selinux上下文属性不需要更改此文件夹自带http脚本权限.</span><br><span class="line">[root@ns www]# cd cmx2</span><br><span class="line">[root@ns cmx2]# echo &#39;this is cmx2 page!&#39;&gt;index.html  #创建测试页  index.html (服务器只会读取index.html的网页文件)</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试-1"><a href="#测试-1" class="headerlink" title="测试:"></a>测试:</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234713.png" alt></p>
+<h1 id="基于域名的web虚拟主机"><a href="#基于域名的web虚拟主机" class="headerlink" title="基于域名的web虚拟主机"></a>基于域名的web虚拟主机</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">添加主机头：www1.jcxy.com</span><br><span class="line">          www2.jcxy.com</span><br></pre></td></tr></table></figure>
+
+<h1 id="基于域名的虚拟主机"><a href="#基于域名的虚拟主机" class="headerlink" title="基于域名的虚拟主机"></a>基于域名的虚拟主机</h1><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234726.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> #虚拟主机的IP与端口     </span><br><span class="line">ServerAdmin webmaster@www.jcxy.com </span><br><span class="line">#主域名服务器的基础上     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx3  </span><br><span class="line">#web服务器放html页面的根目录 可以更改但要有这个目录 权限和selinux上下文也要改.     ServerName www1.jcxy.com  </span><br><span class="line">#虚拟主机的主机域     </span><br><span class="line">ErrorLog logs&#x2F;www1.jcxy.com-error_log       </span><br><span class="line">CustomLog logs&#x2F;www1.jcxy.com-access_log common </span><br><span class="line">&lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在终端输入：-3"><a href="#在终端输入：-3" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx3</span><br><span class="line">[root@ns www]# cd cmx3</span><br><span class="line">[root@ns cmx3]# echo &#39;this is cmx3 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：-2"><a href="#测试：-2" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234734.png" style="zoom:200%;">
+
+<h2 id="在终端输入：-4"><a href="#在终端输入：-4" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@ns cmx3]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx4</span><br><span class="line">[root@ns www]# cd cmx4</span><br><span class="line">[root@ns cmx4]# echo &#39;this is cmx4 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试-2"><a href="#测试-2" class="headerlink" title="测试"></a>测试</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234747.png" style="zoom:200%;">
+
+<h1 id="基于端口的虚拟主机"><a href="#基于端口的虚拟主机" class="headerlink" title="基于端口的虚拟主机"></a>基于端口的虚拟主机</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">端口改为192.168.1.148： 8080</span><br><span class="line">       192.168.1.148： 9999</span><br></pre></td></tr></table></figure>
+
+<h2 id="先改端口"><a href="#先改端口" class="headerlink" title="先改端口"></a>先改端口</h2><p>在vi /etc/services</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http         8080&#x2F;tcp          www www-http    # WorldWideWeb HTTP</span><br><span class="line">http         8080&#x2F;udp          www www-http    # HyperText Transfer P</span><br></pre></td></tr></table></figure>
+
+<h2 id="防火墙放行两个端口"><a href="#防火墙放行两个端口" class="headerlink" title="防火墙放行两个端口"></a>防火墙放行两个端口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;services</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p tcp --dport 8080 -j ACCEPT</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p udp --dport 8080 -j ACCEPT</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p tcp --dport 9999 -j ACCEPT</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p udp --dport 9999 -j ACCEPT</span><br><span class="line">[root@ns ~]# service iptables save</span><br></pre></td></tr></table></figure>
+
+<p>在vi /etc/httpd/conf/httpd.conf 下编辑</p>
+<p>还是采用虚拟主机 IP地址 192.168.1.148</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234759.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Listen 8080   #加8080监听端口</span><br><span class="line"> Listen 9999   #加9999监听端口</span><br><span class="line"> &lt;VirtualHost 192.168.1.148:8080&gt; </span><br><span class="line">     ServerAdmin webmaster@www.jcxy.com     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx5     </span><br><span class="line">ServerName 192.168.1.148     </span><br><span class="line">ErrorLog logs&#x2F;192.168.1.148-8080-error_log     </span><br><span class="line">CustomLog logs&#x2F;192.168.1.148-8080-access_log common </span><br><span class="line"> &lt;&#x2F;VirtualHost&gt; </span><br><span class="line"> &lt;VirtualHost 192.168.1.148:9999&gt; </span><br><span class="line">     ServerAdmin webmaster@www.jcxy.com     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx6     </span><br><span class="line">ServerName 192.168.1.148     </span><br><span class="line">ErrorLog logs&#x2F;192.168.1.148-9999-error_log     CustomLog logs&#x2F;192.168.1.148-9999-access_log common </span><br><span class="line"> &lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在终端输入"><a href="#在终端输入" class="headerlink" title="在终端输入"></a>在终端输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx5</span><br><span class="line">[root@ns www]# cd cmx5</span><br><span class="line">[root@ns cmx5]# echo &#39;this is cmx5 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：-3"><a href="#测试：-3" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234809.png" style="zoom:200%;">
+
+<h2 id="在终端下输入"><a href="#在终端下输入" class="headerlink" title="在终端下输入:"></a>在终端下输入:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx6</span><br><span class="line">[root@ns www]# cd cmx6</span><br><span class="line">[root@ns cmx6]# echo &#39;this is cmx6 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：-4"><a href="#测试：-4" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234823.png" style="zoom:200%;">
+
+<h2 id="访问安全控制："><a href="#访问安全控制：" class="headerlink" title="访问安全控制："></a>访问安全控制：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">101    &lt;Directory &quot;&#x2F;usr&#x2F;local&#x2F;test&quot;&gt;  </span><br><span class="line">102    order allow,deny </span><br><span class="line">103    allow from 192.168.1.0&#x2F;24 </span><br><span class="line">104    deny from all  </span><br><span class="line">105    &lt;&#x2F;Directory&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200526234832.png" style="zoom:150%;">
+
+<p>自此，Apache服务器各个情况搭建完毕</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="老苏叶 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="老苏叶 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 服务器</a>
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+            <a href="/tags/Apache/" rel="tag"><i class="fa fa-tag"></i> Apache</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/21/Linux%E4%B8%8B-telnet%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/" rel="next" title="Linux下----telnet服务器的搭建">
+                <i class="fa fa-chevron-left"></i> Linux下----telnet服务器的搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/22/Java%E4%B8%ADi-%E4%B8%8E-i%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E5%A6%82%E4%BD%95%E5%88%86%E6%B8%85i-%E4%B8%8E-i/" rel="prev" title="Java中i++与++i的区别，如何分清i++与++i">
+                Java中i++与++i的区别，如何分清i++与++i <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatra.jpg"
+                alt="老苏叶" />
+            
+              <p class="site-author-name" itemprop="name">老苏叶</p>
+              <p class="site-description motion-element" itemprop="description">狂热的代码爱好者卑微的菜鸟程序员</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/By-laosuye/By-laosuye.github.io.git" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://39.106.175.113" target="_blank" title="空间">
+                      
+                        <i class="fa fa-fw fa-vk"></i>空间</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="/qq" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="/weixin" target="_blank" title="微信">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>微信</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一步：我们先检查是否安装-apache服务器的软件"><span class="nav-text">第一步：我们先检查是否安装 apache服务器的软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二步：使用yum方式安装apache服务器软件"><span class="nav-text">第二步：使用yum方式安装apache服务器软件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#制作yum源文件并创建存储库"><span class="nav-text">制作yum源文件并创建存储库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#挂载光盘"><span class="nav-text">挂载光盘</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三步：重新启动httpd服务"><span class="nav-text">第三步：重新启动httpd服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#不启用selinux安全"><span class="nav-text">不启用selinux安全</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-修改apache服务器主配置文件"><span class="nav-text">4.修改apache服务器主配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#首先创建一个测试页"><span class="nav-text">首先创建一个测试页</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编写一个提供简单的虚拟目录"><span class="nav-text">编写一个提供简单的虚拟目录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为“-c1-public-html-index-html”目录建立别名。"><span class="nav-text">为“&#x2F;c1&#x2F;public_html&#x2F;index.html”目录建立别名。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在终端输入："><span class="nav-text">在终端输入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-text">测试:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建一个虚拟目录提供两个账号登录"><span class="nav-text">创建一个虚拟目录提供两个账号登录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在终端输入：-1"><span class="nav-text">在终端输入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试："><span class="nav-text">测试：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于IP地址的web虚拟主机"><span class="nav-text">基于IP地址的web虚拟主机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在终端输入：-2"><span class="nav-text">在终端输入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试：-1"><span class="nav-text">测试：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-1"><span class="nav-text">测试:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于域名的web虚拟主机"><span class="nav-text">基于域名的web虚拟主机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于域名的虚拟主机"><span class="nav-text">基于域名的虚拟主机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在终端输入：-3"><span class="nav-text">在终端输入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试：-2"><span class="nav-text">测试：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在终端输入：-4"><span class="nav-text">在终端输入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-2"><span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于端口的虚拟主机"><span class="nav-text">基于端口的虚拟主机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先改端口"><span class="nav-text">先改端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙放行两个端口"><span class="nav-text">防火墙放行两个端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在终端输入"><span class="nav-text">在终端输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试：-3"><span class="nav-text">测试：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在终端下输入"><span class="nav-text">在终端下输入:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试：-4"><span class="nav-text">测试：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问安全控制："><span class="nav-text">访问安全控制：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+       <div>
+       <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1342758142&auto=1&height=66"></iframe>
+       </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">老苏叶</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">39.1k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: '4ePJvrPIyoMuyL54g1K6fNGc-gzGzoHsz',
+        appKey: 'MKyiWYqHi0PIzxhH8jC1Q9pe',
+        placeholder: '留下你的爪印吧～',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

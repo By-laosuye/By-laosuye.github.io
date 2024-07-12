@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux,服务器,CentOS," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="老苏叶的小窝" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Linux系统：centos1.用户的分类在Linux下用户角色划分如下： 超级用户：root 拥有对系统的最高的管理权限（UID&#x3D;0）如果我们把普通用户的UID改为0系统也会将其视为root用户。 普通用户 ：系统用户（UID 1-999），在Centos6中为1-499；本地用户 （UID 1000+）,Centos6中为500+ （注：UID：即每个用户的身份标示） 虚拟用户：也称做伪用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下用户和组的管理">
+<meta property="og:url" content="https://gitee.com/laosuye/laosuye.git/2020/04/24/Linux%E4%B8%8B%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="老苏叶的小窝">
+<meta property="og:description" content="Linux系统：centos1.用户的分类在Linux下用户角色划分如下： 超级用户：root 拥有对系统的最高的管理权限（UID&#x3D;0）如果我们把普通用户的UID改为0系统也会将其视为root用户。 普通用户 ：系统用户（UID 1-999），在Centos6中为1-499；本地用户 （UID 1000+）,Centos6中为500+ （注：UID：即每个用户的身份标示） 虚拟用户：也称做伪用">
+<meta property="og:image" content="https://gitee.com/laosuye/TC/raw/master/20200527000853.png">
+<meta property="article:published_time" content="2020-04-24T08:25:32.000Z">
+<meta property="article:modified_time" content="2024-06-20T01:38:08.000Z">
+<meta property="article:author" content="老苏叶">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="服务器">
+<meta property="article:tag" content="CentOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/laosuye/TC/raw/master/20200527000853.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://gitee.com/laosuye/laosuye.git/2020/04/24/Linux下用户和组的管理/"/>
+
+
+
+
+
+  <title>Linux下用户和组的管理 | 老苏叶的小窝</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e8f796a0dc919d18055bb061f82a6395";";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">老苏叶的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gitee.com/laosuye/laosuye.git/2020/04/24/Linux%E4%B8%8B%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="老苏叶">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatra.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老苏叶的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux下用户和组的管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-24T16:25:32+08:00">
+                2020-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/04/24/Linux%E4%B8%8B%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/24/Linux%E4%B8%8B%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长"> 分钟
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <meta name="referrer" content="no-referrer">
+
+<h1 id="Linux系统：centos"><a href="#Linux系统：centos" class="headerlink" title="Linux系统：centos"></a>Linux系统：centos</h1><h2 id="1-用户的分类"><a href="#1-用户的分类" class="headerlink" title="1.用户的分类"></a>1.用户的分类</h2><p>在Linux下用户角色划分如下：</p>
+<h3 id="超级用户："><a href="#超级用户：" class="headerlink" title="超级用户："></a>超级用户：</h3><p>root 拥有对系统的最高的管理权限（UID=0）如果我们把普通用户的UID改为0系统也会将其视为root用户。</p>
+<h3 id="普通用户-："><a href="#普通用户-：" class="headerlink" title="普通用户 ："></a><strong>普通用户</strong> ：</h3><p>系统用户（UID 1-999），在Centos6中为1-499；本地用户 （UID 1000+）,Centos6中为500+ （注：UID：即每个用户的身份标示）</p>
+<h3 id="虚拟用户："><a href="#虚拟用户：" class="headerlink" title="虚拟用户："></a>虚拟用户：</h3><p>也称做伪用户，一般不会用来登录系统，由系统中的服务使用，比如apache、zabbix等。</p>
+<h2 id="2-用户和组的对应关系"><a href="#2-用户和组的对应关系" class="headerlink" title="2.用户和组的对应关系"></a>2.用户和组的对应关系</h2><h3 id="一对多一："><a href="#一对多一：" class="headerlink" title="一对多一："></a>一对多一：</h3><p>一个用户可以存在一个组中； </p>
+<h3 id="一对多："><a href="#一对多：" class="headerlink" title="一对多："></a>一对多：</h3><p>一个用户可以存在多个组中；</p>
+<h3 id="多对一："><a href="#多对一：" class="headerlink" title="多对一："></a>多对一：</h3><p>多个用户可以存在一个组中；</p>
+<h3 id="多对多："><a href="#多对多：" class="headerlink" title="多对多："></a>多对多：</h3><p>多个用户可以存在多个组中；</p>
+<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527000853.png" alt></p>
+<h3 id="下面是上述文件参数的详解："><a href="#下面是上述文件参数的详解：" class="headerlink" title="下面是上述文件参数的详解："></a>下面是上述文件参数的详解：</h3><h4 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;passwd |head</span><br><span class="line">root:x:0:0:root:&#x2F;root:&#x2F;bin&#x2F;bash                            </span><br><span class="line">bin:x:1:1:bin:&#x2F;bin:&#x2F;sbin&#x2F;nologin</span><br><span class="line">daemon:x:2:2:daemon:&#x2F;sbin:&#x2F;sbin&#x2F;nologin</span><br><span class="line">adm:x:3:4:adm:&#x2F;var&#x2F;adm:&#x2F;sbin&#x2F;nologin</span><br><span class="line">lp:x:4:7:lp:&#x2F;var&#x2F;spool&#x2F;lpd:&#x2F;sbin&#x2F;nologin</span><br><span class="line">sync:x:5:0:sync:&#x2F;sbin:&#x2F;bin&#x2F;sync</span><br><span class="line">shutdown:x:6:0:shutdown:&#x2F;sbin:&#x2F;sbin&#x2F;shutdown</span><br><span class="line">halt:x:7:0:halt:&#x2F;sbin:&#x2F;sbin&#x2F;halt</span><br><span class="line">mail:x:8:12:mail:&#x2F;var&#x2F;spool&#x2F;mail:&#x2F;sbin&#x2F;nologin</span><br><span class="line">operator:x:11:0:operator:&#x2F;root:&#x2F;sbin&#x2F;nologin</span><br></pre></td></tr></table></figure>
+
+<h5 id="该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义："><a href="#该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义：" class="headerlink" title="该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义："></a>该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户名：密码占位符：UID：GID：描述信息（在图形界面我们登录前由原来的用户名变为我们自定义的描述信息）：</span><br><span class="line">用户的家目录：登录shell</span><br></pre></td></tr></table></figure>
+
+<h4 id="etc-group"><a href="#etc-group" class="headerlink" title="/etc/group"></a>/etc/group</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;group|head</span><br><span class="line">root:x:0:</span><br><span class="line">bin:x:1:</span><br><span class="line">daemon:x:2:</span><br><span class="line">sys:x:3:</span><br><span class="line">adm:x:4:</span><br><span class="line">tty:x:5:</span><br><span class="line">disk:x:6:</span><br><span class="line">lp:x:7:</span><br><span class="line">mem:x:8:</span><br><span class="line">kmem:x:9:</span><br></pre></td></tr></table></figure>
+
+<h5 id="每一列的参数含义："><a href="#每一列的参数含义：" class="headerlink" title="每一列的参数含义："></a>每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">组名：组的密码的占位符：GID：组内的成员列表</span><br></pre></td></tr></table></figure>
+
+<h4 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="/etc/shadow"></a>/etc/shadow</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;shadow</span><br><span class="line">root:sadadasdawerqwrxsadi0:18301:0:99999:7:::</span><br><span class="line">bin::17834:0:99999:7::: daemon::17834:0:99999:7:::</span><br><span class="line">adm::17834:0:99999:7::: lp::17834:0:99999:7:::</span><br><span class="line">sync::17834:0:99999:7::: shutdown::17834:0:99999:7:::</span><br><span class="line">halt::17834:0:99999:7::: mail::17834:0:99999:7:::</span><br></pre></td></tr></table></figure>
+
+<h5 id="每一列的参数含义：-1"><a href="#每一列的参数含义：-1" class="headerlink" title="每一列的参数含义："></a>每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">账号名称：加密的密码：最近更改密码的时间；从1970&#x2F;1&#x2F;1到上次修改密码的天数，（可用date -d &quot;1970-01-01 [选项中对应的数字] days&quot; 命令查看）：密码不可被修改的天数：密码有效期：密码过期之前警告天数：密码过期的期限天数：帐号失效时间；从1970&#x2F;1&#x2F;1日起，到用户被禁用的天数：保留字段</span><br></pre></td></tr></table></figure>
+
+<h4 id="etc-gshadow"><a href="#etc-gshadow" class="headerlink" title="/etc/gshadow"></a>/etc/gshadow</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;gshadow</span><br><span class="line">root:::</span><br><span class="line">bin:::</span><br><span class="line">daemon:::</span><br><span class="line">sys:::</span><br><span class="line">adm:::</span><br><span class="line">tty:::</span><br><span class="line">disk:::</span><br><span class="line">lp:::</span><br><span class="line">mem:::</span><br><span class="line">kmem:::</span><br><span class="line">wheel:::</span><br></pre></td></tr></table></figure>
+
+<h5 id="每一列的参数含义：-2"><a href="#每一列的参数含义：-2" class="headerlink" title="每一列的参数含义："></a>每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">组账号名称：加密后的密码（显示！或者为空表示没有密码）：该组的管理员列表，该字段可以为空，如果有多个管理员则用，隔开：该组的成员列表，多个用户用，隔开</span><br></pre></td></tr></table></figure>
+
+<h3 id="etc-skel目录："><a href="#etc-skel目录：" class="headerlink" title="/etc/skel目录："></a>/etc/skel目录：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]# ll -a &#x2F;etc&#x2F;skel&#x2F;</span><br><span class="line">总用量 28</span><br><span class="line">drwxr-xr-x.  2 root root  4096 11月  5 23:09 .</span><br><span class="line">drwxr-xr-x. 95 root root 12288 2月  10 00:16 ..</span><br><span class="line">-rw-r--r--   1 root root    18 8月   8 2019 .bash_logout</span><br><span class="line">-rw-r--r--   1 root root   193 8月   8 2019 .bash_profile</span><br><span class="line">-rw-r--r--   1 root root   231 8月   8 2019 .bashrc</span><br><span class="line">[root@centos7 ~]#</span><br></pre></td></tr></table></figure>
+
+<p>/etc/skel目录是用来存放新增的用户的配置文件的目录，当我们创建新用户时，这个目录下的所有文件都会自动被复制到新创建的用户的家目录下，默认情况下，该目录下的所有文件都是隐藏文件。</p>
+<p>/etc/default/useradd文件<br>/etc/default/useradd文件在使用useradd命令创建用户时需要调用的一个默认的配置文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;default&#x2F;useradd</span><br><span class="line">useradd defaults file</span><br><span class="line">GROUP&#x3D;100                            </span><br><span class="line">HOME&#x3D;&#x2F;home                    #设置用户的家目录在&#x2F;home中</span><br><span class="line">INACTIVE&#x3D;-1                    #是否启用账号过期后禁用，-1表示不启用</span><br><span class="line">EXPIRE&#x3D;                        #账号终止日期，空值表示不启用</span><br><span class="line">SHELL&#x3D;&#x2F;bin&#x2F;bash                #新建的用户的默认使用的shell类型</span><br><span class="line">SKEL&#x3D;&#x2F;etc&#x2F;skel                #新建的用户家目录默认文件存放路径，也就是前文提 到的&#x2F;etc&#x2F;skell目录</span><br><span class="line">CREATE_MAIL_SPOOL&#x3D;yes        #是否创建mail文件</span><br><span class="line">[root@centos7 ~]#</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-用户命令"><a href="#3-用户命令" class="headerlink" title="3.用户命令"></a>3.用户命令</h2><h3 id="创建新用户的命令：-useradd、adduser"><a href="#创建新用户的命令：-useradd、adduser" class="headerlink" title="-创建新用户的命令： useradd、adduser"></a>-创建新用户的命令： useradd、adduser</h3><p>注：adduser是useradd的软连接</p>
+<p>useradd [参数选项] 用户名</p>
+<h3 id="该命令常用的参数及含义："><a href="#该命令常用的参数及含义：" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-d：指定用户家目录</span><br><span class="line">-M：不创建用户的家目录</span><br><span class="line">-g：设置用户初始组的名称或ID，如果没有设置该选项，useradd 会根据&#x2F;etc&#x2F;login.defs 文件中的 USERGROUPS_ENAB 环境变量进行设置。默认 USERGROUPS_ENAB yes 会用和用户名相同的名字创建群组，GID 等于 UID</span><br><span class="line">-G：指定用户要加入的附加组列表，使用，号分隔多个组，不要添加空格。（一个用户只允许有一个主组，可有多个附属组）</span><br><span class="line">-s：创建用户时，指定用户的shell类型，设置成&#x2F;sbin&#x2F;nologin就可以禁止用户登录</span><br><span class="line">-u：指定用户UID</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用userdel删除用户："><a href="#使用userdel删除用户：" class="headerlink" title="使用userdel删除用户："></a>使用userdel删除用户：</h3><p>用法：userdel [参数选项] 用户名<br>选项：-r 删除用户时同时删除用户的家目录和/var/mail下的目录</p>
+<h3 id="使用groupadd命令创建新组："><a href="#使用groupadd命令创建新组：" class="headerlink" title="使用groupadd命令创建新组："></a>使用groupadd命令创建新组：</h3><p>用法 ： groupadd [参数选项] 组名</p>
+<h4 id="该命令常用的参数及含义：-1"><a href="#该命令常用的参数及含义：-1" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-g： 指定GID，必须是唯一的数值，除非指定-o选项</span><br><span class="line">-r： 建立系统用户组</span><br><span class="line">-f： 新增一个账户，强制覆盖已存在的用户组账户</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用groupdel命令删除组："><a href="#使用groupdel命令删除组：" class="headerlink" title="使用groupdel命令删除组："></a>使用groupdel命令删除组：</h3><p>用法：groupdel 组名<br>（注意：删除的目标组不能是用户的基本组）</p>
+<h3 id="使用passwd命令修改密码："><a href="#使用passwd命令修改密码：" class="headerlink" title="使用passwd命令修改密码："></a>使用passwd命令修改密码：</h3><p>用法：passwd [参数选项]</p>
+<h4 id="该命令常用的参数及含义：-2"><a href="#该命令常用的参数及含义：-2" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-d：清空密码。仅root能操作</span><br><span class="line">-f： 强制操作，仅root能操作</span><br><span class="line">-l：锁定用户账户，锁定其用户无权更改其密码，仅root能操作</span><br><span class="line">-u：解锁用户账户，仅root能操作</span><br><span class="line">-s：查看用户的状态</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用gpasswd命令管理组："><a href="#使用gpasswd命令管理组：" class="headerlink" title="使用gpasswd命令管理组："></a>使用gpasswd命令管理组：</h3><p>用法：gpasswd</p>
+<h4 id="该命令常用的参数及含义：-3"><a href="#该命令常用的参数及含义：-3" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-A:定义组管理员列表 </span><br><span class="line">-a：添加组成员，每次只能加一个 </span><br><span class="line">-d：删除组成员，每次只能删除一个 </span><br><span class="line">-M：定义组成员，可设置多个，用，隔开 </span><br><span class="line">-r：移除组的密码 </span><br><span class="line">-R：将其成员限制访问组</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用usermod命令修改用户信息："><a href="#使用usermod命令修改用户信息：" class="headerlink" title="使用usermod命令修改用户信息："></a>使用usermod命令修改用户信息：</h3><p>用法：usermod [参数选项] 用户名</p>
+<h4 id="该命令常用的参数及含义：-4"><a href="#该命令常用的参数及含义：-4" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-u：指定UID</span><br><span class="line"> -d：指定家目录</span><br><span class="line"> -g：指定起始组（只能有一个）</span><br><span class="line"> -G：附加组（可以有多个）</span><br><span class="line"> -s：指定用户登录的shell</span><br><span class="line"> -L：锁定用户账号</span><br><span class="line"> -d：-d一般跟-m一起使用，既指定新的家目录，又移动此前的文件到新的家目录中</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="老苏叶 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="老苏叶 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          
+            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 服务器</a>
+          
+            <a href="/tags/CentOS/" rel="tag"><i class="fa fa-tag"></i> CentOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/23/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/" rel="next" title=" Java基础知识点梳理">
+                <i class="fa fa-chevron-left"></i>  Java基础知识点梳理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/24/%E6%80%9D%E7%A7%91%E7%94%9F%E6%88%90%E6%A0%91-stp-%E9%85%8D%E7%BD%AE/" rel="prev" title="思科生成树(stp)配置">
+                思科生成树(stp)配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatra.jpg"
+                alt="老苏叶" />
+            
+              <p class="site-author-name" itemprop="name">老苏叶</p>
+              <p class="site-description motion-element" itemprop="description">狂热的代码爱好者卑微的菜鸟程序员</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/By-laosuye/By-laosuye.github.io.git" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://39.106.175.113" target="_blank" title="空间">
+                      
+                        <i class="fa fa-fw fa-vk"></i>空间</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="/qq" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="/weixin" target="_blank" title="微信">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>微信</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux系统：centos"><span class="nav-text">Linux系统：centos</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-用户的分类"><span class="nav-text">1.用户的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#超级用户："><span class="nav-text">超级用户：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#普通用户-："><span class="nav-text">普通用户 ：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟用户："><span class="nav-text">虚拟用户：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-用户和组的对应关系"><span class="nav-text">2.用户和组的对应关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一对多一："><span class="nav-text">一对多一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一对多："><span class="nav-text">一对多：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多对一："><span class="nav-text">多对一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多对多："><span class="nav-text">多对多：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件："><span class="nav-text">配置文件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面是上述文件参数的详解："><span class="nav-text">下面是上述文件参数的详解：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#etc-passwd"><span class="nav-text">&#x2F;etc&#x2F;passwd</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义："><span class="nav-text">该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#etc-group"><span class="nav-text">&#x2F;etc&#x2F;group</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#每一列的参数含义："><span class="nav-text">每一列的参数含义：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#etc-shadow"><span class="nav-text">&#x2F;etc&#x2F;shadow</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#每一列的参数含义：-1"><span class="nav-text">每一列的参数含义：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#etc-gshadow"><span class="nav-text">&#x2F;etc&#x2F;gshadow</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#每一列的参数含义：-2"><span class="nav-text">每一列的参数含义：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-skel目录："><span class="nav-text">&#x2F;etc&#x2F;skel目录：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-用户命令"><span class="nav-text">3.用户命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新用户的命令：-useradd、adduser"><span class="nav-text">-创建新用户的命令： useradd、adduser</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#该命令常用的参数及含义："><span class="nav-text">该命令常用的参数及含义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用userdel删除用户："><span class="nav-text">使用userdel删除用户：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用groupadd命令创建新组："><span class="nav-text">使用groupadd命令创建新组：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#该命令常用的参数及含义：-1"><span class="nav-text">该命令常用的参数及含义：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用groupdel命令删除组："><span class="nav-text">使用groupdel命令删除组：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用passwd命令修改密码："><span class="nav-text">使用passwd命令修改密码：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#该命令常用的参数及含义：-2"><span class="nav-text">该命令常用的参数及含义：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用gpasswd命令管理组："><span class="nav-text">使用gpasswd命令管理组：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#该命令常用的参数及含义：-3"><span class="nav-text">该命令常用的参数及含义：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用usermod命令修改用户信息："><span class="nav-text">使用usermod命令修改用户信息：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#该命令常用的参数及含义：-4"><span class="nav-text">该命令常用的参数及含义：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+       <div>
+       <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1342758142&auto=1&height=66"></iframe>
+       </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">老苏叶</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">39.1k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: '4ePJvrPIyoMuyL54g1K6fNGc-gzGzoHsz',
+        appKey: 'MKyiWYqHi0PIzxhH8jC1Q9pe',
+        placeholder: '留下你的爪印吧～',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
