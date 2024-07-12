@@ -1,6 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CSS中Position属性详解</title>
+    <url>/2020/05/05/CSS%E4%B8%ADPosition%E5%B1%9E%E6%80%A7%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="一、Position属性是什么？"><a href="#一、Position属性是什么？" class="headerlink" title="一、Position属性是什么？"></a>一、Position属性是什么？</h1><p>Position属性在CSS中是定位的意思！而定位指的是将指定元素摆放到页面的任意方式，通过定位可以任意的摆放元素，其中Position可选的值分别有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.static          默认值，元素没有开启定位</span><br><span class="line">2.relative				相对定位</span><br><span class="line">3.absolute				绝对定位</span><br><span class="line">4.fixed						固定定位</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们会对这四个值分别做详细的解释，并且举例子说明</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">当开启了元素的定位（position的属性值是一个非static的值）时</span><br><span class="line">可以通过left、right、top、bottom四个属性来设置元素的偏移量</span><br><span class="line">    left：元素相对于其定位位置的左侧偏移量</span><br><span class="line">    right：元素相对于其定位位置的右侧偏移量</span><br><span class="line">    top：元素相对于其定位位置的上面偏移量</span><br><span class="line">    bottom：元素相对于其定位位置的下面偏移量</span><br><span class="line">    </span><br><span class="line"> 注意： 通常偏移量只需要使用两个，就可以对一个元素进行定位，一般选择水平的一个偏移量和一个垂直方向的偏移</span><br><span class="line">量来为一个元素进行定位</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-static默认值"><a href="#1-static默认值" class="headerlink" title="1.static默认值"></a>1.static默认值</h2><p>在Position的值为这个的时候，元素不会发生任何变化，元素的位置也还是在该位置</p>
+<h2 id="2-relative相对定位"><a href="#2-relative相对定位" class="headerlink" title="2.relative相对定位"></a>2.relative相对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">relative        开启元素的相对定位</span><br><span class="line">                当position的属性是relative的时候，就开启了相对定位</span><br><span class="line">                1.开启了元素的相对定位以后，而不设置偏移量时，元素不会发生改变</span><br><span class="line">                2.相对定位是相对于元素在文档流中原来的位置进行定位</span><br><span class="line">                3.相对定位的元素不会脱离文档流</span><br><span class="line">                4.相对定位会使元素提升一个层级</span><br><span class="line">                5.相对定位不会改变元素的性质，快元素还是块元素，内联还是内联元素</span><br></pre></td></tr></table></figure>
+
+<p>接下来给出一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启相对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>图例子</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002841.png">
+
+<p>可以看到，盒子在设置了相对定位并且设置了向左偏移了200像素，盒子是向右出去了200像素，所以这个偏移量往哪边偏移就是往相反的方向去！</p>
+<h2 id="3-absolute绝对定位"><a href="#3-absolute绝对定位" class="headerlink" title="3.absolute绝对定位"></a>3.absolute绝对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">absolute     开启元素的绝对定位</span><br><span class="line">             当position的属性是absolute的时候，就开启了相对定位</span><br><span class="line">             1.开启绝对定位元素会脱离文档流</span><br><span class="line">             2.开启绝对定位以后如果不设置偏移量，则元素的位置不会发生改变</span><br><span class="line">             3.绝对定位是相对于离他最近的开启了祖先元素进行定位，如果所有的祖先元素都没有开启定位，则会相对于浏览器窗口进行定位</span><br><span class="line">             一般情况开启了字元素的的绝对定位，都会开启父元素的相对定位</span><br><span class="line">             4.绝对定位会使元素提升一个层级</span><br><span class="line">             5.绝对定位会改变元素的性质</span><br><span class="line">                 内联元素会变成块元素</span><br><span class="line">                 块元素的宽度和高度都会默认都被内容撑开</span><br></pre></td></tr></table></figure>
+
+<p>接下来给出一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: absolute;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>图解：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002855.png" alt></p>
+<p>可以看到，现在box2没有祖先元素，所以它相对于浏览器窗口进行定位，而且也不占据位置</p>
+<p>接下来我们在box2中嵌套一个box4，并且给他设置偏移量，把box2也开启定位，并设置坐外边距，让其距离左边远一点，看看情况会是怎么样的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: static;</span><br><span class="line">        &#x2F;* left: 200px; *&#x2F;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box4 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: cornflowerblue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;</span><br><span class="line">      我是盒子2</span><br><span class="line">      &lt;div class&#x3D;&quot;box4&quot;&gt;我是盒子4&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>图解：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002913.png" alt></p>
+<p>可以很清晰的看到盒子是根据其开了定位的祖先元素进行偏移的，而不是针对浏览器进行偏移</p>
+<h2 id="4-fixed固定定位"><a href="#4-fixed固定定位" class="headerlink" title="4.fixed固定定位"></a>4.fixed固定定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fixed  开启元素的固定地位（也是绝对定位的一种）</span><br><span class="line">    当position的属性是fixed的时候，就开启了固定定位</span><br><span class="line">    固定定位也是一种绝对定位，它的大部分特点都和绝对定位一样</span><br><span class="line">    不同的是：</span><br><span class="line">        固定定位永远都会相对于浏览器的窗口定位</span><br><span class="line">        固定定位会固定在浏览器的某个位置，不会随滚动条滚动</span><br></pre></td></tr></table></figure>
+
+<p>看一下例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002919.png" alt></p>
+<p>可以看到，和相对定位是没有什么差别的，但是现在我们把body的高度设置很长，右侧出现滚动条。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        body&#123;</span><br><span class="line">            width: 1000px;</span><br><span class="line">            height: 5000px;</span><br><span class="line">        &#125;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后这个时候运行，再拖动滚动条你就会发现无论你页面拖动到什么位置，box1一直都会出现在左上角。</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002927.png" alt></p>
+<p>可以看到我滚动条拖到一半了，box1还是在左上角位置从没变过</p>
+<p>注意：在网页开发中，固定定位一般不常使用，只有在特定的用处才会使用，比如网页上常见的小广告。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CSS定位属性允许你为一个元素定位。它也可以将一个元素放在另一个元素后面，</span><br><span class="line">并指定一个元素的内容太大时，</span><br><span class="line">应该发生什么。元素可以使用的顶部，底部，左侧和右侧属性定位。然而，这些属性无法工作，</span><br><span class="line">除非事先设定position属性。他们也有不同的工作方式，这取决于定位方法.</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>编程</category>
+        <category>前端</category>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>CSS</tag>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ftp服务器的配置与管理</title>
+    <url>/2020/04/25/Ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="第一步：我们先检查是否安装-ftp服务器的软件"><a href="#第一步：我们先检查是否安装-ftp服务器的软件" class="headerlink" title="第一步：我们先检查是否安装 ftp服务器的软件"></a>第一步：我们先检查是否安装 ftp服务器的软件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa|grep vsftpd</span><br></pre></td></tr></table></figure>
+
+<h1 id="第二步：使用yum方式安装ftp服务器软件"><a href="#第二步：使用yum方式安装ftp服务器软件" class="headerlink" title="第二步：使用yum方式安装ftp服务器软件"></a>第二步：使用yum方式安装ftp服务器软件</h1><h2 id="创建存储库"><a href="#创建存储库" class="headerlink" title="创建存储库"></a>创建存储库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mkdir &#x2F;cdrom</span><br></pre></td></tr></table></figure>
+
+<h2 id="挂载光盘"><a href="#挂载光盘" class="headerlink" title="挂载光盘"></a>挂载光盘</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mount &#x2F;dev&#x2F;cdrom &#x2F;cdrom</span><br><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;yum.repos.d&#x2F;dvd.repo#制作yum源文件</span><br><span class="line">[dvd]</span><br><span class="line">name&#x3D;dvd</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;cdrom</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enabeld&#x3D;1</span><br><span class="line">[root@localhost ~]# yum install vsftpd –y  #安装vsftpd服务</span><br><span class="line">[root@localhost ~]# yum install ftp –y  #安装vsftpd服务</span><br></pre></td></tr></table></figure>
+
+<h1 id="第三步：重新启动vsftpd服务"><a href="#第三步：重新启动vsftpd服务" class="headerlink" title="第三步：重新启动vsftpd服务"></a>第三步：重新启动vsftpd服务</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置文件解释："><a href="#配置文件解释：" class="headerlink" title="配置文件解释："></a>配置文件解释：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">改：anonymous_enable&#x3D;NO  #不允许匿名用户登录  YES 则匿名用户可以登录</span><br><span class="line">改：anon_upload_enable&#x3D;YES#把这行的注释去掉  允许匿名用户上传文件 NO 则是不允许上传文件</span><br><span class="line">改：anon_mkdir_write_enable&#x3D;YES #将这行的注释去掉允许匿名用户创建文件夹 NO 则是不允许创建文件夹</span><br><span class="line">添加：</span><br><span class="line">anon_world_readable_only&#x3D;NO</span><br><span class="line">此命令的默认值为YES，表示仅当所有用户对该文件都拥有读权限时，才允许</span><br><span class="line">匿名用户下载该文件；此处为NO，则允许匿名用户下载不具有全部读权限的文件</span><br><span class="line">anon_other_write_enable&#x3D;YES</span><br><span class="line">允许匿名用户改名和删除文件</span><br><span class="line">max_clients&#x3D;100</span><br><span class="line">设置同时连接FTP服务器的并发用户为100</span><br><span class="line">max_per_ip&#x3D;2</span><br><span class="line">设置每个用户同一时间段并发下载线程数为2，同时只能下载两个文件</span><br><span class="line">anon_max_rate&#x3D;20000</span><br><span class="line">设置匿名用户最大的传输速率为20kbit&#x2F;s</span><br><span class="line">改：chown_uploads&#x3D;YES  #将这行注释去掉 允许匿名用户修改上传文件的所有权</span><br><span class="line">chown_username&#x3D;cmx1 #将这行注释去掉 匿名用户上传的文件的所有者改为bob</span><br><span class="line">改：ascii_upload_enable&#x3D;YES #将注释去掉 允许ASCII格式来上传文件</span><br><span class="line">ascii_download_enable&#x3D;YES #将注释去掉 允许ASCII格式来下载文件</span><br><span class="line">改：ftpd_banner&#x3D;Hi,Welcome to FTP service. #将这行注释去掉设置ftp服务器的欢迎信息</span><br><span class="line">tcp_wrappers&#x3D;YES</span><br><span class="line">设置采用tcp_wrappers来实现来对主机的访问控制，具体控制功能由&#x2F;etc&#x2F;hosts.allow</span><br><span class="line">文件来实现</span><br><span class="line">guest_enable&#x3D;YES</span><br><span class="line">激活虚拟用户登录功能</span><br><span class="line">guest_username&#x3D;virtuser</span><br><span class="line">指定虚拟用户所对应的真实含义</span><br><span class="line">pam_service_name&#x3D;vsftpd.virtual</span><br><span class="line">修改源文件中的pam_service_name&#x3D;vsftpd.virtual的值   (认证文件自己要创建的,已经定义过了) .</span><br></pre></td></tr></table></figure>
+
+<p>更改主配置文件完毕!</p>
+<h2 id="重启ftp服务器"><a href="#重启ftp服务器" class="headerlink" title="重启ftp服务器"></a>重启ftp服务器</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+<h1 id="第一个实验：使用匿名账号登录"><a href="#第一个实验：使用匿名账号登录" class="headerlink" title="第一个实验：使用匿名账号登录"></a>第一个实验：使用匿名账号登录</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">匿名账号默认：ftp</span><br><span class="line">匿名账号密码：ftp</span><br><span class="line">修改配置文件： </span><br><span class="line">[root@ns Packages]# vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">anon_upload_enable&#x3D;YES   </span><br><span class="line">anon_mkdir_write_enable&#x3D;YES</span><br><span class="line">将以上两行注释去掉 让匿名用户可以上传和下载文件</span><br><span class="line">chown_uploads&#x3D;YES #将这行注释去掉,允许匿名上传者拥有修改文件所有权</span><br><span class="line">chown_username&#x3D;cmx1  #将这行注释去掉, 匿名用户上传的文件的所有者改为cmx1  这用户必须要存在  文件夹权限和属组也要做好才有用!</span><br><span class="line">修改了配置文件 重启服务器</span><br><span class="line">Service vsftpd restart</span><br><span class="line">我ftp服务器地址为192.168.1.118</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：默认匿名用户名：ftp-匿名用户密码：ftp"><a href="#测试：默认匿名用户名：ftp-匿名用户密码：ftp" class="headerlink" title="测试：默认匿名用户名：ftp 匿名用户密码：ftp"></a>测试：默认匿名用户名：ftp 匿名用户密码：ftp</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001440.png" style="zoom:150%;">
+
+<h1 id="第二个实验：独立的两个用户ftp文件夹"><a href="#第二个实验：独立的两个用户ftp文件夹" class="headerlink" title="第二个实验：独立的两个用户ftp文件夹"></a>第二个实验：独立的两个用户ftp文件夹</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用户名：cmx1 密码:123456</span><br><span class="line">用户名：cmx2 密码:123456</span><br></pre></td></tr></table></figure>
+
+<h4 id="进入终端："><a href="#进入终端：" class="headerlink" title="进入终端："></a>进入终端：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# useradd cmx1   #创建用户</span><br><span class="line">[root@ns ~]# useradd cmx2</span><br><span class="line">[root@ns ~]# passwd cmx1    #修改口令</span><br><span class="line">[root@ns ~]# passwd cmx2</span><br><span class="line">[root@ns ~]# mkdir -m 777 &#x2F;home&#x2F;cmx1&#x2F;ftp   #赋予文件夹最大权限</span><br><span class="line">[root@ns ~]# chmod 755 &#x2F;home&#x2F;cmx1   #普通用户拥有对此文件夹所有权,其他用户只能读与执行.不能写</span><br><span class="line">[root@ns ~]# chown cmx1:cmx1 &#x2F;home&#x2F;cmx1&#x2F;ftp   #更改文件夹的属主属组为刚创的普通用户cmx1</span><br><span class="line">[root@ns ~]# mkdir -m 777 &#x2F;home&#x2F;cmx2&#x2F;ftp</span><br><span class="line">[root@ns ~]# chmod 755 &#x2F;home&#x2F;cmx2</span><br><span class="line">[root@ns ~]# chown cmx2:cmx2 &#x2F;home&#x2F;cmx2&#x2F;ftp</span><br></pre></td></tr></table></figure>
+
+<h4 id="接下来修改主配置文件："><a href="#接下来修改主配置文件：" class="headerlink" title="接下来修改主配置文件："></a>接下来修改主配置文件：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">anonymous_enable&#x3D;NO  #将匿名登录改为不允许,NO  YES是允许</span><br><span class="line">xferlog_file&#x3D;&#x2F;var&#x2F;log&#x2F;xferlog  #将这行注释去掉 日志文件存放的位置!</span><br><span class="line">idle_session_timeout&#x3D;600   #用户登录超时不能超过600秒！</span><br><span class="line">data_connection_timeout&#x3D;120  #数据链接超时不能超过120秒！</span><br><span class="line">ascii_upload_enable&#x3D;YES</span><br><span class="line">ascii_download_enable&#x3D;YES</span><br><span class="line">将这两行注释去掉  使用ascii码形式上传和下载文件！</span><br><span class="line">chroot_local_user&#x3D;YES  </span><br><span class="line">个人主页的目录控制，会隐藏真实目录,匿名用户自带目录控制隐藏真实目录.</span><br><span class="line">userlist_deny&#x3D;NO  </span><br><span class="line">添加这条指令是账号控制,现在只有user_list(白名单)文件下的写入的用户能登入ftp服务器。</span><br></pre></td></tr></table></figure>
+
+<h4 id="现在在白名单下添加用户-才能访问ftp服务器"><a href="#现在在白名单下添加用户-才能访问ftp服务器" class="headerlink" title="现在在白名单下添加用户 才能访问ftp服务器"></a>现在在白名单下添加用户 才能访问ftp服务器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;user_list(格式顶格写，里面不允许注释,添加的就是我们刚创建的用户)</span><br><span class="line">cmx1   </span><br><span class="line">cmx2</span><br><span class="line">修改了配置文件 ：重启服务器</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001457.png" style="zoom:150%;">
+
+<p>恭喜你个人用户的ftp已完成!</p>
+<h1 id="第三个实验："><a href="#第三个实验：" class="headerlink" title="第三个实验："></a>第三个实验：</h1><h2 id="ftp服务器对网络的控制"><a href="#ftp服务器对网络的控制" class="headerlink" title="ftp服务器对网络的控制"></a>ftp服务器对网络的控制</h2><p>我ftp服务器地址为192.168.1.118<br>我ftp客户端地址为 192.168.1.188<br>进入终端：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;hosts.allow  #修改配置文件</span><br><span class="line">vsftpd:192.168.1.188 192.168.1.189:DENY   #拒绝.188 和 .189的主机访问ftp服务器</span><br><span class="line">vsftpd:192.168.1.0    #允许192.168.1.0这个网段的主机访问ftp服务器</span><br><span class="line">修改了配置文件：重启vsftp服务器</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：-1"><a href="#测试：-1" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001506.png" style="zoom:200%;">
+
+<p>登录不了 ，恭喜你网络控制搭建成功！</p>
+<h4 id="修改IP地址"><a href="#修改IP地址" class="headerlink" title="修改IP地址"></a>修改IP地址</h4><img src="https://gitee.com/laosuye/TC/raw/master/20200527001514.png" style="zoom:150%;">
+
+<p>又能登录了所以网络控制成功！</p>
+<h1 id="第四个实验：做虚拟账号登录ftp服务器-账号是不存在的-保护了ftp的安全"><a href="#第四个实验：做虚拟账号登录ftp服务器-账号是不存在的-保护了ftp的安全" class="headerlink" title="第四个实验：做虚拟账号登录ftp服务器 账号是不存在的 保护了ftp的安全"></a>第四个实验：做虚拟账号登录ftp服务器 账号是不存在的 保护了ftp的安全</h1><h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">虚拟账号：chenchen1</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">虚拟账号：chenchen2</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">虚拟账号：chenchen3</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;virtuserdb.txt   #制作虚拟账号口令存放的文件</span><br><span class="line">奇数行是账号,偶数行是密码！</span><br><span class="line">chenchen1</span><br><span class="line">995523</span><br><span class="line">chenchen2</span><br><span class="line">995523</span><br><span class="line">chenchen3</span><br><span class="line">995523</span><br><span class="line">执行一下命令生成虚拟数据库文件</span><br><span class="line">[root@ns ~]# db_load -T -t hash -f &#x2F;etc&#x2F;virtuserdb.txt &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db</span><br><span class="line">这个命令作用是把&#x2F;etc&#x2F;virtuserdb.txt的文件导入到&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db数据库文件里去.</span><br><span class="line">定义数据库vsftpd.db的权限  普通用户对此文件可读可写！</span><br><span class="line">[root@ns ~]# chmod 600 &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db</span><br></pre></td></tr></table></figure>
+
+<h2 id="第二步："><a href="#第二步：" class="headerlink" title="第二步："></a>第二步：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建PAM认证文件.</span><br><span class="line">&#x2F;etc&#x2F;pam.d&#x2F;vsftpd.virtual</span><br><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;pam.d&#x2F;vsftpd.virtual</span><br><span class="line">auth    required &#x2F;lib&#x2F;security&#x2F;pam_userdb.so db&#x3D;&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd</span><br><span class="line">account required &#x2F;lib&#x2F;security&#x2F;pam_userdb.so db&#x3D;&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd</span><br><span class="line">注意：以上两条代码为认证规则</span><br><span class="line">     第一条规则的功能是利用pam_userdb.so模块来进行身份认证,主要是接受用户名和口令,进而对该用户的口令进行口令进行认证,并负责设置用户的一些秘密信息.其中采用的数据库是&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db文件(此处省略文件名后面的扩展名.db)</span><br><span class="line">    第二条规则的功能是检查帐号是否被允许登录系统,帐号是否已经过期,帐号登录是否有时间段的限制等.设置在进行授权时采用的数据库也是这个数据库也是etc&#x2F;vsftpd&#x2F;vsftpd.db。</span><br></pre></td></tr></table></figure>
+
+<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步:"></a>第三步:</h2><p>创建虚拟用户所对应的真实帐号及所登录的目录,并设置相应的权限</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# useradd -d &#x2F;var&#x2F;virtuser virtuser  #添加账号与更改账号路径,默认是在&#x2F;home目录下</span><br><span class="line">[root@ns ~]# chmod 744 &#x2F;var&#x2F;virtuser  #普通用户拥有所有权,其他用户同组用户只能读</span><br><span class="line">第四步:</span><br><span class="line">编辑 &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf 配置文件,增加以下内容(顶格写,等号两边不允许空格):</span><br><span class="line">guest_enable&#x3D;YES</span><br><span class="line">激活虚拟用户登录功能</span><br><span class="line">guest_username&#x3D;virtuser</span><br><span class="line">指定虚拟用户所对应的真实含义</span><br><span class="line">pam_service_name&#x3D;vsftpd.virtual</span><br><span class="line">修改源文件中的pam_service_name&#x3D;vsftpd.virtual的值   (认证文件自己要创建的,已经定义过了) .</span><br></pre></td></tr></table></figure>
+
+<p>因为我们帐号控制 userlist功能也就是白名单 所以我们的虚拟帐号要加入这个配置文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;user_list  #在配置文件添加虚拟帐号 就是 刚刚创建得虚拟账号 以下内容</span><br><span class="line">chenchen1</span><br><span class="line">chenchen2</span><br><span class="line">chenchen3</span><br><span class="line">保存后重启服务！</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+<p>测试：虚拟账号登录成功 .实验搭建成功！</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527001523.png" style="zoom:200%;">
+
+<h1 id="基于ftp服务器端口的控制"><a href="#基于ftp服务器端口的控制" class="headerlink" title="基于ftp服务器端口的控制"></a>基于ftp服务器端口的控制</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]#vi &#x2F;etc&#x2F;services</span><br></pre></td></tr></table></figure>
+
+<p>在下面改端口想改啥改啥</p>
+<p>要记得端口放行防火墙</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# service vsftpd restart (加这个指令后面是端口,自己指的是21)</span><br><span class="line">listen_port&#x3D;21</span><br></pre></td></tr></table></figure>
+
+<p>在windows下输入的格式</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527001532.png" style="zoom:200%;">
+
+<p>自此：Ftp服务器的配置与管理结束！</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>服务器</category>
+        <category>Ftp</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>服务器</tag>
+        <tag>Ftp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo+Gitee搭建个人博客&#39;</title>
     <url>/2024/06/20/Hexo-Gitee%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -91,170 +231,6 @@
       <tags>
         <tag>Hexo</tag>
         <tag>Gitee - 博客</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ftp服务器的配置与管理</title>
-    <url>/2020/04/25/Ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="第一步：我们先检查是否安装-ftp服务器的软件"><a href="#第一步：我们先检查是否安装-ftp服务器的软件" class="headerlink" title="第一步：我们先检查是否安装 ftp服务器的软件"></a>第一步：我们先检查是否安装 ftp服务器的软件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa|grep vsftpd</span><br></pre></td></tr></table></figure>
-
-<h1 id="第二步：使用yum方式安装ftp服务器软件"><a href="#第二步：使用yum方式安装ftp服务器软件" class="headerlink" title="第二步：使用yum方式安装ftp服务器软件"></a>第二步：使用yum方式安装ftp服务器软件</h1><h2 id="创建存储库"><a href="#创建存储库" class="headerlink" title="创建存储库"></a>创建存储库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mkdir &#x2F;cdrom</span><br></pre></td></tr></table></figure>
-
-<h2 id="挂载光盘"><a href="#挂载光盘" class="headerlink" title="挂载光盘"></a>挂载光盘</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mount &#x2F;dev&#x2F;cdrom &#x2F;cdrom</span><br><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;yum.repos.d&#x2F;dvd.repo#制作yum源文件</span><br><span class="line">[dvd]</span><br><span class="line">name&#x3D;dvd</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;cdrom</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enabeld&#x3D;1</span><br><span class="line">[root@localhost ~]# yum install vsftpd –y  #安装vsftpd服务</span><br><span class="line">[root@localhost ~]# yum install ftp –y  #安装vsftpd服务</span><br></pre></td></tr></table></figure>
-
-<h1 id="第三步：重新启动vsftpd服务"><a href="#第三步：重新启动vsftpd服务" class="headerlink" title="第三步：重新启动vsftpd服务"></a>第三步：重新启动vsftpd服务</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
-
-<h3 id="配置文件解释："><a href="#配置文件解释：" class="headerlink" title="配置文件解释："></a>配置文件解释：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">改：anonymous_enable&#x3D;NO  #不允许匿名用户登录  YES 则匿名用户可以登录</span><br><span class="line">改：anon_upload_enable&#x3D;YES#把这行的注释去掉  允许匿名用户上传文件 NO 则是不允许上传文件</span><br><span class="line">改：anon_mkdir_write_enable&#x3D;YES #将这行的注释去掉允许匿名用户创建文件夹 NO 则是不允许创建文件夹</span><br><span class="line">添加：</span><br><span class="line">anon_world_readable_only&#x3D;NO</span><br><span class="line">此命令的默认值为YES，表示仅当所有用户对该文件都拥有读权限时，才允许</span><br><span class="line">匿名用户下载该文件；此处为NO，则允许匿名用户下载不具有全部读权限的文件</span><br><span class="line">anon_other_write_enable&#x3D;YES</span><br><span class="line">允许匿名用户改名和删除文件</span><br><span class="line">max_clients&#x3D;100</span><br><span class="line">设置同时连接FTP服务器的并发用户为100</span><br><span class="line">max_per_ip&#x3D;2</span><br><span class="line">设置每个用户同一时间段并发下载线程数为2，同时只能下载两个文件</span><br><span class="line">anon_max_rate&#x3D;20000</span><br><span class="line">设置匿名用户最大的传输速率为20kbit&#x2F;s</span><br><span class="line">改：chown_uploads&#x3D;YES  #将这行注释去掉 允许匿名用户修改上传文件的所有权</span><br><span class="line">chown_username&#x3D;cmx1 #将这行注释去掉 匿名用户上传的文件的所有者改为bob</span><br><span class="line">改：ascii_upload_enable&#x3D;YES #将注释去掉 允许ASCII格式来上传文件</span><br><span class="line">ascii_download_enable&#x3D;YES #将注释去掉 允许ASCII格式来下载文件</span><br><span class="line">改：ftpd_banner&#x3D;Hi,Welcome to FTP service. #将这行注释去掉设置ftp服务器的欢迎信息</span><br><span class="line">tcp_wrappers&#x3D;YES</span><br><span class="line">设置采用tcp_wrappers来实现来对主机的访问控制，具体控制功能由&#x2F;etc&#x2F;hosts.allow</span><br><span class="line">文件来实现</span><br><span class="line">guest_enable&#x3D;YES</span><br><span class="line">激活虚拟用户登录功能</span><br><span class="line">guest_username&#x3D;virtuser</span><br><span class="line">指定虚拟用户所对应的真实含义</span><br><span class="line">pam_service_name&#x3D;vsftpd.virtual</span><br><span class="line">修改源文件中的pam_service_name&#x3D;vsftpd.virtual的值   (认证文件自己要创建的,已经定义过了) .</span><br></pre></td></tr></table></figure>
-
-<p>更改主配置文件完毕!</p>
-<h2 id="重启ftp服务器"><a href="#重启ftp服务器" class="headerlink" title="重启ftp服务器"></a>重启ftp服务器</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
-
-<h1 id="第一个实验：使用匿名账号登录"><a href="#第一个实验：使用匿名账号登录" class="headerlink" title="第一个实验：使用匿名账号登录"></a>第一个实验：使用匿名账号登录</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">匿名账号默认：ftp</span><br><span class="line">匿名账号密码：ftp</span><br><span class="line">修改配置文件： </span><br><span class="line">[root@ns Packages]# vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">anon_upload_enable&#x3D;YES   </span><br><span class="line">anon_mkdir_write_enable&#x3D;YES</span><br><span class="line">将以上两行注释去掉 让匿名用户可以上传和下载文件</span><br><span class="line">chown_uploads&#x3D;YES #将这行注释去掉,允许匿名上传者拥有修改文件所有权</span><br><span class="line">chown_username&#x3D;cmx1  #将这行注释去掉, 匿名用户上传的文件的所有者改为cmx1  这用户必须要存在  文件夹权限和属组也要做好才有用!</span><br><span class="line">修改了配置文件 重启服务器</span><br><span class="line">Service vsftpd restart</span><br><span class="line">我ftp服务器地址为192.168.1.118</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试：默认匿名用户名：ftp-匿名用户密码：ftp"><a href="#测试：默认匿名用户名：ftp-匿名用户密码：ftp" class="headerlink" title="测试：默认匿名用户名：ftp 匿名用户密码：ftp"></a>测试：默认匿名用户名：ftp 匿名用户密码：ftp</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001440.png" style="zoom:150%;">
-
-<h1 id="第二个实验：独立的两个用户ftp文件夹"><a href="#第二个实验：独立的两个用户ftp文件夹" class="headerlink" title="第二个实验：独立的两个用户ftp文件夹"></a>第二个实验：独立的两个用户ftp文件夹</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用户名：cmx1 密码:123456</span><br><span class="line">用户名：cmx2 密码:123456</span><br></pre></td></tr></table></figure>
-
-<h4 id="进入终端："><a href="#进入终端：" class="headerlink" title="进入终端："></a>进入终端：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# useradd cmx1   #创建用户</span><br><span class="line">[root@ns ~]# useradd cmx2</span><br><span class="line">[root@ns ~]# passwd cmx1    #修改口令</span><br><span class="line">[root@ns ~]# passwd cmx2</span><br><span class="line">[root@ns ~]# mkdir -m 777 &#x2F;home&#x2F;cmx1&#x2F;ftp   #赋予文件夹最大权限</span><br><span class="line">[root@ns ~]# chmod 755 &#x2F;home&#x2F;cmx1   #普通用户拥有对此文件夹所有权,其他用户只能读与执行.不能写</span><br><span class="line">[root@ns ~]# chown cmx1:cmx1 &#x2F;home&#x2F;cmx1&#x2F;ftp   #更改文件夹的属主属组为刚创的普通用户cmx1</span><br><span class="line">[root@ns ~]# mkdir -m 777 &#x2F;home&#x2F;cmx2&#x2F;ftp</span><br><span class="line">[root@ns ~]# chmod 755 &#x2F;home&#x2F;cmx2</span><br><span class="line">[root@ns ~]# chown cmx2:cmx2 &#x2F;home&#x2F;cmx2&#x2F;ftp</span><br></pre></td></tr></table></figure>
-
-<h4 id="接下来修改主配置文件："><a href="#接下来修改主配置文件：" class="headerlink" title="接下来修改主配置文件："></a>接下来修改主配置文件：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">anonymous_enable&#x3D;NO  #将匿名登录改为不允许,NO  YES是允许</span><br><span class="line">xferlog_file&#x3D;&#x2F;var&#x2F;log&#x2F;xferlog  #将这行注释去掉 日志文件存放的位置!</span><br><span class="line">idle_session_timeout&#x3D;600   #用户登录超时不能超过600秒！</span><br><span class="line">data_connection_timeout&#x3D;120  #数据链接超时不能超过120秒！</span><br><span class="line">ascii_upload_enable&#x3D;YES</span><br><span class="line">ascii_download_enable&#x3D;YES</span><br><span class="line">将这两行注释去掉  使用ascii码形式上传和下载文件！</span><br><span class="line">chroot_local_user&#x3D;YES  </span><br><span class="line">个人主页的目录控制，会隐藏真实目录,匿名用户自带目录控制隐藏真实目录.</span><br><span class="line">userlist_deny&#x3D;NO  </span><br><span class="line">添加这条指令是账号控制,现在只有user_list(白名单)文件下的写入的用户能登入ftp服务器。</span><br></pre></td></tr></table></figure>
-
-<h4 id="现在在白名单下添加用户-才能访问ftp服务器"><a href="#现在在白名单下添加用户-才能访问ftp服务器" class="headerlink" title="现在在白名单下添加用户 才能访问ftp服务器"></a>现在在白名单下添加用户 才能访问ftp服务器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;user_list(格式顶格写，里面不允许注释,添加的就是我们刚创建的用户)</span><br><span class="line">cmx1   </span><br><span class="line">cmx2</span><br><span class="line">修改了配置文件 ：重启服务器</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001457.png" style="zoom:150%;">
-
-<p>恭喜你个人用户的ftp已完成!</p>
-<h1 id="第三个实验："><a href="#第三个实验：" class="headerlink" title="第三个实验："></a>第三个实验：</h1><h2 id="ftp服务器对网络的控制"><a href="#ftp服务器对网络的控制" class="headerlink" title="ftp服务器对网络的控制"></a>ftp服务器对网络的控制</h2><p>我ftp服务器地址为192.168.1.118<br>我ftp客户端地址为 192.168.1.188<br>进入终端：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;hosts.allow  #修改配置文件</span><br><span class="line">vsftpd:192.168.1.188 192.168.1.189:DENY   #拒绝.188 和 .189的主机访问ftp服务器</span><br><span class="line">vsftpd:192.168.1.0    #允许192.168.1.0这个网段的主机访问ftp服务器</span><br><span class="line">修改了配置文件：重启vsftp服务器</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试：-1"><a href="#测试：-1" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001506.png" style="zoom:200%;">
-
-<p>登录不了 ，恭喜你网络控制搭建成功！</p>
-<h4 id="修改IP地址"><a href="#修改IP地址" class="headerlink" title="修改IP地址"></a>修改IP地址</h4><img src="https://gitee.com/laosuye/TC/raw/master/20200527001514.png" style="zoom:150%;">
-
-<p>又能登录了所以网络控制成功！</p>
-<h1 id="第四个实验：做虚拟账号登录ftp服务器-账号是不存在的-保护了ftp的安全"><a href="#第四个实验：做虚拟账号登录ftp服务器-账号是不存在的-保护了ftp的安全" class="headerlink" title="第四个实验：做虚拟账号登录ftp服务器 账号是不存在的 保护了ftp的安全"></a>第四个实验：做虚拟账号登录ftp服务器 账号是不存在的 保护了ftp的安全</h1><h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">虚拟账号：chenchen1</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">虚拟账号：chenchen2</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">虚拟账号：chenchen3</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;virtuserdb.txt   #制作虚拟账号口令存放的文件</span><br><span class="line">奇数行是账号,偶数行是密码！</span><br><span class="line">chenchen1</span><br><span class="line">995523</span><br><span class="line">chenchen2</span><br><span class="line">995523</span><br><span class="line">chenchen3</span><br><span class="line">995523</span><br><span class="line">执行一下命令生成虚拟数据库文件</span><br><span class="line">[root@ns ~]# db_load -T -t hash -f &#x2F;etc&#x2F;virtuserdb.txt &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db</span><br><span class="line">这个命令作用是把&#x2F;etc&#x2F;virtuserdb.txt的文件导入到&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db数据库文件里去.</span><br><span class="line">定义数据库vsftpd.db的权限  普通用户对此文件可读可写！</span><br><span class="line">[root@ns ~]# chmod 600 &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db</span><br></pre></td></tr></table></figure>
-
-<h2 id="第二步："><a href="#第二步：" class="headerlink" title="第二步："></a>第二步：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建PAM认证文件.</span><br><span class="line">&#x2F;etc&#x2F;pam.d&#x2F;vsftpd.virtual</span><br><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;pam.d&#x2F;vsftpd.virtual</span><br><span class="line">auth    required &#x2F;lib&#x2F;security&#x2F;pam_userdb.so db&#x3D;&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd</span><br><span class="line">account required &#x2F;lib&#x2F;security&#x2F;pam_userdb.so db&#x3D;&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd</span><br><span class="line">注意：以上两条代码为认证规则</span><br><span class="line">     第一条规则的功能是利用pam_userdb.so模块来进行身份认证,主要是接受用户名和口令,进而对该用户的口令进行口令进行认证,并负责设置用户的一些秘密信息.其中采用的数据库是&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db文件(此处省略文件名后面的扩展名.db)</span><br><span class="line">    第二条规则的功能是检查帐号是否被允许登录系统,帐号是否已经过期,帐号登录是否有时间段的限制等.设置在进行授权时采用的数据库也是这个数据库也是etc&#x2F;vsftpd&#x2F;vsftpd.db。</span><br></pre></td></tr></table></figure>
-
-<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步:"></a>第三步:</h2><p>创建虚拟用户所对应的真实帐号及所登录的目录,并设置相应的权限</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# useradd -d &#x2F;var&#x2F;virtuser virtuser  #添加账号与更改账号路径,默认是在&#x2F;home目录下</span><br><span class="line">[root@ns ~]# chmod 744 &#x2F;var&#x2F;virtuser  #普通用户拥有所有权,其他用户同组用户只能读</span><br><span class="line">第四步:</span><br><span class="line">编辑 &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf 配置文件,增加以下内容(顶格写,等号两边不允许空格):</span><br><span class="line">guest_enable&#x3D;YES</span><br><span class="line">激活虚拟用户登录功能</span><br><span class="line">guest_username&#x3D;virtuser</span><br><span class="line">指定虚拟用户所对应的真实含义</span><br><span class="line">pam_service_name&#x3D;vsftpd.virtual</span><br><span class="line">修改源文件中的pam_service_name&#x3D;vsftpd.virtual的值   (认证文件自己要创建的,已经定义过了) .</span><br></pre></td></tr></table></figure>
-
-<p>因为我们帐号控制 userlist功能也就是白名单 所以我们的虚拟帐号要加入这个配置文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;user_list  #在配置文件添加虚拟帐号 就是 刚刚创建得虚拟账号 以下内容</span><br><span class="line">chenchen1</span><br><span class="line">chenchen2</span><br><span class="line">chenchen3</span><br><span class="line">保存后重启服务！</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
-
-<p>测试：虚拟账号登录成功 .实验搭建成功！</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527001523.png" style="zoom:200%;">
-
-<h1 id="基于ftp服务器端口的控制"><a href="#基于ftp服务器端口的控制" class="headerlink" title="基于ftp服务器端口的控制"></a>基于ftp服务器端口的控制</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]#vi &#x2F;etc&#x2F;services</span><br></pre></td></tr></table></figure>
-
-<p>在下面改端口想改啥改啥</p>
-<p>要记得端口放行防火墙</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# service vsftpd restart (加这个指令后面是端口,自己指的是21)</span><br><span class="line">listen_port&#x3D;21</span><br></pre></td></tr></table></figure>
-
-<p>在windows下输入的格式</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527001532.png" style="zoom:200%;">
-
-<p>自此：Ftp服务器的配置与管理结束！</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>服务器</category>
-        <category>Ftp</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>服务器</tag>
-        <tag>Ftp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CSS中Position属性详解</title>
-    <url>/2020/05/05/CSS%E4%B8%ADPosition%E5%B1%9E%E6%80%A7%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="一、Position属性是什么？"><a href="#一、Position属性是什么？" class="headerlink" title="一、Position属性是什么？"></a>一、Position属性是什么？</h1><p>Position属性在CSS中是定位的意思！而定位指的是将指定元素摆放到页面的任意方式，通过定位可以任意的摆放元素，其中Position可选的值分别有：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.static          默认值，元素没有开启定位</span><br><span class="line">2.relative				相对定位</span><br><span class="line">3.absolute				绝对定位</span><br><span class="line">4.fixed						固定定位</span><br></pre></td></tr></table></figure>
-
-<p>接下来我们会对这四个值分别做详细的解释，并且举例子说明</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">当开启了元素的定位（position的属性值是一个非static的值）时</span><br><span class="line">可以通过left、right、top、bottom四个属性来设置元素的偏移量</span><br><span class="line">    left：元素相对于其定位位置的左侧偏移量</span><br><span class="line">    right：元素相对于其定位位置的右侧偏移量</span><br><span class="line">    top：元素相对于其定位位置的上面偏移量</span><br><span class="line">    bottom：元素相对于其定位位置的下面偏移量</span><br><span class="line">    </span><br><span class="line"> 注意： 通常偏移量只需要使用两个，就可以对一个元素进行定位，一般选择水平的一个偏移量和一个垂直方向的偏移</span><br><span class="line">量来为一个元素进行定位</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-static默认值"><a href="#1-static默认值" class="headerlink" title="1.static默认值"></a>1.static默认值</h2><p>在Position的值为这个的时候，元素不会发生任何变化，元素的位置也还是在该位置</p>
-<h2 id="2-relative相对定位"><a href="#2-relative相对定位" class="headerlink" title="2.relative相对定位"></a>2.relative相对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">relative        开启元素的相对定位</span><br><span class="line">                当position的属性是relative的时候，就开启了相对定位</span><br><span class="line">                1.开启了元素的相对定位以后，而不设置偏移量时，元素不会发生改变</span><br><span class="line">                2.相对定位是相对于元素在文档流中原来的位置进行定位</span><br><span class="line">                3.相对定位的元素不会脱离文档流</span><br><span class="line">                4.相对定位会使元素提升一个层级</span><br><span class="line">                5.相对定位不会改变元素的性质，快元素还是块元素，内联还是内联元素</span><br></pre></td></tr></table></figure>
-
-<p>接下来给出一个例子。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启相对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>图例子</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002841.png">
-
-<p>可以看到，盒子在设置了相对定位并且设置了向左偏移了200像素，盒子是向右出去了200像素，所以这个偏移量往哪边偏移就是往相反的方向去！</p>
-<h2 id="3-absolute绝对定位"><a href="#3-absolute绝对定位" class="headerlink" title="3.absolute绝对定位"></a>3.absolute绝对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">absolute     开启元素的绝对定位</span><br><span class="line">             当position的属性是absolute的时候，就开启了相对定位</span><br><span class="line">             1.开启绝对定位元素会脱离文档流</span><br><span class="line">             2.开启绝对定位以后如果不设置偏移量，则元素的位置不会发生改变</span><br><span class="line">             3.绝对定位是相对于离他最近的开启了祖先元素进行定位，如果所有的祖先元素都没有开启定位，则会相对于浏览器窗口进行定位</span><br><span class="line">             一般情况开启了字元素的的绝对定位，都会开启父元素的相对定位</span><br><span class="line">             4.绝对定位会使元素提升一个层级</span><br><span class="line">             5.绝对定位会改变元素的性质</span><br><span class="line">                 内联元素会变成块元素</span><br><span class="line">                 块元素的宽度和高度都会默认都被内容撑开</span><br></pre></td></tr></table></figure>
-
-<p>接下来给出一个例子。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: absolute;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>图解：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002855.png" alt></p>
-<p>可以看到，现在box2没有祖先元素，所以它相对于浏览器窗口进行定位，而且也不占据位置</p>
-<p>接下来我们在box2中嵌套一个box4，并且给他设置偏移量，把box2也开启定位，并设置坐外边距，让其距离左边远一点，看看情况会是怎么样的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: static;</span><br><span class="line">        &#x2F;* left: 200px; *&#x2F;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box4 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: cornflowerblue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;</span><br><span class="line">      我是盒子2</span><br><span class="line">      &lt;div class&#x3D;&quot;box4&quot;&gt;我是盒子4&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>图解：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002913.png" alt></p>
-<p>可以很清晰的看到盒子是根据其开了定位的祖先元素进行偏移的，而不是针对浏览器进行偏移</p>
-<h2 id="4-fixed固定定位"><a href="#4-fixed固定定位" class="headerlink" title="4.fixed固定定位"></a>4.fixed固定定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fixed  开启元素的固定地位（也是绝对定位的一种）</span><br><span class="line">    当position的属性是fixed的时候，就开启了固定定位</span><br><span class="line">    固定定位也是一种绝对定位，它的大部分特点都和绝对定位一样</span><br><span class="line">    不同的是：</span><br><span class="line">        固定定位永远都会相对于浏览器的窗口定位</span><br><span class="line">        固定定位会固定在浏览器的某个位置，不会随滚动条滚动</span><br></pre></td></tr></table></figure>
-
-<p>看一下例子：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002919.png" alt></p>
-<p>可以看到，和相对定位是没有什么差别的，但是现在我们把body的高度设置很长，右侧出现滚动条。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        body&#123;</span><br><span class="line">            width: 1000px;</span><br><span class="line">            height: 5000px;</span><br><span class="line">        &#125;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后这个时候运行，再拖动滚动条你就会发现无论你页面拖动到什么位置，box1一直都会出现在左上角。</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002927.png" alt></p>
-<p>可以看到我滚动条拖到一半了，box1还是在左上角位置从没变过</p>
-<p>注意：在网页开发中，固定定位一般不常使用，只有在特定的用处才会使用，比如网页上常见的小广告。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CSS定位属性允许你为一个元素定位。它也可以将一个元素放在另一个元素后面，</span><br><span class="line">并指定一个元素的内容太大时，</span><br><span class="line">应该发生什么。元素可以使用的顶部，底部，左侧和右侧属性定位。然而，这些属性无法工作，</span><br><span class="line">除非事先设定position属性。他们也有不同的工作方式，这取决于定位方法.</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>编程</category>
-        <category>前端</category>
-        <category>CSS</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>CSS</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java——leetcode18. 四数之和</title>
-    <url>/2020/04/23/Java%E2%80%94%E2%80%94leetcode18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<p>给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。</p>
-<p>注意：</p>
-<p>答案中不可以包含重复的四元组。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">给定数组 nums &#x3D; [1, 0, -1, 0, -2, 2]，和 target &#x3D; 0。</span><br><span class="line">满足要求的四元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1,  0, 0, 1],</span><br><span class="line">  [-2, -1, 1, 2],</span><br><span class="line">  [-2,  0, 0, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>思路，两层循环选出两个数字，对剩下的数字跑双指针。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; fourSum(int[] nums,int target) &#123;</span><br><span class="line">    	List&lt;List&lt;Integer&gt;&gt; listArr&#x3D;new ArrayList&lt;&gt;();</span><br><span class="line">        int len&#x3D;nums.length;</span><br><span class="line">        int left,right;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line"> </span><br><span class="line">        for(int i&#x3D;0;i&lt;len;++i)&#123;</span><br><span class="line">        	if(i&gt;0 &amp;&amp; nums[i] &#x3D;&#x3D; nums[i-1]) continue;</span><br><span class="line">            for(int j&#x3D;i+1;j&lt;len;++j)&#123;</span><br><span class="line">                if(j&gt;i+1 &amp;&amp; nums[j] &#x3D;&#x3D; nums[j-1]) continue;</span><br><span class="line">                left&#x3D;j+1;</span><br><span class="line">                right&#x3D;len-1;</span><br><span class="line">                while(left&lt;right) &#123;</span><br><span class="line">                    int four&#x3D;nums[left]+nums[right]+nums[i]+nums[j];</span><br><span class="line">                    if(four&gt;target)&#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;else if(four&lt;target)&#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                	    listArr.add(Arrays.asList(nums[i],nums[j],nums[left],nums[right]));</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[left]&#x3D;&#x3D;nums[left+1])left++;</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[right]&#x3D;&#x3D;nums[right-1])right--;</span><br><span class="line">                	    left++;</span><br><span class="line">                	    right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">        return listArr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>编程</category>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>编程</tag>
-        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -685,6 +661,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Java——leetcode18. 四数之和</title>
+    <url>/2020/04/23/Java%E2%80%94%E2%80%94leetcode18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<p>给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。</p>
+<p>注意：</p>
+<p>答案中不可以包含重复的四元组。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">给定数组 nums &#x3D; [1, 0, -1, 0, -2, 2]，和 target &#x3D; 0。</span><br><span class="line">满足要求的四元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1,  0, 0, 1],</span><br><span class="line">  [-2, -1, 1, 2],</span><br><span class="line">  [-2,  0, 0, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>思路，两层循环选出两个数字，对剩下的数字跑双指针。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; fourSum(int[] nums,int target) &#123;</span><br><span class="line">    	List&lt;List&lt;Integer&gt;&gt; listArr&#x3D;new ArrayList&lt;&gt;();</span><br><span class="line">        int len&#x3D;nums.length;</span><br><span class="line">        int left,right;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line"> </span><br><span class="line">        for(int i&#x3D;0;i&lt;len;++i)&#123;</span><br><span class="line">        	if(i&gt;0 &amp;&amp; nums[i] &#x3D;&#x3D; nums[i-1]) continue;</span><br><span class="line">            for(int j&#x3D;i+1;j&lt;len;++j)&#123;</span><br><span class="line">                if(j&gt;i+1 &amp;&amp; nums[j] &#x3D;&#x3D; nums[j-1]) continue;</span><br><span class="line">                left&#x3D;j+1;</span><br><span class="line">                right&#x3D;len-1;</span><br><span class="line">                while(left&lt;right) &#123;</span><br><span class="line">                    int four&#x3D;nums[left]+nums[right]+nums[i]+nums[j];</span><br><span class="line">                    if(four&gt;target)&#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;else if(four&lt;target)&#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                	    listArr.add(Arrays.asList(nums[i],nums[j],nums[left],nums[right]));</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[left]&#x3D;&#x3D;nums[left+1])left++;</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[right]&#x3D;&#x3D;nums[right-1])right--;</span><br><span class="line">                	    left++;</span><br><span class="line">                	    right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">        return listArr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>编程</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>编程</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java中i++与++i的区别，如何分清i++与++i</title>
     <url>/2020/04/22/Java%E4%B8%ADi-%E4%B8%8E-i%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E5%A6%82%E4%BD%95%E5%88%86%E6%B8%85i-%E4%B8%8E-i/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -731,224 +731,6 @@
         <tag>编程</tag>
         <tag>Java</tag>
         <tag>编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux下——磁盘管理与crontab调度</title>
-    <url>/2020/04/27/Linux%E4%B8%8B%E2%80%94%E2%80%94%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E4%B8%8Ecrontab%E8%B0%83%E5%BA%A6/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<p>例：某台linux服务器 加了一块1个T的硬盘 要求分四个区 内存大小相同.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk –l  #查看所有本地硬盘路径</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001644.png" alt></p>
-<p>如上所得 我们新加的硬盘路径是 /dev/sdb</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk &#x2F;dev&#x2F;sdb   #选择目标硬盘  也就是我们要分的硬盘!</span><br><span class="line"> Command (m for help): n  #新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #标准分区</span><br><span class="line"> Partition number (1-4): 1  #问你这是你要分第几个区  我们这里是分第一个区</span><br><span class="line"> First cylinder (1-133674, default 1): 1  #内存大小  因为第一块  从1开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (1-133674, default 133674): 33418.5  #内存大小到哪里结束,我们是分四块所有133674除4 平均每一块的大小.</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p     #创建标准分区</span><br><span class="line"> Partition number (1-4): 2  #第二块分区</span><br><span class="line"> First cylinder (33419-133674, default 33419): 33419   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (33419-133674, default 133674): 66837  #硬盘大小到哪结束.  第二块就是33418.5+33418.5的内存结束 第三块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Partition number (1-4): 3   #第三块分区</span><br><span class="line"> First cylinder (66838-133674, default 66838): 66838   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (66838-133674, default 133674): 100255.5    #硬盘大小到哪结束.  第三块就是33418.5+33418.5+33418.5的内存结束 第二块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action </span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Selected partition 4  #第四块分区</span><br><span class="line"> First cylinder (100256-133674, default 100256): 100256  #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (100256-133674, default 133674): 133674</span><br><span class="line"> 硬盘大小到哪结束.  第四块就是33418.5+33418.5+33418.5+33418.5的内存结束 第四块分区</span><br><span class="line"> Command (m for help): w  #保持并退出分区选项</span><br><span class="line"> The partition table has been altered!</span><br><span class="line"> [root@ns ~]# fdisk –l  #查看所有硬盘路径,找到我们刚刚分的四块硬盘路径 格式化</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb1  #格式化我们分的第一块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb2  #格式化我们分的第二块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb3  #格式化我们分的第三块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb4  #格式化我们分的第四块硬盘</span><br></pre></td></tr></table></figure>
-
-<p>测试：计算机里有1T大小的硬盘分为了4块大小一致的硬盘</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527001650.png" style="zoom:150%;">
-
-<p>磁盘管理 搭建完毕！</p>
-<p>Cron调度</p>
-<p>例：我们每个星期五14点30分都要自动备份/home目录去另一块磁盘 ！</p>
-<p>第一个*：分钟0～59</p>
-<p>第二个*：小时0～23</p>
-<p>第三个*：日期1～31</p>
-<p>第四个*：月份1～12</p>
-<p>第五个*：星期0～7；注意0和7都表示星期天。</p>
-<p>第六个代表命令名称</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  </span><br><span class="line">[root@ns ~]# crontab -l</span><br><span class="line">*&#x2F;1 * * * * cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66 #我先做了个每分钟的自动备份</span><br></pre></td></tr></table></figure>
-
-<p>测试：</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527001659.png" style="zoom:200%;">
-
-<p>现在按照要求来： 每个礼拜五14：30备份一次/home目录去/media/8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  #在这里下面编辑  </span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容!</span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容! 例：每2分钟拷贝一次</span><br><span class="line">*&#x2F;2 * * * * tar -czf &#x2F;backup&#x2F;home-data.tar.gz &#x2F;home  #拷贝的压缩包格式</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>磁盘</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>定时任务</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux下用户和组的管理</title>
-    <url>/2020/04/24/Linux%E4%B8%8B%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="Linux系统：centos"><a href="#Linux系统：centos" class="headerlink" title="Linux系统：centos"></a>Linux系统：centos</h1><h2 id="1-用户的分类"><a href="#1-用户的分类" class="headerlink" title="1.用户的分类"></a>1.用户的分类</h2><p>在Linux下用户角色划分如下：</p>
-<h3 id="超级用户："><a href="#超级用户：" class="headerlink" title="超级用户："></a>超级用户：</h3><p>root 拥有对系统的最高的管理权限（UID=0）如果我们把普通用户的UID改为0系统也会将其视为root用户。</p>
-<h3 id="普通用户-："><a href="#普通用户-：" class="headerlink" title="普通用户 ："></a><strong>普通用户</strong> ：</h3><p>系统用户（UID 1-999），在Centos6中为1-499；本地用户 （UID 1000+）,Centos6中为500+ （注：UID：即每个用户的身份标示）</p>
-<h3 id="虚拟用户："><a href="#虚拟用户：" class="headerlink" title="虚拟用户："></a>虚拟用户：</h3><p>也称做伪用户，一般不会用来登录系统，由系统中的服务使用，比如apache、zabbix等。</p>
-<h2 id="2-用户和组的对应关系"><a href="#2-用户和组的对应关系" class="headerlink" title="2.用户和组的对应关系"></a>2.用户和组的对应关系</h2><h3 id="一对多一："><a href="#一对多一：" class="headerlink" title="一对多一："></a>一对多一：</h3><p>一个用户可以存在一个组中； </p>
-<h3 id="一对多："><a href="#一对多：" class="headerlink" title="一对多："></a>一对多：</h3><p>一个用户可以存在多个组中；</p>
-<h3 id="多对一："><a href="#多对一：" class="headerlink" title="多对一："></a>多对一：</h3><p>多个用户可以存在一个组中；</p>
-<h3 id="多对多："><a href="#多对多：" class="headerlink" title="多对多："></a>多对多：</h3><p>多个用户可以存在多个组中；</p>
-<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527000853.png" alt></p>
-<h3 id="下面是上述文件参数的详解："><a href="#下面是上述文件参数的详解：" class="headerlink" title="下面是上述文件参数的详解："></a>下面是上述文件参数的详解：</h3><h4 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;passwd |head</span><br><span class="line">root:x:0:0:root:&#x2F;root:&#x2F;bin&#x2F;bash                            </span><br><span class="line">bin:x:1:1:bin:&#x2F;bin:&#x2F;sbin&#x2F;nologin</span><br><span class="line">daemon:x:2:2:daemon:&#x2F;sbin:&#x2F;sbin&#x2F;nologin</span><br><span class="line">adm:x:3:4:adm:&#x2F;var&#x2F;adm:&#x2F;sbin&#x2F;nologin</span><br><span class="line">lp:x:4:7:lp:&#x2F;var&#x2F;spool&#x2F;lpd:&#x2F;sbin&#x2F;nologin</span><br><span class="line">sync:x:5:0:sync:&#x2F;sbin:&#x2F;bin&#x2F;sync</span><br><span class="line">shutdown:x:6:0:shutdown:&#x2F;sbin:&#x2F;sbin&#x2F;shutdown</span><br><span class="line">halt:x:7:0:halt:&#x2F;sbin:&#x2F;sbin&#x2F;halt</span><br><span class="line">mail:x:8:12:mail:&#x2F;var&#x2F;spool&#x2F;mail:&#x2F;sbin&#x2F;nologin</span><br><span class="line">operator:x:11:0:operator:&#x2F;root:&#x2F;sbin&#x2F;nologin</span><br></pre></td></tr></table></figure>
-
-<h5 id="该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义："><a href="#该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义：" class="headerlink" title="该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义："></a>该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用户名：密码占位符：UID：GID：描述信息（在图形界面我们登录前由原来的用户名变为我们自定义的描述信息）：</span><br><span class="line">用户的家目录：登录shell</span><br></pre></td></tr></table></figure>
-
-<h4 id="etc-group"><a href="#etc-group" class="headerlink" title="/etc/group"></a>/etc/group</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;group|head</span><br><span class="line">root:x:0:</span><br><span class="line">bin:x:1:</span><br><span class="line">daemon:x:2:</span><br><span class="line">sys:x:3:</span><br><span class="line">adm:x:4:</span><br><span class="line">tty:x:5:</span><br><span class="line">disk:x:6:</span><br><span class="line">lp:x:7:</span><br><span class="line">mem:x:8:</span><br><span class="line">kmem:x:9:</span><br></pre></td></tr></table></figure>
-
-<h5 id="每一列的参数含义："><a href="#每一列的参数含义：" class="headerlink" title="每一列的参数含义："></a>每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">组名：组的密码的占位符：GID：组内的成员列表</span><br></pre></td></tr></table></figure>
-
-<h4 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="/etc/shadow"></a>/etc/shadow</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;shadow</span><br><span class="line">root:sadadasdawerqwrxsadi0:18301:0:99999:7:::</span><br><span class="line">bin::17834:0:99999:7::: daemon::17834:0:99999:7:::</span><br><span class="line">adm::17834:0:99999:7::: lp::17834:0:99999:7:::</span><br><span class="line">sync::17834:0:99999:7::: shutdown::17834:0:99999:7:::</span><br><span class="line">halt::17834:0:99999:7::: mail::17834:0:99999:7:::</span><br></pre></td></tr></table></figure>
-
-<h5 id="每一列的参数含义：-1"><a href="#每一列的参数含义：-1" class="headerlink" title="每一列的参数含义："></a>每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">账号名称：加密的密码：最近更改密码的时间；从1970&#x2F;1&#x2F;1到上次修改密码的天数，（可用date -d &quot;1970-01-01 [选项中对应的数字] days&quot; 命令查看）：密码不可被修改的天数：密码有效期：密码过期之前警告天数：密码过期的期限天数：帐号失效时间；从1970&#x2F;1&#x2F;1日起，到用户被禁用的天数：保留字段</span><br></pre></td></tr></table></figure>
-
-<h4 id="etc-gshadow"><a href="#etc-gshadow" class="headerlink" title="/etc/gshadow"></a>/etc/gshadow</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;gshadow</span><br><span class="line">root:::</span><br><span class="line">bin:::</span><br><span class="line">daemon:::</span><br><span class="line">sys:::</span><br><span class="line">adm:::</span><br><span class="line">tty:::</span><br><span class="line">disk:::</span><br><span class="line">lp:::</span><br><span class="line">mem:::</span><br><span class="line">kmem:::</span><br><span class="line">wheel:::</span><br></pre></td></tr></table></figure>
-
-<h5 id="每一列的参数含义：-2"><a href="#每一列的参数含义：-2" class="headerlink" title="每一列的参数含义："></a>每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">组账号名称：加密后的密码（显示！或者为空表示没有密码）：该组的管理员列表，该字段可以为空，如果有多个管理员则用，隔开：该组的成员列表，多个用户用，隔开</span><br></pre></td></tr></table></figure>
-
-<h3 id="etc-skel目录："><a href="#etc-skel目录：" class="headerlink" title="/etc/skel目录："></a>/etc/skel目录：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# ll -a &#x2F;etc&#x2F;skel&#x2F;</span><br><span class="line">总用量 28</span><br><span class="line">drwxr-xr-x.  2 root root  4096 11月  5 23:09 .</span><br><span class="line">drwxr-xr-x. 95 root root 12288 2月  10 00:16 ..</span><br><span class="line">-rw-r--r--   1 root root    18 8月   8 2019 .bash_logout</span><br><span class="line">-rw-r--r--   1 root root   193 8月   8 2019 .bash_profile</span><br><span class="line">-rw-r--r--   1 root root   231 8月   8 2019 .bashrc</span><br><span class="line">[root@centos7 ~]#</span><br></pre></td></tr></table></figure>
-
-<p>/etc/skel目录是用来存放新增的用户的配置文件的目录，当我们创建新用户时，这个目录下的所有文件都会自动被复制到新创建的用户的家目录下，默认情况下，该目录下的所有文件都是隐藏文件。</p>
-<p>/etc/default/useradd文件<br>/etc/default/useradd文件在使用useradd命令创建用户时需要调用的一个默认的配置文件。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;default&#x2F;useradd</span><br><span class="line">useradd defaults file</span><br><span class="line">GROUP&#x3D;100                            </span><br><span class="line">HOME&#x3D;&#x2F;home                    #设置用户的家目录在&#x2F;home中</span><br><span class="line">INACTIVE&#x3D;-1                    #是否启用账号过期后禁用，-1表示不启用</span><br><span class="line">EXPIRE&#x3D;                        #账号终止日期，空值表示不启用</span><br><span class="line">SHELL&#x3D;&#x2F;bin&#x2F;bash                #新建的用户的默认使用的shell类型</span><br><span class="line">SKEL&#x3D;&#x2F;etc&#x2F;skel                #新建的用户家目录默认文件存放路径，也就是前文提 到的&#x2F;etc&#x2F;skell目录</span><br><span class="line">CREATE_MAIL_SPOOL&#x3D;yes        #是否创建mail文件</span><br><span class="line">[root@centos7 ~]#</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-用户命令"><a href="#3-用户命令" class="headerlink" title="3.用户命令"></a>3.用户命令</h2><h3 id="创建新用户的命令：-useradd、adduser"><a href="#创建新用户的命令：-useradd、adduser" class="headerlink" title="-创建新用户的命令： useradd、adduser"></a>-创建新用户的命令： useradd、adduser</h3><p>注：adduser是useradd的软连接</p>
-<p>useradd [参数选项] 用户名</p>
-<h3 id="该命令常用的参数及含义："><a href="#该命令常用的参数及含义：" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-d：指定用户家目录</span><br><span class="line">-M：不创建用户的家目录</span><br><span class="line">-g：设置用户初始组的名称或ID，如果没有设置该选项，useradd 会根据&#x2F;etc&#x2F;login.defs 文件中的 USERGROUPS_ENAB 环境变量进行设置。默认 USERGROUPS_ENAB yes 会用和用户名相同的名字创建群组，GID 等于 UID</span><br><span class="line">-G：指定用户要加入的附加组列表，使用，号分隔多个组，不要添加空格。（一个用户只允许有一个主组，可有多个附属组）</span><br><span class="line">-s：创建用户时，指定用户的shell类型，设置成&#x2F;sbin&#x2F;nologin就可以禁止用户登录</span><br><span class="line">-u：指定用户UID</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用userdel删除用户："><a href="#使用userdel删除用户：" class="headerlink" title="使用userdel删除用户："></a>使用userdel删除用户：</h3><p>用法：userdel [参数选项] 用户名<br>选项：-r 删除用户时同时删除用户的家目录和/var/mail下的目录</p>
-<h3 id="使用groupadd命令创建新组："><a href="#使用groupadd命令创建新组：" class="headerlink" title="使用groupadd命令创建新组："></a>使用groupadd命令创建新组：</h3><p>用法 ： groupadd [参数选项] 组名</p>
-<h4 id="该命令常用的参数及含义：-1"><a href="#该命令常用的参数及含义：-1" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-g： 指定GID，必须是唯一的数值，除非指定-o选项</span><br><span class="line">-r： 建立系统用户组</span><br><span class="line">-f： 新增一个账户，强制覆盖已存在的用户组账户</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用groupdel命令删除组："><a href="#使用groupdel命令删除组：" class="headerlink" title="使用groupdel命令删除组："></a>使用groupdel命令删除组：</h3><p>用法：groupdel 组名<br>（注意：删除的目标组不能是用户的基本组）</p>
-<h3 id="使用passwd命令修改密码："><a href="#使用passwd命令修改密码：" class="headerlink" title="使用passwd命令修改密码："></a>使用passwd命令修改密码：</h3><p>用法：passwd [参数选项]</p>
-<h4 id="该命令常用的参数及含义：-2"><a href="#该命令常用的参数及含义：-2" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-d：清空密码。仅root能操作</span><br><span class="line">-f： 强制操作，仅root能操作</span><br><span class="line">-l：锁定用户账户，锁定其用户无权更改其密码，仅root能操作</span><br><span class="line">-u：解锁用户账户，仅root能操作</span><br><span class="line">-s：查看用户的状态</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用gpasswd命令管理组："><a href="#使用gpasswd命令管理组：" class="headerlink" title="使用gpasswd命令管理组："></a>使用gpasswd命令管理组：</h3><p>用法：gpasswd</p>
-<h4 id="该命令常用的参数及含义：-3"><a href="#该命令常用的参数及含义：-3" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-A:定义组管理员列表 </span><br><span class="line">-a：添加组成员，每次只能加一个 </span><br><span class="line">-d：删除组成员，每次只能删除一个 </span><br><span class="line">-M：定义组成员，可设置多个，用，隔开 </span><br><span class="line">-r：移除组的密码 </span><br><span class="line">-R：将其成员限制访问组</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用usermod命令修改用户信息："><a href="#使用usermod命令修改用户信息：" class="headerlink" title="使用usermod命令修改用户信息："></a>使用usermod命令修改用户信息：</h3><p>用法：usermod [参数选项] 用户名</p>
-<h4 id="该命令常用的参数及含义：-4"><a href="#该命令常用的参数及含义：-4" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-u：指定UID</span><br><span class="line"> -d：指定家目录</span><br><span class="line"> -g：指定起始组（只能有一个）</span><br><span class="line"> -G：附加组（可以有多个）</span><br><span class="line"> -s：指定用户登录的shell</span><br><span class="line"> -L：锁定用户账号</span><br><span class="line"> -d：-d一般跟-m一起使用，既指定新的家目录，又移动此前的文件到新的家目录中</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>服务器</tag>
-        <tag>CentOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux下邮件服务器——Postfix服务器配置与管理</title>
-    <url>/2020/04/27/Linux%E4%B8%8B%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E2%80%94%E2%80%94Postfix%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<p>第一步：我们先检查是否安装Postfix服务器的软件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa|grep postfix</span><br></pre></td></tr></table></figure>
-
-<p>第二步：使用yum方式安装Postfix服务器软件</p>
-<p>制作yum源文件，创建存储库</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mkdir &#x2F;cdrom</span><br></pre></td></tr></table></figure>
-
-<p>挂载光盘</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mount &#x2F;dev&#x2F;cdrom &#x2F;cdrom</span><br><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;yum.repos.d&#x2F;dvd.repo</span><br><span class="line">[dvd]</span><br><span class="line">name&#x3D;dvd</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;cdrom</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enabeld&#x3D;1</span><br><span class="line">[root@localhost ~]# yum install Postfix–y  #安装Postfix发邮件软件</span><br><span class="line">[root@ns ~]# yum install dovecot –y  #安装dovecot收邮件软件</span><br></pre></td></tr></table></figure>
-
-<p>第三步:启动postfix,dovecot,named服务，并设置为开机自启.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# service postfix restart  #重启服务</span><br><span class="line">[root@ns ~]# service named restart  #重启服务</span><br><span class="line">[root@ns ~]# service dovecot restart  #重启服务</span><br><span class="line">[root@ns ~]# chkconfig dovecot on   #设置开机自启</span><br><span class="line">[root@ns ~]# chkconfig postfix on     #设置开机自启</span><br></pre></td></tr></table></figure>
-
-<p>第四步：接下来先配置IP参数.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">postfix 服务器IP地址：192.168.1.118</span><br><span class="line">postfix 服务器IP地址：192.168.1.118</span><br><span class="line">[root@ns ~]# hostname mail.jcxy.com #修改主机名</span><br><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;sysconfig&#x2F;network #修改配置文件让其主机名永久生效</span><br></pre></td></tr></table></figure>
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002029.png" style="zoom:150%;">
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;hosts  #加快主机解析，在一下添加</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002038.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vim &#x2F;etc&#x2F;resolv.conf  #在DNS服务器搭建成功后会自动生成以下</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002044.png" alt></p>
-<p>创建用户：例 创建三个用户 cmx ,cmx1,cmx2</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# useradd cmx  </span><br><span class="line">[root@mail ~]# useradd cmx1</span><br><span class="line">[root@mail ~]# useradd cmx2</span><br><span class="line">[root@mail ~]# passwd cmx</span><br><span class="line">[root@mail ~]# passwd cmx1</span><br><span class="line">[root@mail ~]# passwd cmx2</span><br></pre></td></tr></table></figure>
-
-<p>第五步:配置postfix主配置文件</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002052.png" style="zoom:150%;">
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002101.png" style="zoom:150%;">
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002110.png" style="zoom:150%;">
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002118.png" style="zoom:150%;">
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002126.png" alt></p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002131.png" alt></p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002138.png" style="zoom:150%;">
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002148.png" style="zoom:150%;">
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vim &#x2F;etc&#x2F;aliases  #在以下编辑群发邮件</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002155.png" alt></p>
-<p>重启postfix服务</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# service postfix restart</span><br></pre></td></tr></table></figure>
-
-<p>第六步:配置dovecot的主配置文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vim &#x2F;etc&#x2F;dovecot&#x2F;dovecot.conf</span><br></pre></td></tr></table></figure>
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002201.png" style="zoom:150%;">
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002209.png" style="zoom:150%;">
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vim &#x2F;etc&#x2F;dovecot&#x2F;conf.d&#x2F;10-mail.conf  #修改邮箱位置的主配置文件.</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002216.png" alt></p>
-<p>重启dovecot服务:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# service dovecot restart</span><br></pre></td></tr></table></figure>
-
-<p>开启防火墙！</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002224.png" style="zoom:150%;">
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002232.png" alt></p>
-<p>测试：</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002240.png" style="zoom:150%;">
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002247.png" alt></p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002253.png" alt></p>
-<p>邮件服务器搭建完毕！</p>
-<p>用户磁盘配额管理</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vim &#x2F;etc&#x2F;fstab</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002301.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# init 6  #修改后重启linux系统</span><br><span class="line">[root@mail ~]# quotacheck –augv  </span><br><span class="line">执行quotacheck命令，创建aquota.user文件</span><br><span class="line">-a    &#x2F;&#x2F;扫描&#x2F;etc&#x2F;fstab文件加入quota设置的分区</span><br><span class="line">-g     &#x2F;&#x2F;检查文件系统中文件和目录的数目，并创建aquota.group文件</span><br><span class="line">-u     &#x2F;&#x2F;检查文件系统中文件和目录的数目，并创建aquota.user文件</span><br><span class="line">-v     &#x2F;&#x2F;显示命令的执行过程。</span><br><span class="line">edquota 选项 用户名|组名</span><br><span class="line">主要选项</span><br><span class="line">-g 设置组的磁盘配额</span><br><span class="line">-p 复制某个用户或组的磁盘配额，以设置另一个用户或组的配额</span><br><span class="line">-u设置用户的磁盘配额。缺省时为设置用户的磁盘配额</span><br><span class="line">[root@mail ~]# edquota -u cmx  </span><br><span class="line">空间大小自己定义 以下例：最大空间为20MB 单位：KB</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002307.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# edquota -u cmx1</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002313.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# edquota -u cmx2</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002320.png" alt></p>
-<p>启动配额管理</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# quotaoff –aguv  #关闭配额管理</span><br><span class="line">&#x2F;dev&#x2F;sda5 [&#x2F;home]: group quotas turned off</span><br><span class="line">&#x2F;dev&#x2F;sda5 [&#x2F;home]: user quotas turned off</span><br><span class="line">[root@mail ~]# quotaon –aguv  #启动配额管理</span><br><span class="line">&#x2F;dev&#x2F;sda5 [&#x2F;home]: group quotas turned on</span><br><span class="line">&#x2F;dev&#x2F;sda5 [&#x2F;home]: user quotas turned on</span><br></pre></td></tr></table></figure>
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002330.png" style="zoom:150%;">
-
-<p>测试: 给cmx2发送一个大于20MB的附件</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002339.png" style="zoom:150%;">
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002345.png" style="zoom:150%;">
-
-<p>给cmx2 发送一个小于20MB的附件</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002352.png" alt></p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002359.png" style="zoom:150%;">
-
-<p>至此，Postfix服务器及其用户的配额管理已经设置完毕</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>服务器</category>
-        <category>Postfix</category>
-      </categories>
-      <tags>
-        <tag>服务器</tag>
-        <tag>Linux</tag>
-        <tag>Postfix</tag>
       </tags>
   </entry>
   <entry>
@@ -1182,121 +964,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Python基础知识点梳理</title>
-    <url>/2020/04/22/Python%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h2 id="python基础知识点梳理"><a href="#python基础知识点梳理" class="headerlink" title="python基础知识点梳理"></a>python基础知识点梳理</h2><p>摘要：<br>本文主要介绍一些平时经常会用到的python基础知识点，用于加深印象，也算是对于学习这门语言的一个总结与回顾。python的详细语法介绍可以查看官方编程手册，也有一些在线网站对python语法进行了比较全面的介绍。</p>
-<h3 id="python语言介绍"><a href="#python语言介绍" class="headerlink" title="python语言介绍"></a>python语言介绍</h3><p>python是一门解释型语言，python的设计目标：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一门简单直观的语言并与主要竞争者一样强大</span><br><span class="line">开源，以便任何人都可以为它做贡献</span><br><span class="line">代码像纯英语那样容易理解</span><br><span class="line">适用于短期开发的日常任务</span><br></pre></td></tr></table></figure>
-
-<p>设计哲学是：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.优雅</span><br><span class="line">2.明确</span><br><span class="line">3.简单</span><br></pre></td></tr></table></figure>
-
-<h3 id="python基础语法"><a href="#python基础语法" class="headerlink" title="python基础语法"></a>python基础语法</h3><h4 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">第一个字符必须是字母表中字母或下划线 。</span><br><span class="line">标识符的其他的部分由字母、数字和下划线组成。</span><br><span class="line">标识符对大小写敏感。</span><br></pre></td></tr></table></figure>
-
-<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235809.png" alt></p>
-<h4 id="行与缩进"><a href="#行与缩进" class="headerlink" title="行与缩进"></a>行与缩进</h4><p>python与其他语言明显的区别是没有大括号，而是用缩进表示代码块。<br>另外，每行语句不需要以分号结束。</p>
-<h4 id="多行语句"><a href="#多行语句" class="headerlink" title="多行语句"></a>多行语句</h4><p>如果语句很长，可以使用反斜杠()来实现多行语句<br>说明：在 [], {}, 或 () 中的多行语句不需要使用反斜杠</p>
-<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235816.png" alt></p>
-<h3 id="判断语法"><a href="#判断语法" class="headerlink" title="判断语法"></a>判断语法</h3><h4 id="if-else语句"><a href="#if-else语句" class="headerlink" title="if else语句"></a>if else语句</h4><p>if 和 else用于对条件进行判断并进行处理，语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if 要判断的条件:</span><br><span class="line">     条件成立时要做的事情</span><br><span class="line">     …</span><br><span class="line"> else:</span><br><span class="line">     条件不成立时要做的事情</span><br></pre></td></tr></table></figure>
-
-<h4 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h4><p>对于同时判断多个条件的情况可以用逻辑运算符，有如下三种：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235824.png" alt></p>
-<h4 id="elif-语句"><a href="#elif-语句" class="headerlink" title="elif 语句"></a>elif 语句</h4><p>elif语句用于有多个条件进行判断的场景，语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if 条件1:</span><br><span class="line">    条件1满足时执行的代码</span><br><span class="line">elif 条件2:</span><br><span class="line">    条件2满足时执行的代码</span><br><span class="line">elif 条件3:</span><br><span class="line">    条件3满足时执行的代码</span><br><span class="line">else:</span><br><span class="line">    以上都不满足时执行的代码</span><br></pre></td></tr></table></figure>
-
-<h3 id="循环语法"><a href="#循环语法" class="headerlink" title="循环语法"></a>循环语法</h3><h4 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h4><p>循环的作用就是让指定的代码重复执行<br>while循环是python中常见的循环，用于让执行的代码按照指定次数重复执行，语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">初始条件设置，通常是计数器</span><br><span class="line">while 条件(判断计数器是否达到目标次数):</span><br><span class="line">    条件满足时候执行的代码</span><br><span class="line">    …</span><br><span class="line">    处理条件(计数器 + 1)</span><br></pre></td></tr></table></figure>
-
-<h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><p>for循环可以方便地遍历列表，元组，字典等数据类型，比如遍历一个列表的代码片段如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nameList &#x3D; [&quot;zhangsan&quot;, &quot;lisi&quot;, &quot;wangwu&quot;]</span><br><span class="line">for name in nameList:</span><br><span class="line">    print(name)</span><br></pre></td></tr></table></figure>
-
-<p>python中，for循环经常与range函数搭配使用，如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for i in range(1, 10):</span><br><span class="line">     print(i)</span><br></pre></td></tr></table></figure>
-
-<h3 id="python数据类型介绍"><a href="#python数据类型介绍" class="headerlink" title="python数据类型介绍"></a>python数据类型介绍</h3><h4 id="按照是否是数字可以按照如下表格分类："><a href="#按照是否是数字可以按照如下表格分类：" class="headerlink" title="按照是否是数字可以按照如下表格分类："></a>按照是否是数字可以按照如下表格分类：</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235829.png" alt></p>
-<p>说明：使用type函数可以返回变量的数据类型</p>
-<h4 id="按照是否可变可以分为："><a href="#按照是否可变可以分为：" class="headerlink" title="按照是否可变可以分为："></a>按照是否可变可以分为：</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235839.png" alt></p>
-<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p>列表(list)是python中使用最频繁的数据类型，类似其他语言的数组<br>列表的符号是中括号[]，初始化一个列表语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">program_list &#x3D; [&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;]</span><br></pre></td></tr></table></figure>
-
-<p>列表中常见的几种操作如下：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235847.png" alt></p>
-<h4 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h4><p>元组(tuple)与列表类似，区别是元组的数据不能修改，元组的符号是小括号()，初始化一个元组的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">program_tuple &#x3D; (&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>元组主要用于函数的参数和返回值，格式化字符串，以及保护列表数据，由于元组的数据无法修改，因此提供的方法也比较少：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235855.png" alt></p>
-<p>元组在python中还可以用于交换两个变量的值:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a &#x3D; 10</span><br><span class="line">b &#x3D; 9</span><br><span class="line">a, b &#x3D; (b, a)</span><br></pre></td></tr></table></figure>
-
-<h4 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h4><p>字典(dict)通常用于描述一个物体的相关信息，使用键值对存储数据，键必须唯一，由于要使用hash算法，只有不可变类型才能用作键，字典的符号是大括号{}，初始化一个字典的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">human_dic &#x3D; &#123;&quot;name&quot;: &quot;zhangsan&quot;,</span><br><span class="line">             &quot;age&quot;: 26,</span><br><span class="line">             &quot;height&quot;: 1.75,</span><br><span class="line">             &quot;weight&quot;: 66&#125;</span><br></pre></td></tr></table></figure>
-
-<p>字典的常用操作函数如下：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235901.png" alt></p>
-<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>字符串(str)的使用也非常广泛，可以使用引号(‘或”)来创建字符串，初始化一个字符串的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">testStr &#x3D; &quot;Wasting time is robbing oneself&quot;</span><br></pre></td></tr></table></figure>
-
-<p>python对于str提供了很多实用的方法，比较常用的有以下这些：</p>
-<p>对字符串进行判断的方法：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235908.png" alt></p>
-<p>对字符串进行修改(包括格式化，大小写转换)：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235915.png" alt></p>
-<p>字符串的查找和替换：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235922.png" alt></p>
-<p>字符串的拆分和连接：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235931.png" alt></p>
-<h5 id="公共方法"><a href="#公共方法" class="headerlink" title="公共方法"></a>公共方法</h5><h6 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h6><p>对于列表，元组，字典，字符串，python也提供了一些公共方法，如下：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235936.png" alt></p>
-<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><p>高级数据类型同样支持以下常见的运算符：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235943.png" alt></p>
-<h4 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h4><p>切片使用索引值可以方便地截取容器中一定范围的数据，适用于列表，元组，字符串。<br>切片语法如下：<br>item[N:M:S]<br>其中N表示要截取的开始位置，M表示结束位置，S表示step也就是步长，默认是1，截取的时候[N:M]是个半闭合区间，等效于数学上[N,M)取值范围，取N不取M, N和M都可以省略。python中，-1可以表示最后一个元素，字符串利用切片完成翻转的代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; test_str &#x3D; &quot;Hello World&quot; </span><br><span class="line">&gt;&gt;&gt; print(test_str[::-1])</span><br></pre></td></tr></table></figure>
-
-<h3 id="python函数语法"><a href="#python函数语法" class="headerlink" title="python函数语法"></a>python函数语法</h3><p>在python中定义一个函数需要使用def关键字，相比其他语言，返回值不需要声明，定义一个函数的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_hello():</span><br><span class="line">     print(&quot;Hello, World!&quot;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="缺省参数"><a href="#缺省参数" class="headerlink" title="缺省参数"></a>缺省参数</h4><p>除了常见的必须参数外，python支持缺省参数，即为参数指定一个默认值，可以不传入这个参数，代码例子如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_human(name, age &#x3D; 23):</span><br><span class="line">     print(&quot;body info: name is %s, age is %s&quot; % (name, age) )</span><br><span class="line"> print_human(&quot;wangwu&quot;)</span><br><span class="line"> print_human(&quot;lisi&quot;, 25)</span><br><span class="line"> print_human(&quot;zhangsan&quot;, age &#x3D; 36)</span><br></pre></td></tr></table></figure>
-
-<h4 id="多值参数"><a href="#多值参数" class="headerlink" title="多值参数"></a>多值参数</h4><p>如果函数处理的参数的个数不确定，就可以用多值参数：</p>
-<p>参数名前面增加一个<em>可</em>以接收元组 </p>
-<p>参数名前面增加两个可以接收字典</p>
-<p>使用了这两个多值参数的代码例子如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_info(*args, **kwargs):</span><br><span class="line">     print(args)</span><br><span class="line">     print(kwargs)</span><br><span class="line"> program_list &#x3D; [&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;]</span><br><span class="line"> human_dic &#x3D; &#123;&quot;name&quot;: &quot;zhangsan&quot;, &quot;age&quot;: 26, &quot;height&quot;: 1.75, &quot;weight&quot;: 66&#125;</span><br><span class="line"> print_info(*program_list, **human_dic)</span><br></pre></td></tr></table></figure>
-
-<h6 id="返回多个值"><a href="#返回多个值" class="headerlink" title="返回多个值"></a>返回多个值</h6><p>python中可以利用元组返回多个值，多个返回值的代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def measure_rect():</span><br><span class="line">     width &#x3D; 12</span><br><span class="line">     height &#x3D; 6</span><br><span class="line">     return width, height</span><br><span class="line"> w, h &#x3D; measure_rect()</span><br><span class="line"> print(&quot;width is %d, height is %d&quot; % (w, h))</span><br></pre></td></tr></table></figure>
-
-<h3 id="python常用函数"><a href="#python常用函数" class="headerlink" title="python常用函数"></a>python常用函数</h3><h4 id="print输出函数"><a href="#print输出函数" class="headerlink" title="print输出函数"></a>print输出函数</h4><p>python使用print函数将信息输出到控制台，输出数据时经常会用到格式化操作符，不同的格式化字符串含义如下表：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235949.png" alt></p>
-<p>语法格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(&quot;格式化字符串&quot; % 变量1)</span><br><span class="line">print(&quot;格式化字符串&quot; % (变量1, 变量2…))</span><br></pre></td></tr></table></figure>
-
-<p>print函数默认会自动在内容末尾增加换行，如果不希望换行，可以用end参数指定需要输出的内容<br>语法格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(&quot;Hello word!&quot;, end&#x3D;&quot;&quot;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="input输入函数"><a href="#input输入函数" class="headerlink" title="input输入函数"></a>input输入函数</h4><p>使用input函数从键盘等待用户的输入，默认都是一个字符串<br>语法格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">字符串变量 &#x3D; input(&quot;提示信息：&quot;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="类型转换函数"><a href="#类型转换函数" class="headerlink" title="类型转换函数"></a>类型转换函数</h4><p>常见的类型转换函数如下：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527000004.png" alt></p>
-<p>参考文献:原文链接：<a href="https://blog.csdn.net/m0_46245938/article/details/104160793" target="_blank" rel="noopener">https://blog.csdn.net/m0_46245938/article/details/104160793</a></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>编程</tag>
-        <tag>编程基础</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux下——Apache服务器的搭建</title>
     <url>/2020/04/21/Linux%E4%B8%8B%E2%80%94%E2%80%94Apache%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -1438,6 +1105,339 @@
         <tag>服务器</tag>
         <tag>Linux</tag>
         <tag>Apache</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux下——磁盘管理与crontab调度</title>
+    <url>/2020/04/27/Linux%E4%B8%8B%E2%80%94%E2%80%94%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E4%B8%8Ecrontab%E8%B0%83%E5%BA%A6/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<p>例：某台linux服务器 加了一块1个T的硬盘 要求分四个区 内存大小相同.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk –l  #查看所有本地硬盘路径</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001644.png" alt></p>
+<p>如上所得 我们新加的硬盘路径是 /dev/sdb</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk &#x2F;dev&#x2F;sdb   #选择目标硬盘  也就是我们要分的硬盘!</span><br><span class="line"> Command (m for help): n  #新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #标准分区</span><br><span class="line"> Partition number (1-4): 1  #问你这是你要分第几个区  我们这里是分第一个区</span><br><span class="line"> First cylinder (1-133674, default 1): 1  #内存大小  因为第一块  从1开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (1-133674, default 133674): 33418.5  #内存大小到哪里结束,我们是分四块所有133674除4 平均每一块的大小.</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p     #创建标准分区</span><br><span class="line"> Partition number (1-4): 2  #第二块分区</span><br><span class="line"> First cylinder (33419-133674, default 33419): 33419   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (33419-133674, default 133674): 66837  #硬盘大小到哪结束.  第二块就是33418.5+33418.5的内存结束 第三块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Partition number (1-4): 3   #第三块分区</span><br><span class="line"> First cylinder (66838-133674, default 66838): 66838   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (66838-133674, default 133674): 100255.5    #硬盘大小到哪结束.  第三块就是33418.5+33418.5+33418.5的内存结束 第二块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action </span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Selected partition 4  #第四块分区</span><br><span class="line"> First cylinder (100256-133674, default 100256): 100256  #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (100256-133674, default 133674): 133674</span><br><span class="line"> 硬盘大小到哪结束.  第四块就是33418.5+33418.5+33418.5+33418.5的内存结束 第四块分区</span><br><span class="line"> Command (m for help): w  #保持并退出分区选项</span><br><span class="line"> The partition table has been altered!</span><br><span class="line"> [root@ns ~]# fdisk –l  #查看所有硬盘路径,找到我们刚刚分的四块硬盘路径 格式化</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb1  #格式化我们分的第一块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb2  #格式化我们分的第二块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb3  #格式化我们分的第三块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb4  #格式化我们分的第四块硬盘</span><br></pre></td></tr></table></figure>
+
+<p>测试：计算机里有1T大小的硬盘分为了4块大小一致的硬盘</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527001650.png" style="zoom:150%;">
+
+<p>磁盘管理 搭建完毕！</p>
+<p>Cron调度</p>
+<p>例：我们每个星期五14点30分都要自动备份/home目录去另一块磁盘 ！</p>
+<p>第一个*：分钟0～59</p>
+<p>第二个*：小时0～23</p>
+<p>第三个*：日期1～31</p>
+<p>第四个*：月份1～12</p>
+<p>第五个*：星期0～7；注意0和7都表示星期天。</p>
+<p>第六个代表命令名称</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  </span><br><span class="line">[root@ns ~]# crontab -l</span><br><span class="line">*&#x2F;1 * * * * cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66 #我先做了个每分钟的自动备份</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527001659.png" style="zoom:200%;">
+
+<p>现在按照要求来： 每个礼拜五14：30备份一次/home目录去/media/8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  #在这里下面编辑  </span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容!</span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容! 例：每2分钟拷贝一次</span><br><span class="line">*&#x2F;2 * * * * tar -czf &#x2F;backup&#x2F;home-data.tar.gz &#x2F;home  #拷贝的压缩包格式</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>磁盘</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>定时任务</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux下用户和组的管理</title>
+    <url>/2020/04/24/Linux%E4%B8%8B%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="Linux系统：centos"><a href="#Linux系统：centos" class="headerlink" title="Linux系统：centos"></a>Linux系统：centos</h1><h2 id="1-用户的分类"><a href="#1-用户的分类" class="headerlink" title="1.用户的分类"></a>1.用户的分类</h2><p>在Linux下用户角色划分如下：</p>
+<h3 id="超级用户："><a href="#超级用户：" class="headerlink" title="超级用户："></a>超级用户：</h3><p>root 拥有对系统的最高的管理权限（UID=0）如果我们把普通用户的UID改为0系统也会将其视为root用户。</p>
+<h3 id="普通用户-："><a href="#普通用户-：" class="headerlink" title="普通用户 ："></a><strong>普通用户</strong> ：</h3><p>系统用户（UID 1-999），在Centos6中为1-499；本地用户 （UID 1000+）,Centos6中为500+ （注：UID：即每个用户的身份标示）</p>
+<h3 id="虚拟用户："><a href="#虚拟用户：" class="headerlink" title="虚拟用户："></a>虚拟用户：</h3><p>也称做伪用户，一般不会用来登录系统，由系统中的服务使用，比如apache、zabbix等。</p>
+<h2 id="2-用户和组的对应关系"><a href="#2-用户和组的对应关系" class="headerlink" title="2.用户和组的对应关系"></a>2.用户和组的对应关系</h2><h3 id="一对多一："><a href="#一对多一：" class="headerlink" title="一对多一："></a>一对多一：</h3><p>一个用户可以存在一个组中； </p>
+<h3 id="一对多："><a href="#一对多：" class="headerlink" title="一对多："></a>一对多：</h3><p>一个用户可以存在多个组中；</p>
+<h3 id="多对一："><a href="#多对一：" class="headerlink" title="多对一："></a>多对一：</h3><p>多个用户可以存在一个组中；</p>
+<h3 id="多对多："><a href="#多对多：" class="headerlink" title="多对多："></a>多对多：</h3><p>多个用户可以存在多个组中；</p>
+<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527000853.png" alt></p>
+<h3 id="下面是上述文件参数的详解："><a href="#下面是上述文件参数的详解：" class="headerlink" title="下面是上述文件参数的详解："></a>下面是上述文件参数的详解：</h3><h4 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;passwd |head</span><br><span class="line">root:x:0:0:root:&#x2F;root:&#x2F;bin&#x2F;bash                            </span><br><span class="line">bin:x:1:1:bin:&#x2F;bin:&#x2F;sbin&#x2F;nologin</span><br><span class="line">daemon:x:2:2:daemon:&#x2F;sbin:&#x2F;sbin&#x2F;nologin</span><br><span class="line">adm:x:3:4:adm:&#x2F;var&#x2F;adm:&#x2F;sbin&#x2F;nologin</span><br><span class="line">lp:x:4:7:lp:&#x2F;var&#x2F;spool&#x2F;lpd:&#x2F;sbin&#x2F;nologin</span><br><span class="line">sync:x:5:0:sync:&#x2F;sbin:&#x2F;bin&#x2F;sync</span><br><span class="line">shutdown:x:6:0:shutdown:&#x2F;sbin:&#x2F;sbin&#x2F;shutdown</span><br><span class="line">halt:x:7:0:halt:&#x2F;sbin:&#x2F;sbin&#x2F;halt</span><br><span class="line">mail:x:8:12:mail:&#x2F;var&#x2F;spool&#x2F;mail:&#x2F;sbin&#x2F;nologin</span><br><span class="line">operator:x:11:0:operator:&#x2F;root:&#x2F;sbin&#x2F;nologin</span><br></pre></td></tr></table></figure>
+
+<h5 id="该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义："><a href="#该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义：" class="headerlink" title="该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义："></a>该文件一行记录着一个用户，每行又以：分割成7列，其中每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用户名：密码占位符：UID：GID：描述信息（在图形界面我们登录前由原来的用户名变为我们自定义的描述信息）：</span><br><span class="line">用户的家目录：登录shell</span><br></pre></td></tr></table></figure>
+
+<h4 id="etc-group"><a href="#etc-group" class="headerlink" title="/etc/group"></a>/etc/group</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;group|head</span><br><span class="line">root:x:0:</span><br><span class="line">bin:x:1:</span><br><span class="line">daemon:x:2:</span><br><span class="line">sys:x:3:</span><br><span class="line">adm:x:4:</span><br><span class="line">tty:x:5:</span><br><span class="line">disk:x:6:</span><br><span class="line">lp:x:7:</span><br><span class="line">mem:x:8:</span><br><span class="line">kmem:x:9:</span><br></pre></td></tr></table></figure>
+
+<h5 id="每一列的参数含义："><a href="#每一列的参数含义：" class="headerlink" title="每一列的参数含义："></a>每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">组名：组的密码的占位符：GID：组内的成员列表</span><br></pre></td></tr></table></figure>
+
+<h4 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="/etc/shadow"></a>/etc/shadow</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;shadow</span><br><span class="line">root:sadadasdawerqwrxsadi0:18301:0:99999:7:::</span><br><span class="line">bin::17834:0:99999:7::: daemon::17834:0:99999:7:::</span><br><span class="line">adm::17834:0:99999:7::: lp::17834:0:99999:7:::</span><br><span class="line">sync::17834:0:99999:7::: shutdown::17834:0:99999:7:::</span><br><span class="line">halt::17834:0:99999:7::: mail::17834:0:99999:7:::</span><br></pre></td></tr></table></figure>
+
+<h5 id="每一列的参数含义：-1"><a href="#每一列的参数含义：-1" class="headerlink" title="每一列的参数含义："></a>每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">账号名称：加密的密码：最近更改密码的时间；从1970&#x2F;1&#x2F;1到上次修改密码的天数，（可用date -d &quot;1970-01-01 [选项中对应的数字] days&quot; 命令查看）：密码不可被修改的天数：密码有效期：密码过期之前警告天数：密码过期的期限天数：帐号失效时间；从1970&#x2F;1&#x2F;1日起，到用户被禁用的天数：保留字段</span><br></pre></td></tr></table></figure>
+
+<h4 id="etc-gshadow"><a href="#etc-gshadow" class="headerlink" title="/etc/gshadow"></a>/etc/gshadow</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;gshadow</span><br><span class="line">root:::</span><br><span class="line">bin:::</span><br><span class="line">daemon:::</span><br><span class="line">sys:::</span><br><span class="line">adm:::</span><br><span class="line">tty:::</span><br><span class="line">disk:::</span><br><span class="line">lp:::</span><br><span class="line">mem:::</span><br><span class="line">kmem:::</span><br><span class="line">wheel:::</span><br></pre></td></tr></table></figure>
+
+<h5 id="每一列的参数含义：-2"><a href="#每一列的参数含义：-2" class="headerlink" title="每一列的参数含义："></a>每一列的参数含义：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">组账号名称：加密后的密码（显示！或者为空表示没有密码）：该组的管理员列表，该字段可以为空，如果有多个管理员则用，隔开：该组的成员列表，多个用户用，隔开</span><br></pre></td></tr></table></figure>
+
+<h3 id="etc-skel目录："><a href="#etc-skel目录：" class="headerlink" title="/etc/skel目录："></a>/etc/skel目录：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# ll -a &#x2F;etc&#x2F;skel&#x2F;</span><br><span class="line">总用量 28</span><br><span class="line">drwxr-xr-x.  2 root root  4096 11月  5 23:09 .</span><br><span class="line">drwxr-xr-x. 95 root root 12288 2月  10 00:16 ..</span><br><span class="line">-rw-r--r--   1 root root    18 8月   8 2019 .bash_logout</span><br><span class="line">-rw-r--r--   1 root root   193 8月   8 2019 .bash_profile</span><br><span class="line">-rw-r--r--   1 root root   231 8月   8 2019 .bashrc</span><br><span class="line">[root@centos7 ~]#</span><br></pre></td></tr></table></figure>
+
+<p>/etc/skel目录是用来存放新增的用户的配置文件的目录，当我们创建新用户时，这个目录下的所有文件都会自动被复制到新创建的用户的家目录下，默认情况下，该目录下的所有文件都是隐藏文件。</p>
+<p>/etc/default/useradd文件<br>/etc/default/useradd文件在使用useradd命令创建用户时需要调用的一个默认的配置文件。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos7 ~]# cat &#x2F;etc&#x2F;default&#x2F;useradd</span><br><span class="line">useradd defaults file</span><br><span class="line">GROUP&#x3D;100                            </span><br><span class="line">HOME&#x3D;&#x2F;home                    #设置用户的家目录在&#x2F;home中</span><br><span class="line">INACTIVE&#x3D;-1                    #是否启用账号过期后禁用，-1表示不启用</span><br><span class="line">EXPIRE&#x3D;                        #账号终止日期，空值表示不启用</span><br><span class="line">SHELL&#x3D;&#x2F;bin&#x2F;bash                #新建的用户的默认使用的shell类型</span><br><span class="line">SKEL&#x3D;&#x2F;etc&#x2F;skel                #新建的用户家目录默认文件存放路径，也就是前文提 到的&#x2F;etc&#x2F;skell目录</span><br><span class="line">CREATE_MAIL_SPOOL&#x3D;yes        #是否创建mail文件</span><br><span class="line">[root@centos7 ~]#</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-用户命令"><a href="#3-用户命令" class="headerlink" title="3.用户命令"></a>3.用户命令</h2><h3 id="创建新用户的命令：-useradd、adduser"><a href="#创建新用户的命令：-useradd、adduser" class="headerlink" title="-创建新用户的命令： useradd、adduser"></a>-创建新用户的命令： useradd、adduser</h3><p>注：adduser是useradd的软连接</p>
+<p>useradd [参数选项] 用户名</p>
+<h3 id="该命令常用的参数及含义："><a href="#该命令常用的参数及含义：" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-d：指定用户家目录</span><br><span class="line">-M：不创建用户的家目录</span><br><span class="line">-g：设置用户初始组的名称或ID，如果没有设置该选项，useradd 会根据&#x2F;etc&#x2F;login.defs 文件中的 USERGROUPS_ENAB 环境变量进行设置。默认 USERGROUPS_ENAB yes 会用和用户名相同的名字创建群组，GID 等于 UID</span><br><span class="line">-G：指定用户要加入的附加组列表，使用，号分隔多个组，不要添加空格。（一个用户只允许有一个主组，可有多个附属组）</span><br><span class="line">-s：创建用户时，指定用户的shell类型，设置成&#x2F;sbin&#x2F;nologin就可以禁止用户登录</span><br><span class="line">-u：指定用户UID</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用userdel删除用户："><a href="#使用userdel删除用户：" class="headerlink" title="使用userdel删除用户："></a>使用userdel删除用户：</h3><p>用法：userdel [参数选项] 用户名<br>选项：-r 删除用户时同时删除用户的家目录和/var/mail下的目录</p>
+<h3 id="使用groupadd命令创建新组："><a href="#使用groupadd命令创建新组：" class="headerlink" title="使用groupadd命令创建新组："></a>使用groupadd命令创建新组：</h3><p>用法 ： groupadd [参数选项] 组名</p>
+<h4 id="该命令常用的参数及含义：-1"><a href="#该命令常用的参数及含义：-1" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-g： 指定GID，必须是唯一的数值，除非指定-o选项</span><br><span class="line">-r： 建立系统用户组</span><br><span class="line">-f： 新增一个账户，强制覆盖已存在的用户组账户</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用groupdel命令删除组："><a href="#使用groupdel命令删除组：" class="headerlink" title="使用groupdel命令删除组："></a>使用groupdel命令删除组：</h3><p>用法：groupdel 组名<br>（注意：删除的目标组不能是用户的基本组）</p>
+<h3 id="使用passwd命令修改密码："><a href="#使用passwd命令修改密码：" class="headerlink" title="使用passwd命令修改密码："></a>使用passwd命令修改密码：</h3><p>用法：passwd [参数选项]</p>
+<h4 id="该命令常用的参数及含义：-2"><a href="#该命令常用的参数及含义：-2" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-d：清空密码。仅root能操作</span><br><span class="line">-f： 强制操作，仅root能操作</span><br><span class="line">-l：锁定用户账户，锁定其用户无权更改其密码，仅root能操作</span><br><span class="line">-u：解锁用户账户，仅root能操作</span><br><span class="line">-s：查看用户的状态</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用gpasswd命令管理组："><a href="#使用gpasswd命令管理组：" class="headerlink" title="使用gpasswd命令管理组："></a>使用gpasswd命令管理组：</h3><p>用法：gpasswd</p>
+<h4 id="该命令常用的参数及含义：-3"><a href="#该命令常用的参数及含义：-3" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-A:定义组管理员列表 </span><br><span class="line">-a：添加组成员，每次只能加一个 </span><br><span class="line">-d：删除组成员，每次只能删除一个 </span><br><span class="line">-M：定义组成员，可设置多个，用，隔开 </span><br><span class="line">-r：移除组的密码 </span><br><span class="line">-R：将其成员限制访问组</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用usermod命令修改用户信息："><a href="#使用usermod命令修改用户信息：" class="headerlink" title="使用usermod命令修改用户信息："></a>使用usermod命令修改用户信息：</h3><p>用法：usermod [参数选项] 用户名</p>
+<h4 id="该命令常用的参数及含义：-4"><a href="#该命令常用的参数及含义：-4" class="headerlink" title="该命令常用的参数及含义："></a>该命令常用的参数及含义：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-u：指定UID</span><br><span class="line"> -d：指定家目录</span><br><span class="line"> -g：指定起始组（只能有一个）</span><br><span class="line"> -G：附加组（可以有多个）</span><br><span class="line"> -s：指定用户登录的shell</span><br><span class="line"> -L：锁定用户账号</span><br><span class="line"> -d：-d一般跟-m一起使用，既指定新的家目录，又移动此前的文件到新的家目录中</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>服务器</tag>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux下邮件服务器——Postfix服务器配置与管理</title>
+    <url>/2020/04/27/Linux%E4%B8%8B%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E2%80%94%E2%80%94Postfix%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<p>第一步：我们先检查是否安装Postfix服务器的软件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa|grep postfix</span><br></pre></td></tr></table></figure>
+
+<p>第二步：使用yum方式安装Postfix服务器软件</p>
+<p>制作yum源文件，创建存储库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mkdir &#x2F;cdrom</span><br></pre></td></tr></table></figure>
+
+<p>挂载光盘</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mount &#x2F;dev&#x2F;cdrom &#x2F;cdrom</span><br><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;yum.repos.d&#x2F;dvd.repo</span><br><span class="line">[dvd]</span><br><span class="line">name&#x3D;dvd</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;cdrom</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enabeld&#x3D;1</span><br><span class="line">[root@localhost ~]# yum install Postfix–y  #安装Postfix发邮件软件</span><br><span class="line">[root@ns ~]# yum install dovecot –y  #安装dovecot收邮件软件</span><br></pre></td></tr></table></figure>
+
+<p>第三步:启动postfix,dovecot,named服务，并设置为开机自启.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# service postfix restart  #重启服务</span><br><span class="line">[root@ns ~]# service named restart  #重启服务</span><br><span class="line">[root@ns ~]# service dovecot restart  #重启服务</span><br><span class="line">[root@ns ~]# chkconfig dovecot on   #设置开机自启</span><br><span class="line">[root@ns ~]# chkconfig postfix on     #设置开机自启</span><br></pre></td></tr></table></figure>
+
+<p>第四步：接下来先配置IP参数.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">postfix 服务器IP地址：192.168.1.118</span><br><span class="line">postfix 服务器IP地址：192.168.1.118</span><br><span class="line">[root@ns ~]# hostname mail.jcxy.com #修改主机名</span><br><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;sysconfig&#x2F;network #修改配置文件让其主机名永久生效</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002029.png" style="zoom:150%;">
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;hosts  #加快主机解析，在一下添加</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002038.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vim &#x2F;etc&#x2F;resolv.conf  #在DNS服务器搭建成功后会自动生成以下</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002044.png" alt></p>
+<p>创建用户：例 创建三个用户 cmx ,cmx1,cmx2</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# useradd cmx  </span><br><span class="line">[root@mail ~]# useradd cmx1</span><br><span class="line">[root@mail ~]# useradd cmx2</span><br><span class="line">[root@mail ~]# passwd cmx</span><br><span class="line">[root@mail ~]# passwd cmx1</span><br><span class="line">[root@mail ~]# passwd cmx2</span><br></pre></td></tr></table></figure>
+
+<p>第五步:配置postfix主配置文件</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002052.png" style="zoom:150%;">
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002101.png" style="zoom:150%;">
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002110.png" style="zoom:150%;">
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002118.png" style="zoom:150%;">
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002126.png" alt></p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002131.png" alt></p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002138.png" style="zoom:150%;">
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002148.png" style="zoom:150%;">
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vim &#x2F;etc&#x2F;aliases  #在以下编辑群发邮件</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002155.png" alt></p>
+<p>重启postfix服务</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# service postfix restart</span><br></pre></td></tr></table></figure>
+
+<p>第六步:配置dovecot的主配置文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vim &#x2F;etc&#x2F;dovecot&#x2F;dovecot.conf</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002201.png" style="zoom:150%;">
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002209.png" style="zoom:150%;">
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vim &#x2F;etc&#x2F;dovecot&#x2F;conf.d&#x2F;10-mail.conf  #修改邮箱位置的主配置文件.</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002216.png" alt></p>
+<p>重启dovecot服务:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# service dovecot restart</span><br></pre></td></tr></table></figure>
+
+<p>开启防火墙！</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002224.png" style="zoom:150%;">
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002232.png" alt></p>
+<p>测试：</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002240.png" style="zoom:150%;">
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002247.png" alt></p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002253.png" alt></p>
+<p>邮件服务器搭建完毕！</p>
+<p>用户磁盘配额管理</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vim &#x2F;etc&#x2F;fstab</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002301.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# init 6  #修改后重启linux系统</span><br><span class="line">[root@mail ~]# quotacheck –augv  </span><br><span class="line">执行quotacheck命令，创建aquota.user文件</span><br><span class="line">-a    &#x2F;&#x2F;扫描&#x2F;etc&#x2F;fstab文件加入quota设置的分区</span><br><span class="line">-g     &#x2F;&#x2F;检查文件系统中文件和目录的数目，并创建aquota.group文件</span><br><span class="line">-u     &#x2F;&#x2F;检查文件系统中文件和目录的数目，并创建aquota.user文件</span><br><span class="line">-v     &#x2F;&#x2F;显示命令的执行过程。</span><br><span class="line">edquota 选项 用户名|组名</span><br><span class="line">主要选项</span><br><span class="line">-g 设置组的磁盘配额</span><br><span class="line">-p 复制某个用户或组的磁盘配额，以设置另一个用户或组的配额</span><br><span class="line">-u设置用户的磁盘配额。缺省时为设置用户的磁盘配额</span><br><span class="line">[root@mail ~]# edquota -u cmx  </span><br><span class="line">空间大小自己定义 以下例：最大空间为20MB 单位：KB</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002307.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# edquota -u cmx1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002313.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# edquota -u cmx2</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002320.png" alt></p>
+<p>启动配额管理</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# quotaoff –aguv  #关闭配额管理</span><br><span class="line">&#x2F;dev&#x2F;sda5 [&#x2F;home]: group quotas turned off</span><br><span class="line">&#x2F;dev&#x2F;sda5 [&#x2F;home]: user quotas turned off</span><br><span class="line">[root@mail ~]# quotaon –aguv  #启动配额管理</span><br><span class="line">&#x2F;dev&#x2F;sda5 [&#x2F;home]: group quotas turned on</span><br><span class="line">&#x2F;dev&#x2F;sda5 [&#x2F;home]: user quotas turned on</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002330.png" style="zoom:150%;">
+
+<p>测试: 给cmx2发送一个大于20MB的附件</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002339.png" style="zoom:150%;">
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002345.png" style="zoom:150%;">
+
+<p>给cmx2 发送一个小于20MB的附件</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002352.png" alt></p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002359.png" style="zoom:150%;">
+
+<p>至此，Postfix服务器及其用户的配额管理已经设置完毕</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>服务器</category>
+        <category>Postfix</category>
+      </categories>
+      <tags>
+        <tag>服务器</tag>
+        <tag>Linux</tag>
+        <tag>Postfix</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python基础知识点梳理</title>
+    <url>/2020/04/22/Python%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h2 id="python基础知识点梳理"><a href="#python基础知识点梳理" class="headerlink" title="python基础知识点梳理"></a>python基础知识点梳理</h2><p>摘要：<br>本文主要介绍一些平时经常会用到的python基础知识点，用于加深印象，也算是对于学习这门语言的一个总结与回顾。python的详细语法介绍可以查看官方编程手册，也有一些在线网站对python语法进行了比较全面的介绍。</p>
+<h3 id="python语言介绍"><a href="#python语言介绍" class="headerlink" title="python语言介绍"></a>python语言介绍</h3><p>python是一门解释型语言，python的设计目标：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一门简单直观的语言并与主要竞争者一样强大</span><br><span class="line">开源，以便任何人都可以为它做贡献</span><br><span class="line">代码像纯英语那样容易理解</span><br><span class="line">适用于短期开发的日常任务</span><br></pre></td></tr></table></figure>
+
+<p>设计哲学是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.优雅</span><br><span class="line">2.明确</span><br><span class="line">3.简单</span><br></pre></td></tr></table></figure>
+
+<h3 id="python基础语法"><a href="#python基础语法" class="headerlink" title="python基础语法"></a>python基础语法</h3><h4 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">第一个字符必须是字母表中字母或下划线 。</span><br><span class="line">标识符的其他的部分由字母、数字和下划线组成。</span><br><span class="line">标识符对大小写敏感。</span><br></pre></td></tr></table></figure>
+
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235809.png" alt></p>
+<h4 id="行与缩进"><a href="#行与缩进" class="headerlink" title="行与缩进"></a>行与缩进</h4><p>python与其他语言明显的区别是没有大括号，而是用缩进表示代码块。<br>另外，每行语句不需要以分号结束。</p>
+<h4 id="多行语句"><a href="#多行语句" class="headerlink" title="多行语句"></a>多行语句</h4><p>如果语句很长，可以使用反斜杠()来实现多行语句<br>说明：在 [], {}, 或 () 中的多行语句不需要使用反斜杠</p>
+<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235816.png" alt></p>
+<h3 id="判断语法"><a href="#判断语法" class="headerlink" title="判断语法"></a>判断语法</h3><h4 id="if-else语句"><a href="#if-else语句" class="headerlink" title="if else语句"></a>if else语句</h4><p>if 和 else用于对条件进行判断并进行处理，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if 要判断的条件:</span><br><span class="line">     条件成立时要做的事情</span><br><span class="line">     …</span><br><span class="line"> else:</span><br><span class="line">     条件不成立时要做的事情</span><br></pre></td></tr></table></figure>
+
+<h4 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h4><p>对于同时判断多个条件的情况可以用逻辑运算符，有如下三种：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235824.png" alt></p>
+<h4 id="elif-语句"><a href="#elif-语句" class="headerlink" title="elif 语句"></a>elif 语句</h4><p>elif语句用于有多个条件进行判断的场景，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if 条件1:</span><br><span class="line">    条件1满足时执行的代码</span><br><span class="line">elif 条件2:</span><br><span class="line">    条件2满足时执行的代码</span><br><span class="line">elif 条件3:</span><br><span class="line">    条件3满足时执行的代码</span><br><span class="line">else:</span><br><span class="line">    以上都不满足时执行的代码</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环语法"><a href="#循环语法" class="headerlink" title="循环语法"></a>循环语法</h3><h4 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h4><p>循环的作用就是让指定的代码重复执行<br>while循环是python中常见的循环，用于让执行的代码按照指定次数重复执行，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">初始条件设置，通常是计数器</span><br><span class="line">while 条件(判断计数器是否达到目标次数):</span><br><span class="line">    条件满足时候执行的代码</span><br><span class="line">    …</span><br><span class="line">    处理条件(计数器 + 1)</span><br></pre></td></tr></table></figure>
+
+<h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><p>for循环可以方便地遍历列表，元组，字典等数据类型，比如遍历一个列表的代码片段如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nameList &#x3D; [&quot;zhangsan&quot;, &quot;lisi&quot;, &quot;wangwu&quot;]</span><br><span class="line">for name in nameList:</span><br><span class="line">    print(name)</span><br></pre></td></tr></table></figure>
+
+<p>python中，for循环经常与range函数搭配使用，如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for i in range(1, 10):</span><br><span class="line">     print(i)</span><br></pre></td></tr></table></figure>
+
+<h3 id="python数据类型介绍"><a href="#python数据类型介绍" class="headerlink" title="python数据类型介绍"></a>python数据类型介绍</h3><h4 id="按照是否是数字可以按照如下表格分类："><a href="#按照是否是数字可以按照如下表格分类：" class="headerlink" title="按照是否是数字可以按照如下表格分类："></a>按照是否是数字可以按照如下表格分类：</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235829.png" alt></p>
+<p>说明：使用type函数可以返回变量的数据类型</p>
+<h4 id="按照是否可变可以分为："><a href="#按照是否可变可以分为：" class="headerlink" title="按照是否可变可以分为："></a>按照是否可变可以分为：</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235839.png" alt></p>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p>列表(list)是python中使用最频繁的数据类型，类似其他语言的数组<br>列表的符号是中括号[]，初始化一个列表语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">program_list &#x3D; [&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>列表中常见的几种操作如下：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235847.png" alt></p>
+<h4 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h4><p>元组(tuple)与列表类似，区别是元组的数据不能修改，元组的符号是小括号()，初始化一个元组的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">program_tuple &#x3D; (&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>元组主要用于函数的参数和返回值，格式化字符串，以及保护列表数据，由于元组的数据无法修改，因此提供的方法也比较少：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235855.png" alt></p>
+<p>元组在python中还可以用于交换两个变量的值:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a &#x3D; 10</span><br><span class="line">b &#x3D; 9</span><br><span class="line">a, b &#x3D; (b, a)</span><br></pre></td></tr></table></figure>
+
+<h4 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h4><p>字典(dict)通常用于描述一个物体的相关信息，使用键值对存储数据，键必须唯一，由于要使用hash算法，只有不可变类型才能用作键，字典的符号是大括号{}，初始化一个字典的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">human_dic &#x3D; &#123;&quot;name&quot;: &quot;zhangsan&quot;,</span><br><span class="line">             &quot;age&quot;: 26,</span><br><span class="line">             &quot;height&quot;: 1.75,</span><br><span class="line">             &quot;weight&quot;: 66&#125;</span><br></pre></td></tr></table></figure>
+
+<p>字典的常用操作函数如下：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235901.png" alt></p>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>字符串(str)的使用也非常广泛，可以使用引号(‘或”)来创建字符串，初始化一个字符串的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">testStr &#x3D; &quot;Wasting time is robbing oneself&quot;</span><br></pre></td></tr></table></figure>
+
+<p>python对于str提供了很多实用的方法，比较常用的有以下这些：</p>
+<p>对字符串进行判断的方法：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235908.png" alt></p>
+<p>对字符串进行修改(包括格式化，大小写转换)：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235915.png" alt></p>
+<p>字符串的查找和替换：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235922.png" alt></p>
+<p>字符串的拆分和连接：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235931.png" alt></p>
+<h5 id="公共方法"><a href="#公共方法" class="headerlink" title="公共方法"></a>公共方法</h5><h6 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h6><p>对于列表，元组，字典，字符串，python也提供了一些公共方法，如下：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235936.png" alt></p>
+<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><p>高级数据类型同样支持以下常见的运算符：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235943.png" alt></p>
+<h4 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h4><p>切片使用索引值可以方便地截取容器中一定范围的数据，适用于列表，元组，字符串。<br>切片语法如下：<br>item[N:M:S]<br>其中N表示要截取的开始位置，M表示结束位置，S表示step也就是步长，默认是1，截取的时候[N:M]是个半闭合区间，等效于数学上[N,M)取值范围，取N不取M, N和M都可以省略。python中，-1可以表示最后一个元素，字符串利用切片完成翻转的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; test_str &#x3D; &quot;Hello World&quot; </span><br><span class="line">&gt;&gt;&gt; print(test_str[::-1])</span><br></pre></td></tr></table></figure>
+
+<h3 id="python函数语法"><a href="#python函数语法" class="headerlink" title="python函数语法"></a>python函数语法</h3><p>在python中定义一个函数需要使用def关键字，相比其他语言，返回值不需要声明，定义一个函数的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_hello():</span><br><span class="line">     print(&quot;Hello, World!&quot;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="缺省参数"><a href="#缺省参数" class="headerlink" title="缺省参数"></a>缺省参数</h4><p>除了常见的必须参数外，python支持缺省参数，即为参数指定一个默认值，可以不传入这个参数，代码例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_human(name, age &#x3D; 23):</span><br><span class="line">     print(&quot;body info: name is %s, age is %s&quot; % (name, age) )</span><br><span class="line"> print_human(&quot;wangwu&quot;)</span><br><span class="line"> print_human(&quot;lisi&quot;, 25)</span><br><span class="line"> print_human(&quot;zhangsan&quot;, age &#x3D; 36)</span><br></pre></td></tr></table></figure>
+
+<h4 id="多值参数"><a href="#多值参数" class="headerlink" title="多值参数"></a>多值参数</h4><p>如果函数处理的参数的个数不确定，就可以用多值参数：</p>
+<p>参数名前面增加一个<em>可</em>以接收元组 </p>
+<p>参数名前面增加两个可以接收字典</p>
+<p>使用了这两个多值参数的代码例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_info(*args, **kwargs):</span><br><span class="line">     print(args)</span><br><span class="line">     print(kwargs)</span><br><span class="line"> program_list &#x3D; [&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;]</span><br><span class="line"> human_dic &#x3D; &#123;&quot;name&quot;: &quot;zhangsan&quot;, &quot;age&quot;: 26, &quot;height&quot;: 1.75, &quot;weight&quot;: 66&#125;</span><br><span class="line"> print_info(*program_list, **human_dic)</span><br></pre></td></tr></table></figure>
+
+<h6 id="返回多个值"><a href="#返回多个值" class="headerlink" title="返回多个值"></a>返回多个值</h6><p>python中可以利用元组返回多个值，多个返回值的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def measure_rect():</span><br><span class="line">     width &#x3D; 12</span><br><span class="line">     height &#x3D; 6</span><br><span class="line">     return width, height</span><br><span class="line"> w, h &#x3D; measure_rect()</span><br><span class="line"> print(&quot;width is %d, height is %d&quot; % (w, h))</span><br></pre></td></tr></table></figure>
+
+<h3 id="python常用函数"><a href="#python常用函数" class="headerlink" title="python常用函数"></a>python常用函数</h3><h4 id="print输出函数"><a href="#print输出函数" class="headerlink" title="print输出函数"></a>print输出函数</h4><p>python使用print函数将信息输出到控制台，输出数据时经常会用到格式化操作符，不同的格式化字符串含义如下表：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235949.png" alt></p>
+<p>语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(&quot;格式化字符串&quot; % 变量1)</span><br><span class="line">print(&quot;格式化字符串&quot; % (变量1, 变量2…))</span><br></pre></td></tr></table></figure>
+
+<p>print函数默认会自动在内容末尾增加换行，如果不希望换行，可以用end参数指定需要输出的内容<br>语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(&quot;Hello word!&quot;, end&#x3D;&quot;&quot;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="input输入函数"><a href="#input输入函数" class="headerlink" title="input输入函数"></a>input输入函数</h4><p>使用input函数从键盘等待用户的输入，默认都是一个字符串<br>语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">字符串变量 &#x3D; input(&quot;提示信息：&quot;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="类型转换函数"><a href="#类型转换函数" class="headerlink" title="类型转换函数"></a>类型转换函数</h4><p>常见的类型转换函数如下：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527000004.png" alt></p>
+<p>参考文献:原文链接：<a href="https://blog.csdn.net/m0_46245938/article/details/104160793" target="_blank" rel="noopener">https://blog.csdn.net/m0_46245938/article/details/104160793</a></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>编程</tag>
+        <tag>编程基础</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -1802,18 +1802,119 @@
       </tags>
   </entry>
   <entry>
-    <title>test</title>
-    <url>/2024/07/12/test/</url>
-    <content><![CDATA[<h1>哈哈哈，这是测试文章！！！！！！！！！！</h1>
-]]></content>
-  </entry>
-  <entry>
-    <title>testImage</title>
-    <url>/2024/06/20/testImage/</url>
+    <title>个人私有云盘NextCloud的搭建</title>
+    <url>/2020/05/27/%E4%B8%AA%E4%BA%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98NextCloud%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
 
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1718846437602-ffbc4dfc-45b3-4954-8da7-2ec0852edbef.png#averageHue=%238fbcba&clientId=u870416cc-6946-4&from=paste&height=824&id=ub96248cb&originHeight=1030&originWidth=1920&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=492894&status=done&style=none&taskId=u8b74e199-0353-456e-a7a9-f6257442b44&title=&width=1536" alt="image.png"></p>
+<h1 id="个人私有云盘NextCloud的搭建"><a href="#个人私有云盘NextCloud的搭建" class="headerlink" title="个人私有云盘NextCloud的搭建"></a>个人私有云盘NextCloud的搭建</h1><p>nextcloud官网</p>
+<p><a href="Https://nextcloud.com/">Https://nextcloud.com/</a></p>
+<p>准备工作：</p>
+<p>1.云服务器一台</p>
+<p>2.连接服务器的工具（xshell….）</p>
+<h2 id="1、NextCloud的部署方案"><a href="#1、NextCloud的部署方案" class="headerlink" title="1、NextCloud的部署方案"></a>1、NextCloud的部署方案</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">使用的是开源软件：NextCloud</span><br><span class="line">部署：在Linux云服务器上Docker + NextCloud + mysql</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、Nextcloud部署步骤"><a href="#2、Nextcloud部署步骤" class="headerlink" title="2、Nextcloud部署步骤"></a>2、Nextcloud部署步骤</h2><h3 id="2-1、连接服务器"><a href="#2-1、连接服务器" class="headerlink" title="2.1、连接服务器"></a>2.1、连接服务器</h3><p>首先可以连接到云服务器，Windows可以使用xshell或者其他工具，我是mac系统，所以我推荐Termius</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527205909.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Label			名称可以随便取</span><br><span class="line">Address		服务器的IP地址</span><br><span class="line">Username	服务器用户，一般为root</span><br><span class="line">Password	root的密码</span><br></pre></td></tr></table></figure>
+
+<p>其余可以不用理会，然后就直接save保存，双击连接服务器</p>
+<h3 id="2-2安装Docker"><a href="#2-2安装Docker" class="headerlink" title="2.2安装Docker"></a>2.2安装Docker</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(1)yum 安装docker</span><br><span class="line">	yum install -y docker</span><br><span class="line">(2)启动Docker 设置Docker的自启动</span><br><span class="line">	systemctl start docker</span><br><span class="line">	systemctl enable docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3、docker下载mysql"><a href="#2-3、docker下载mysql" class="headerlink" title="2.3、docker下载mysql"></a>2.3、docker下载mysql</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -p 3307:3306 --name&#x3D;nextcloud_db -e MYSQL_ROOT_PASSWORD&#x3D;nextcloud -e MYSQL_DATABASE&#x3D;nextcloud -e MYSQL_USER&#x3D;nextcloud -e MYSQL_PASSWORD&#x3D;nextcloud -v &#x2F;data&#x2F;www&#x2F;nectcloud&#x2F;mysqldb:&#x2F;var&#x2F;lib&#x2F;mysql -d mysql:5</span><br></pre></td></tr></table></figure>
+
+<p>其中过程有点久，请耐心等待，假如中途报错，请关闭SELinux</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">永久关闭SELinux</span><br><span class="line">	1.vim &#x2F;etc&#x2F;sysconfig&#x2F;selinux</span><br><span class="line">	2.将SELINUX&#x3D;cnforcing改为SELINUX&#x3D;disabled</span><br><span class="line">	3.reboot</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4、Docker启动Nextcloud"><a href="#2-4、Docker启动Nextcloud" class="headerlink" title="2.4、Docker启动Nextcloud"></a>2.4、Docker启动Nextcloud</h3><p>​    1.搜索nextcloud镜像</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker search nextcloud</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527211030.png" alt></p>
+<p>一般来说第一个就是。</p>
+<p>2.拉取官方镜像</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker pull docker.io&#x2F;nextcloud</span><br></pre></td></tr></table></figure>
+
+<p>下载时间会比较久，多试几次就好了</p>
+<p>3.启动Nextcloud</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run --name&#x3D;nextcloud --link nextcloud_db:nextcloud_db -p 8001:80 -v &#x2F;date&#x2F;www&#x2F;nextcloud&#x2F;data:&#x2F;var&#x2F;www&#x2F;html&#x2F;data -d nextcloud</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h2><p>打开浏览器输入云服务器的IP地址或者域名+端口8001</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527214335.png" alt></p>
+<p>出来这样的界面，这里是设置超级用户。这里可以自己随便设置</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527214456.png" style="zoom:150%;">
+
+<p>这里一定要选择mysql数据库，然后就是一开始我们安装的时候设置的数据库名，密码啥的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -p 3307:3306 --name&#x3D;nextcloud_db -e MYSQL_ROOT_PASSWORD&#x3D;nextcloud -e MYSQL_DATABASE&#x3D;nextcloud -e MYSQL_USER&#x3D;nextcloud -e MYSQL_PASSWORD&#x3D;nextcloud -v &#x2F;data&#x2F;www&#x2F;nectcloud&#x2F;mysqldb:&#x2F;var&#x2F;lib&#x2F;mysql -d mysql:5</span><br><span class="line"></span><br><span class="line">我们刚刚设置的都是nextcloud，所以直接写就好了</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527214652.png" style="zoom:150%;">
+
+<p>然后等待一些时间就好了，里面有一些设置可以慢慢自己去摸索！</p>
 ]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>服务器</category>
+        <category>网盘</category>
+        <category>私有云</category>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>服务器</tag>
+        <tag>网盘</tag>
+        <tag>私有云</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>思科生成树(stp)配置</title>
+    <url>/2020/04/24/%E6%80%9D%E7%A7%91%E7%94%9F%E6%88%90%E6%A0%91-stp-%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="实验拓扑图"><a href="#实验拓扑图" class="headerlink" title="#实验拓扑图"></a>#实验拓扑图</h1><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001038.png" alt></p>
+<p>实验步骤：</p>
+<h1 id="第一步：-分别配置pc的ip地址，以及给每个交换机创建vlan10-vlan20-vlan30-vlan40"><a href="#第一步：-分别配置pc的ip地址，以及给每个交换机创建vlan10-vlan20-vlan30-vlan40" class="headerlink" title="第一步：#分别配置pc的ip地址，以及给每个交换机创建vlan10,vlan20,vlan30,vlan40"></a>第一步：#分别配置pc的ip地址，以及给每个交换机创建vlan10,vlan20,vlan30,vlan40</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># PC11 </span><br><span class="line">ip address 192.168.10.1  255.255.255.0          </span><br><span class="line">gateway 192.168.10.254      </span><br><span class="line">#pc12       </span><br><span class="line">ip address 192.168.20.1 255.255.255.0        </span><br><span class="line">gateway 192.168.20.254     </span><br><span class="line">#pc13        </span><br><span class="line">ip address 192.168.30.1 255.255.255.0         </span><br><span class="line">gateway 192.168.30.254     </span><br><span class="line">#pc14    </span><br><span class="line">ip address 192.168.40.1 255.255.255.0       </span><br><span class="line">gateway 192.168.40.254   </span><br><span class="line">#pc17     </span><br><span class="line">ip address 192.168.10.2 255.255.255.0     </span><br><span class="line">gateway 192.168.10.254   </span><br><span class="line">#pc16     </span><br><span class="line">ip address 192.168.20.2 255.255.255.0     </span><br><span class="line">gateway 192.168.20.254    </span><br><span class="line">#pc15   </span><br><span class="line">ip address 192.168.30.2 255.255.255.0    </span><br><span class="line">gateway 192.168.30.254  </span><br><span class="line">#pc 18  </span><br><span class="line">ip address 192.168.40.2 255.255.255.0   </span><br><span class="line">gateway 192.168.40.254</span><br></pre></td></tr></table></figure>
+
+<p># 分别给所有交换机创建vlan,保持vlan数据库保持一致</p>
+<p>#假如左上角的是sw1,右上角sw2,最下面是sw3</p>
+<h2 id="在全局配置模式下："><a href="#在全局配置模式下：" class="headerlink" title="# 在全局配置模式下："></a># 在全局配置模式下：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#vlan 10  , 20 ,30 ,40</span><br></pre></td></tr></table></figure>
+
+<p>#配置各个交换机上的端口链接是trunk</p>
+<h4 id="配置sw3"><a href="#配置sw3" class="headerlink" title="# 配置sw3"></a># 配置sw3</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># interface range f0&#x2F;1-2</span><br><span class="line"> switchport mode trunk  &#x2F;&#x2F;思科二层交换机不用封装dot1q，直接trunk</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置sw2"><a href="#配置sw2" class="headerlink" title="#配置sw2"></a>#配置sw2</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">interface range f0&#x2F;1-2</span><br><span class="line">switchport trunk encapsulation dot1q &#x2F;&#x2F;思科三层交换机必须封装dot1q,才能设置trunk链路</span><br><span class="line">switchport mode trunk</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置sw1"><a href="#配置sw1" class="headerlink" title="#配置sw1"></a>#配置sw1</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">interface range f0&#x2F;1-2</span><br><span class="line">switchport trunck  encapsulation dot1q &#x2F;&#x2F;思科三层交换机必须封装dot1q协议，才能设置trunk链路</span><br><span class="line">switchport mode trunk</span><br></pre></td></tr></table></figure>
+
+<p>#以上配置完之后，先确定根交换机，副根交换机，和接入层交换机，</p>
+<p> #我确定完之后，sw1为主根交换机，sw2为副根交换机，sw3为接入层交换机</p>
+<p># 配置，在sw1中，配置vlan10,vlan20,为主根，vlan30,vlan40,为次根</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 在全局配置模式下：</span><br><span class="line">spanning-tree vlan 10 priority  0 </span><br><span class="line">spanning-tree-vlan 20 priority 0</span><br><span class="line">spanning-tree-vlan 30 priority 4096</span><br><span class="line">spanning-tree-vlan 40 priority 4096</span><br><span class="line">&#x2F;&#x2F; #配置生成树的主根时，设置它的优先级，优先级默认是32768，比它小就越靠谱，</span><br><span class="line">#优先级默认是4096的倍数</span><br><span class="line">  </span><br><span class="line"> 配置，在sw2中，配置vlan30,vlan40,为主根，vlan10,vlan20,为次根</span><br><span class="line"> # 在全局配置模式下：</span><br><span class="line">spanning-tree vlan 10 priority  4096 </span><br><span class="line">spanning-tree-vlan 20 priority 4096</span><br><span class="line">spanning-tree-vlan 30 priority 0</span><br><span class="line">spanning-tree-vlan 40 priority 0</span><br><span class="line">&#x2F;&#x2F; #配置生成树的主根时，设置它的优先级，优先级默认是32768，比它小就越靠谱，</span><br><span class="line">#优先级默认是4096的倍数</span><br></pre></td></tr></table></figure>
+
+<h4 id="接下来打开端口f0-2"><a href="#接下来打开端口f0-2" class="headerlink" title="#接下来打开端口f0/2"></a>#接下来打开端口f0/2</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">intface f0&#x2F;2</span><br><span class="line">no shutdown</span><br></pre></td></tr></table></figure>
+
+<h3 id="如下图"><a href="#如下图" class="headerlink" title="#如下图"></a>#如下图</h3><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001045.png" alt></p>
+<h6 id="现在用命令ping-10-1-1-2-测试-看是否可以ping通-如果ping通的话，就说明生成树配置成功"><a href="#现在用命令ping-10-1-1-2-测试-看是否可以ping通-如果ping通的话，就说明生成树配置成功" class="headerlink" title="#现在用命令ping 10.1.1.2 测试 看是否可以ping通,如果ping通的话，就说明生成树配置成功"></a>#现在用命令ping 10.1.1.2 测试 看是否可以ping通,如果ping通的话，就说明生成树配置成功</h6><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001229.png" alt></p>
+<p>#从上图可以看书，是可以ping通的，说明没有出现环路，起到了负载均衡的作用，流量即可以走左边，又可以走右边，</p>
+<p>#要想到各个vlan 之间可以互通的话，就必须配置虚拟网关</p>
+<h4 id="配置-sw1-交换机，vlan10-vlan20-vlan30-vlan40-的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启-：ip-routing"><a href="#配置-sw1-交换机，vlan10-vlan20-vlan30-vlan40-的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启-：ip-routing" class="headerlink" title="#配置 sw1 交换机，vlan10.vlan20,vlan30,vlan40,的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启 ：ip routing"></a>#配置 sw1 交换机，vlan10.vlan20,vlan30,vlan40,的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启 ：ip routing</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">interface vlan 10</span><br><span class="line"> ip address 192.168.10.254 255.255.255.0</span><br><span class="line"> no shutdown</span><br><span class="line"> exit</span><br><span class="line"> interface vlan 20</span><br><span class="line"> ip address 192.168.20.254 255.255.255.0</span><br><span class="line"> no shutdown</span><br><span class="line"> exit</span><br><span class="line"> interface vlan 30</span><br><span class="line"> ip address 192.168.30.254 255.255.255.0</span><br><span class="line"> no shutdown </span><br><span class="line"> exit</span><br><span class="line"> interface vlan 40</span><br><span class="line"> ip address 192.168.40.254 255.255.255.0</span><br><span class="line"> no shutdown</span><br></pre></td></tr></table></figure>
+
+<h4 id="接下来用vlan10-网段的pc-ping-vlan-30-40之间的pc-如下图"><a href="#接下来用vlan10-网段的pc-ping-vlan-30-40之间的pc-如下图" class="headerlink" title="#接下来用vlan10 网段的pc ping vlan 30,40之间的pc 如下图"></a>#接下来用vlan10 网段的pc ping vlan 30,40之间的pc 如下图</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001239.png" alt></p>
+<p>#以上说明测试成功，vlan 之间可以互访了</p>
+<p>#接下来我关闭sw3 f0/1 .使他流量从副根上走，起到备份作用，如下图</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001245.png" alt></p>
+<h4 id="继续ping-vlan-30-vlan-40-如下图"><a href="#继续ping-vlan-30-vlan-40-如下图" class="headerlink" title="#继续ping vlan 30 ,vlan 40 如下图"></a>#继续ping vlan 30 ,vlan 40 如下图</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001252.png" alt></p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001304.png" alt></p>
+<p>#以上说明测试成功，说明起到备份作用</p>
+<p>#同理可得，右边线路坏了的话，会从左边走</p>
+<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><p>配置生成树，目的是为了防止物理环路的产生，防止广播风暴，好处是，可以起到负载均衡的作用，和链路的冗余备份</p>
+]]></content>
+      <categories>
+        <category>网络</category>
+        <category>Cisco</category>
+        <category>stp</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Cisco</tag>
+      </tags>
   </entry>
   <entry>
     <title>摄影--城市</title>
@@ -1843,6 +1944,46 @@
       <tags>
         <tag>摄影</tag>
         <tag>城市</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>教你读懂路由表</title>
+    <url>/2020/04/23/%E6%95%99%E4%BD%A0%E8%AF%BB%E6%87%82%E8%B7%AF%E7%94%B1%E8%A1%A8/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">源码:--------------------------------------------------------------------- -----------</span><br><span class="line">Active Routes:</span><br><span class="line">Network Destination Netmask Gateway Interface Metric</span><br><span class="line">0.0.0.0 0.0.0.0 192.168.123.254 192.168.123.88 1</span><br><span class="line">0.0.0.0 0.0.0.0 192.168.123.254 192.168.123.68 1</span><br><span class="line">127.0.0.0 255.0.0.0 127.0.0.1 127.0.0.1 1</span><br><span class="line">192.168.123.0 255.255.255.0 192.168.123.68 192.168.123.68 1</span><br><span class="line">192.168.123.0 255.255.255.0 192.168.123.88 192.168.123.88 1</span><br><span class="line">192.168.123.68 255.255.255.255 127.0.0.1 127.0.0.1 1</span><br><span class="line">192.168.123.88 255.255.255.255 127.0.0.1 127.0.0.1 1</span><br><span class="line">192.168.123.255 255.255.255.255 192.168.123.68 192.168.123.68 1</span><br><span class="line">192.168.123.255 255.255.255.255 192.168.123.88 192.168.123.88 1</span><br><span class="line">224.0.0.0 224.0.0.0 192.168.123.68 192.168.123.68 1</span><br><span class="line">224.0.0.0 224.0.0.0 192.168.123.88 192.168.123.88 1</span><br><span class="line">255.255.255.255 255.255.255.255 192.168.123.68 192.168.123.68 1</span><br><span class="line">Default Gateway: 192.168.123.254 ----------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<h1 id="当前的路由："><a href="#当前的路由：" class="headerlink" title="当前的路由："></a>当前的路由：</h1><p>destination 目的网段<br>mask 子网掩码<br>interface 到达该目的地的本路由器的出口ip<br>gateway 下一跳路由器入口的ip，路由器通过interface和gateway定义一调到下一个路由器的链路，通常情况下，interface和gateway是同一网段的<br>metric 跳数，该条路由记录的质量，一般情况下，如果有多条到达相同目的地的路由记录，路由器会采用metric值小的那条路由</p>
+<h2 id="第一条"><a href="#第一条" class="headerlink" title="第一条"></a>第一条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">缺省路由：意思就是说，当一个数据包的目的网段不在你的路由记录中，那么，你的路由器该把那个数据包发送到哪里！缺省路由的网关是由你的连接上的default gateway决定的</span><br><span class="line">该路由记录的意思是：当我接收到一个数据包的目的网段不在我的路由记录中，我会将该数据包通过192.168.123.88这个接口发送到192.168.123.254这个地址，这个地址是下一个路由器的一个接口，这样这个数据包就可以交付给下一个路由器处理，与我无关。该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="第二条"><a href="#第二条" class="headerlink" title="第二条"></a>第二条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">缺省路由：该路由记录的意思是：当我接收到一个数据包的目的网段不在我的路由记录中，我会将该数据包通过192.168.123.68这个接口发送到192.168.123.254这个地址，这个地址是下一个路由器的一个接口，这样这个数据包就可以交付给下一个路由器处理，与我无关。该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="第三条"><a href="#第三条" class="headerlink" title="第三条"></a>第三条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本地环路：127.0.0.0这个网段内所有地址都指向自己机器，如果收到这样一个数据，应该发向哪里 该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="第四条"><a href="#第四条" class="headerlink" title="第四条"></a>第四条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">直联网段的路由记录：当路由器收到发往直联网段的数据包时该如何处理，这种情况，路由记录的interface和gateway是同一个。</span><br><span class="line">当我接收到一个数据包的目的网段是192.168.123.0时，我会将该数据包通过192.168.123.68这个接口直接发送出去，因为这个端口直接连接着192.168.123.0这个网段，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="第五条"><a href="#第五条" class="headerlink" title="第五条"></a>第五条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">直联网段的路由记录</span><br><span class="line">当我接收到一个数据包的目的网段是192.168.123.0时，我会将该数据包通过192.168.123.88这个接口直接发送出去，因为这个端口直接连接着192.168.123.0这个网段，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="第六条"><a href="#第六条" class="headerlink" title="第六条"></a>第六条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本地主机路由：当路由器收到发送给自己的数据包时将如何处理</span><br><span class="line">当我接收到一个数据包的目的网段是192.168.123.68时，我会将该数据包收下，因为这个数据包时发送给我自己的，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="第七条"><a href="#第七条" class="headerlink" title="第七条"></a>第七条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本地主机路由：当路由器收到发送给自己的数据包时将如何处理</span><br><span class="line">当我接收到一个数据包的目的网段是192.168.123.88时，我会将该数据包收下，因为这个数据包时发送给我自己的，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="第八条"><a href="#第八条" class="headerlink" title="第八条"></a>第八条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本地广播路由：当路由器收到发送给直联网段的本地广播时如何处理</span><br><span class="line">当我接收到广播数据包的目的网段是192.168.123.255时，我会将该数据从192.168.123.68接口以广播的形势发送出去，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="第九条"><a href="#第九条" class="headerlink" title="第九条"></a>第九条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本地广播路由：当路由器收到发送给直联网段的本地广播时如何处理</span><br><span class="line">当我接收到广播数据包的目的网段是192.168.123.255时，我会将该数据从192.168.123.88接口以广播的形势发送出去，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十条"><a href="#第十条" class="headerlink" title="第十条"></a>第十条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">组播路由：当路由器收到一个组播数据包时该如何处理</span><br><span class="line">当我接收到组播数据包时，我会将该数据从192.168.123.68接口以组播的形势发送出去，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十一条"><a href="#第十一条" class="headerlink" title="第十一条"></a>第十一条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">组播路由：当路由器收到一个组播数据包时该如何处理</span><br><span class="line">当我接收到组播数据包时，我会将该数据从192.168.123.88接口以组播的形势发送出去，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十二条"><a href="#第十二条" class="headerlink" title="第十二条"></a>第十二条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">广播路由：当路由器收到一个绝对广播时该如何处理</span><br><span class="line">当我接收到绝对广播数据包时，将该数据包丢弃掉</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>网络</category>
+        <category>路由</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>路由</tag>
       </tags>
   </entry>
   <entry>
@@ -1914,161 +2055,6 @@
       </categories>
       <tags>
         <tag>个人</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>个人私有云盘NextCloud的搭建</title>
-    <url>/2020/05/27/%E4%B8%AA%E4%BA%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98NextCloud%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="个人私有云盘NextCloud的搭建"><a href="#个人私有云盘NextCloud的搭建" class="headerlink" title="个人私有云盘NextCloud的搭建"></a>个人私有云盘NextCloud的搭建</h1><p>nextcloud官网</p>
-<p><a href="Https://nextcloud.com/">Https://nextcloud.com/</a></p>
-<p>准备工作：</p>
-<p>1.云服务器一台</p>
-<p>2.连接服务器的工具（xshell….）</p>
-<h2 id="1、NextCloud的部署方案"><a href="#1、NextCloud的部署方案" class="headerlink" title="1、NextCloud的部署方案"></a>1、NextCloud的部署方案</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">使用的是开源软件：NextCloud</span><br><span class="line">部署：在Linux云服务器上Docker + NextCloud + mysql</span><br></pre></td></tr></table></figure>
-
-<h2 id="2、Nextcloud部署步骤"><a href="#2、Nextcloud部署步骤" class="headerlink" title="2、Nextcloud部署步骤"></a>2、Nextcloud部署步骤</h2><h3 id="2-1、连接服务器"><a href="#2-1、连接服务器" class="headerlink" title="2.1、连接服务器"></a>2.1、连接服务器</h3><p>首先可以连接到云服务器，Windows可以使用xshell或者其他工具，我是mac系统，所以我推荐Termius</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527205909.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Label			名称可以随便取</span><br><span class="line">Address		服务器的IP地址</span><br><span class="line">Username	服务器用户，一般为root</span><br><span class="line">Password	root的密码</span><br></pre></td></tr></table></figure>
-
-<p>其余可以不用理会，然后就直接save保存，双击连接服务器</p>
-<h3 id="2-2安装Docker"><a href="#2-2安装Docker" class="headerlink" title="2.2安装Docker"></a>2.2安装Docker</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(1)yum 安装docker</span><br><span class="line">	yum install -y docker</span><br><span class="line">(2)启动Docker 设置Docker的自启动</span><br><span class="line">	systemctl start docker</span><br><span class="line">	systemctl enable docker</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-3、docker下载mysql"><a href="#2-3、docker下载mysql" class="headerlink" title="2.3、docker下载mysql"></a>2.3、docker下载mysql</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -p 3307:3306 --name&#x3D;nextcloud_db -e MYSQL_ROOT_PASSWORD&#x3D;nextcloud -e MYSQL_DATABASE&#x3D;nextcloud -e MYSQL_USER&#x3D;nextcloud -e MYSQL_PASSWORD&#x3D;nextcloud -v &#x2F;data&#x2F;www&#x2F;nectcloud&#x2F;mysqldb:&#x2F;var&#x2F;lib&#x2F;mysql -d mysql:5</span><br></pre></td></tr></table></figure>
-
-<p>其中过程有点久，请耐心等待，假如中途报错，请关闭SELinux</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">永久关闭SELinux</span><br><span class="line">	1.vim &#x2F;etc&#x2F;sysconfig&#x2F;selinux</span><br><span class="line">	2.将SELINUX&#x3D;cnforcing改为SELINUX&#x3D;disabled</span><br><span class="line">	3.reboot</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-4、Docker启动Nextcloud"><a href="#2-4、Docker启动Nextcloud" class="headerlink" title="2.4、Docker启动Nextcloud"></a>2.4、Docker启动Nextcloud</h3><p>​    1.搜索nextcloud镜像</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker search nextcloud</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527211030.png" alt></p>
-<p>一般来说第一个就是。</p>
-<p>2.拉取官方镜像</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker pull docker.io&#x2F;nextcloud</span><br></pre></td></tr></table></figure>
-
-<p>下载时间会比较久，多试几次就好了</p>
-<p>3.启动Nextcloud</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run --name&#x3D;nextcloud --link nextcloud_db:nextcloud_db -p 8001:80 -v &#x2F;date&#x2F;www&#x2F;nextcloud&#x2F;data:&#x2F;var&#x2F;www&#x2F;html&#x2F;data -d nextcloud</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h2><p>打开浏览器输入云服务器的IP地址或者域名+端口8001</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527214335.png" alt></p>
-<p>出来这样的界面，这里是设置超级用户。这里可以自己随便设置</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527214456.png" style="zoom:150%;">
-
-<p>这里一定要选择mysql数据库，然后就是一开始我们安装的时候设置的数据库名，密码啥的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -p 3307:3306 --name&#x3D;nextcloud_db -e MYSQL_ROOT_PASSWORD&#x3D;nextcloud -e MYSQL_DATABASE&#x3D;nextcloud -e MYSQL_USER&#x3D;nextcloud -e MYSQL_PASSWORD&#x3D;nextcloud -v &#x2F;data&#x2F;www&#x2F;nectcloud&#x2F;mysqldb:&#x2F;var&#x2F;lib&#x2F;mysql -d mysql:5</span><br><span class="line"></span><br><span class="line">我们刚刚设置的都是nextcloud，所以直接写就好了</span><br></pre></td></tr></table></figure>
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527214652.png" style="zoom:150%;">
-
-<p>然后等待一些时间就好了，里面有一些设置可以慢慢自己去摸索！</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>服务器</category>
-        <category>网盘</category>
-        <category>私有云</category>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>服务器</tag>
-        <tag>网盘</tag>
-        <tag>私有云</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>教你读懂路由表</title>
-    <url>/2020/04/23/%E6%95%99%E4%BD%A0%E8%AF%BB%E6%87%82%E8%B7%AF%E7%94%B1%E8%A1%A8/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">源码:--------------------------------------------------------------------- -----------</span><br><span class="line">Active Routes:</span><br><span class="line">Network Destination Netmask Gateway Interface Metric</span><br><span class="line">0.0.0.0 0.0.0.0 192.168.123.254 192.168.123.88 1</span><br><span class="line">0.0.0.0 0.0.0.0 192.168.123.254 192.168.123.68 1</span><br><span class="line">127.0.0.0 255.0.0.0 127.0.0.1 127.0.0.1 1</span><br><span class="line">192.168.123.0 255.255.255.0 192.168.123.68 192.168.123.68 1</span><br><span class="line">192.168.123.0 255.255.255.0 192.168.123.88 192.168.123.88 1</span><br><span class="line">192.168.123.68 255.255.255.255 127.0.0.1 127.0.0.1 1</span><br><span class="line">192.168.123.88 255.255.255.255 127.0.0.1 127.0.0.1 1</span><br><span class="line">192.168.123.255 255.255.255.255 192.168.123.68 192.168.123.68 1</span><br><span class="line">192.168.123.255 255.255.255.255 192.168.123.88 192.168.123.88 1</span><br><span class="line">224.0.0.0 224.0.0.0 192.168.123.68 192.168.123.68 1</span><br><span class="line">224.0.0.0 224.0.0.0 192.168.123.88 192.168.123.88 1</span><br><span class="line">255.255.255.255 255.255.255.255 192.168.123.68 192.168.123.68 1</span><br><span class="line">Default Gateway: 192.168.123.254 ----------------------------------------------------</span><br></pre></td></tr></table></figure>
-
-<h1 id="当前的路由："><a href="#当前的路由：" class="headerlink" title="当前的路由："></a>当前的路由：</h1><p>destination 目的网段<br>mask 子网掩码<br>interface 到达该目的地的本路由器的出口ip<br>gateway 下一跳路由器入口的ip，路由器通过interface和gateway定义一调到下一个路由器的链路，通常情况下，interface和gateway是同一网段的<br>metric 跳数，该条路由记录的质量，一般情况下，如果有多条到达相同目的地的路由记录，路由器会采用metric值小的那条路由</p>
-<h2 id="第一条"><a href="#第一条" class="headerlink" title="第一条"></a>第一条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">缺省路由：意思就是说，当一个数据包的目的网段不在你的路由记录中，那么，你的路由器该把那个数据包发送到哪里！缺省路由的网关是由你的连接上的default gateway决定的</span><br><span class="line">该路由记录的意思是：当我接收到一个数据包的目的网段不在我的路由记录中，我会将该数据包通过192.168.123.88这个接口发送到192.168.123.254这个地址，这个地址是下一个路由器的一个接口，这样这个数据包就可以交付给下一个路由器处理，与我无关。该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="第二条"><a href="#第二条" class="headerlink" title="第二条"></a>第二条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">缺省路由：该路由记录的意思是：当我接收到一个数据包的目的网段不在我的路由记录中，我会将该数据包通过192.168.123.68这个接口发送到192.168.123.254这个地址，这个地址是下一个路由器的一个接口，这样这个数据包就可以交付给下一个路由器处理，与我无关。该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="第三条"><a href="#第三条" class="headerlink" title="第三条"></a>第三条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本地环路：127.0.0.0这个网段内所有地址都指向自己机器，如果收到这样一个数据，应该发向哪里 该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="第四条"><a href="#第四条" class="headerlink" title="第四条"></a>第四条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">直联网段的路由记录：当路由器收到发往直联网段的数据包时该如何处理，这种情况，路由记录的interface和gateway是同一个。</span><br><span class="line">当我接收到一个数据包的目的网段是192.168.123.0时，我会将该数据包通过192.168.123.68这个接口直接发送出去，因为这个端口直接连接着192.168.123.0这个网段，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="第五条"><a href="#第五条" class="headerlink" title="第五条"></a>第五条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">直联网段的路由记录</span><br><span class="line">当我接收到一个数据包的目的网段是192.168.123.0时，我会将该数据包通过192.168.123.88这个接口直接发送出去，因为这个端口直接连接着192.168.123.0这个网段，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="第六条"><a href="#第六条" class="headerlink" title="第六条"></a>第六条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本地主机路由：当路由器收到发送给自己的数据包时将如何处理</span><br><span class="line">当我接收到一个数据包的目的网段是192.168.123.68时，我会将该数据包收下，因为这个数据包时发送给我自己的，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="第七条"><a href="#第七条" class="headerlink" title="第七条"></a>第七条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本地主机路由：当路由器收到发送给自己的数据包时将如何处理</span><br><span class="line">当我接收到一个数据包的目的网段是192.168.123.88时，我会将该数据包收下，因为这个数据包时发送给我自己的，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="第八条"><a href="#第八条" class="headerlink" title="第八条"></a>第八条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本地广播路由：当路由器收到发送给直联网段的本地广播时如何处理</span><br><span class="line">当我接收到广播数据包的目的网段是192.168.123.255时，我会将该数据从192.168.123.68接口以广播的形势发送出去，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="第九条"><a href="#第九条" class="headerlink" title="第九条"></a>第九条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本地广播路由：当路由器收到发送给直联网段的本地广播时如何处理</span><br><span class="line">当我接收到广播数据包的目的网段是192.168.123.255时，我会将该数据从192.168.123.88接口以广播的形势发送出去，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="第十条"><a href="#第十条" class="headerlink" title="第十条"></a>第十条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">组播路由：当路由器收到一个组播数据包时该如何处理</span><br><span class="line">当我接收到组播数据包时，我会将该数据从192.168.123.68接口以组播的形势发送出去，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="第十一条"><a href="#第十一条" class="headerlink" title="第十一条"></a>第十一条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">组播路由：当路由器收到一个组播数据包时该如何处理</span><br><span class="line">当我接收到组播数据包时，我会将该数据从192.168.123.88接口以组播的形势发送出去，该路由记录的线路质量 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="第十二条"><a href="#第十二条" class="headerlink" title="第十二条"></a>第十二条</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">广播路由：当路由器收到一个绝对广播时该如何处理</span><br><span class="line">当我接收到绝对广播数据包时，将该数据包丢弃掉</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>网络</category>
-        <category>路由</category>
-      </categories>
-      <tags>
-        <tag>网络</tag>
-        <tag>路由</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>思科生成树(stp)配置</title>
-    <url>/2020/04/24/%E6%80%9D%E7%A7%91%E7%94%9F%E6%88%90%E6%A0%91-stp-%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="实验拓扑图"><a href="#实验拓扑图" class="headerlink" title="#实验拓扑图"></a>#实验拓扑图</h1><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001038.png" alt></p>
-<p>实验步骤：</p>
-<h1 id="第一步：-分别配置pc的ip地址，以及给每个交换机创建vlan10-vlan20-vlan30-vlan40"><a href="#第一步：-分别配置pc的ip地址，以及给每个交换机创建vlan10-vlan20-vlan30-vlan40" class="headerlink" title="第一步：#分别配置pc的ip地址，以及给每个交换机创建vlan10,vlan20,vlan30,vlan40"></a>第一步：#分别配置pc的ip地址，以及给每个交换机创建vlan10,vlan20,vlan30,vlan40</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># PC11 </span><br><span class="line">ip address 192.168.10.1  255.255.255.0          </span><br><span class="line">gateway 192.168.10.254      </span><br><span class="line">#pc12       </span><br><span class="line">ip address 192.168.20.1 255.255.255.0        </span><br><span class="line">gateway 192.168.20.254     </span><br><span class="line">#pc13        </span><br><span class="line">ip address 192.168.30.1 255.255.255.0         </span><br><span class="line">gateway 192.168.30.254     </span><br><span class="line">#pc14    </span><br><span class="line">ip address 192.168.40.1 255.255.255.0       </span><br><span class="line">gateway 192.168.40.254   </span><br><span class="line">#pc17     </span><br><span class="line">ip address 192.168.10.2 255.255.255.0     </span><br><span class="line">gateway 192.168.10.254   </span><br><span class="line">#pc16     </span><br><span class="line">ip address 192.168.20.2 255.255.255.0     </span><br><span class="line">gateway 192.168.20.254    </span><br><span class="line">#pc15   </span><br><span class="line">ip address 192.168.30.2 255.255.255.0    </span><br><span class="line">gateway 192.168.30.254  </span><br><span class="line">#pc 18  </span><br><span class="line">ip address 192.168.40.2 255.255.255.0   </span><br><span class="line">gateway 192.168.40.254</span><br></pre></td></tr></table></figure>
-
-<p># 分别给所有交换机创建vlan,保持vlan数据库保持一致</p>
-<p>#假如左上角的是sw1,右上角sw2,最下面是sw3</p>
-<h2 id="在全局配置模式下："><a href="#在全局配置模式下：" class="headerlink" title="# 在全局配置模式下："></a># 在全局配置模式下：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#vlan 10  , 20 ,30 ,40</span><br></pre></td></tr></table></figure>
-
-<p>#配置各个交换机上的端口链接是trunk</p>
-<h4 id="配置sw3"><a href="#配置sw3" class="headerlink" title="# 配置sw3"></a># 配置sw3</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># interface range f0&#x2F;1-2</span><br><span class="line"> switchport mode trunk  &#x2F;&#x2F;思科二层交换机不用封装dot1q，直接trunk</span><br></pre></td></tr></table></figure>
-
-<h4 id="配置sw2"><a href="#配置sw2" class="headerlink" title="#配置sw2"></a>#配置sw2</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">interface range f0&#x2F;1-2</span><br><span class="line">switchport trunk encapsulation dot1q &#x2F;&#x2F;思科三层交换机必须封装dot1q,才能设置trunk链路</span><br><span class="line">switchport mode trunk</span><br></pre></td></tr></table></figure>
-
-<h4 id="配置sw1"><a href="#配置sw1" class="headerlink" title="#配置sw1"></a>#配置sw1</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">interface range f0&#x2F;1-2</span><br><span class="line">switchport trunck  encapsulation dot1q &#x2F;&#x2F;思科三层交换机必须封装dot1q协议，才能设置trunk链路</span><br><span class="line">switchport mode trunk</span><br></pre></td></tr></table></figure>
-
-<p>#以上配置完之后，先确定根交换机，副根交换机，和接入层交换机，</p>
-<p> #我确定完之后，sw1为主根交换机，sw2为副根交换机，sw3为接入层交换机</p>
-<p># 配置，在sw1中，配置vlan10,vlan20,为主根，vlan30,vlan40,为次根</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 在全局配置模式下：</span><br><span class="line">spanning-tree vlan 10 priority  0 </span><br><span class="line">spanning-tree-vlan 20 priority 0</span><br><span class="line">spanning-tree-vlan 30 priority 4096</span><br><span class="line">spanning-tree-vlan 40 priority 4096</span><br><span class="line">&#x2F;&#x2F; #配置生成树的主根时，设置它的优先级，优先级默认是32768，比它小就越靠谱，</span><br><span class="line">#优先级默认是4096的倍数</span><br><span class="line">  </span><br><span class="line"> 配置，在sw2中，配置vlan30,vlan40,为主根，vlan10,vlan20,为次根</span><br><span class="line"> # 在全局配置模式下：</span><br><span class="line">spanning-tree vlan 10 priority  4096 </span><br><span class="line">spanning-tree-vlan 20 priority 4096</span><br><span class="line">spanning-tree-vlan 30 priority 0</span><br><span class="line">spanning-tree-vlan 40 priority 0</span><br><span class="line">&#x2F;&#x2F; #配置生成树的主根时，设置它的优先级，优先级默认是32768，比它小就越靠谱，</span><br><span class="line">#优先级默认是4096的倍数</span><br></pre></td></tr></table></figure>
-
-<h4 id="接下来打开端口f0-2"><a href="#接下来打开端口f0-2" class="headerlink" title="#接下来打开端口f0/2"></a>#接下来打开端口f0/2</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">intface f0&#x2F;2</span><br><span class="line">no shutdown</span><br></pre></td></tr></table></figure>
-
-<h3 id="如下图"><a href="#如下图" class="headerlink" title="#如下图"></a>#如下图</h3><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001045.png" alt></p>
-<h6 id="现在用命令ping-10-1-1-2-测试-看是否可以ping通-如果ping通的话，就说明生成树配置成功"><a href="#现在用命令ping-10-1-1-2-测试-看是否可以ping通-如果ping通的话，就说明生成树配置成功" class="headerlink" title="#现在用命令ping 10.1.1.2 测试 看是否可以ping通,如果ping通的话，就说明生成树配置成功"></a>#现在用命令ping 10.1.1.2 测试 看是否可以ping通,如果ping通的话，就说明生成树配置成功</h6><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001229.png" alt></p>
-<p>#从上图可以看书，是可以ping通的，说明没有出现环路，起到了负载均衡的作用，流量即可以走左边，又可以走右边，</p>
-<p>#要想到各个vlan 之间可以互通的话，就必须配置虚拟网关</p>
-<h4 id="配置-sw1-交换机，vlan10-vlan20-vlan30-vlan40-的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启-：ip-routing"><a href="#配置-sw1-交换机，vlan10-vlan20-vlan30-vlan40-的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启-：ip-routing" class="headerlink" title="#配置 sw1 交换机，vlan10.vlan20,vlan30,vlan40,的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启 ：ip routing"></a>#配置 sw1 交换机，vlan10.vlan20,vlan30,vlan40,的虚拟网关，思科三层交换机路由功能默认是关闭的，需要开启 ：ip routing</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">interface vlan 10</span><br><span class="line"> ip address 192.168.10.254 255.255.255.0</span><br><span class="line"> no shutdown</span><br><span class="line"> exit</span><br><span class="line"> interface vlan 20</span><br><span class="line"> ip address 192.168.20.254 255.255.255.0</span><br><span class="line"> no shutdown</span><br><span class="line"> exit</span><br><span class="line"> interface vlan 30</span><br><span class="line"> ip address 192.168.30.254 255.255.255.0</span><br><span class="line"> no shutdown </span><br><span class="line"> exit</span><br><span class="line"> interface vlan 40</span><br><span class="line"> ip address 192.168.40.254 255.255.255.0</span><br><span class="line"> no shutdown</span><br></pre></td></tr></table></figure>
-
-<h4 id="接下来用vlan10-网段的pc-ping-vlan-30-40之间的pc-如下图"><a href="#接下来用vlan10-网段的pc-ping-vlan-30-40之间的pc-如下图" class="headerlink" title="#接下来用vlan10 网段的pc ping vlan 30,40之间的pc 如下图"></a>#接下来用vlan10 网段的pc ping vlan 30,40之间的pc 如下图</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001239.png" alt></p>
-<p>#以上说明测试成功，vlan 之间可以互访了</p>
-<p>#接下来我关闭sw3 f0/1 .使他流量从副根上走，起到备份作用，如下图</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001245.png" alt></p>
-<h4 id="继续ping-vlan-30-vlan-40-如下图"><a href="#继续ping-vlan-30-vlan-40-如下图" class="headerlink" title="#继续ping vlan 30 ,vlan 40 如下图"></a>#继续ping vlan 30 ,vlan 40 如下图</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001252.png" alt></p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001304.png" alt></p>
-<p>#以上说明测试成功，说明起到备份作用</p>
-<p>#同理可得，右边线路坏了的话，会从左边走</p>
-<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><p>配置生成树，目的是为了防止物理环路的产生，防止广播风暴，好处是，可以起到负载均衡的作用，和链路的冗余备份</p>
-]]></content>
-      <categories>
-        <category>网络</category>
-        <category>Cisco</category>
-        <category>stp</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Cisco</tag>
       </tags>
   </entry>
 </search>
