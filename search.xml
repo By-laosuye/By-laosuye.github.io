@@ -964,6 +964,190 @@
       </tags>
   </entry>
   <entry>
+    <title>Linux下——Apache服务器的搭建</title>
+    <url>/2020/04/21/Linux%E4%B8%8B%E2%80%94%E2%80%94Apache%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="第一步：我们先检查是否安装-apache服务器的软件"><a href="#第一步：我们先检查是否安装-apache服务器的软件" class="headerlink" title="第一步：我们先检查是否安装 apache服务器的软件"></a>第一步：我们先检查是否安装 apache服务器的软件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa|grep httpd</span><br></pre></td></tr></table></figure>
+
+<h1 id="第二步：使用yum方式安装apache服务器软件"><a href="#第二步：使用yum方式安装apache服务器软件" class="headerlink" title="第二步：使用yum方式安装apache服务器软件"></a>第二步：使用yum方式安装apache服务器软件</h1><h2 id="制作yum源文件并创建存储库"><a href="#制作yum源文件并创建存储库" class="headerlink" title="制作yum源文件并创建存储库"></a>制作yum源文件并创建存储库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mkdir &#x2F;cdrom</span><br></pre></td></tr></table></figure>
+
+<h2 id="挂载光盘"><a href="#挂载光盘" class="headerlink" title="挂载光盘"></a>挂载光盘</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mount &#x2F;dev&#x2F;cdrom &#x2F;cdrom</span><br><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;yum.repos.d&#x2F;dvd.repo</span><br><span class="line">[dvd]</span><br><span class="line">name&#x3D;dvd</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;cdrom</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enabeld&#x3D;1</span><br><span class="line">[root@localhost ~]# yum install httpd –y  #安装httpd服务</span><br></pre></td></tr></table></figure>
+
+<h1 id="第三步：重新启动httpd服务"><a href="#第三步：重新启动httpd服务" class="headerlink" title="第三步：重新启动httpd服务"></a>第三步：重新启动httpd服务</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# service httpd restart</span><br><span class="line">Apache服务器的IP地址为：192.168.1.118</span><br><span class="line">Apache 服务器的虚拟主机IP地址为：192.168.1.148</span><br><span class="line">Apache 服务器的虚拟主机IP地址为：192.168.1.149</span><br><span class="line">Apache 服务器的域名为jcxy.com</span><br><span class="line">主机头：www.jcxy.com</span><br><span class="line">虚拟主机头：www1.jcxy.com</span><br><span class="line">虚拟主机头：www2.jcxy.com</span><br><span class="line">个人主页：个人用户bob  密码：123456</span><br></pre></td></tr></table></figure>
+
+<h2 id="不启用selinux安全"><a href="#不启用selinux安全" class="headerlink" title="不启用selinux安全"></a>不启用selinux安全</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vim &#x2F;etc&#x2F;sysconfig&#x2F;selinux</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234422.png" alt></p>
+<p>改：SELINUX=permissive</p>
+<h1 id="4-修改apache服务器主配置文件"><a href="#4-修改apache服务器主配置文件" class="headerlink" title="4.修改apache服务器主配置文件"></a>4.修改apache服务器主配置文件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vi &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span><br><span class="line">改</span><br><span class="line">ServerName www.jcxy.com:80</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200526234439.png" style="zoom:200%;">
+
+<p>设置Apache默认站点的名称和端口号，这里的名称可以时IP地址，也可以是域名，如果是域名还需DNS的支持。 要做dns 添加一个A记录<a href="http://www.jcxy.com的主机头" target="_blank" rel="noopener">www.jcxy.com的主机头</a>.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DocumentRoot &quot;&#x2F;var&#x2F;www&#x2F;html</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200526234452.png" style="zoom:200%;">
+
+<p>设置WEB站点的文档根目录。 可更改也可不更改 更改要更改文件夹selinux上下文属性</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DirectoryIndex index.html index.html.var</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200526234514.png" style="zoom:200%;">
+
+<p>设置每个目录中默认的网页文件名称，排在前面的优先 默认读取的是index.html网页文件</p>
+<p>UserDir disabled #用到个人主页的话将这行注释,使个人主页生效， UserDir public_html #将这行注释去掉使个人账号下的public_html目录下的index.html文件能在导航条运行</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234523.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">格式:www.jcxy.com&#x2F;~bob(用户个人主页自己定义)</span><br><span class="line">格式：192.168.1.118&#x2F;~bob  #用IP地址登陆</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234533.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;Directory &#x2F;home&#x2F;*&#x2F;public_html&gt;</span><br><span class="line"></span><br><span class="line">    AllowOverride FileInfo AuthConfig Limit</span><br><span class="line"></span><br><span class="line">    Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec</span><br><span class="line"></span><br><span class="line">    &lt;Limit GET POST OPTIONS&gt;</span><br><span class="line"></span><br><span class="line">        Order allow,deny</span><br><span class="line"></span><br><span class="line">        Allow from all</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;Limit&gt;</span><br><span class="line"></span><br><span class="line">    &lt;LimitExcept GET POST OPTIONS&gt;</span><br><span class="line"></span><br><span class="line">        Order deny,allow</span><br><span class="line"></span><br><span class="line">        Deny from all</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;LimitExcept&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;Directory&gt;</span><br><span class="line"></span><br><span class="line">#对个人主页的目录设置</span><br><span class="line"></span><br><span class="line">#意思是home下的个人用户目录下public_html目录下的index.html文件成为网页</span><br></pre></td></tr></table></figure>
+
+<h1 id="首先创建一个测试页"><a href="#首先创建一个测试页" class="headerlink" title="首先创建一个测试页"></a>首先创建一个测试页</h1><p>在终端输入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@cmx2 ~]# useradd bob</span><br><span class="line">[root@cmx2 ~]# passwd bob</span><br><span class="line">[root@ns ~]# cd &#x2F;home&#x2F;bob</span><br><span class="line">[root@ns bob]# mkdir public_html   #创建个人目录下的public_html目录</span><br><span class="line">[root@ns bob]# cd public_html  </span><br><span class="line">[root@ns public_html]# echo 陈陈陈 &gt;index.html   #测试页</span><br><span class="line">[root@ns public_html]# chcon -R -h -t httpd_sys_content_t      &#x2F;home&#x2F;*&#x2F;public_html</span><br></pre></td></tr></table></figure>
+
+<p>更改selinux上下文的属性</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns bob]# chown bob:bob &#x2F;home&#x2F;bob&#x2F;public_html&#x2F;index.html</span><br><span class="line">[root@ns public_html]# chown bob:bob &#x2F;home&#x2F;bob&#x2F;public_html</span><br></pre></td></tr></table></figure>
+
+<p>更改个人主页的属主属组 这里是bob的个人主页 所以属主属组bob</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns bob]# chmod 711 &#x2F;home&#x2F;bob</span><br></pre></td></tr></table></figure>
+
+<p>用户主目录普通用户可读可写可执行 别的用户只能执行的权限</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@cmx2 public_html]# service httpd restart  #重启服务</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234547.png" alt></p>
+<p>简单的个人主页编写完成!</p>
+<h1 id="编写一个提供简单的虚拟目录"><a href="#编写一个提供简单的虚拟目录" class="headerlink" title="编写一个提供简单的虚拟目录"></a>编写一个提供简单的虚拟目录</h1><p>在vi /etc/httpd/conf/httpd.conf 下编辑</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234559.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Alias &#x2F;chen2&#x2F; &quot;&#x2F;c1&#x2F;public_html&#x2F;index.html&quot;#虚拟目录名称自定义  绝对路径自己创建</span><br></pre></td></tr></table></figure>
+
+<h2 id="为“-c1-public-html-index-html”目录建立别名。"><a href="#为“-c1-public-html-index-html”目录建立别名。" class="headerlink" title="为“/c1/public_html/index.html”目录建立别名。"></a>为“/c1/public_html/index.html”目录建立别名。</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;Directory &quot;&#x2F;c1&#x2F;public_html&#x2F;index.html&quot;&gt; </span><br><span class="line">Options Indexes MultiViews FollowSymLinks</span><br></pre></td></tr></table></figure>
+
+<p>三个选项 Indexes 服务器生成此目录的文件列表</p>
+<p>#MultiViews 服务器可使用符合链接链接到不在此目录的文件或目录,此参数若设在“localhost”区域中则无效</p>
+<p>Allowover None 控制项”none” 表示禁止使用全部指令,即禁止处理.htaccess文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AllowOverride None</span><br><span class="line">     Order allow,deny</span><br><span class="line">     Allow from all</span><br><span class="line"> </span><br><span class="line"> 绝对路径在 &#x2F;c1&#x2F;public_html&#x2F;index.html</span><br><span class="line"> 虚拟目录名为&#x2F;chen2</span><br></pre></td></tr></table></figure>
+
+<h2 id="在终端输入："><a href="#在终端输入：" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root@ns ~]# mkdir -p &#x2F;c1&#x2F;public_html  #创建绝对路径</span><br><span class="line">[root@ns ~]# cd &#x2F;c1&#x2F;public_html</span><br><span class="line">[root@ns public_html]# echo &#39;陈梦祥page!&#39;&gt;index.html #创建测试页 有符号加单引号括起来!</span><br><span class="line">[root@ns public_html]# chmod -R 777 &#x2F;c1&#x2F;public_html</span><br><span class="line">[root@ns public_html]# chcon -R -h -t httpd_sys_contnet_t &#x2F;c1&#x2F;public_html</span><br><span class="line">[root@ns public_html]# service httpd restart  #重启服务</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试:"></a>测试:</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234616.png" alt></p>
+<h1 id="创建一个虚拟目录提供两个账号登录"><a href="#创建一个虚拟目录提供两个账号登录" class="headerlink" title="创建一个虚拟目录提供两个账号登录"></a>创建一个虚拟目录提供两个账号登录</h1><p>在vi /etc/httpd/conf/httpd.conf 下编辑</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234624.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Alias &#x2F;chen3 &quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;test&quot;</span><br><span class="line">&lt;Directory &quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;test&quot;&gt; </span><br><span class="line">Order allow,deny</span><br><span class="line">Allow from all</span><br><span class="line">AllowOverride None</span><br><span class="line">AuthType Basic</span><br><span class="line">设置认证方式</span><br><span class="line">AuthName &quot;Please input username and password&quot;</span><br><span class="line">认证需要用户名和密码</span><br><span class="line">AuthUserFile &#x2F;etc&#x2F;httpd&#x2F;userpasswd</span><br><span class="line">httpd用户口令文件的路径</span><br><span class="line">Require valid-user</span><br><span class="line">Satisfy all</span><br><span class="line">同时使用主机名和用户名&#x2F;口令进行访问控制；若使用“Stisfy any”，则满足其一就允许访问。</span><br><span class="line">&lt;&#x2F;Directory&gt; </span><br><span class="line"> 虚拟目录名为:&#x2F;chen3</span><br><span class="line"> 用户：CMX1 密码：123456</span><br><span class="line"> 用户：CMX2 密码：123456</span><br><span class="line"> 绝对路径在: &#x2F;c2&#x2F;public_html&#x2F;index.html</span><br></pre></td></tr></table></figure>
+
+<h2 id="在终端输入：-1"><a href="#在终端输入：-1" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root@ns ~]# mkdir -p &#x2F;var&#x2F;www&#x2F;html&#x2F;test</span><br><span class="line">root@ns ~]# cd &#x2F;var&#x2F;www&#x2F;html&#x2F;test</span><br><span class="line">[root@ns test]# echo &#39;this is my test page!&#39;&gt;index.html</span><br><span class="line">[root@ns public_html]# useradd CMX1</span><br><span class="line">[root@ns public_html]# useradd CMX2</span><br><span class="line">[root@ns public_html]# passwd CMX1</span><br><span class="line">[root@ns public_html]# passwd CMX2</span><br><span class="line">[root@ns public_html]# htpasswd -c &#x2F;etc&#x2F;httpd&#x2F;userpasswd CMX1 #添加虚拟目录 用户与密码</span><br><span class="line">[root@ns public_html]# htpasswd &#x2F;etc&#x2F;httpd&#x2F;userpasswd CMX2  #添加虚拟目录用户与密码</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234636.png" alt></p>
+<p>虚拟目录提供密码与密码的网页完成. </p>
+<p>搭建web虚拟主机</p>
+<p>添加网卡</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns public_html]# vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-eth0</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234645.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">IPaddr：192.168.1.148</span><br><span class="line">IPaddr：192.168.1.149</span><br><span class="line">添加dns主机头 </span><br><span class="line">www1.jcxy.com </span><br><span class="line">www2.jcxy.com </span><br><span class="line">前提是你DNS在完成搭建的情况下</span><br><span class="line">[root@ns public_html]#vi &#x2F;var&#x2F;named&#x2F;jcxy.com.zone  编辑添加</span><br><span class="line">www1     IN    A       192.168.1.148</span><br><span class="line">www2     IN    A       192.168.1.148</span><br><span class="line">[root@ns public_html]# vi &#x2F;var&#x2F;named&#x2F;1.168.192.zone  编辑添加</span><br><span class="line">148   IN   PTR    www1.jcxy.com.</span><br><span class="line">148   IN   PTR    www2.jcxy.com.</span><br></pre></td></tr></table></figure>
+
+<h1 id="基于IP地址的web虚拟主机"><a href="#基于IP地址的web虚拟主机" class="headerlink" title="基于IP地址的web虚拟主机"></a>基于IP地址的web虚拟主机</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">在vi &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf 下编辑</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234653.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#自己定义的虚拟网卡     </span><br><span class="line">ServerAdmin webmaster@www.jcxy.com  </span><br><span class="line">#主域名服务器的基础上     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx1  </span><br><span class="line">#web服务器放html页面的根目录 ,可以自己定义但你要改权限与selinux上下文属性     ServerName 192.168.1.148  </span><br><span class="line">#虚拟主机的IP地址     </span><br><span class="line">ErrorLog logs&#x2F;192.168.1.148-error_log  </span><br><span class="line">#错误日志存放位置 自动生成     </span><br><span class="line">CustomLog logs&#x2F;192.168.1.148-access_log common </span><br><span class="line">#链接日志位置  自动生成记录数  </span><br><span class="line"> &lt;&#x2F;VirtualHost&gt; </span><br><span class="line">#自己定义的虚拟网卡</span><br><span class="line">     ServerAdmin webmaster@www.jcxy.com </span><br><span class="line">#主域名服务器的基础上</span><br><span class="line">     DocumentRoot &#x2F;var&#x2F;www&#x2F; cmx2   </span><br><span class="line"> web服务器放html页面的根目录</span><br><span class="line"> ServerName 192.168.1.149 ErrorLog logs&#x2F;192.168.1.149-error_log</span><br><span class="line"> 错误日志</span><br><span class="line"> CustomLog logs&#x2F;192.168.1.149-access_log common</span><br><span class="line"> 链接日志</span><br><span class="line"> &lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在终端输入：-2"><a href="#在终端输入：-2" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx1  #创建我们存放html的目录  selinux上下文属性不需要更改此文件夹自带http脚本权限.</span><br><span class="line">[root@ns www]# cd cmx1</span><br><span class="line">[root@ns cmx1]# echo &#39;cmx1 page !&#39;&gt;index.html  #创建测试页  index.html (服务器只会读取index.html的网页文件)</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：-1"><a href="#测试：-1" class="headerlink" title="测试："></a>测试：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234704.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx2  #创建我们存放html的目录  selinux上下文属性不需要更改此文件夹自带http脚本权限.</span><br><span class="line">[root@ns www]# cd cmx2</span><br><span class="line">[root@ns cmx2]# echo &#39;this is cmx2 page!&#39;&gt;index.html  #创建测试页  index.html (服务器只会读取index.html的网页文件)</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试-1"><a href="#测试-1" class="headerlink" title="测试:"></a>测试:</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234713.png" alt></p>
+<h1 id="基于域名的web虚拟主机"><a href="#基于域名的web虚拟主机" class="headerlink" title="基于域名的web虚拟主机"></a>基于域名的web虚拟主机</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">添加主机头：www1.jcxy.com</span><br><span class="line">          www2.jcxy.com</span><br></pre></td></tr></table></figure>
+
+<h1 id="基于域名的虚拟主机"><a href="#基于域名的虚拟主机" class="headerlink" title="基于域名的虚拟主机"></a>基于域名的虚拟主机</h1><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234726.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> #虚拟主机的IP与端口     </span><br><span class="line">ServerAdmin webmaster@www.jcxy.com </span><br><span class="line">#主域名服务器的基础上     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx3  </span><br><span class="line">#web服务器放html页面的根目录 可以更改但要有这个目录 权限和selinux上下文也要改.     ServerName www1.jcxy.com  </span><br><span class="line">#虚拟主机的主机域     </span><br><span class="line">ErrorLog logs&#x2F;www1.jcxy.com-error_log       </span><br><span class="line">CustomLog logs&#x2F;www1.jcxy.com-access_log common </span><br><span class="line">&lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在终端输入：-3"><a href="#在终端输入：-3" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx3</span><br><span class="line">[root@ns www]# cd cmx3</span><br><span class="line">[root@ns cmx3]# echo &#39;this is cmx3 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：-2"><a href="#测试：-2" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234734.png" style="zoom:200%;">
+
+<h2 id="在终端输入：-4"><a href="#在终端输入：-4" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns cmx3]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx4</span><br><span class="line">[root@ns www]# cd cmx4</span><br><span class="line">[root@ns cmx4]# echo &#39;this is cmx4 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试-2"><a href="#测试-2" class="headerlink" title="测试"></a>测试</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234747.png" style="zoom:200%;">
+
+<h1 id="基于端口的虚拟主机"><a href="#基于端口的虚拟主机" class="headerlink" title="基于端口的虚拟主机"></a>基于端口的虚拟主机</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">端口改为192.168.1.148： 8080</span><br><span class="line">       192.168.1.148： 9999</span><br></pre></td></tr></table></figure>
+
+<h2 id="先改端口"><a href="#先改端口" class="headerlink" title="先改端口"></a>先改端口</h2><p>在vi /etc/services</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http         8080&#x2F;tcp          www www-http    # WorldWideWeb HTTP</span><br><span class="line">http         8080&#x2F;udp          www www-http    # HyperText Transfer P</span><br></pre></td></tr></table></figure>
+
+<h2 id="防火墙放行两个端口"><a href="#防火墙放行两个端口" class="headerlink" title="防火墙放行两个端口"></a>防火墙放行两个端口</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;services</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p tcp --dport 8080 -j ACCEPT</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p udp --dport 8080 -j ACCEPT</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p tcp --dport 9999 -j ACCEPT</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p udp --dport 9999 -j ACCEPT</span><br><span class="line">[root@ns ~]# service iptables save</span><br></pre></td></tr></table></figure>
+
+<p>在vi /etc/httpd/conf/httpd.conf 下编辑</p>
+<p>还是采用虚拟主机 IP地址 192.168.1.148</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234759.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Listen 8080   #加8080监听端口</span><br><span class="line"> Listen 9999   #加9999监听端口</span><br><span class="line"> &lt;VirtualHost 192.168.1.148:8080&gt; </span><br><span class="line">     ServerAdmin webmaster@www.jcxy.com     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx5     </span><br><span class="line">ServerName 192.168.1.148     </span><br><span class="line">ErrorLog logs&#x2F;192.168.1.148-8080-error_log     </span><br><span class="line">CustomLog logs&#x2F;192.168.1.148-8080-access_log common </span><br><span class="line"> &lt;&#x2F;VirtualHost&gt; </span><br><span class="line"> &lt;VirtualHost 192.168.1.148:9999&gt; </span><br><span class="line">     ServerAdmin webmaster@www.jcxy.com     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx6     </span><br><span class="line">ServerName 192.168.1.148     </span><br><span class="line">ErrorLog logs&#x2F;192.168.1.148-9999-error_log     CustomLog logs&#x2F;192.168.1.148-9999-access_log common </span><br><span class="line"> &lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在终端输入"><a href="#在终端输入" class="headerlink" title="在终端输入"></a>在终端输入</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx5</span><br><span class="line">[root@ns www]# cd cmx5</span><br><span class="line">[root@ns cmx5]# echo &#39;this is cmx5 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：-3"><a href="#测试：-3" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234809.png" style="zoom:200%;">
+
+<h2 id="在终端下输入"><a href="#在终端下输入" class="headerlink" title="在终端下输入:"></a>在终端下输入:</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx6</span><br><span class="line">[root@ns www]# cd cmx6</span><br><span class="line">[root@ns cmx6]# echo &#39;this is cmx6 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：-4"><a href="#测试：-4" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234823.png" style="zoom:200%;">
+
+<h2 id="访问安全控制："><a href="#访问安全控制：" class="headerlink" title="访问安全控制："></a>访问安全控制：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">101    &lt;Directory &quot;&#x2F;usr&#x2F;local&#x2F;test&quot;&gt;  </span><br><span class="line">102    order allow,deny </span><br><span class="line">103    allow from 192.168.1.0&#x2F;24 </span><br><span class="line">104    deny from all  </span><br><span class="line">105    &lt;&#x2F;Directory&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/laosuye/TC/raw/master/20200526234832.png" style="zoom:150%;">
+
+<p>自此，Apache服务器各个情况搭建完毕</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>服务器</category>
+        <category>Apache</category>
+      </categories>
+      <tags>
+        <tag>服务器</tag>
+        <tag>Linux</tag>
+        <tag>Apache</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux下——磁盘管理与crontab调度</title>
+    <url>/2020/04/27/Linux%E4%B8%8B%E2%80%94%E2%80%94%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E4%B8%8Ecrontab%E8%B0%83%E5%BA%A6/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<p>例：某台linux服务器 加了一块1个T的硬盘 要求分四个区 内存大小相同.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk –l  #查看所有本地硬盘路径</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001644.png" alt></p>
+<p>如上所得 我们新加的硬盘路径是 /dev/sdb</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk &#x2F;dev&#x2F;sdb   #选择目标硬盘  也就是我们要分的硬盘!</span><br><span class="line"> Command (m for help): n  #新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #标准分区</span><br><span class="line"> Partition number (1-4): 1  #问你这是你要分第几个区  我们这里是分第一个区</span><br><span class="line"> First cylinder (1-133674, default 1): 1  #内存大小  因为第一块  从1开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (1-133674, default 133674): 33418.5  #内存大小到哪里结束,我们是分四块所有133674除4 平均每一块的大小.</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p     #创建标准分区</span><br><span class="line"> Partition number (1-4): 2  #第二块分区</span><br><span class="line"> First cylinder (33419-133674, default 33419): 33419   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (33419-133674, default 133674): 66837  #硬盘大小到哪结束.  第二块就是33418.5+33418.5的内存结束 第三块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Partition number (1-4): 3   #第三块分区</span><br><span class="line"> First cylinder (66838-133674, default 66838): 66838   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (66838-133674, default 133674): 100255.5    #硬盘大小到哪结束.  第三块就是33418.5+33418.5+33418.5的内存结束 第二块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action </span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Selected partition 4  #第四块分区</span><br><span class="line"> First cylinder (100256-133674, default 100256): 100256  #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (100256-133674, default 133674): 133674</span><br><span class="line"> 硬盘大小到哪结束.  第四块就是33418.5+33418.5+33418.5+33418.5的内存结束 第四块分区</span><br><span class="line"> Command (m for help): w  #保持并退出分区选项</span><br><span class="line"> The partition table has been altered!</span><br><span class="line"> [root@ns ~]# fdisk –l  #查看所有硬盘路径,找到我们刚刚分的四块硬盘路径 格式化</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb1  #格式化我们分的第一块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb2  #格式化我们分的第二块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb3  #格式化我们分的第三块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb4  #格式化我们分的第四块硬盘</span><br></pre></td></tr></table></figure>
+
+<p>测试：计算机里有1T大小的硬盘分为了4块大小一致的硬盘</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527001650.png" style="zoom:150%;">
+
+<p>磁盘管理 搭建完毕！</p>
+<p>Cron调度</p>
+<p>例：我们每个星期五14点30分都要自动备份/home目录去另一块磁盘 ！</p>
+<p>第一个*：分钟0～59</p>
+<p>第二个*：小时0～23</p>
+<p>第三个*：日期1～31</p>
+<p>第四个*：月份1～12</p>
+<p>第五个*：星期0～7；注意0和7都表示星期天。</p>
+<p>第六个代表命令名称</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  </span><br><span class="line">[root@ns ~]# crontab -l</span><br><span class="line">*&#x2F;1 * * * * cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66 #我先做了个每分钟的自动备份</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527001659.png" style="zoom:200%;">
+
+<p>现在按照要求来： 每个礼拜五14：30备份一次/home目录去/media/8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  #在这里下面编辑  </span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容!</span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容! 例：每2分钟拷贝一次</span><br><span class="line">*&#x2F;2 * * * * tar -czf &#x2F;backup&#x2F;home-data.tar.gz &#x2F;home  #拷贝的压缩包格式</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>磁盘</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>定时任务</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux下用户和组的管理</title>
     <url>/2020/04/24/Linux%E4%B8%8B%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -1023,46 +1207,6 @@
         <tag>linux</tag>
         <tag>服务器</tag>
         <tag>CentOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux下——磁盘管理与crontab调度</title>
-    <url>/2020/04/27/Linux%E4%B8%8B%E2%80%94%E2%80%94%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E4%B8%8Ecrontab%E8%B0%83%E5%BA%A6/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<p>例：某台linux服务器 加了一块1个T的硬盘 要求分四个区 内存大小相同.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk –l  #查看所有本地硬盘路径</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001644.png" alt></p>
-<p>如上所得 我们新加的硬盘路径是 /dev/sdb</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk &#x2F;dev&#x2F;sdb   #选择目标硬盘  也就是我们要分的硬盘!</span><br><span class="line"> Command (m for help): n  #新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #标准分区</span><br><span class="line"> Partition number (1-4): 1  #问你这是你要分第几个区  我们这里是分第一个区</span><br><span class="line"> First cylinder (1-133674, default 1): 1  #内存大小  因为第一块  从1开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (1-133674, default 133674): 33418.5  #内存大小到哪里结束,我们是分四块所有133674除4 平均每一块的大小.</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p     #创建标准分区</span><br><span class="line"> Partition number (1-4): 2  #第二块分区</span><br><span class="line"> First cylinder (33419-133674, default 33419): 33419   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (33419-133674, default 133674): 66837  #硬盘大小到哪结束.  第二块就是33418.5+33418.5的内存结束 第三块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Partition number (1-4): 3   #第三块分区</span><br><span class="line"> First cylinder (66838-133674, default 66838): 66838   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (66838-133674, default 133674): 100255.5    #硬盘大小到哪结束.  第三块就是33418.5+33418.5+33418.5的内存结束 第二块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action </span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Selected partition 4  #第四块分区</span><br><span class="line"> First cylinder (100256-133674, default 100256): 100256  #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (100256-133674, default 133674): 133674</span><br><span class="line"> 硬盘大小到哪结束.  第四块就是33418.5+33418.5+33418.5+33418.5的内存结束 第四块分区</span><br><span class="line"> Command (m for help): w  #保持并退出分区选项</span><br><span class="line"> The partition table has been altered!</span><br><span class="line"> [root@ns ~]# fdisk –l  #查看所有硬盘路径,找到我们刚刚分的四块硬盘路径 格式化</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb1  #格式化我们分的第一块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb2  #格式化我们分的第二块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb3  #格式化我们分的第三块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb4  #格式化我们分的第四块硬盘</span><br></pre></td></tr></table></figure>
-
-<p>测试：计算机里有1T大小的硬盘分为了4块大小一致的硬盘</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527001650.png" style="zoom:150%;">
-
-<p>磁盘管理 搭建完毕！</p>
-<p>Cron调度</p>
-<p>例：我们每个星期五14点30分都要自动备份/home目录去另一块磁盘 ！</p>
-<p>第一个*：分钟0～59</p>
-<p>第二个*：小时0～23</p>
-<p>第三个*：日期1～31</p>
-<p>第四个*：月份1～12</p>
-<p>第五个*：星期0～7；注意0和7都表示星期天。</p>
-<p>第六个代表命令名称</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  </span><br><span class="line">[root@ns ~]# crontab -l</span><br><span class="line">*&#x2F;1 * * * * cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66 #我先做了个每分钟的自动备份</span><br></pre></td></tr></table></figure>
-
-<p>测试：</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527001659.png" style="zoom:200%;">
-
-<p>现在按照要求来： 每个礼拜五14：30备份一次/home目录去/media/8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  #在这里下面编辑  </span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容!</span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容! 例：每2分钟拷贝一次</span><br><span class="line">*&#x2F;2 * * * * tar -czf &#x2F;backup&#x2F;home-data.tar.gz &#x2F;home  #拷贝的压缩包格式</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>磁盘</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>定时任务</tag>
       </tags>
   </entry>
   <entry>
@@ -1294,150 +1438,6 @@
         <tag>编程</tag>
         <tag>编程基础</tag>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux下——Apache服务器的搭建</title>
-    <url>/2020/04/21/Linux%E4%B8%8B%E2%80%94%E2%80%94Apache%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="第一步：我们先检查是否安装-apache服务器的软件"><a href="#第一步：我们先检查是否安装-apache服务器的软件" class="headerlink" title="第一步：我们先检查是否安装 apache服务器的软件"></a>第一步：我们先检查是否安装 apache服务器的软件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa|grep httpd</span><br></pre></td></tr></table></figure>
-
-<h1 id="第二步：使用yum方式安装apache服务器软件"><a href="#第二步：使用yum方式安装apache服务器软件" class="headerlink" title="第二步：使用yum方式安装apache服务器软件"></a>第二步：使用yum方式安装apache服务器软件</h1><h2 id="制作yum源文件并创建存储库"><a href="#制作yum源文件并创建存储库" class="headerlink" title="制作yum源文件并创建存储库"></a>制作yum源文件并创建存储库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mkdir &#x2F;cdrom</span><br></pre></td></tr></table></figure>
-
-<h2 id="挂载光盘"><a href="#挂载光盘" class="headerlink" title="挂载光盘"></a>挂载光盘</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mount &#x2F;dev&#x2F;cdrom &#x2F;cdrom</span><br><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;yum.repos.d&#x2F;dvd.repo</span><br><span class="line">[dvd]</span><br><span class="line">name&#x3D;dvd</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;cdrom</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enabeld&#x3D;1</span><br><span class="line">[root@localhost ~]# yum install httpd –y  #安装httpd服务</span><br></pre></td></tr></table></figure>
-
-<h1 id="第三步：重新启动httpd服务"><a href="#第三步：重新启动httpd服务" class="headerlink" title="第三步：重新启动httpd服务"></a>第三步：重新启动httpd服务</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# service httpd restart</span><br><span class="line">Apache服务器的IP地址为：192.168.1.118</span><br><span class="line">Apache 服务器的虚拟主机IP地址为：192.168.1.148</span><br><span class="line">Apache 服务器的虚拟主机IP地址为：192.168.1.149</span><br><span class="line">Apache 服务器的域名为jcxy.com</span><br><span class="line">主机头：www.jcxy.com</span><br><span class="line">虚拟主机头：www1.jcxy.com</span><br><span class="line">虚拟主机头：www2.jcxy.com</span><br><span class="line">个人主页：个人用户bob  密码：123456</span><br></pre></td></tr></table></figure>
-
-<h2 id="不启用selinux安全"><a href="#不启用selinux安全" class="headerlink" title="不启用selinux安全"></a>不启用selinux安全</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vim &#x2F;etc&#x2F;sysconfig&#x2F;selinux</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234422.png" alt></p>
-<p>改：SELINUX=permissive</p>
-<h1 id="4-修改apache服务器主配置文件"><a href="#4-修改apache服务器主配置文件" class="headerlink" title="4.修改apache服务器主配置文件"></a>4.修改apache服务器主配置文件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@mail ~]# vi &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</span><br><span class="line">改</span><br><span class="line">ServerName www.jcxy.com:80</span><br></pre></td></tr></table></figure>
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200526234439.png" style="zoom:200%;">
-
-<p>设置Apache默认站点的名称和端口号，这里的名称可以时IP地址，也可以是域名，如果是域名还需DNS的支持。 要做dns 添加一个A记录<a href="http://www.jcxy.com的主机头" target="_blank" rel="noopener">www.jcxy.com的主机头</a>.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DocumentRoot &quot;&#x2F;var&#x2F;www&#x2F;html</span><br></pre></td></tr></table></figure>
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200526234452.png" style="zoom:200%;">
-
-<p>设置WEB站点的文档根目录。 可更改也可不更改 更改要更改文件夹selinux上下文属性</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DirectoryIndex index.html index.html.var</span><br></pre></td></tr></table></figure>
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200526234514.png" style="zoom:200%;">
-
-<p>设置每个目录中默认的网页文件名称，排在前面的优先 默认读取的是index.html网页文件</p>
-<p>UserDir disabled #用到个人主页的话将这行注释,使个人主页生效， UserDir public_html #将这行注释去掉使个人账号下的public_html目录下的index.html文件能在导航条运行</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234523.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">格式:www.jcxy.com&#x2F;~bob(用户个人主页自己定义)</span><br><span class="line">格式：192.168.1.118&#x2F;~bob  #用IP地址登陆</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234533.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;Directory &#x2F;home&#x2F;*&#x2F;public_html&gt;</span><br><span class="line"></span><br><span class="line">    AllowOverride FileInfo AuthConfig Limit</span><br><span class="line"></span><br><span class="line">    Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec</span><br><span class="line"></span><br><span class="line">    &lt;Limit GET POST OPTIONS&gt;</span><br><span class="line"></span><br><span class="line">        Order allow,deny</span><br><span class="line"></span><br><span class="line">        Allow from all</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;Limit&gt;</span><br><span class="line"></span><br><span class="line">    &lt;LimitExcept GET POST OPTIONS&gt;</span><br><span class="line"></span><br><span class="line">        Order deny,allow</span><br><span class="line"></span><br><span class="line">        Deny from all</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;LimitExcept&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;Directory&gt;</span><br><span class="line"></span><br><span class="line">#对个人主页的目录设置</span><br><span class="line"></span><br><span class="line">#意思是home下的个人用户目录下public_html目录下的index.html文件成为网页</span><br></pre></td></tr></table></figure>
-
-<h1 id="首先创建一个测试页"><a href="#首先创建一个测试页" class="headerlink" title="首先创建一个测试页"></a>首先创建一个测试页</h1><p>在终端输入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@cmx2 ~]# useradd bob</span><br><span class="line">[root@cmx2 ~]# passwd bob</span><br><span class="line">[root@ns ~]# cd &#x2F;home&#x2F;bob</span><br><span class="line">[root@ns bob]# mkdir public_html   #创建个人目录下的public_html目录</span><br><span class="line">[root@ns bob]# cd public_html  </span><br><span class="line">[root@ns public_html]# echo 陈陈陈 &gt;index.html   #测试页</span><br><span class="line">[root@ns public_html]# chcon -R -h -t httpd_sys_content_t      &#x2F;home&#x2F;*&#x2F;public_html</span><br></pre></td></tr></table></figure>
-
-<p>更改selinux上下文的属性</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns bob]# chown bob:bob &#x2F;home&#x2F;bob&#x2F;public_html&#x2F;index.html</span><br><span class="line">[root@ns public_html]# chown bob:bob &#x2F;home&#x2F;bob&#x2F;public_html</span><br></pre></td></tr></table></figure>
-
-<p>更改个人主页的属主属组 这里是bob的个人主页 所以属主属组bob</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns bob]# chmod 711 &#x2F;home&#x2F;bob</span><br></pre></td></tr></table></figure>
-
-<p>用户主目录普通用户可读可写可执行 别的用户只能执行的权限</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@cmx2 public_html]# service httpd restart  #重启服务</span><br></pre></td></tr></table></figure>
-
-<p>测试：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234547.png" alt></p>
-<p>简单的个人主页编写完成!</p>
-<h1 id="编写一个提供简单的虚拟目录"><a href="#编写一个提供简单的虚拟目录" class="headerlink" title="编写一个提供简单的虚拟目录"></a>编写一个提供简单的虚拟目录</h1><p>在vi /etc/httpd/conf/httpd.conf 下编辑</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234559.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Alias &#x2F;chen2&#x2F; &quot;&#x2F;c1&#x2F;public_html&#x2F;index.html&quot;#虚拟目录名称自定义  绝对路径自己创建</span><br></pre></td></tr></table></figure>
-
-<h2 id="为“-c1-public-html-index-html”目录建立别名。"><a href="#为“-c1-public-html-index-html”目录建立别名。" class="headerlink" title="为“/c1/public_html/index.html”目录建立别名。"></a>为“/c1/public_html/index.html”目录建立别名。</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;Directory &quot;&#x2F;c1&#x2F;public_html&#x2F;index.html&quot;&gt; </span><br><span class="line">Options Indexes MultiViews FollowSymLinks</span><br></pre></td></tr></table></figure>
-
-<p>三个选项 Indexes 服务器生成此目录的文件列表</p>
-<p>#MultiViews 服务器可使用符合链接链接到不在此目录的文件或目录,此参数若设在“localhost”区域中则无效</p>
-<p>Allowover None 控制项”none” 表示禁止使用全部指令,即禁止处理.htaccess文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AllowOverride None</span><br><span class="line">     Order allow,deny</span><br><span class="line">     Allow from all</span><br><span class="line"> </span><br><span class="line"> 绝对路径在 &#x2F;c1&#x2F;public_html&#x2F;index.html</span><br><span class="line"> 虚拟目录名为&#x2F;chen2</span><br></pre></td></tr></table></figure>
-
-<h2 id="在终端输入："><a href="#在终端输入：" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root@ns ~]# mkdir -p &#x2F;c1&#x2F;public_html  #创建绝对路径</span><br><span class="line">[root@ns ~]# cd &#x2F;c1&#x2F;public_html</span><br><span class="line">[root@ns public_html]# echo &#39;陈梦祥page!&#39;&gt;index.html #创建测试页 有符号加单引号括起来!</span><br><span class="line">[root@ns public_html]# chmod -R 777 &#x2F;c1&#x2F;public_html</span><br><span class="line">[root@ns public_html]# chcon -R -h -t httpd_sys_contnet_t &#x2F;c1&#x2F;public_html</span><br><span class="line">[root@ns public_html]# service httpd restart  #重启服务</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试:"></a>测试:</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234616.png" alt></p>
-<h1 id="创建一个虚拟目录提供两个账号登录"><a href="#创建一个虚拟目录提供两个账号登录" class="headerlink" title="创建一个虚拟目录提供两个账号登录"></a>创建一个虚拟目录提供两个账号登录</h1><p>在vi /etc/httpd/conf/httpd.conf 下编辑</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234624.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Alias &#x2F;chen3 &quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;test&quot;</span><br><span class="line">&lt;Directory &quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;test&quot;&gt; </span><br><span class="line">Order allow,deny</span><br><span class="line">Allow from all</span><br><span class="line">AllowOverride None</span><br><span class="line">AuthType Basic</span><br><span class="line">设置认证方式</span><br><span class="line">AuthName &quot;Please input username and password&quot;</span><br><span class="line">认证需要用户名和密码</span><br><span class="line">AuthUserFile &#x2F;etc&#x2F;httpd&#x2F;userpasswd</span><br><span class="line">httpd用户口令文件的路径</span><br><span class="line">Require valid-user</span><br><span class="line">Satisfy all</span><br><span class="line">同时使用主机名和用户名&#x2F;口令进行访问控制；若使用“Stisfy any”，则满足其一就允许访问。</span><br><span class="line">&lt;&#x2F;Directory&gt; </span><br><span class="line"> 虚拟目录名为:&#x2F;chen3</span><br><span class="line"> 用户：CMX1 密码：123456</span><br><span class="line"> 用户：CMX2 密码：123456</span><br><span class="line"> 绝对路径在: &#x2F;c2&#x2F;public_html&#x2F;index.html</span><br></pre></td></tr></table></figure>
-
-<h2 id="在终端输入：-1"><a href="#在终端输入：-1" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root@ns ~]# mkdir -p &#x2F;var&#x2F;www&#x2F;html&#x2F;test</span><br><span class="line">root@ns ~]# cd &#x2F;var&#x2F;www&#x2F;html&#x2F;test</span><br><span class="line">[root@ns test]# echo &#39;this is my test page!&#39;&gt;index.html</span><br><span class="line">[root@ns public_html]# useradd CMX1</span><br><span class="line">[root@ns public_html]# useradd CMX2</span><br><span class="line">[root@ns public_html]# passwd CMX1</span><br><span class="line">[root@ns public_html]# passwd CMX2</span><br><span class="line">[root@ns public_html]# htpasswd -c &#x2F;etc&#x2F;httpd&#x2F;userpasswd CMX1 #添加虚拟目录 用户与密码</span><br><span class="line">[root@ns public_html]# htpasswd &#x2F;etc&#x2F;httpd&#x2F;userpasswd CMX2  #添加虚拟目录用户与密码</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234636.png" alt></p>
-<p>虚拟目录提供密码与密码的网页完成. </p>
-<p>搭建web虚拟主机</p>
-<p>添加网卡</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns public_html]# vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-eth0</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234645.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">IPaddr：192.168.1.148</span><br><span class="line">IPaddr：192.168.1.149</span><br><span class="line">添加dns主机头 </span><br><span class="line">www1.jcxy.com </span><br><span class="line">www2.jcxy.com </span><br><span class="line">前提是你DNS在完成搭建的情况下</span><br><span class="line">[root@ns public_html]#vi &#x2F;var&#x2F;named&#x2F;jcxy.com.zone  编辑添加</span><br><span class="line">www1     IN    A       192.168.1.148</span><br><span class="line">www2     IN    A       192.168.1.148</span><br><span class="line">[root@ns public_html]# vi &#x2F;var&#x2F;named&#x2F;1.168.192.zone  编辑添加</span><br><span class="line">148   IN   PTR    www1.jcxy.com.</span><br><span class="line">148   IN   PTR    www2.jcxy.com.</span><br></pre></td></tr></table></figure>
-
-<h1 id="基于IP地址的web虚拟主机"><a href="#基于IP地址的web虚拟主机" class="headerlink" title="基于IP地址的web虚拟主机"></a>基于IP地址的web虚拟主机</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">在vi &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf 下编辑</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234653.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#自己定义的虚拟网卡     </span><br><span class="line">ServerAdmin webmaster@www.jcxy.com  </span><br><span class="line">#主域名服务器的基础上     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx1  </span><br><span class="line">#web服务器放html页面的根目录 ,可以自己定义但你要改权限与selinux上下文属性     ServerName 192.168.1.148  </span><br><span class="line">#虚拟主机的IP地址     </span><br><span class="line">ErrorLog logs&#x2F;192.168.1.148-error_log  </span><br><span class="line">#错误日志存放位置 自动生成     </span><br><span class="line">CustomLog logs&#x2F;192.168.1.148-access_log common </span><br><span class="line">#链接日志位置  自动生成记录数  </span><br><span class="line"> &lt;&#x2F;VirtualHost&gt; </span><br><span class="line">#自己定义的虚拟网卡</span><br><span class="line">     ServerAdmin webmaster@www.jcxy.com </span><br><span class="line">#主域名服务器的基础上</span><br><span class="line">     DocumentRoot &#x2F;var&#x2F;www&#x2F; cmx2   </span><br><span class="line"> web服务器放html页面的根目录</span><br><span class="line"> ServerName 192.168.1.149 ErrorLog logs&#x2F;192.168.1.149-error_log</span><br><span class="line"> 错误日志</span><br><span class="line"> CustomLog logs&#x2F;192.168.1.149-access_log common</span><br><span class="line"> 链接日志</span><br><span class="line"> &lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="在终端输入：-2"><a href="#在终端输入：-2" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx1  #创建我们存放html的目录  selinux上下文属性不需要更改此文件夹自带http脚本权限.</span><br><span class="line">[root@ns www]# cd cmx1</span><br><span class="line">[root@ns cmx1]# echo &#39;cmx1 page !&#39;&gt;index.html  #创建测试页  index.html (服务器只会读取index.html的网页文件)</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试：-1"><a href="#测试：-1" class="headerlink" title="测试："></a>测试：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234704.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx2  #创建我们存放html的目录  selinux上下文属性不需要更改此文件夹自带http脚本权限.</span><br><span class="line">[root@ns www]# cd cmx2</span><br><span class="line">[root@ns cmx2]# echo &#39;this is cmx2 page!&#39;&gt;index.html  #创建测试页  index.html (服务器只会读取index.html的网页文件)</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试-1"><a href="#测试-1" class="headerlink" title="测试:"></a>测试:</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234713.png" alt></p>
-<h1 id="基于域名的web虚拟主机"><a href="#基于域名的web虚拟主机" class="headerlink" title="基于域名的web虚拟主机"></a>基于域名的web虚拟主机</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">添加主机头：www1.jcxy.com</span><br><span class="line">          www2.jcxy.com</span><br></pre></td></tr></table></figure>
-
-<h1 id="基于域名的虚拟主机"><a href="#基于域名的虚拟主机" class="headerlink" title="基于域名的虚拟主机"></a>基于域名的虚拟主机</h1><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234726.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> #虚拟主机的IP与端口     </span><br><span class="line">ServerAdmin webmaster@www.jcxy.com </span><br><span class="line">#主域名服务器的基础上     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx3  </span><br><span class="line">#web服务器放html页面的根目录 可以更改但要有这个目录 权限和selinux上下文也要改.     ServerName www1.jcxy.com  </span><br><span class="line">#虚拟主机的主机域     </span><br><span class="line">ErrorLog logs&#x2F;www1.jcxy.com-error_log       </span><br><span class="line">CustomLog logs&#x2F;www1.jcxy.com-access_log common </span><br><span class="line">&lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="在终端输入：-3"><a href="#在终端输入：-3" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx3</span><br><span class="line">[root@ns www]# cd cmx3</span><br><span class="line">[root@ns cmx3]# echo &#39;this is cmx3 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试：-2"><a href="#测试：-2" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234734.png" style="zoom:200%;">
-
-<h2 id="在终端输入：-4"><a href="#在终端输入：-4" class="headerlink" title="在终端输入："></a>在终端输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns cmx3]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx4</span><br><span class="line">[root@ns www]# cd cmx4</span><br><span class="line">[root@ns cmx4]# echo &#39;this is cmx4 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试-2"><a href="#测试-2" class="headerlink" title="测试"></a>测试</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234747.png" style="zoom:200%;">
-
-<h1 id="基于端口的虚拟主机"><a href="#基于端口的虚拟主机" class="headerlink" title="基于端口的虚拟主机"></a>基于端口的虚拟主机</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">端口改为192.168.1.148： 8080</span><br><span class="line">       192.168.1.148： 9999</span><br></pre></td></tr></table></figure>
-
-<h2 id="先改端口"><a href="#先改端口" class="headerlink" title="先改端口"></a>先改端口</h2><p>在vi /etc/services</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http         8080&#x2F;tcp          www www-http    # WorldWideWeb HTTP</span><br><span class="line">http         8080&#x2F;udp          www www-http    # HyperText Transfer P</span><br></pre></td></tr></table></figure>
-
-<h2 id="防火墙放行两个端口"><a href="#防火墙放行两个端口" class="headerlink" title="防火墙放行两个端口"></a>防火墙放行两个端口</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;services</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p tcp --dport 8080 -j ACCEPT</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p udp --dport 8080 -j ACCEPT</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p tcp --dport 9999 -j ACCEPT</span><br><span class="line">[root@ns ~]# iptables -I INPUT -p udp --dport 9999 -j ACCEPT</span><br><span class="line">[root@ns ~]# service iptables save</span><br></pre></td></tr></table></figure>
-
-<p>在vi /etc/httpd/conf/httpd.conf 下编辑</p>
-<p>还是采用虚拟主机 IP地址 192.168.1.148</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526234759.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Listen 8080   #加8080监听端口</span><br><span class="line"> Listen 9999   #加9999监听端口</span><br><span class="line"> &lt;VirtualHost 192.168.1.148:8080&gt; </span><br><span class="line">     ServerAdmin webmaster@www.jcxy.com     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx5     </span><br><span class="line">ServerName 192.168.1.148     </span><br><span class="line">ErrorLog logs&#x2F;192.168.1.148-8080-error_log     </span><br><span class="line">CustomLog logs&#x2F;192.168.1.148-8080-access_log common </span><br><span class="line"> &lt;&#x2F;VirtualHost&gt; </span><br><span class="line"> &lt;VirtualHost 192.168.1.148:9999&gt; </span><br><span class="line">     ServerAdmin webmaster@www.jcxy.com     </span><br><span class="line">DocumentRoot &#x2F;var&#x2F;www&#x2F;cmx6     </span><br><span class="line">ServerName 192.168.1.148     </span><br><span class="line">ErrorLog logs&#x2F;192.168.1.148-9999-error_log     CustomLog logs&#x2F;192.168.1.148-9999-access_log common </span><br><span class="line"> &lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="在终端输入"><a href="#在终端输入" class="headerlink" title="在终端输入"></a>在终端输入</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx5</span><br><span class="line">[root@ns www]# cd cmx5</span><br><span class="line">[root@ns cmx5]# echo &#39;this is cmx5 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试：-3"><a href="#测试：-3" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234809.png" style="zoom:200%;">
-
-<h2 id="在终端下输入"><a href="#在终端下输入" class="headerlink" title="在终端下输入:"></a>在终端下输入:</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# cd &#x2F;var&#x2F;www</span><br><span class="line">[root@ns www]# mkdir cmx6</span><br><span class="line">[root@ns www]# cd cmx6</span><br><span class="line">[root@ns cmx6]# echo &#39;this is cmx6 page!&#39;&gt;index.html</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试：-4"><a href="#测试：-4" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200526234823.png" style="zoom:200%;">
-
-<h2 id="访问安全控制："><a href="#访问安全控制：" class="headerlink" title="访问安全控制："></a>访问安全控制：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">101    &lt;Directory &quot;&#x2F;usr&#x2F;local&#x2F;test&quot;&gt;  </span><br><span class="line">102    order allow,deny </span><br><span class="line">103    allow from 192.168.1.0&#x2F;24 </span><br><span class="line">104    deny from all  </span><br><span class="line">105    &lt;&#x2F;Directory&gt;</span><br></pre></td></tr></table></figure>
-
-<img src="https://gitee.com/laosuye/TC/raw/master/20200526234832.png" style="zoom:150%;">
-
-<p>自此，Apache服务器各个情况搭建完毕</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>服务器</category>
-        <category>Apache</category>
-      </categories>
-      <tags>
-        <tag>服务器</tag>
-        <tag>Linux</tag>
-        <tag>Apache</tag>
       </tags>
   </entry>
   <entry>
