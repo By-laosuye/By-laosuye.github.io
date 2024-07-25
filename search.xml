@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CSS中Position属性详解</title>
+    <url>/2020/05/05/CSS%E4%B8%ADPosition%E5%B1%9E%E6%80%A7%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="一、Position属性是什么？"><a href="#一、Position属性是什么？" class="headerlink" title="一、Position属性是什么？"></a>一、Position属性是什么？</h1><p>Position属性在CSS中是定位的意思！而定位指的是将指定元素摆放到页面的任意方式，通过定位可以任意的摆放元素，其中Position可选的值分别有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.static          默认值，元素没有开启定位</span><br><span class="line">2.relative				相对定位</span><br><span class="line">3.absolute				绝对定位</span><br><span class="line">4.fixed						固定定位</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们会对这四个值分别做详细的解释，并且举例子说明</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">当开启了元素的定位（position的属性值是一个非static的值）时</span><br><span class="line">可以通过left、right、top、bottom四个属性来设置元素的偏移量</span><br><span class="line">    left：元素相对于其定位位置的左侧偏移量</span><br><span class="line">    right：元素相对于其定位位置的右侧偏移量</span><br><span class="line">    top：元素相对于其定位位置的上面偏移量</span><br><span class="line">    bottom：元素相对于其定位位置的下面偏移量</span><br><span class="line">    </span><br><span class="line"> 注意： 通常偏移量只需要使用两个，就可以对一个元素进行定位，一般选择水平的一个偏移量和一个垂直方向的偏移</span><br><span class="line">量来为一个元素进行定位</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-static默认值"><a href="#1-static默认值" class="headerlink" title="1.static默认值"></a>1.static默认值</h2><p>在Position的值为这个的时候，元素不会发生任何变化，元素的位置也还是在该位置</p>
+<h2 id="2-relative相对定位"><a href="#2-relative相对定位" class="headerlink" title="2.relative相对定位"></a>2.relative相对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">relative        开启元素的相对定位</span><br><span class="line">                当position的属性是relative的时候，就开启了相对定位</span><br><span class="line">                1.开启了元素的相对定位以后，而不设置偏移量时，元素不会发生改变</span><br><span class="line">                2.相对定位是相对于元素在文档流中原来的位置进行定位</span><br><span class="line">                3.相对定位的元素不会脱离文档流</span><br><span class="line">                4.相对定位会使元素提升一个层级</span><br><span class="line">                5.相对定位不会改变元素的性质，快元素还是块元素，内联还是内联元素</span><br></pre></td></tr></table></figure>
+
+<p>接下来给出一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启相对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>图例子</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002841.png">
+
+<p>可以看到，盒子在设置了相对定位并且设置了向左偏移了200像素，盒子是向右出去了200像素，所以这个偏移量往哪边偏移就是往相反的方向去！</p>
+<h2 id="3-absolute绝对定位"><a href="#3-absolute绝对定位" class="headerlink" title="3.absolute绝对定位"></a>3.absolute绝对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">absolute     开启元素的绝对定位</span><br><span class="line">             当position的属性是absolute的时候，就开启了相对定位</span><br><span class="line">             1.开启绝对定位元素会脱离文档流</span><br><span class="line">             2.开启绝对定位以后如果不设置偏移量，则元素的位置不会发生改变</span><br><span class="line">             3.绝对定位是相对于离他最近的开启了祖先元素进行定位，如果所有的祖先元素都没有开启定位，则会相对于浏览器窗口进行定位</span><br><span class="line">             一般情况开启了字元素的的绝对定位，都会开启父元素的相对定位</span><br><span class="line">             4.绝对定位会使元素提升一个层级</span><br><span class="line">             5.绝对定位会改变元素的性质</span><br><span class="line">                 内联元素会变成块元素</span><br><span class="line">                 块元素的宽度和高度都会默认都被内容撑开</span><br></pre></td></tr></table></figure>
+
+<p>接下来给出一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: absolute;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>图解：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002855.png" alt></p>
+<p>可以看到，现在box2没有祖先元素，所以它相对于浏览器窗口进行定位，而且也不占据位置</p>
+<p>接下来我们在box2中嵌套一个box4，并且给他设置偏移量，把box2也开启定位，并设置坐外边距，让其距离左边远一点，看看情况会是怎么样的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: static;</span><br><span class="line">        &#x2F;* left: 200px; *&#x2F;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box4 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: cornflowerblue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;</span><br><span class="line">      我是盒子2</span><br><span class="line">      &lt;div class&#x3D;&quot;box4&quot;&gt;我是盒子4&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>图解：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002913.png" alt></p>
+<p>可以很清晰的看到盒子是根据其开了定位的祖先元素进行偏移的，而不是针对浏览器进行偏移</p>
+<h2 id="4-fixed固定定位"><a href="#4-fixed固定定位" class="headerlink" title="4.fixed固定定位"></a>4.fixed固定定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fixed  开启元素的固定地位（也是绝对定位的一种）</span><br><span class="line">    当position的属性是fixed的时候，就开启了固定定位</span><br><span class="line">    固定定位也是一种绝对定位，它的大部分特点都和绝对定位一样</span><br><span class="line">    不同的是：</span><br><span class="line">        固定定位永远都会相对于浏览器的窗口定位</span><br><span class="line">        固定定位会固定在浏览器的某个位置，不会随滚动条滚动</span><br></pre></td></tr></table></figure>
+
+<p>看一下例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002919.png" alt></p>
+<p>可以看到，和相对定位是没有什么差别的，但是现在我们把body的高度设置很长，右侧出现滚动条。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        body&#123;</span><br><span class="line">            width: 1000px;</span><br><span class="line">            height: 5000px;</span><br><span class="line">        &#125;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后这个时候运行，再拖动滚动条你就会发现无论你页面拖动到什么位置，box1一直都会出现在左上角。</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002927.png" alt></p>
+<p>可以看到我滚动条拖到一半了，box1还是在左上角位置从没变过</p>
+<p>注意：在网页开发中，固定定位一般不常使用，只有在特定的用处才会使用，比如网页上常见的小广告。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CSS定位属性允许你为一个元素定位。它也可以将一个元素放在另一个元素后面，</span><br><span class="line">并指定一个元素的内容太大时，</span><br><span class="line">应该发生什么。元素可以使用的顶部，底部，左侧和右侧属性定位。然而，这些属性无法工作，</span><br><span class="line">除非事先设定position属性。他们也有不同的工作方式，这取决于定位方法.</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>编程</category>
+        <category>前端</category>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>CSS</tag>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo+Gitee搭建个人博客&#39;</title>
     <url>/2024/06/20/Hexo-Gitee%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -168,118 +231,6 @@
         <tag>linux</tag>
         <tag>服务器</tag>
         <tag>Ftp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CSS中Position属性详解</title>
-    <url>/2020/05/05/CSS%E4%B8%ADPosition%E5%B1%9E%E6%80%A7%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="一、Position属性是什么？"><a href="#一、Position属性是什么？" class="headerlink" title="一、Position属性是什么？"></a>一、Position属性是什么？</h1><p>Position属性在CSS中是定位的意思！而定位指的是将指定元素摆放到页面的任意方式，通过定位可以任意的摆放元素，其中Position可选的值分别有：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.static          默认值，元素没有开启定位</span><br><span class="line">2.relative				相对定位</span><br><span class="line">3.absolute				绝对定位</span><br><span class="line">4.fixed						固定定位</span><br></pre></td></tr></table></figure>
-
-<p>接下来我们会对这四个值分别做详细的解释，并且举例子说明</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">当开启了元素的定位（position的属性值是一个非static的值）时</span><br><span class="line">可以通过left、right、top、bottom四个属性来设置元素的偏移量</span><br><span class="line">    left：元素相对于其定位位置的左侧偏移量</span><br><span class="line">    right：元素相对于其定位位置的右侧偏移量</span><br><span class="line">    top：元素相对于其定位位置的上面偏移量</span><br><span class="line">    bottom：元素相对于其定位位置的下面偏移量</span><br><span class="line">    </span><br><span class="line"> 注意： 通常偏移量只需要使用两个，就可以对一个元素进行定位，一般选择水平的一个偏移量和一个垂直方向的偏移</span><br><span class="line">量来为一个元素进行定位</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-static默认值"><a href="#1-static默认值" class="headerlink" title="1.static默认值"></a>1.static默认值</h2><p>在Position的值为这个的时候，元素不会发生任何变化，元素的位置也还是在该位置</p>
-<h2 id="2-relative相对定位"><a href="#2-relative相对定位" class="headerlink" title="2.relative相对定位"></a>2.relative相对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">relative        开启元素的相对定位</span><br><span class="line">                当position的属性是relative的时候，就开启了相对定位</span><br><span class="line">                1.开启了元素的相对定位以后，而不设置偏移量时，元素不会发生改变</span><br><span class="line">                2.相对定位是相对于元素在文档流中原来的位置进行定位</span><br><span class="line">                3.相对定位的元素不会脱离文档流</span><br><span class="line">                4.相对定位会使元素提升一个层级</span><br><span class="line">                5.相对定位不会改变元素的性质，快元素还是块元素，内联还是内联元素</span><br></pre></td></tr></table></figure>
-
-<p>接下来给出一个例子。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启相对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>图例子</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002841.png">
-
-<p>可以看到，盒子在设置了相对定位并且设置了向左偏移了200像素，盒子是向右出去了200像素，所以这个偏移量往哪边偏移就是往相反的方向去！</p>
-<h2 id="3-absolute绝对定位"><a href="#3-absolute绝对定位" class="headerlink" title="3.absolute绝对定位"></a>3.absolute绝对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">absolute     开启元素的绝对定位</span><br><span class="line">             当position的属性是absolute的时候，就开启了相对定位</span><br><span class="line">             1.开启绝对定位元素会脱离文档流</span><br><span class="line">             2.开启绝对定位以后如果不设置偏移量，则元素的位置不会发生改变</span><br><span class="line">             3.绝对定位是相对于离他最近的开启了祖先元素进行定位，如果所有的祖先元素都没有开启定位，则会相对于浏览器窗口进行定位</span><br><span class="line">             一般情况开启了字元素的的绝对定位，都会开启父元素的相对定位</span><br><span class="line">             4.绝对定位会使元素提升一个层级</span><br><span class="line">             5.绝对定位会改变元素的性质</span><br><span class="line">                 内联元素会变成块元素</span><br><span class="line">                 块元素的宽度和高度都会默认都被内容撑开</span><br></pre></td></tr></table></figure>
-
-<p>接下来给出一个例子。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: absolute;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>图解：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002855.png" alt></p>
-<p>可以看到，现在box2没有祖先元素，所以它相对于浏览器窗口进行定位，而且也不占据位置</p>
-<p>接下来我们在box2中嵌套一个box4，并且给他设置偏移量，把box2也开启定位，并设置坐外边距，让其距离左边远一点，看看情况会是怎么样的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: static;</span><br><span class="line">        &#x2F;* left: 200px; *&#x2F;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box4 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: cornflowerblue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;</span><br><span class="line">      我是盒子2</span><br><span class="line">      &lt;div class&#x3D;&quot;box4&quot;&gt;我是盒子4&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>图解：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002913.png" alt></p>
-<p>可以很清晰的看到盒子是根据其开了定位的祖先元素进行偏移的，而不是针对浏览器进行偏移</p>
-<h2 id="4-fixed固定定位"><a href="#4-fixed固定定位" class="headerlink" title="4.fixed固定定位"></a>4.fixed固定定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fixed  开启元素的固定地位（也是绝对定位的一种）</span><br><span class="line">    当position的属性是fixed的时候，就开启了固定定位</span><br><span class="line">    固定定位也是一种绝对定位，它的大部分特点都和绝对定位一样</span><br><span class="line">    不同的是：</span><br><span class="line">        固定定位永远都会相对于浏览器的窗口定位</span><br><span class="line">        固定定位会固定在浏览器的某个位置，不会随滚动条滚动</span><br></pre></td></tr></table></figure>
-
-<p>看一下例子：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002919.png" alt></p>
-<p>可以看到，和相对定位是没有什么差别的，但是现在我们把body的高度设置很长，右侧出现滚动条。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        body&#123;</span><br><span class="line">            width: 1000px;</span><br><span class="line">            height: 5000px;</span><br><span class="line">        &#125;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后这个时候运行，再拖动滚动条你就会发现无论你页面拖动到什么位置，box1一直都会出现在左上角。</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002927.png" alt></p>
-<p>可以看到我滚动条拖到一半了，box1还是在左上角位置从没变过</p>
-<p>注意：在网页开发中，固定定位一般不常使用，只有在特定的用处才会使用，比如网页上常见的小广告。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CSS定位属性允许你为一个元素定位。它也可以将一个元素放在另一个元素后面，</span><br><span class="line">并指定一个元素的内容太大时，</span><br><span class="line">应该发生什么。元素可以使用的顶部，底部，左侧和右侧属性定位。然而，这些属性无法工作，</span><br><span class="line">除非事先设定position属性。他们也有不同的工作方式，这取决于定位方法.</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>编程</category>
-        <category>前端</category>
-        <category>CSS</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>CSS</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java中i++与++i的区别，如何分清i++与++i</title>
-    <url>/2020/04/22/Java%E4%B8%ADi-%E4%B8%8E-i%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E5%A6%82%E4%BD%95%E5%88%86%E6%B8%85i-%E4%B8%8E-i/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="书上对-i-和-i-的解释如下："><a href="#书上对-i-和-i-的解释如下：" class="headerlink" title="书上对 i ++ 和 ++ i 的解释如下："></a>书上对 i ++ 和 ++ i 的解释如下：</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 先赋值再运算；例如：a &#x3D; i ++; 先赋值 a &#x3D; i ，再运算 i &#x3D; i + 1 ；所以输出结果为 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 先运算再赋值；例如：a &#x3D; i ++; 先运算 i &#x3D; i + 1 ，再 赋值 a &#x3D; i ；所以输出结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
-
-<p>懂了吗？我想大部分人会跟我一样 一脸懵逼，明明都 + 1 了，咋上面输出结果是 3 下面就是 4 呢？哈哈~不要着急，接下来我将分享一下我对它们的理解，希望对你们有帮助。</p>
-<h2 id="认识“-”与“–”"><a href="#认识“-”与“–”" class="headerlink" title="认识“++”与“–”"></a>认识“++”与“–”</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">“++”与“--”分别称作自增操作符和自减操作符，是对变量进行加 1 和减 1 的操作符。</span><br></pre></td></tr></table></figure>
-
-<h2 id="认识-i-与-i"><a href="#认识-i-与-i" class="headerlink" title="认识 i + + 与 i - -"></a>认识 i + + 与 i - -</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">i++读为 i 加 加，i--读为 i 减减，这些操作符分别称为后置自增操作符和后置自减操作符。</span><br></pre></td></tr></table></figure>
-
-<h2 id="以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤"><a href="#以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤" class="headerlink" title="以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤"></a>以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身+1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i++</span><br></pre></td></tr></table></figure>
-
-<h2 id="图解如下："><a href="#图解如下：" class="headerlink" title="图解如下："></a>图解如下：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235459.png" alt></p>
-<p>接下来我会举例说明</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 3;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值3，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3&#x2F;</span><br><span class="line">i ++;&#x2F;&#x2F;i自身加1，此时i的值为4         </span><br><span class="line">System.out.print(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i++);         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值+1变为5；</span><br><span class="line">         i++被输出调用，故输出存储区的值4&#x2F;         </span><br><span class="line">int j &#x3D; i++;         </span><br><span class="line">System.out.print(j);         </span><br><span class="line"></span><br><span class="line">         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了5，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5，i自身的值+1变为6；</span><br><span class="line">         i++被赋值调用，故输出存储区的值5&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值6         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6&#x2F;         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值为6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6</span><br><span class="line">          *&#x2F;</span><br><span class="line">         &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>同理可得 i - - 的计算方法如下，</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身 -1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i - -</span><br></pre></td></tr></table></figure>
-
-<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值5，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5 &#x2F;         </span><br><span class="line">i--;&#x2F;&#x2F;i自身减1，此时i的值为4         </span><br><span class="line">System.out.println(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i--);</span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被输出调用，故输出存储区的值4&#x2F;</span><br><span class="line">int j &#x3D; i--;</span><br><span class="line">System.out.print(j);&#x2F;&#x2F;3</span><br><span class="line">        &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被赋值调用，故输出存储区的值3&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值3         </span><br><span class="line">i &#x3D; i--;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;2         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了3，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3，i自身的值-1变为2；</span><br><span class="line">         i--被赋值调用，故输出存储区的值2</span><br><span class="line">          *&#x2F;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="认识-i-与-i-1"><a href="#认识-i-与-i-1" class="headerlink" title="认识+ + i 与 - - i"></a>认识+ + i 与 - - i</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">++i 读作加加i，--i读作减减i，分别称作前置自增操作符和前置自减操作符。</span><br></pre></td></tr></table></figure>
-
-<p>相对于i++来说，++i 的运算思路比较简单，只进行简单的+1操作即可。</p>
-<h2 id="举例说明："><a href="#举例说明：" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         i &#x3D; 1;</span><br><span class="line">         j &#x3D; i++ + ++i + ++i + i++;</span><br><span class="line">         &#x2F;&#x2F;  1      3     4      4</span><br><span class="line">         &#x2F;*</span><br><span class="line">         i++: 赋值调用，故打印值为1，临时存储区放的值为2</span><br><span class="line">         ++i：i的值+1，故值为3</span><br><span class="line">         ++i：i的值+1，故值为4</span><br><span class="line">         i++：赋值调用，故输出临时存储区的值4，i自身值+1为5</span><br><span class="line">          *&#x2F;</span><br><span class="line">         System.out.print(j);&#x2F;&#x2F;故输出结果为12</span><br><span class="line">         System.out.print(i);&#x2F;&#x2F;没有参与调用，故输出i自身的值5</span><br><span class="line">         System.out.print(++i);&#x2F;&#x2F;输出值为6。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">同理，--i ，也只是在自身基础上- 1即可。</span><br></pre></td></tr></table></figure>
-
-<h2 id="举例说明：-1"><a href="#举例说明：-1" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         --i;</span><br><span class="line">         System.out.println(i);&#x2F;&#x2F;i自身减1，值为4</span><br><span class="line">         System.out.print(--i);&#x2F;&#x2F;i自身减1，值为3</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用自增操作符和自减操作符可以使表达式更加简短，但也会使它们比较复杂且难以读懂。比如上述代码中出现的 j = i++ + ++i + ++i + i++; 只是为了测试大家是否更好的掌握了i ++与 ++ i，但在实际编程过程中应该避免。</p>
-<h1 id="我的总结如下："><a href="#我的总结如下：" class="headerlink" title="我的总结如下："></a>我的总结如下：</h1><p>i++、i– ：若参与调用，输出值不 +1，否则 +1<br>++i、–i ：无论是否参与调用，输出值均 +1<br>希望大家在读懂我上述描述的基础上，再合理运用这两句话 ~</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">附：文章开头那道题，现在用我的方法来做，是不是易如反掌啦~</span><br><span class="line">  </span><br><span class="line"> int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 例如：a &#x3D; i ++;因为赋值调用了，所以输出值为临时存储区先复制的i的值，即 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 例如：a &#x3D; i ++; 输出结果直接 +1 即结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
-
-<p>参考文章：</p>
-<p>原文链接：<a href="https://blog.csdn.net/MillionSong/article/details/104204481" target="_blank" rel="noopener">https://blog.csdn.net/MillionSong/article/details/104204481</a></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>编程</tag>
-        <tag>Java</tag>
-        <tag>编程基础</tag>
       </tags>
   </entry>
   <entry>
@@ -710,6 +661,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Java——leetcode18. 四数之和</title>
+    <url>/2020/04/23/Java%E2%80%94%E2%80%94leetcode18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<p>给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。</p>
+<p>注意：</p>
+<p>答案中不可以包含重复的四元组。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">给定数组 nums &#x3D; [1, 0, -1, 0, -2, 2]，和 target &#x3D; 0。</span><br><span class="line">满足要求的四元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1,  0, 0, 1],</span><br><span class="line">  [-2, -1, 1, 2],</span><br><span class="line">  [-2,  0, 0, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>思路，两层循环选出两个数字，对剩下的数字跑双指针。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; fourSum(int[] nums,int target) &#123;</span><br><span class="line">    	List&lt;List&lt;Integer&gt;&gt; listArr&#x3D;new ArrayList&lt;&gt;();</span><br><span class="line">        int len&#x3D;nums.length;</span><br><span class="line">        int left,right;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line"> </span><br><span class="line">        for(int i&#x3D;0;i&lt;len;++i)&#123;</span><br><span class="line">        	if(i&gt;0 &amp;&amp; nums[i] &#x3D;&#x3D; nums[i-1]) continue;</span><br><span class="line">            for(int j&#x3D;i+1;j&lt;len;++j)&#123;</span><br><span class="line">                if(j&gt;i+1 &amp;&amp; nums[j] &#x3D;&#x3D; nums[j-1]) continue;</span><br><span class="line">                left&#x3D;j+1;</span><br><span class="line">                right&#x3D;len-1;</span><br><span class="line">                while(left&lt;right) &#123;</span><br><span class="line">                    int four&#x3D;nums[left]+nums[right]+nums[i]+nums[j];</span><br><span class="line">                    if(four&gt;target)&#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;else if(four&lt;target)&#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                	    listArr.add(Arrays.asList(nums[i],nums[j],nums[left],nums[right]));</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[left]&#x3D;&#x3D;nums[left+1])left++;</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[right]&#x3D;&#x3D;nums[right-1])right--;</span><br><span class="line">                	    left++;</span><br><span class="line">                	    right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">        return listArr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>编程</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>编程</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title> Java基础知识点梳理</title>
     <url>/2020/04/23/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -894,6 +869,55 @@
       </tags>
   </entry>
   <entry>
+    <title>Java中i++与++i的区别，如何分清i++与++i</title>
+    <url>/2020/04/22/Java%E4%B8%ADi-%E4%B8%8E-i%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E5%A6%82%E4%BD%95%E5%88%86%E6%B8%85i-%E4%B8%8E-i/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="书上对-i-和-i-的解释如下："><a href="#书上对-i-和-i-的解释如下：" class="headerlink" title="书上对 i ++ 和 ++ i 的解释如下："></a>书上对 i ++ 和 ++ i 的解释如下：</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 先赋值再运算；例如：a &#x3D; i ++; 先赋值 a &#x3D; i ，再运算 i &#x3D; i + 1 ；所以输出结果为 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 先运算再赋值；例如：a &#x3D; i ++; 先运算 i &#x3D; i + 1 ，再 赋值 a &#x3D; i ；所以输出结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
+
+<p>懂了吗？我想大部分人会跟我一样 一脸懵逼，明明都 + 1 了，咋上面输出结果是 3 下面就是 4 呢？哈哈~不要着急，接下来我将分享一下我对它们的理解，希望对你们有帮助。</p>
+<h2 id="认识“-”与“–”"><a href="#认识“-”与“–”" class="headerlink" title="认识“++”与“–”"></a>认识“++”与“–”</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">“++”与“--”分别称作自增操作符和自减操作符，是对变量进行加 1 和减 1 的操作符。</span><br></pre></td></tr></table></figure>
+
+<h2 id="认识-i-与-i"><a href="#认识-i-与-i" class="headerlink" title="认识 i + + 与 i - -"></a>认识 i + + 与 i - -</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">i++读为 i 加 加，i--读为 i 减减，这些操作符分别称为后置自增操作符和后置自减操作符。</span><br></pre></td></tr></table></figure>
+
+<h2 id="以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤"><a href="#以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤" class="headerlink" title="以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤"></a>以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身+1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i++</span><br></pre></td></tr></table></figure>
+
+<h2 id="图解如下："><a href="#图解如下：" class="headerlink" title="图解如下："></a>图解如下：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235459.png" alt></p>
+<p>接下来我会举例说明</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 3;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值3，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3&#x2F;</span><br><span class="line">i ++;&#x2F;&#x2F;i自身加1，此时i的值为4         </span><br><span class="line">System.out.print(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i++);         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值+1变为5；</span><br><span class="line">         i++被输出调用，故输出存储区的值4&#x2F;         </span><br><span class="line">int j &#x3D; i++;         </span><br><span class="line">System.out.print(j);         </span><br><span class="line"></span><br><span class="line">         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了5，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5，i自身的值+1变为6；</span><br><span class="line">         i++被赋值调用，故输出存储区的值5&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值6         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6&#x2F;         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值为6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6</span><br><span class="line">          *&#x2F;</span><br><span class="line">         &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>同理可得 i - - 的计算方法如下，</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身 -1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i - -</span><br></pre></td></tr></table></figure>
+
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值5，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5 &#x2F;         </span><br><span class="line">i--;&#x2F;&#x2F;i自身减1，此时i的值为4         </span><br><span class="line">System.out.println(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i--);</span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被输出调用，故输出存储区的值4&#x2F;</span><br><span class="line">int j &#x3D; i--;</span><br><span class="line">System.out.print(j);&#x2F;&#x2F;3</span><br><span class="line">        &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被赋值调用，故输出存储区的值3&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值3         </span><br><span class="line">i &#x3D; i--;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;2         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了3，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3，i自身的值-1变为2；</span><br><span class="line">         i--被赋值调用，故输出存储区的值2</span><br><span class="line">          *&#x2F;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="认识-i-与-i-1"><a href="#认识-i-与-i-1" class="headerlink" title="认识+ + i 与 - - i"></a>认识+ + i 与 - - i</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">++i 读作加加i，--i读作减减i，分别称作前置自增操作符和前置自减操作符。</span><br></pre></td></tr></table></figure>
+
+<p>相对于i++来说，++i 的运算思路比较简单，只进行简单的+1操作即可。</p>
+<h2 id="举例说明："><a href="#举例说明：" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         i &#x3D; 1;</span><br><span class="line">         j &#x3D; i++ + ++i + ++i + i++;</span><br><span class="line">         &#x2F;&#x2F;  1      3     4      4</span><br><span class="line">         &#x2F;*</span><br><span class="line">         i++: 赋值调用，故打印值为1，临时存储区放的值为2</span><br><span class="line">         ++i：i的值+1，故值为3</span><br><span class="line">         ++i：i的值+1，故值为4</span><br><span class="line">         i++：赋值调用，故输出临时存储区的值4，i自身值+1为5</span><br><span class="line">          *&#x2F;</span><br><span class="line">         System.out.print(j);&#x2F;&#x2F;故输出结果为12</span><br><span class="line">         System.out.print(i);&#x2F;&#x2F;没有参与调用，故输出i自身的值5</span><br><span class="line">         System.out.print(++i);&#x2F;&#x2F;输出值为6。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">同理，--i ，也只是在自身基础上- 1即可。</span><br></pre></td></tr></table></figure>
+
+<h2 id="举例说明：-1"><a href="#举例说明：-1" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         --i;</span><br><span class="line">         System.out.println(i);&#x2F;&#x2F;i自身减1，值为4</span><br><span class="line">         System.out.print(--i);&#x2F;&#x2F;i自身减1，值为3</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用自增操作符和自减操作符可以使表达式更加简短，但也会使它们比较复杂且难以读懂。比如上述代码中出现的 j = i++ + ++i + ++i + i++; 只是为了测试大家是否更好的掌握了i ++与 ++ i，但在实际编程过程中应该避免。</p>
+<h1 id="我的总结如下："><a href="#我的总结如下：" class="headerlink" title="我的总结如下："></a>我的总结如下：</h1><p>i++、i– ：若参与调用，输出值不 +1，否则 +1<br>++i、–i ：无论是否参与调用，输出值均 +1<br>希望大家在读懂我上述描述的基础上，再合理运用这两句话 ~</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">附：文章开头那道题，现在用我的方法来做，是不是易如反掌啦~</span><br><span class="line">  </span><br><span class="line"> int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 例如：a &#x3D; i ++;因为赋值调用了，所以输出值为临时存储区先复制的i的值，即 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 例如：a &#x3D; i ++; 输出结果直接 +1 即结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
+
+<p>参考文章：</p>
+<p>原文链接：<a href="https://blog.csdn.net/MillionSong/article/details/104204481" target="_blank" rel="noopener">https://blog.csdn.net/MillionSong/article/details/104204481</a></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>编程</tag>
+        <tag>Java</tag>
+        <tag>编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux下----telnet服务器的搭建</title>
     <url>/2020/04/21/Linux%E4%B8%8B-telnet%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -937,6 +961,46 @@
         <tag>linux</tag>
         <tag>服务器</tag>
         <tag>telnet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux下——磁盘管理与crontab调度</title>
+    <url>/2020/04/27/Linux%E4%B8%8B%E2%80%94%E2%80%94%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E4%B8%8Ecrontab%E8%B0%83%E5%BA%A6/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<p>例：某台linux服务器 加了一块1个T的硬盘 要求分四个区 内存大小相同.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk –l  #查看所有本地硬盘路径</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001644.png" alt></p>
+<p>如上所得 我们新加的硬盘路径是 /dev/sdb</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk &#x2F;dev&#x2F;sdb   #选择目标硬盘  也就是我们要分的硬盘!</span><br><span class="line"> Command (m for help): n  #新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #标准分区</span><br><span class="line"> Partition number (1-4): 1  #问你这是你要分第几个区  我们这里是分第一个区</span><br><span class="line"> First cylinder (1-133674, default 1): 1  #内存大小  因为第一块  从1开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (1-133674, default 133674): 33418.5  #内存大小到哪里结束,我们是分四块所有133674除4 平均每一块的大小.</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p     #创建标准分区</span><br><span class="line"> Partition number (1-4): 2  #第二块分区</span><br><span class="line"> First cylinder (33419-133674, default 33419): 33419   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (33419-133674, default 133674): 66837  #硬盘大小到哪结束.  第二块就是33418.5+33418.5的内存结束 第三块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Partition number (1-4): 3   #第三块分区</span><br><span class="line"> First cylinder (66838-133674, default 66838): 66838   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (66838-133674, default 133674): 100255.5    #硬盘大小到哪结束.  第三块就是33418.5+33418.5+33418.5的内存结束 第二块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action </span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Selected partition 4  #第四块分区</span><br><span class="line"> First cylinder (100256-133674, default 100256): 100256  #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (100256-133674, default 133674): 133674</span><br><span class="line"> 硬盘大小到哪结束.  第四块就是33418.5+33418.5+33418.5+33418.5的内存结束 第四块分区</span><br><span class="line"> Command (m for help): w  #保持并退出分区选项</span><br><span class="line"> The partition table has been altered!</span><br><span class="line"> [root@ns ~]# fdisk –l  #查看所有硬盘路径,找到我们刚刚分的四块硬盘路径 格式化</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb1  #格式化我们分的第一块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb2  #格式化我们分的第二块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb3  #格式化我们分的第三块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb4  #格式化我们分的第四块硬盘</span><br></pre></td></tr></table></figure>
+
+<p>测试：计算机里有1T大小的硬盘分为了4块大小一致的硬盘</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527001650.png" style="zoom:150%;">
+
+<p>磁盘管理 搭建完毕！</p>
+<p>Cron调度</p>
+<p>例：我们每个星期五14点30分都要自动备份/home目录去另一块磁盘 ！</p>
+<p>第一个*：分钟0～59</p>
+<p>第二个*：小时0～23</p>
+<p>第三个*：日期1～31</p>
+<p>第四个*：月份1～12</p>
+<p>第五个*：星期0～7；注意0和7都表示星期天。</p>
+<p>第六个代表命令名称</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  </span><br><span class="line">[root@ns ~]# crontab -l</span><br><span class="line">*&#x2F;1 * * * * cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66 #我先做了个每分钟的自动备份</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527001659.png" style="zoom:200%;">
+
+<p>现在按照要求来： 每个礼拜五14：30备份一次/home目录去/media/8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  #在这里下面编辑  </span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容!</span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容! 例：每2分钟拷贝一次</span><br><span class="line">*&#x2F;2 * * * * tar -czf &#x2F;backup&#x2F;home-data.tar.gz &#x2F;home  #拷贝的压缩包格式</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>磁盘</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>定时任务</tag>
       </tags>
   </entry>
   <entry>
@@ -1081,46 +1145,6 @@
         <tag>服务器</tag>
         <tag>Linux</tag>
         <tag>Apache</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux下——磁盘管理与crontab调度</title>
-    <url>/2020/04/27/Linux%E4%B8%8B%E2%80%94%E2%80%94%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E4%B8%8Ecrontab%E8%B0%83%E5%BA%A6/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<p>例：某台linux服务器 加了一块1个T的硬盘 要求分四个区 内存大小相同.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk –l  #查看所有本地硬盘路径</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527001644.png" alt></p>
-<p>如上所得 我们新加的硬盘路径是 /dev/sdb</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# fdisk &#x2F;dev&#x2F;sdb   #选择目标硬盘  也就是我们要分的硬盘!</span><br><span class="line"> Command (m for help): n  #新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #标准分区</span><br><span class="line"> Partition number (1-4): 1  #问你这是你要分第几个区  我们这里是分第一个区</span><br><span class="line"> First cylinder (1-133674, default 1): 1  #内存大小  因为第一块  从1开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (1-133674, default 133674): 33418.5  #内存大小到哪里结束,我们是分四块所有133674除4 平均每一块的大小.</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p     #创建标准分区</span><br><span class="line"> Partition number (1-4): 2  #第二块分区</span><br><span class="line"> First cylinder (33419-133674, default 33419): 33419   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (33419-133674, default 133674): 66837  #硬盘大小到哪结束.  第二块就是33418.5+33418.5的内存结束 第三块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action</span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Partition number (1-4): 3   #第三块分区</span><br><span class="line"> First cylinder (66838-133674, default 66838): 66838   #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (66838-133674, default 133674): 100255.5    #硬盘大小到哪结束.  第三块就是33418.5+33418.5+33418.5的内存结束 第二块分区</span><br><span class="line"> Command (m for help): n  #继续新建分区</span><br><span class="line"> Command action </span><br><span class="line">    e   extended</span><br><span class="line">    p   primary partition (1-4)</span><br><span class="line"> p  #创建标准分区</span><br><span class="line"> Selected partition 4  #第四块分区</span><br><span class="line"> First cylinder (100256-133674, default 100256): 100256  #硬盘大小从哪开始</span><br><span class="line"> Last cylinder, +cylinders or +size&#123;K,M,G&#125; (100256-133674, default 133674): 133674</span><br><span class="line"> 硬盘大小到哪结束.  第四块就是33418.5+33418.5+33418.5+33418.5的内存结束 第四块分区</span><br><span class="line"> Command (m for help): w  #保持并退出分区选项</span><br><span class="line"> The partition table has been altered!</span><br><span class="line"> [root@ns ~]# fdisk –l  #查看所有硬盘路径,找到我们刚刚分的四块硬盘路径 格式化</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb1  #格式化我们分的第一块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb2  #格式化我们分的第二块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb3  #格式化我们分的第三块硬盘</span><br><span class="line"> [root@ns ~]# mkfs -t ext4 &#x2F;dev&#x2F;sdb4  #格式化我们分的第四块硬盘</span><br></pre></td></tr></table></figure>
-
-<p>测试：计算机里有1T大小的硬盘分为了4块大小一致的硬盘</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527001650.png" style="zoom:150%;">
-
-<p>磁盘管理 搭建完毕！</p>
-<p>Cron调度</p>
-<p>例：我们每个星期五14点30分都要自动备份/home目录去另一块磁盘 ！</p>
-<p>第一个*：分钟0～59</p>
-<p>第二个*：小时0～23</p>
-<p>第三个*：日期1～31</p>
-<p>第四个*：月份1～12</p>
-<p>第五个*：星期0～7；注意0和7都表示星期天。</p>
-<p>第六个代表命令名称</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  </span><br><span class="line">[root@ns ~]# crontab -l</span><br><span class="line">*&#x2F;1 * * * * cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66 #我先做了个每分钟的自动备份</span><br></pre></td></tr></table></figure>
-
-<p>测试：</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527001659.png" style="zoom:200%;">
-
-<p>现在按照要求来： 每个礼拜五14：30备份一次/home目录去/media/8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# crontab –e  #在这里下面编辑  </span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容!</span><br><span class="line">*&#x2F;30 *&#x2F;14 * * *&#x2F;5 cp -r &#x2F;home &#x2F;media&#x2F;8eea878a-6a78-4ea7-bd4f-69a65f6d4c66</span><br><span class="line">[root@ns ~]# crontab –l  #查看我们调度的内容! 例：每2分钟拷贝一次</span><br><span class="line">*&#x2F;2 * * * * tar -czf &#x2F;backup&#x2F;home-data.tar.gz &#x2F;home  #拷贝的压缩包格式</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>磁盘</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>定时任务</tag>
       </tags>
   </entry>
   <entry>
@@ -1417,6 +1441,84 @@
       </tags>
   </entry>
   <entry>
+    <title>netkeeper校园网破解</title>
+    <url>/2024/06/20/netkeeper%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%A0%B4%E8%A7%A3/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="netkeeper校园网破解教程"><a href="#netkeeper校园网破解教程" class="headerlink" title="netkeeper校园网破解教程"></a>netkeeper校园网破解教程</h1><p> 分享一个关于破解netkeeper限制的教程，现在很多高校都使用netkeeper这个电信的 客户端进行拨号上网，并且限制一个宽带账号只能一个电脑一个手机两台设备使用，这样的限制让很多有多台设备的人感到十分的困扰，所以今天带来的netkeeper的破解教程就是破解netkeeper限制设备使用的教程，让整个宿舍都能用一个宽带账号。不用后台再挂着软件了。</p>
+<p>适用的范围：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">netkeeper</span><br><span class="line">或者闪讯等软件进行拨号上网的校园网</span><br></pre></td></tr></table></figure>
+
+<p> <strong>设备：</strong>裴讯K2(可自行选择，方法大同小异)</p>
+<p> <strong>注意：</strong>k2软件版本v22.6.5.29.xxx之后不可降级，会提示telnet连接失败，有编译器的话略过，没有的话避个雷。</p>
+<h2 id="教程总览"><a href="#教程总览" class="headerlink" title="教程总览"></a>教程总览</h2><ol>
+<li>刷入breed</li>
+<li>输入潘多拉固件</li>
+<li>安装脚本，拦截</li>
+<li>拨号上网</li>
+<li>配置路由器</li>
+</ol>
+<h3 id="刷入breed"><a href="#刷入breed" class="headerlink" title="刷入breed"></a>刷入breed</h3><p><strong>链接:</strong> <a href="https://wws.lanzous.com/iVNhbgfjcxa" target="_blank" rel="noopener">https://wws.lanzous.com/iVNhbgfjcxa</a><br><strong>密码:</strong>1234</p>
+<p>首先要给路由器刷入breed，相当于手机的rec，可以刷固件，还有其他功能，自行研究，不多叙述</p>
+<p>这里用的是斐讯breed专用工具，比较简单</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416160633.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416160633.png" alt="img"></a></p>
+<p>输入路由器的登入地址，还有密码开始刷机</p>
+<p>k2的路由器登入地址默认的是192.168.1.1，默认密码是admin</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416160829.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416160829.png" alt="img"></a></p>
+<p>软件可能会报毒，需要临时关闭杀毒软件</p>
+<p>等待成功</p>
+<p>刷入breed完成</p>
+<h3 id="准备刷入潘多拉固件"><a href="#准备刷入潘多拉固件" class="headerlink" title="准备刷入潘多拉固件"></a>准备刷入潘多拉固件</h3><p>假如你买的是刷机版的k2的话，卖家一般都是刷入了breed，所以一般都是从这里开始就行了</p>
+<h4 id="潘多拉下载"><a href="#潘多拉下载" class="headerlink" title="潘多拉下载"></a>潘多拉下载</h4><p>进入潘多拉下载站</p>
+<p><a href="http://pandorabox.tuuz.cc:8000/" target="_blank" rel="noopener">Pandorabox</a></p>
+<p>进入pandorabox/19.01/targets/ralink/目录</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416161921.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416161921.png" alt="img"></a></p>
+<p>选择你路由器的处理器进入，不知道的自行百度</p>
+<p>k2的处理器是MT7620</p>
+<p>k2p的处理器是MT7621</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416162137.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162137.png" alt="img"></a></p>
+<p>直接搜索你路由器的型号，然后下载就行</p>
+<h4 id="进入breed"><a href="#进入breed" class="headerlink" title="进入breed"></a>进入breed</h4><p>网线连接lan口与电脑，拔掉路由器电源接头（插在路由器上的接头）<br>长按reset复位键三秒不松，插上接头，等三秒松开，浏览器网址栏输入192.168.1.1进入breed界面<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162253.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162253.png" alt="img"></a></p>
+<p>选择固件更新，如图<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162339.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162339.png" alt="img"></a></p>
+<p>选择刚刚下载好的k2固件然后点击上传就行</p>
+<p>开始刷机，等待进度条完成100%，路由器会重启，直到完成，浏览器输入192.168.1.1打开如下图界面成功<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162457.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162457.png" alt="img"></a></p>
+<h4 id="安装脚本拦截"><a href="#安装脚本拦截" class="headerlink" title="安装脚本拦截"></a>安装脚本拦截</h4><p>此时已经完成了大半，开始针对netkeeper进行破译</p>
+<p>在固件文件夹中，打开如下软件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">链接: https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1Z2t3ckebzfnrxpB6fz4g6Q 提取码: c6fq</span><br></pre></td></tr></table></figure>
+
+<p>解压缩打开setup_telnet.exe</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163035.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163035.png" alt="img"></a></p>
+<p>然后我们需要下载和固件兼容的PPPoE文件</p>
+<p>还是刚刚下载固件的网址</p>
+<p>进入/pandorabox/19.01/packages/目录</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416161354.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416161354.png" alt="img"></a></p>
+<p>具体选择哪个要看你路由器的处理器是什么，自行百度</p>
+<p>k2的cpu是7620使用mipsel_24kec_dsp/</p>
+<p>k2p的cpu是7621使用mipsel_1004kc_dsp/</p>
+<p>这里我进入mipsel_24kec_dsp/packages直接搜pppoe</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163550.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163550.png" alt="img"></a></p>
+<p>下载好了按照脚本提示改一下名字把后缀删除放在脚本文件夹目录</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163719.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163719.png" alt="img"></a></p>
+<p>然后按照提示输入路由器的管理ip和管理密码就行，假如是默认的192.168.1.1和admin就直接回车就行</p>
+<p>完成以后等待路由器重启完成</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416164141.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416164141.png" alt="img"></a></p>
+<p>就可以看到路由器的wan口变成了pop拨号上网。</p>
+<h3 id="拨号上网"><a href="#拨号上网" class="headerlink" title="拨号上网"></a>拨号上网</h3><p>打开netkeeper拨号即可，提示错误691成功，等待15s左右，路由器即有网。</p>
+<h3 id="路由器配置"><a href="#路由器配置" class="headerlink" title="路由器配置"></a>路由器配置</h3><p>要说的是，在潘多拉固件中该怎么修改管理密码和wifi密码呢</p>
+<p>浏览器网址栏192.168.1.1进入管理界面<br>在系统&gt;&gt;&gt;管理 中可以修改管理员密码<br>在网络&gt;&gt;&gt;无线 中可以修改wifi名称和密码</p>
+<p>在网络栏接口中高级设置中勾选开机自动运行<br>路由器就可以开机自动拨号了</p>
+<p>基本设置中也能看到被加密的校园网帐号</p>
+]]></content>
+      <categories>
+        <category>netkeeper</category>
+        <category>校园网</category>
+      </categories>
+      <tags>
+        <tag>netkeeper</tag>
+        <tag>校园网</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SSM框架之Mybatis框架的学习笔记</title>
     <url>/2024/06/20/SSM%E6%A1%86%E6%9E%B6%E4%B9%8BMybatis%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -1700,84 +1802,6 @@
       </tags>
   </entry>
   <entry>
-    <title>netkeeper校园网破解</title>
-    <url>/2024/06/20/netkeeper%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%A0%B4%E8%A7%A3/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="netkeeper校园网破解教程"><a href="#netkeeper校园网破解教程" class="headerlink" title="netkeeper校园网破解教程"></a>netkeeper校园网破解教程</h1><p> 分享一个关于破解netkeeper限制的教程，现在很多高校都使用netkeeper这个电信的 客户端进行拨号上网，并且限制一个宽带账号只能一个电脑一个手机两台设备使用，这样的限制让很多有多台设备的人感到十分的困扰，所以今天带来的netkeeper的破解教程就是破解netkeeper限制设备使用的教程，让整个宿舍都能用一个宽带账号。不用后台再挂着软件了。</p>
-<p>适用的范围：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">netkeeper</span><br><span class="line">或者闪讯等软件进行拨号上网的校园网</span><br></pre></td></tr></table></figure>
-
-<p> <strong>设备：</strong>裴讯K2(可自行选择，方法大同小异)</p>
-<p> <strong>注意：</strong>k2软件版本v22.6.5.29.xxx之后不可降级，会提示telnet连接失败，有编译器的话略过，没有的话避个雷。</p>
-<h2 id="教程总览"><a href="#教程总览" class="headerlink" title="教程总览"></a>教程总览</h2><ol>
-<li>刷入breed</li>
-<li>输入潘多拉固件</li>
-<li>安装脚本，拦截</li>
-<li>拨号上网</li>
-<li>配置路由器</li>
-</ol>
-<h3 id="刷入breed"><a href="#刷入breed" class="headerlink" title="刷入breed"></a>刷入breed</h3><p><strong>链接:</strong> <a href="https://wws.lanzous.com/iVNhbgfjcxa" target="_blank" rel="noopener">https://wws.lanzous.com/iVNhbgfjcxa</a><br><strong>密码:</strong>1234</p>
-<p>首先要给路由器刷入breed，相当于手机的rec，可以刷固件，还有其他功能，自行研究，不多叙述</p>
-<p>这里用的是斐讯breed专用工具，比较简单</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416160633.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416160633.png" alt="img"></a></p>
-<p>输入路由器的登入地址，还有密码开始刷机</p>
-<p>k2的路由器登入地址默认的是192.168.1.1，默认密码是admin</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416160829.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416160829.png" alt="img"></a></p>
-<p>软件可能会报毒，需要临时关闭杀毒软件</p>
-<p>等待成功</p>
-<p>刷入breed完成</p>
-<h3 id="准备刷入潘多拉固件"><a href="#准备刷入潘多拉固件" class="headerlink" title="准备刷入潘多拉固件"></a>准备刷入潘多拉固件</h3><p>假如你买的是刷机版的k2的话，卖家一般都是刷入了breed，所以一般都是从这里开始就行了</p>
-<h4 id="潘多拉下载"><a href="#潘多拉下载" class="headerlink" title="潘多拉下载"></a>潘多拉下载</h4><p>进入潘多拉下载站</p>
-<p><a href="http://pandorabox.tuuz.cc:8000/" target="_blank" rel="noopener">Pandorabox</a></p>
-<p>进入pandorabox/19.01/targets/ralink/目录</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416161921.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416161921.png" alt="img"></a></p>
-<p>选择你路由器的处理器进入，不知道的自行百度</p>
-<p>k2的处理器是MT7620</p>
-<p>k2p的处理器是MT7621</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416162137.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162137.png" alt="img"></a></p>
-<p>直接搜索你路由器的型号，然后下载就行</p>
-<h4 id="进入breed"><a href="#进入breed" class="headerlink" title="进入breed"></a>进入breed</h4><p>网线连接lan口与电脑，拔掉路由器电源接头（插在路由器上的接头）<br>长按reset复位键三秒不松，插上接头，等三秒松开，浏览器网址栏输入192.168.1.1进入breed界面<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162253.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162253.png" alt="img"></a></p>
-<p>选择固件更新，如图<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162339.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162339.png" alt="img"></a></p>
-<p>选择刚刚下载好的k2固件然后点击上传就行</p>
-<p>开始刷机，等待进度条完成100%，路由器会重启，直到完成，浏览器输入192.168.1.1打开如下图界面成功<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162457.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162457.png" alt="img"></a></p>
-<h4 id="安装脚本拦截"><a href="#安装脚本拦截" class="headerlink" title="安装脚本拦截"></a>安装脚本拦截</h4><p>此时已经完成了大半，开始针对netkeeper进行破译</p>
-<p>在固件文件夹中，打开如下软件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">链接: https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1Z2t3ckebzfnrxpB6fz4g6Q 提取码: c6fq</span><br></pre></td></tr></table></figure>
-
-<p>解压缩打开setup_telnet.exe</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163035.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163035.png" alt="img"></a></p>
-<p>然后我们需要下载和固件兼容的PPPoE文件</p>
-<p>还是刚刚下载固件的网址</p>
-<p>进入/pandorabox/19.01/packages/目录</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416161354.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416161354.png" alt="img"></a></p>
-<p>具体选择哪个要看你路由器的处理器是什么，自行百度</p>
-<p>k2的cpu是7620使用mipsel_24kec_dsp/</p>
-<p>k2p的cpu是7621使用mipsel_1004kc_dsp/</p>
-<p>这里我进入mipsel_24kec_dsp/packages直接搜pppoe</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163550.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163550.png" alt="img"></a></p>
-<p>下载好了按照脚本提示改一下名字把后缀删除放在脚本文件夹目录</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163719.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163719.png" alt="img"></a></p>
-<p>然后按照提示输入路由器的管理ip和管理密码就行，假如是默认的192.168.1.1和admin就直接回车就行</p>
-<p>完成以后等待路由器重启完成</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416164141.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210416164141.png" alt="img"></a></p>
-<p>就可以看到路由器的wan口变成了pop拨号上网。</p>
-<h3 id="拨号上网"><a href="#拨号上网" class="headerlink" title="拨号上网"></a>拨号上网</h3><p>打开netkeeper拨号即可，提示错误691成功，等待15s左右，路由器即有网。</p>
-<h3 id="路由器配置"><a href="#路由器配置" class="headerlink" title="路由器配置"></a>路由器配置</h3><p>要说的是，在潘多拉固件中该怎么修改管理密码和wifi密码呢</p>
-<p>浏览器网址栏192.168.1.1进入管理界面<br>在系统&gt;&gt;&gt;管理 中可以修改管理员密码<br>在网络&gt;&gt;&gt;无线 中可以修改wifi名称和密码</p>
-<p>在网络栏接口中高级设置中勾选开机自动运行<br>路由器就可以开机自动拨号了</p>
-<p>基本设置中也能看到被加密的校园网帐号</p>
-]]></content>
-      <categories>
-        <category>netkeeper</category>
-        <category>校园网</category>
-      </categories>
-      <tags>
-        <tag>netkeeper</tag>
-        <tag>校园网</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>个人私有云盘NextCloud的搭建</title>
     <url>/2020/05/27/%E4%B8%AA%E4%BA%BA%E7%A7%81%E6%9C%89%E4%BA%91%E7%9B%98NextCloud%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -2017,30 +2041,6 @@
       <tags>
         <tag>网络</tag>
         <tag>路由</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java——leetcode18. 四数之和</title>
-    <url>/2020/04/23/Java%E2%80%94%E2%80%94leetcode18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<p>给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。</p>
-<p>注意：</p>
-<p>答案中不可以包含重复的四元组。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">给定数组 nums &#x3D; [1, 0, -1, 0, -2, 2]，和 target &#x3D; 0。</span><br><span class="line">满足要求的四元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1,  0, 0, 1],</span><br><span class="line">  [-2, -1, 1, 2],</span><br><span class="line">  [-2,  0, 0, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>思路，两层循环选出两个数字，对剩下的数字跑双指针。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; fourSum(int[] nums,int target) &#123;</span><br><span class="line">    	List&lt;List&lt;Integer&gt;&gt; listArr&#x3D;new ArrayList&lt;&gt;();</span><br><span class="line">        int len&#x3D;nums.length;</span><br><span class="line">        int left,right;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line"> </span><br><span class="line">        for(int i&#x3D;0;i&lt;len;++i)&#123;</span><br><span class="line">        	if(i&gt;0 &amp;&amp; nums[i] &#x3D;&#x3D; nums[i-1]) continue;</span><br><span class="line">            for(int j&#x3D;i+1;j&lt;len;++j)&#123;</span><br><span class="line">                if(j&gt;i+1 &amp;&amp; nums[j] &#x3D;&#x3D; nums[j-1]) continue;</span><br><span class="line">                left&#x3D;j+1;</span><br><span class="line">                right&#x3D;len-1;</span><br><span class="line">                while(left&lt;right) &#123;</span><br><span class="line">                    int four&#x3D;nums[left]+nums[right]+nums[i]+nums[j];</span><br><span class="line">                    if(four&gt;target)&#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;else if(four&lt;target)&#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                	    listArr.add(Arrays.asList(nums[i],nums[j],nums[left],nums[right]));</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[left]&#x3D;&#x3D;nums[left+1])left++;</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[right]&#x3D;&#x3D;nums[right-1])right--;</span><br><span class="line">                	    left++;</span><br><span class="line">                	    right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">        return listArr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>编程</category>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>编程</tag>
-        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
