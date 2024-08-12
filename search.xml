@@ -141,98 +141,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo + Next 添加 Valine 评论功能</title>
-    <url>/2024/06/20/Hexo-Next-%E6%B7%BB%E5%8A%A0-Valine-%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>基于 <a href="https://leancloud.cn/" target="_blank" rel="noopener">LeanCloud</a> 这家服务提供商，实现Hexo博客文章的浏览数统计功能。</p>
-<p><a href="https://valine.js.org/" target="_blank" rel="noopener">Valine</a> 是基于 LeanCloud 的评论系统，评论数据都存储在leancloud平台，界面很简单，没有后台，删除和管理评论只能直接操作数据库。</p>
-<p>本文用的 Next 版本为 5.1.4，已经合并这个功能，相关代码在<code>themes\next\layout\_third-party\comments\valine.swig</code>，可以不用修改主题模版，直接在<code>_config.yml</code>中配置即可。如果低于这个版本的可以考虑升级或者自己手动修改。</p>
-<h1 id="一、配置LeanCloud"><a href="#一、配置LeanCloud" class="headerlink" title="一、配置LeanCloud"></a>一、配置LeanCloud</h1><h3 id="1、创建一个开发版应用（免费）"><a href="#1、创建一个开发版应用（免费）" class="headerlink" title="1、创建一个开发版应用（免费）"></a>1、创建一个开发版应用（免费）</h3><p><a href="https://gitee.com/laosuye/TC/raw/master/20210320235632.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210320235632.png" alt="img"></a></p>
-<h3 id="2、设置"><a href="#2、设置" class="headerlink" title="2、设置"></a>2、设置</h3><p>在<code>LeanCloud &gt; 设置 &gt; 安全中心</code>中，把除<code>数据存储</code>外其他选项都关闭。并将你的博客域名添加到<code>Web 安全域名</code>中：</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210320235805.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210320235805.png" alt="img"></a></p>
-<h3 id="3、创建Class"><a href="#3、创建Class" class="headerlink" title="3、创建Class"></a>3、创建Class</h3><h5 id="Comment实例在配置好next后会自动生成"><a href="#Comment实例在配置好next后会自动生成" class="headerlink" title="Comment实例在配置好next后会自动生成"></a>Comment实例在配置好next后会自动生成</h5><p>在<code>LeanCloud &gt; 存储 &gt; 创建Class</code>，选择<code>无限制的Class</code>并创建：</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210320235919.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210320235919.png" alt="img"></a></p>
-<h3 id="4、修改next配置"><a href="#4、修改next配置" class="headerlink" title="4、修改next配置"></a>4、修改next配置</h3><p>在<code>LeanCloud &gt; 设置 &gt; 应用 Key</code>中，找到<code>App ID</code>和<code>App Key</code>。之后修改 Next 的配置文件<code>_config.yml</code>如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Valine.</span><br><span class="line"># You can get your appid and appkey from https:&#x2F;&#x2F;leancloud.cn</span><br><span class="line"># more info please open https:&#x2F;&#x2F;valine.js.org</span><br><span class="line">valine:</span><br><span class="line">  enable: true</span><br><span class="line">  appid: xxxxxxxxx  # your leancloud application appid</span><br><span class="line">  appkey: xxxxxxxxx # your leancloud application appkey</span><br><span class="line">  notify: true # mail notifier , https:&#x2F;&#x2F;github.com&#x2F;xCss&#x2F;Valine&#x2F;wiki</span><br><span class="line">  verify: true # Verification code</span><br><span class="line">  placeholder:  # comment box placeholder</span><br><span class="line">  avatar:  # gravatar style</span><br><span class="line">  guest_info: nick,mail,link # custom comment header</span><br><span class="line">  pageSize: 10 # pagination size</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>enable: 开启评论功能</li>
-<li>appid: leancloud 的 appid</li>
-<li>appkey: leancloud 的 appkey</li>
-<li>notify: 开启评论提醒，见下文</li>
-<li>verify: 评论前开启验证</li>
-<li>placeholder: 占位</li>
-<li>avatar: 头像，见下文</li>
-<li>guest_info: 评论框的 header 内容</li>
-<li>pageSize: 分页</li>
-</ul>
-<p>之后重新执行<code>hexo g -d</code>就可以看到文章下的评论框了：</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000223.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000223.png" alt="img"></a></p>
-<p>评论成功后，在相应的表里能看新插入的数据，可以删除编辑：</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000258.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000258.png" alt="img"></a></p>
-<h3 id="5、其他"><a href="#5、其他" class="headerlink" title="5、其他"></a>5、其他</h3><p>可在文章模板<code>scaffolds/post.md</code> 或文章头部中设置<code>comments</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">comments: true</span><br><span class="line">categories:</span><br><span class="line">tags:</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>在<code>source/categories/index.md</code>和<code>source/tags/index.md</code>里要禁用<code>comments</code>，否则分类和标签页面会显示评论框：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2018-12-06 22:54:28</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>如果明明有评论，但标题下方的评论数却为0，如图：</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000425.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000425.png" alt="img"></a></p>
-<p>那么打开浏览器调试工具看看这个标签的类名是不是包含<code>valine-comment-count</code>：</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000608.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000608.png" alt="img"></a></p>
-<p>如上如所示，类名是<code>fb-comments-count</code>，说明模板渲染错了。打开<code>themes\next\layout\_macro\post.swig</code>找到下面的部分：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; facebook</span><br><span class="line">&#123;% elseif theme.facebook_comments_plugin.enable %&#125;</span><br><span class="line">  &lt;span class&#x3D;&quot;post-comments-count&quot;&gt;</span><br><span class="line">    &lt;span class&#x3D;&quot;post-meta-divider&quot;&gt;|&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span class&#x3D;&quot;post-meta-item-icon&quot;&gt;</span><br><span class="line">      &lt;i class&#x3D;&quot;fa fa-comment-o&quot;&gt;&lt;&#x2F;i&gt;</span><br><span class="line">    &lt;&#x2F;span&gt;</span><br><span class="line">    &lt;a href&#x3D;&quot;&#123;&#123; url_for(post.path) &#125;&#125;#comments&quot; itemprop&#x3D;&quot;discussionUrl&quot;&gt;</span><br><span class="line">      &lt;span class&#x3D;&quot;post-comments-count fb-comments-count&quot; data-href&#x3D;&quot;&#123;&#123; post.permalink &#125;&#125;&quot; itemprop&#x3D;&quot;commentCount&quot;&gt;0&lt;&#x2F;span&gt; comments</span><br><span class="line">    &lt;&#x2F;a&gt;</span><br><span class="line">  &lt;&#x2F;span&gt;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 省略。。。。。。</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; valine</span><br><span class="line">&#123;% elseif theme.valine.enable and theme.valine.appid and theme.valine.appkey %&#125;</span><br><span class="line">  &lt;span class&#x3D;&quot;post-comments-count&quot;&gt;</span><br><span class="line">    &lt;span class&#x3D;&quot;post-meta-divider&quot;&gt;|&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span class&#x3D;&quot;post-meta-item-icon&quot;&gt;</span><br><span class="line">      &lt;i class&#x3D;&quot;fa fa-comment-o&quot;&gt;&lt;&#x2F;i&gt;</span><br><span class="line">    &lt;&#x2F;span&gt;</span><br><span class="line">    &lt;a href&#x3D;&quot;&#123;&#123; url_for(post.path) &#125;&#125;#comments&quot; itemprop&#x3D;&quot;discussionUrl&quot;&gt;</span><br><span class="line">      &lt;span class&#x3D;&quot;post-comments-count valine-comment-count&quot; data-xid&#x3D;&quot;&#123;&#123; url_for(post.path) &#125;&#125;&quot; itemprop&#x3D;&quot;commentCount&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;&#x2F;a&gt;</span><br><span class="line">  &lt;&#x2F;span&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其实是根据<code>_config.yml</code>里的主题配置用<code>if...else...</code>来渲染模板。把配置文件里<code>theme.facebook_comments_plugin.enable</code>改为<code>false</code>，则<code>facebook</code>那部分不会渲染：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">facebook_comments_plugin:</span><br><span class="line">  enable:       false</span><br><span class="line">  num_of_posts: 10    # min posts num is 1</span><br><span class="line">  width:        100%  # default width is 550px</span><br><span class="line">  scheme:       light # default scheme is light (light or dark)</span><br></pre></td></tr></table></figure>
-
-<p>刷新后<code>valine</code>那部分渲染出来了，可以看到评论数。</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000724.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000724.png" alt="img"></a></p>
-<h1 id="二、头像配置"><a href="#二、头像配置" class="headerlink" title="二、头像配置"></a>二、头像配置</h1><p><strong>参考<a href="https://valine.js.org/avatar.html" target="_blank" rel="noopener">Valine评论系统中头像的配置</a></strong></p>
-<p>上面<code>valine &gt; avatar</code>字段用来设置评论头像，可选值如下:</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000921.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000921.png" alt="img"></a></p>
-<p>之后注册登录<a href="https://cn.gravatar.com/" target="_blank" rel="noopener">Gravatar</a>，并设置头像。</p>
-<p>之后在<code>Next</code>配置文件中增加<code>avatar_cdn</code>字段，如下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">valine:</span><br><span class="line">  enable: true</span><br><span class="line">  appid: xxxxxxxxx</span><br><span class="line">  appkey: xxxxxxxxx</span><br><span class="line">  notify: true # mail notifier , https:&#x2F;&#x2F;github.com&#x2F;xCss&#x2F;Valine&#x2F;wiki</span><br><span class="line">  verify: true # Verification code</span><br><span class="line">  placeholder:  # comment box placeholder</span><br><span class="line">  avatar:  # gravatar style</span><br><span class="line">  guest_info: nick,mail,link # custom comment header</span><br><span class="line">  pageSize: 10 # pagination size</span><br><span class="line">  avatar_cdn: https:&#x2F;&#x2F;www.gravatar.com&#x2F;avatar&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>之后修改<code>Valine</code>模板文件<code>/themes/next/layout/_third-party/comments/valine.swig</code>，末尾增加<code>avatar_cnd</code>字段：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">new Valine(&#123;</span><br><span class="line">    el: &#39;#comments&#39; ,</span><br><span class="line">    verify: &#123;&#123; theme.valine.verify &#125;&#125;,</span><br><span class="line">    notify: &#123;&#123; theme.valine.notify &#125;&#125;,</span><br><span class="line">    appId: &#39;&#123;&#123; theme.valine.appid &#125;&#125;&#39;,</span><br><span class="line">    appKey: &#39;&#123;&#123; theme.valine.appkey &#125;&#125;&#39;,</span><br><span class="line">    placeholder: &#39;&#123;&#123; theme.valine.placeholder &#125;&#125;&#39;,</span><br><span class="line">    avatar:&#39;&#123;&#123; theme.valine.avatar &#125;&#125;&#39;,</span><br><span class="line">    guest_info:guest,</span><br><span class="line">    pageSize:&#39;&#123;&#123; theme.valine.pageSize &#125;&#125;&#39; || 10,</span><br><span class="line">    avatar_cdn:&#39;&#123;&#123; theme.valine.avatar_cdn &#125;&#125;&#39;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>刷新头像变成自定义的了：</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321001319.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321001319.png" alt="img"></a></p>
-<h1 id="三、邮件配置"><a href="#三、邮件配置" class="headerlink" title="三、邮件配置"></a>三、邮件配置</h1><h3 id="1、官方邮件提醒"><a href="#1、官方邮件提醒" class="headerlink" title="1、官方邮件提醒"></a>1、官方邮件提醒</h3><p>参考 <strong><a href="https://valine.js.org/notify.html" target="_blank" rel="noopener">Valine 评论系统中的邮件提醒设置</a></strong></p>
-<p><strong>注意：目前邮件提醒正处于测试阶段，仅在子级对存在邮件地址的父级发表评论时发送邮件</strong></p>
-<p><code>Valine</code>官方提供的邮件提醒功能是基于<code>Leancloud</code>的密码重置邮件提醒。所以要<code>开启email通知</code>除了修改配置文件<code>valine &gt; notify</code>为<code>true</code>外，还需对<code>LeanCloud &gt; 设置 &gt; 邮件模板 &gt; 用于重置密码的邮件主题</code>进行修改。如下图：</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321001435.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321001435.png" alt="img"></a></p>
-<p>可参考以下内容修改并保存，修改后的内容会被插入提醒邮件中：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 邮件主题</span><br><span class="line">你在&#123;&#123;appname&#125;&#125;的评论收到了新的回复</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 内容</span><br><span class="line">&lt;p&gt;Hi, &#123;&#123;username&#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">你在 &#123;&#123;appname&#125;&#125; 的评论收到了新的回复，请点击查看：</span><br><span class="line">&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;&lt;a href&#x3D;&quot;https:&#x2F;&#x2F;luanzhuxian.github.io&quot; style&#x3D;&quot;display: inline-block; padding: 10px 20px; border-radius: 4px; background-color: #3090e4; color: #fff; text-decoration: none;&quot;&gt;马上查看&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
-
-<p>之后对一级评论回复并同时填写邮箱的话，就能收到邮件提醒了。</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321001527.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321001527.png" alt="img"></a></p>
-<h1 id="四、第三方支持"><a href="#四、第三方支持" class="headerlink" title="四、第三方支持"></a>四、第三方支持</h1><p>还可以使用更完善的第三方邮件提醒：<strong><a href="https://github.com/zhaojun1998/Valine-Admin" target="_blank" rel="noopener">Valine-Admin</a></strong><br><a href="https://deserts.io/valine-admin-document/" target="_blank" rel="noopener">参考</a><br><a href="https://github.98.tn/hexo-valine-admin/" target="_blank" rel="noopener">参考</a></p>
-<p>其中的设置云引擎的自定义环境变量：</p>
-<ul>
-<li>SITE_NAME : 网站名称</li>
-<li>SITE_URL : 网站地址, 最后不要加 /</li>
-<li>SMTP_USER : SMTP 服务用户名，一般为邮箱地址</li>
-<li>SMTP_PASS : SMTP 密码，一般为授权码，而不是邮箱的登陆密码，请自行查询对应邮件服务商的获取方式</li>
-<li>SMTP_SERVICE : 邮件服务提供商</li>
-<li>SENDER_NAME : 寄件人名称</li>
-<li>TO_EMAIL：这个是填收邮件提醒的邮箱地址，若没有这个字段，则将邮件发到 SMTP_USER</li>
-<li>TEMPLATE_NAME：设置提醒邮件的主题，目前内置了两款主题，分别为 default 与 rainbow。默认为 default</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-        <category>next - 博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>next - 博客</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo+Gitee搭建个人博客&#39;</title>
     <url>/2024/06/20/Hexo-Gitee%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -323,6 +231,98 @@
       <tags>
         <tag>Hexo</tag>
         <tag>Gitee - 博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo + Next 添加 Valine 评论功能</title>
+    <url>/2024/06/20/Hexo-Next-%E6%B7%BB%E5%8A%A0-Valine-%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>基于 <a href="https://leancloud.cn/" target="_blank" rel="noopener">LeanCloud</a> 这家服务提供商，实现Hexo博客文章的浏览数统计功能。</p>
+<p><a href="https://valine.js.org/" target="_blank" rel="noopener">Valine</a> 是基于 LeanCloud 的评论系统，评论数据都存储在leancloud平台，界面很简单，没有后台，删除和管理评论只能直接操作数据库。</p>
+<p>本文用的 Next 版本为 5.1.4，已经合并这个功能，相关代码在<code>themes\next\layout\_third-party\comments\valine.swig</code>，可以不用修改主题模版，直接在<code>_config.yml</code>中配置即可。如果低于这个版本的可以考虑升级或者自己手动修改。</p>
+<h1 id="一、配置LeanCloud"><a href="#一、配置LeanCloud" class="headerlink" title="一、配置LeanCloud"></a>一、配置LeanCloud</h1><h3 id="1、创建一个开发版应用（免费）"><a href="#1、创建一个开发版应用（免费）" class="headerlink" title="1、创建一个开发版应用（免费）"></a>1、创建一个开发版应用（免费）</h3><p><a href="https://gitee.com/laosuye/TC/raw/master/20210320235632.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210320235632.png" alt="img"></a></p>
+<h3 id="2、设置"><a href="#2、设置" class="headerlink" title="2、设置"></a>2、设置</h3><p>在<code>LeanCloud &gt; 设置 &gt; 安全中心</code>中，把除<code>数据存储</code>外其他选项都关闭。并将你的博客域名添加到<code>Web 安全域名</code>中：</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210320235805.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210320235805.png" alt="img"></a></p>
+<h3 id="3、创建Class"><a href="#3、创建Class" class="headerlink" title="3、创建Class"></a>3、创建Class</h3><h5 id="Comment实例在配置好next后会自动生成"><a href="#Comment实例在配置好next后会自动生成" class="headerlink" title="Comment实例在配置好next后会自动生成"></a>Comment实例在配置好next后会自动生成</h5><p>在<code>LeanCloud &gt; 存储 &gt; 创建Class</code>，选择<code>无限制的Class</code>并创建：</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210320235919.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210320235919.png" alt="img"></a></p>
+<h3 id="4、修改next配置"><a href="#4、修改next配置" class="headerlink" title="4、修改next配置"></a>4、修改next配置</h3><p>在<code>LeanCloud &gt; 设置 &gt; 应用 Key</code>中，找到<code>App ID</code>和<code>App Key</code>。之后修改 Next 的配置文件<code>_config.yml</code>如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Valine.</span><br><span class="line"># You can get your appid and appkey from https:&#x2F;&#x2F;leancloud.cn</span><br><span class="line"># more info please open https:&#x2F;&#x2F;valine.js.org</span><br><span class="line">valine:</span><br><span class="line">  enable: true</span><br><span class="line">  appid: xxxxxxxxx  # your leancloud application appid</span><br><span class="line">  appkey: xxxxxxxxx # your leancloud application appkey</span><br><span class="line">  notify: true # mail notifier , https:&#x2F;&#x2F;github.com&#x2F;xCss&#x2F;Valine&#x2F;wiki</span><br><span class="line">  verify: true # Verification code</span><br><span class="line">  placeholder:  # comment box placeholder</span><br><span class="line">  avatar:  # gravatar style</span><br><span class="line">  guest_info: nick,mail,link # custom comment header</span><br><span class="line">  pageSize: 10 # pagination size</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>enable: 开启评论功能</li>
+<li>appid: leancloud 的 appid</li>
+<li>appkey: leancloud 的 appkey</li>
+<li>notify: 开启评论提醒，见下文</li>
+<li>verify: 评论前开启验证</li>
+<li>placeholder: 占位</li>
+<li>avatar: 头像，见下文</li>
+<li>guest_info: 评论框的 header 内容</li>
+<li>pageSize: 分页</li>
+</ul>
+<p>之后重新执行<code>hexo g -d</code>就可以看到文章下的评论框了：</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000223.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000223.png" alt="img"></a></p>
+<p>评论成功后，在相应的表里能看新插入的数据，可以删除编辑：</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000258.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000258.png" alt="img"></a></p>
+<h3 id="5、其他"><a href="#5、其他" class="headerlink" title="5、其他"></a>5、其他</h3><p>可在文章模板<code>scaffolds/post.md</code> 或文章头部中设置<code>comments</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">comments: true</span><br><span class="line">categories:</span><br><span class="line">tags:</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>在<code>source/categories/index.md</code>和<code>source/tags/index.md</code>里要禁用<code>comments</code>，否则分类和标签页面会显示评论框：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2018-12-06 22:54:28</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>如果明明有评论，但标题下方的评论数却为0，如图：</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000425.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000425.png" alt="img"></a></p>
+<p>那么打开浏览器调试工具看看这个标签的类名是不是包含<code>valine-comment-count</code>：</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000608.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000608.png" alt="img"></a></p>
+<p>如上如所示，类名是<code>fb-comments-count</code>，说明模板渲染错了。打开<code>themes\next\layout\_macro\post.swig</code>找到下面的部分：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; facebook</span><br><span class="line">&#123;% elseif theme.facebook_comments_plugin.enable %&#125;</span><br><span class="line">  &lt;span class&#x3D;&quot;post-comments-count&quot;&gt;</span><br><span class="line">    &lt;span class&#x3D;&quot;post-meta-divider&quot;&gt;|&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span class&#x3D;&quot;post-meta-item-icon&quot;&gt;</span><br><span class="line">      &lt;i class&#x3D;&quot;fa fa-comment-o&quot;&gt;&lt;&#x2F;i&gt;</span><br><span class="line">    &lt;&#x2F;span&gt;</span><br><span class="line">    &lt;a href&#x3D;&quot;&#123;&#123; url_for(post.path) &#125;&#125;#comments&quot; itemprop&#x3D;&quot;discussionUrl&quot;&gt;</span><br><span class="line">      &lt;span class&#x3D;&quot;post-comments-count fb-comments-count&quot; data-href&#x3D;&quot;&#123;&#123; post.permalink &#125;&#125;&quot; itemprop&#x3D;&quot;commentCount&quot;&gt;0&lt;&#x2F;span&gt; comments</span><br><span class="line">    &lt;&#x2F;a&gt;</span><br><span class="line">  &lt;&#x2F;span&gt;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 省略。。。。。。</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; valine</span><br><span class="line">&#123;% elseif theme.valine.enable and theme.valine.appid and theme.valine.appkey %&#125;</span><br><span class="line">  &lt;span class&#x3D;&quot;post-comments-count&quot;&gt;</span><br><span class="line">    &lt;span class&#x3D;&quot;post-meta-divider&quot;&gt;|&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span class&#x3D;&quot;post-meta-item-icon&quot;&gt;</span><br><span class="line">      &lt;i class&#x3D;&quot;fa fa-comment-o&quot;&gt;&lt;&#x2F;i&gt;</span><br><span class="line">    &lt;&#x2F;span&gt;</span><br><span class="line">    &lt;a href&#x3D;&quot;&#123;&#123; url_for(post.path) &#125;&#125;#comments&quot; itemprop&#x3D;&quot;discussionUrl&quot;&gt;</span><br><span class="line">      &lt;span class&#x3D;&quot;post-comments-count valine-comment-count&quot; data-xid&#x3D;&quot;&#123;&#123; url_for(post.path) &#125;&#125;&quot; itemprop&#x3D;&quot;commentCount&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;&#x2F;a&gt;</span><br><span class="line">  &lt;&#x2F;span&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实是根据<code>_config.yml</code>里的主题配置用<code>if...else...</code>来渲染模板。把配置文件里<code>theme.facebook_comments_plugin.enable</code>改为<code>false</code>，则<code>facebook</code>那部分不会渲染：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">facebook_comments_plugin:</span><br><span class="line">  enable:       false</span><br><span class="line">  num_of_posts: 10    # min posts num is 1</span><br><span class="line">  width:        100%  # default width is 550px</span><br><span class="line">  scheme:       light # default scheme is light (light or dark)</span><br></pre></td></tr></table></figure>
+
+<p>刷新后<code>valine</code>那部分渲染出来了，可以看到评论数。</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000724.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000724.png" alt="img"></a></p>
+<h1 id="二、头像配置"><a href="#二、头像配置" class="headerlink" title="二、头像配置"></a>二、头像配置</h1><p><strong>参考<a href="https://valine.js.org/avatar.html" target="_blank" rel="noopener">Valine评论系统中头像的配置</a></strong></p>
+<p>上面<code>valine &gt; avatar</code>字段用来设置评论头像，可选值如下:</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321000921.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321000921.png" alt="img"></a></p>
+<p>之后注册登录<a href="https://cn.gravatar.com/" target="_blank" rel="noopener">Gravatar</a>，并设置头像。</p>
+<p>之后在<code>Next</code>配置文件中增加<code>avatar_cdn</code>字段，如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">valine:</span><br><span class="line">  enable: true</span><br><span class="line">  appid: xxxxxxxxx</span><br><span class="line">  appkey: xxxxxxxxx</span><br><span class="line">  notify: true # mail notifier , https:&#x2F;&#x2F;github.com&#x2F;xCss&#x2F;Valine&#x2F;wiki</span><br><span class="line">  verify: true # Verification code</span><br><span class="line">  placeholder:  # comment box placeholder</span><br><span class="line">  avatar:  # gravatar style</span><br><span class="line">  guest_info: nick,mail,link # custom comment header</span><br><span class="line">  pageSize: 10 # pagination size</span><br><span class="line">  avatar_cdn: https:&#x2F;&#x2F;www.gravatar.com&#x2F;avatar&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>之后修改<code>Valine</code>模板文件<code>/themes/next/layout/_third-party/comments/valine.swig</code>，末尾增加<code>avatar_cnd</code>字段：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">new Valine(&#123;</span><br><span class="line">    el: &#39;#comments&#39; ,</span><br><span class="line">    verify: &#123;&#123; theme.valine.verify &#125;&#125;,</span><br><span class="line">    notify: &#123;&#123; theme.valine.notify &#125;&#125;,</span><br><span class="line">    appId: &#39;&#123;&#123; theme.valine.appid &#125;&#125;&#39;,</span><br><span class="line">    appKey: &#39;&#123;&#123; theme.valine.appkey &#125;&#125;&#39;,</span><br><span class="line">    placeholder: &#39;&#123;&#123; theme.valine.placeholder &#125;&#125;&#39;,</span><br><span class="line">    avatar:&#39;&#123;&#123; theme.valine.avatar &#125;&#125;&#39;,</span><br><span class="line">    guest_info:guest,</span><br><span class="line">    pageSize:&#39;&#123;&#123; theme.valine.pageSize &#125;&#125;&#39; || 10,</span><br><span class="line">    avatar_cdn:&#39;&#123;&#123; theme.valine.avatar_cdn &#125;&#125;&#39;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>刷新头像变成自定义的了：</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321001319.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321001319.png" alt="img"></a></p>
+<h1 id="三、邮件配置"><a href="#三、邮件配置" class="headerlink" title="三、邮件配置"></a>三、邮件配置</h1><h3 id="1、官方邮件提醒"><a href="#1、官方邮件提醒" class="headerlink" title="1、官方邮件提醒"></a>1、官方邮件提醒</h3><p>参考 <strong><a href="https://valine.js.org/notify.html" target="_blank" rel="noopener">Valine 评论系统中的邮件提醒设置</a></strong></p>
+<p><strong>注意：目前邮件提醒正处于测试阶段，仅在子级对存在邮件地址的父级发表评论时发送邮件</strong></p>
+<p><code>Valine</code>官方提供的邮件提醒功能是基于<code>Leancloud</code>的密码重置邮件提醒。所以要<code>开启email通知</code>除了修改配置文件<code>valine &gt; notify</code>为<code>true</code>外，还需对<code>LeanCloud &gt; 设置 &gt; 邮件模板 &gt; 用于重置密码的邮件主题</code>进行修改。如下图：</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321001435.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321001435.png" alt="img"></a></p>
+<p>可参考以下内容修改并保存，修改后的内容会被插入提醒邮件中：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 邮件主题</span><br><span class="line">你在&#123;&#123;appname&#125;&#125;的评论收到了新的回复</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 内容</span><br><span class="line">&lt;p&gt;Hi, &#123;&#123;username&#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">你在 &#123;&#123;appname&#125;&#125; 的评论收到了新的回复，请点击查看：</span><br><span class="line">&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;&lt;a href&#x3D;&quot;https:&#x2F;&#x2F;luanzhuxian.github.io&quot; style&#x3D;&quot;display: inline-block; padding: 10px 20px; border-radius: 4px; background-color: #3090e4; color: #fff; text-decoration: none;&quot;&gt;马上查看&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+
+<p>之后对一级评论回复并同时填写邮箱的话，就能收到邮件提醒了。</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210321001527.png"><img src="https://gitee.com/laosuye/TC/raw/master/20210321001527.png" alt="img"></a></p>
+<h1 id="四、第三方支持"><a href="#四、第三方支持" class="headerlink" title="四、第三方支持"></a>四、第三方支持</h1><p>还可以使用更完善的第三方邮件提醒：<strong><a href="https://github.com/zhaojun1998/Valine-Admin" target="_blank" rel="noopener">Valine-Admin</a></strong><br><a href="https://deserts.io/valine-admin-document/" target="_blank" rel="noopener">参考</a><br><a href="https://github.98.tn/hexo-valine-admin/" target="_blank" rel="noopener">参考</a></p>
+<p>其中的设置云引擎的自定义环境变量：</p>
+<ul>
+<li>SITE_NAME : 网站名称</li>
+<li>SITE_URL : 网站地址, 最后不要加 /</li>
+<li>SMTP_USER : SMTP 服务用户名，一般为邮箱地址</li>
+<li>SMTP_PASS : SMTP 密码，一般为授权码，而不是邮箱的登陆密码，请自行查询对应邮件服务商的获取方式</li>
+<li>SMTP_SERVICE : 邮件服务提供商</li>
+<li>SENDER_NAME : 寄件人名称</li>
+<li>TO_EMAIL：这个是填收邮件提醒的邮箱地址，若没有这个字段，则将邮件发到 SMTP_USER</li>
+<li>TEMPLATE_NAME：设置提醒邮件的主题，目前内置了两款主题，分别为 default 与 rainbow。默认为 default</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+        <category>next - 博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>next - 博客</tag>
       </tags>
   </entry>
   <entry>
