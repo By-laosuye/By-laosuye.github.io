@@ -64,99 +64,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo+Gitee搭建个人博客&#39;</title>
-    <url>/2024/06/20/Hexo-Gitee%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前前后后安装hexo搭建博客也有很多次了，试过在mac环境下，最近又是因为种种原因，在windows下安装了hexo，但是很东西不同之前的mac，踩了很多坑，为了自己以后避免踩坑，所以在这里做个记录，也为了以后有人能用到我这篇文章</p>
-<h2 id="一、环境准备"><a href="#一、环境准备" class="headerlink" title="一、环境准备"></a>一、环境准备</h2><h3 id="1、下载安装Git"><a href="#1、下载安装Git" class="headerlink" title="1、下载安装Git"></a>1、下载安装Git</h3><p>首先去下载<strong>Git</strong>的最新版本</p>
-<p>1、<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官方下载</a></p>
-<p>2、<a href="https://npm.taobao.org/mirrors/git-for-windows/" target="_blank" rel="noopener">淘宝源下载</a></p>
-<p>这里推荐淘宝源下载安装，因为官方下载的速度都是比较慢的，在国内淘宝源下载比较快。</p>
-<p>安装方式这里我不做过多的介绍，网上有很多的教程</p>
-<h3 id="2、下载安装node-js"><a href="#2、下载安装node-js" class="headerlink" title="2、下载安装node.js"></a>2、下载安装node.js</h3><p>同<strong>git</strong>一样，去下载<strong>node.js</strong>的安装包</p>
-<p><a href="https://nodejs.org/en/" target="_blank" rel="noopener">1、官方下载</a></p>
-<p><a href="https://npm.taobao.org/mirrors/node/" target="_blank" rel="noopener">2、淘宝源下载</a></p>
-<p>同样推荐淘宝下载，不同于<strong>git</strong>的是，尽可能的不要下载最新的版本，最好是下载一个历史版本的稳定性比较高</p>
-<p>安装的话直接是默认的下一步下一步，非常简单</p>
-<h2 id="3、一些不错的工具"><a href="#3、一些不错的工具" class="headerlink" title="3、一些不错的工具"></a>3、一些不错的工具</h2><p><a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">Visaual Studio Code</a> 用来编辑<strong>hexo</strong>的配置文件(如果有其他的更好的可以不用这个)</p>
-<p><a href="https://www.typora.io/" target="_blank" rel="noopener">Typora</a> 文章采用<strong>markdown</strong>方式编写，这个软件界面简单，写md语法非常好</p>
-<h2 id="4、需要用到的框架或者平台"><a href="#4、需要用到的框架或者平台" class="headerlink" title="4、需要用到的框架或者平台"></a>4、需要用到的框架或者平台</h2><p><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">1、Hexo</a></p>
-<p><a href="https://gitee.com/">2、码云(Gitee)</a></p>
-<h1 id="二、测试环境"><a href="#二、测试环境" class="headerlink" title="二、测试环境"></a>二、测试环境</h1><p>用<strong>Win+R</strong>打开运行，输入<strong>cmd</strong>并进入cmd</p>
-<p><strong>node.js</strong>的检查</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
-
-<p><strong>npm</strong>的检查</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
-
-<p><strong>Git</strong>的检查</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-
-<p>以上有显示版本号，则说明安装成功</p>
-<h1 id="三、hexo的安装"><a href="#三、hexo的安装" class="headerlink" title="三、hexo的安装"></a>三、hexo的安装</h1><p>1、安装之前把下载的源设置成淘宝的源，这样下载速度更快</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p>2、全局安装框架</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
-
-<p>3.1、创建你的博客目录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init 你博客文件夹名字</span><br></pre></td></tr></table></figure>
-
-<p>3.2、进入你博客的目录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd 你博客文件夹名字</span><br></pre></td></tr></table></figure>
-
-<p>4、复制文件到你博客的目录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-
-<p>5、安装hexo部署插件</p>
-<p><strong>cmd</strong>切换到你博客文件夹目录下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<h1 id="四、Git的配置"><a href="#四、Git的配置" class="headerlink" title="四、Git的配置"></a>四、Git的配置</h1><p>用<strong>Win+R</strong>打开运行，输入<strong>cmd</strong>并进入cmd</p>
-<p>设置用户名称</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;用户名&quot;</span><br></pre></td></tr></table></figure>
-
-<p>设置用户邮箱</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.email &quot;用户邮箱&quot;</span><br></pre></td></tr></table></figure>
-
-<p>生成密钥</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;用户邮箱&quot;</span><br></pre></td></tr></table></figure>
-
-<h1 id="五、-config-yml文件的配置"><a href="#五、-config-yml文件的配置" class="headerlink" title="五、_config.yml文件的配置"></a>五、_config.yml文件的配置</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;gitee.com&#x2F;hcllmsx&#x2F;hcllmsx.git    #替换成你自己仓库的HTTP URL地址</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-
-<p>注意区分，你博客根目录的 _config.yml 文件，和主题根目录的 _config.yml 文件！</p>
-<h1 id="六、hexo常用代码"><a href="#六、hexo常用代码" class="headerlink" title="六、hexo常用代码"></a>六、hexo常用代码</h1><p>1、清理缓存</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo c</span><br></pre></td></tr></table></figure>
-
-<p>hexo c是hexo clean的简写</p>
-<p>2、生成静态页面</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-
-<p>hexo g 是 hexo generate的简写</p>
-<p>3、在本地隐射(预览)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-<p>hexo s 是 hexo server的简写</p>
-<p>4、部署推送</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<p>hexo d 是 hexo depoly的简写</p>
-<p>5、新建文章</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo n &quot;文章名字&quot;</span><br></pre></td></tr></table></figure>
-
-<p>以上就是关于hexo+gitee搭建博客，下一期会出一篇关于hexo下next的配置详情</p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-        <category>Gitee - 博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Gitee - 博客</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ftp服务器的配置与管理</title>
     <url>/2020/04/25/Ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -326,27 +233,96 @@
       </tags>
   </entry>
   <entry>
-    <title>Java——leetcode18. 四数之和</title>
-    <url>/2020/04/23/Java%E2%80%94%E2%80%94leetcode18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <title>Hexo+Gitee搭建个人博客&#39;</title>
+    <url>/2024/06/20/Hexo-Gitee%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
 
-<p>给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。</p>
-<p>注意：</p>
-<p>答案中不可以包含重复的四元组。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">给定数组 nums &#x3D; [1, 0, -1, 0, -2, 2]，和 target &#x3D; 0。</span><br><span class="line">满足要求的四元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1,  0, 0, 1],</span><br><span class="line">  [-2, -1, 1, 2],</span><br><span class="line">  [-2,  0, 0, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前前后后安装hexo搭建博客也有很多次了，试过在mac环境下，最近又是因为种种原因，在windows下安装了hexo，但是很东西不同之前的mac，踩了很多坑，为了自己以后避免踩坑，所以在这里做个记录，也为了以后有人能用到我这篇文章</p>
+<h2 id="一、环境准备"><a href="#一、环境准备" class="headerlink" title="一、环境准备"></a>一、环境准备</h2><h3 id="1、下载安装Git"><a href="#1、下载安装Git" class="headerlink" title="1、下载安装Git"></a>1、下载安装Git</h3><p>首先去下载<strong>Git</strong>的最新版本</p>
+<p>1、<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官方下载</a></p>
+<p>2、<a href="https://npm.taobao.org/mirrors/git-for-windows/" target="_blank" rel="noopener">淘宝源下载</a></p>
+<p>这里推荐淘宝源下载安装，因为官方下载的速度都是比较慢的，在国内淘宝源下载比较快。</p>
+<p>安装方式这里我不做过多的介绍，网上有很多的教程</p>
+<h3 id="2、下载安装node-js"><a href="#2、下载安装node-js" class="headerlink" title="2、下载安装node.js"></a>2、下载安装node.js</h3><p>同<strong>git</strong>一样，去下载<strong>node.js</strong>的安装包</p>
+<p><a href="https://nodejs.org/en/" target="_blank" rel="noopener">1、官方下载</a></p>
+<p><a href="https://npm.taobao.org/mirrors/node/" target="_blank" rel="noopener">2、淘宝源下载</a></p>
+<p>同样推荐淘宝下载，不同于<strong>git</strong>的是，尽可能的不要下载最新的版本，最好是下载一个历史版本的稳定性比较高</p>
+<p>安装的话直接是默认的下一步下一步，非常简单</p>
+<h2 id="3、一些不错的工具"><a href="#3、一些不错的工具" class="headerlink" title="3、一些不错的工具"></a>3、一些不错的工具</h2><p><a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">Visaual Studio Code</a> 用来编辑<strong>hexo</strong>的配置文件(如果有其他的更好的可以不用这个)</p>
+<p><a href="https://www.typora.io/" target="_blank" rel="noopener">Typora</a> 文章采用<strong>markdown</strong>方式编写，这个软件界面简单，写md语法非常好</p>
+<h2 id="4、需要用到的框架或者平台"><a href="#4、需要用到的框架或者平台" class="headerlink" title="4、需要用到的框架或者平台"></a>4、需要用到的框架或者平台</h2><p><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">1、Hexo</a></p>
+<p><a href="https://gitee.com/">2、码云(Gitee)</a></p>
+<h1 id="二、测试环境"><a href="#二、测试环境" class="headerlink" title="二、测试环境"></a>二、测试环境</h1><p>用<strong>Win+R</strong>打开运行，输入<strong>cmd</strong>并进入cmd</p>
+<p><strong>node.js</strong>的检查</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
 
-<p>思路，两层循环选出两个数字，对剩下的数字跑双指针。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; fourSum(int[] nums,int target) &#123;</span><br><span class="line">    	List&lt;List&lt;Integer&gt;&gt; listArr&#x3D;new ArrayList&lt;&gt;();</span><br><span class="line">        int len&#x3D;nums.length;</span><br><span class="line">        int left,right;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line"> </span><br><span class="line">        for(int i&#x3D;0;i&lt;len;++i)&#123;</span><br><span class="line">        	if(i&gt;0 &amp;&amp; nums[i] &#x3D;&#x3D; nums[i-1]) continue;</span><br><span class="line">            for(int j&#x3D;i+1;j&lt;len;++j)&#123;</span><br><span class="line">                if(j&gt;i+1 &amp;&amp; nums[j] &#x3D;&#x3D; nums[j-1]) continue;</span><br><span class="line">                left&#x3D;j+1;</span><br><span class="line">                right&#x3D;len-1;</span><br><span class="line">                while(left&lt;right) &#123;</span><br><span class="line">                    int four&#x3D;nums[left]+nums[right]+nums[i]+nums[j];</span><br><span class="line">                    if(four&gt;target)&#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;else if(four&lt;target)&#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                	    listArr.add(Arrays.asList(nums[i],nums[j],nums[left],nums[right]));</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[left]&#x3D;&#x3D;nums[left+1])left++;</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[right]&#x3D;&#x3D;nums[right-1])right--;</span><br><span class="line">                	    left++;</span><br><span class="line">                	    right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">        return listArr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>npm</strong>的检查</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
 
+<p><strong>Git</strong>的检查</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+
+<p>以上有显示版本号，则说明安装成功</p>
+<h1 id="三、hexo的安装"><a href="#三、hexo的安装" class="headerlink" title="三、hexo的安装"></a>三、hexo的安装</h1><p>1、安装之前把下载的源设置成淘宝的源，这样下载速度更快</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<p>2、全局安装框架</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+
+<p>3.1、创建你的博客目录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init 你博客文件夹名字</span><br></pre></td></tr></table></figure>
+
+<p>3.2、进入你博客的目录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd 你博客文件夹名字</span><br></pre></td></tr></table></figure>
+
+<p>4、复制文件到你博客的目录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>5、安装hexo部署插件</p>
+<p><strong>cmd</strong>切换到你博客文件夹目录下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<h1 id="四、Git的配置"><a href="#四、Git的配置" class="headerlink" title="四、Git的配置"></a>四、Git的配置</h1><p>用<strong>Win+R</strong>打开运行，输入<strong>cmd</strong>并进入cmd</p>
+<p>设置用户名称</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;用户名&quot;</span><br></pre></td></tr></table></figure>
+
+<p>设置用户邮箱</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.email &quot;用户邮箱&quot;</span><br></pre></td></tr></table></figure>
+
+<p>生成密钥</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;用户邮箱&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="五、-config-yml文件的配置"><a href="#五、-config-yml文件的配置" class="headerlink" title="五、_config.yml文件的配置"></a>五、_config.yml文件的配置</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;gitee.com&#x2F;hcllmsx&#x2F;hcllmsx.git    #替换成你自己仓库的HTTP URL地址</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p>注意区分，你博客根目录的 _config.yml 文件，和主题根目录的 _config.yml 文件！</p>
+<h1 id="六、hexo常用代码"><a href="#六、hexo常用代码" class="headerlink" title="六、hexo常用代码"></a>六、hexo常用代码</h1><p>1、清理缓存</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo c</span><br></pre></td></tr></table></figure>
+
+<p>hexo c是hexo clean的简写</p>
+<p>2、生成静态页面</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<p>hexo g 是 hexo generate的简写</p>
+<p>3、在本地隐射(预览)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>hexo s 是 hexo server的简写</p>
+<p>4、部署推送</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>hexo d 是 hexo depoly的简写</p>
+<p>5、新建文章</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo n &quot;文章名字&quot;</span><br></pre></td></tr></table></figure>
+
+<p>以上就是关于hexo+gitee搭建博客，下一期会出一篇关于hexo下next的配置详情</p>
 ]]></content>
       <categories>
-        <category>编程</category>
-        <category>Java</category>
+        <category>Hexo</category>
+        <category>Gitee - 博客</category>
       </categories>
       <tags>
-        <tag>编程</tag>
-        <tag>Java</tag>
+        <tag>Hexo</tag>
+        <tag>Gitee - 博客</tag>
       </tags>
   </entry>
   <entry>
@@ -685,49 +661,76 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux下----telnet服务器的搭建</title>
-    <url>/2020/04/21/Linux%E4%B8%8B-telnet%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
+    <title>Java——leetcode18. 四数之和</title>
+    <url>/2020/04/23/Java%E2%80%94%E2%80%94leetcode18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
 
-<p>前言： Linux使用的是红帽的rhel6.4的版本 </p>
-<h1 id="一、telnet服务器的简述"><a href="#一、telnet服务器的简述" class="headerlink" title="一、telnet服务器的简述"></a>一、telnet服务器的简述</h1><p>telnet服务器又称为远程登入服务器，采用telnet协议，Telnet协议是TCP/IP协议族中的一员，是Internet远程登陆服务的标准协议和主要方式。它为用户提供了在本地计算机上完成远程主机工作的能力。</p>
-<h1 id="二、telnet服务器的搭建"><a href="#二、telnet服务器的搭建" class="headerlink" title="二、telnet服务器的搭建"></a>二、telnet服务器的搭建</h1><p>查看有没有安装telnet服务端和客户端的软件，假如没有，就可以装，这里我们可以有两种方式装</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#rpm -qa|grep telnet</span><br></pre></td></tr></table></figure>
+<p>给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。</p>
+<p>注意：</p>
+<p>答案中不可以包含重复的四元组。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">给定数组 nums &#x3D; [1, 0, -1, 0, -2, 2]，和 target &#x3D; 0。</span><br><span class="line">满足要求的四元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-1,  0, 0, 1],</span><br><span class="line">  [-2, -1, 1, 2],</span><br><span class="line">  [-2,  0, 0, 2]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
-<h2 id="第一种是直接rpm-e-软件包名安装"><a href="#第一种是直接rpm-e-软件包名安装" class="headerlink" title="第一种是直接rpm -e +软件包名安装"></a>第一种是直接rpm -e +软件包名安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#rpm -ivh telnet-0.17-47.el6_3.1.i686.rpm</span><br></pre></td></tr></table></figure>
-
-<h2 id="还有就是yum安装-，安装之前先要做好yum的源文件"><a href="#还有就是yum安装-，安装之前先要做好yum的源文件" class="headerlink" title="还有就是yum安装 ，安装之前先要做好yum的源文件"></a>还有就是yum安装 ，安装之前先要做好yum的源文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#vi &#x2F;etc&#x2F;yum.repos.d&#x2F;dvd.repo</span><br></pre></td></tr></table></figure>
-
-<h3 id="然后添加以下指令"><a href="#然后添加以下指令" class="headerlink" title="然后添加以下指令"></a>然后添加以下指令</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[dvd] &#x2F;&#x2F;总名称</span><br><span class="line">name&#x3D;dvd &#x2F;&#x2F;仓库名字</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;cdrom &#x2F;&#x2F;光驱挂载的位置</span><br><span class="line">gpgcheck&#x3D;0 &#x2F;&#x2F;是否进行gpg校检，0为不检查</span><br><span class="line">enabled&#x3D;1 &#x2F;&#x2F;是否让文件生效，1表示是</span><br></pre></td></tr></table></figure>
-
-<p>然后就是挂载光盘，我们在yum源文件里面设置的是在根目录下的cdrom，<br>所以我们就要在根目录下创建cdrom文件夹，然后把光盘挂载进去</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#mkdir &#x2F;cdrom &#x2F;&#x2F;新建cdrom文件夹</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#mount &#x2F;dev&#x2F;cdrom &#x2F;cdrom &#x2F;&#x2F;挂载光驱</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#yum info telnet &#x2F;&#x2F;查看安装包的信息</span><br></pre></td></tr></table></figure>
-
-<h2 id="然后就是安装了"><a href="#然后就是安装了" class="headerlink" title="然后就是安装了"></a>然后就是安装了</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#yum install telnet –y</span><br><span class="line"></span><br><span class="line">因为telnet服务需要父进程xinetd，所以，可能会安装不成功，那是因为你没有安装xinetd服务</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#yum install xinetd –y</span><br><span class="line"></span><br><span class="line">然后telnet还需要安装服务端软件 telnet-server</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#yum install telnet-server -y</span><br><span class="line"></span><br><span class="line">\#查看xinetd服务的状态</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service xinetd status</span><br><span class="line"></span><br><span class="line">启动xinetd服务</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service xinetd start</span><br><span class="line"></span><br><span class="line">关闭xinetd服务</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service xinetd stop</span><br><span class="line"></span><br><span class="line">重启xinetd服务</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service xinetd restart</span><br><span class="line"></span><br><span class="line">\#设Xinetd服务开机自启</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]#chkconfig xinetd on</span><br><span class="line"></span><br><span class="line">\#关闭Xinetd服务开机自启</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]#chkconfig xinetd off</span><br><span class="line"></span><br><span class="line">接下来就是防火墙的配置</span><br><span class="line"></span><br><span class="line">\#查看防火墙</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# iptables-save</span><br><span class="line"></span><br><span class="line">\#允许TCP协议下23号端口通信</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# iptables -I INPUT -p tcp --dport 23 -j ACCEPT</span><br><span class="line"></span><br><span class="line">注意，这个23端口是默认的端口，不安全，假如要改别的端口，直接把23改成别的</span><br><span class="line"></span><br><span class="line">\#保存防火墙配置</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service iptables save</span><br><span class="line"></span><br><span class="line">\#重启防火墙</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service iptables restart</span><br><span class="line"></span><br><span class="line">开启telnet服务</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;xinetd.d&#x2F;telnet</span><br></pre></td></tr></table></figure>
-
-<h2 id="编辑telnet配置文件"><a href="#编辑telnet配置文件" class="headerlink" title="编辑telnet配置文件"></a>编辑telnet配置文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service telnet</span><br><span class="line">&#123;</span><br><span class="line">flags &#x3D; REUSE</span><br><span class="line">socket_type &#x3D; stream</span><br><span class="line">wait &#x3D; no</span><br><span class="line">user &#x3D; root</span><br><span class="line">server &#x3D; &#x2F;usr&#x2F;sbin&#x2F;in.telnetd</span><br><span class="line">log_on_failure +&#x3D; USERID</span><br><span class="line">disable &#x3D; NO</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">注意：将“disable”的值改为“NO </span><br><span class="line"></span><br><span class="line">\#i键是插入模式，esc是命令模式，输入:wq保存退出</span><br><span class="line"></span><br><span class="line">然后重启服务</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# service xinetd restart</span><br><span class="line"></span><br><span class="line">测试，在客户机上输入telnet 192.168.1.118</span><br><span class="line"></span><br><span class="line">\#客户机上要安装了客户端软件</span><br><span class="line"></span><br><span class="line">注意：默认严禁使用“root”用户远程登录服务器</span><br></pre></td></tr></table></figure>
-
-<h1 id="三、telnet服务器安全配置"><a href="#三、telnet服务器安全配置" class="headerlink" title="三、telnet服务器安全配置"></a>三、telnet服务器安全配置</h1><h2 id="修改Telnet服务器的TCP通信端口"><a href="#修改Telnet服务器的TCP通信端口" class="headerlink" title="修改Telnet服务器的TCP通信端口"></a>修改Telnet服务器的TCP通信端口</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;services</span><br><span class="line">telnet 3000&#x2F;tcp</span><br><span class="line">telnet 3000&#x2F;udp</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#service xinetd restart</span><br></pre></td></tr></table></figure>
-
-<h2 id="修改防火墙"><a href="#修改防火墙" class="headerlink" title="修改防火墙"></a>修改防火墙</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# iptables -I INPUT -p tcp --dport 3000 -j ACCEPT</span><br><span class="line">[root@localhost ~]# iptables -I INPUT -p udp --dport 3000 -j ACCEPT</span><br><span class="line">[root@localhost ~]# service iptables save</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试：在客户端虚拟机上的终端窗口中输入："><a href="#测试：在客户端虚拟机上的终端窗口中输入：" class="headerlink" title="测试：在客户端虚拟机上的终端窗口中输入："></a>测试：在客户端虚拟机上的终端窗口中输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# telnet 192.168.1.118 3000</span><br></pre></td></tr></table></figure>
-
-<h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#vi &#x2F;etc&#x2F;xinetd.d&#x2F;telnet</span><br><span class="line">bind &#x3D; 192.168.1.118 #定义telnet服务器的登录地址</span><br><span class="line">only_from &#x3D; 192.168.2.0&#x2F;24 #只允许 192.168.2.0 这个网段进入</span><br><span class="line">only_from &#x3D; .edu.cn #只有教育网才能进入！</span><br><span class="line">no_access &#x3D; 192.168.2.&#123;120,130&#125; #黑名单，这两个ip不可登陆</span><br><span class="line">access_times&#x3D; 8:00-12:00 20:00-23:59 # 每天只有这两个时间段开放服务</span><br></pre></td></tr></table></figure>
-
-<h2 id="telnet-root用户的登入"><a href="#telnet-root用户的登入" class="headerlink" title="telnet root用户的登入"></a>telnet root用户的登入</h2><p>telnet 不是很安全，默认的情况之下不允许 root 以 telnet 进入 Linux 主机 。若要允许root用户登入，可用下列方法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@wljs root]# mv &#x2F;etc&#x2F;securetty &#x2F;etc&#x2F;securetty.bak</span><br><span class="line">这样， root 就可以直接进入 Linux 主机了。不过，建议不要这样做。也可以在普通用户进入后，切换到root用户,拥有root的权限。</span><br></pre></td></tr></table></figure>
+<p>思路，两层循环选出两个数字，对剩下的数字跑双指针。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; fourSum(int[] nums,int target) &#123;</span><br><span class="line">    	List&lt;List&lt;Integer&gt;&gt; listArr&#x3D;new ArrayList&lt;&gt;();</span><br><span class="line">        int len&#x3D;nums.length;</span><br><span class="line">        int left,right;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line"> </span><br><span class="line">        for(int i&#x3D;0;i&lt;len;++i)&#123;</span><br><span class="line">        	if(i&gt;0 &amp;&amp; nums[i] &#x3D;&#x3D; nums[i-1]) continue;</span><br><span class="line">            for(int j&#x3D;i+1;j&lt;len;++j)&#123;</span><br><span class="line">                if(j&gt;i+1 &amp;&amp; nums[j] &#x3D;&#x3D; nums[j-1]) continue;</span><br><span class="line">                left&#x3D;j+1;</span><br><span class="line">                right&#x3D;len-1;</span><br><span class="line">                while(left&lt;right) &#123;</span><br><span class="line">                    int four&#x3D;nums[left]+nums[right]+nums[i]+nums[j];</span><br><span class="line">                    if(four&gt;target)&#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;else if(four&lt;target)&#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                	    listArr.add(Arrays.asList(nums[i],nums[j],nums[left],nums[right]));</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[left]&#x3D;&#x3D;nums[left+1])left++;</span><br><span class="line">                	    while(left&lt;right &amp;&amp; nums[right]&#x3D;&#x3D;nums[right-1])right--;</span><br><span class="line">                	    left++;</span><br><span class="line">                	    right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">        return listArr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
-        <category>Linux</category>
-        <category>服务器</category>
-        <category>telnet</category>
+        <category>编程</category>
+        <category>Java</category>
       </categories>
       <tags>
-        <tag>linux</tag>
-        <tag>服务器</tag>
-        <tag>telnet</tag>
+        <tag>编程</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java中i++与++i的区别，如何分清i++与++i</title>
+    <url>/2020/04/22/Java%E4%B8%ADi-%E4%B8%8E-i%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E5%A6%82%E4%BD%95%E5%88%86%E6%B8%85i-%E4%B8%8E-i/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="书上对-i-和-i-的解释如下："><a href="#书上对-i-和-i-的解释如下：" class="headerlink" title="书上对 i ++ 和 ++ i 的解释如下："></a>书上对 i ++ 和 ++ i 的解释如下：</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 先赋值再运算；例如：a &#x3D; i ++; 先赋值 a &#x3D; i ，再运算 i &#x3D; i + 1 ；所以输出结果为 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 先运算再赋值；例如：a &#x3D; i ++; 先运算 i &#x3D; i + 1 ，再 赋值 a &#x3D; i ；所以输出结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
+
+<p>懂了吗？我想大部分人会跟我一样 一脸懵逼，明明都 + 1 了，咋上面输出结果是 3 下面就是 4 呢？哈哈~不要着急，接下来我将分享一下我对它们的理解，希望对你们有帮助。</p>
+<h2 id="认识“-”与“–”"><a href="#认识“-”与“–”" class="headerlink" title="认识“++”与“–”"></a>认识“++”与“–”</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">“++”与“--”分别称作自增操作符和自减操作符，是对变量进行加 1 和减 1 的操作符。</span><br></pre></td></tr></table></figure>
+
+<h2 id="认识-i-与-i"><a href="#认识-i-与-i" class="headerlink" title="认识 i + + 与 i - -"></a>认识 i + + 与 i - -</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">i++读为 i 加 加，i--读为 i 减减，这些操作符分别称为后置自增操作符和后置自减操作符。</span><br></pre></td></tr></table></figure>
+
+<h2 id="以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤"><a href="#以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤" class="headerlink" title="以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤"></a>以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身+1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i++</span><br></pre></td></tr></table></figure>
+
+<h2 id="图解如下："><a href="#图解如下：" class="headerlink" title="图解如下："></a>图解如下：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235459.png" alt></p>
+<p>接下来我会举例说明</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 3;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值3，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3&#x2F;</span><br><span class="line">i ++;&#x2F;&#x2F;i自身加1，此时i的值为4         </span><br><span class="line">System.out.print(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i++);         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值+1变为5；</span><br><span class="line">         i++被输出调用，故输出存储区的值4&#x2F;         </span><br><span class="line">int j &#x3D; i++;         </span><br><span class="line">System.out.print(j);         </span><br><span class="line"></span><br><span class="line">         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了5，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5，i自身的值+1变为6；</span><br><span class="line">         i++被赋值调用，故输出存储区的值5&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值6         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6&#x2F;         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值为6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6</span><br><span class="line">          *&#x2F;</span><br><span class="line">         &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>同理可得 i - - 的计算方法如下，</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身 -1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i - -</span><br></pre></td></tr></table></figure>
+
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值5，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5 &#x2F;         </span><br><span class="line">i--;&#x2F;&#x2F;i自身减1，此时i的值为4         </span><br><span class="line">System.out.println(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i--);</span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被输出调用，故输出存储区的值4&#x2F;</span><br><span class="line">int j &#x3D; i--;</span><br><span class="line">System.out.print(j);&#x2F;&#x2F;3</span><br><span class="line">        &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被赋值调用，故输出存储区的值3&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值3         </span><br><span class="line">i &#x3D; i--;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;2         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了3，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3，i自身的值-1变为2；</span><br><span class="line">         i--被赋值调用，故输出存储区的值2</span><br><span class="line">          *&#x2F;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="认识-i-与-i-1"><a href="#认识-i-与-i-1" class="headerlink" title="认识+ + i 与 - - i"></a>认识+ + i 与 - - i</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">++i 读作加加i，--i读作减减i，分别称作前置自增操作符和前置自减操作符。</span><br></pre></td></tr></table></figure>
+
+<p>相对于i++来说，++i 的运算思路比较简单，只进行简单的+1操作即可。</p>
+<h2 id="举例说明："><a href="#举例说明：" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         i &#x3D; 1;</span><br><span class="line">         j &#x3D; i++ + ++i + ++i + i++;</span><br><span class="line">         &#x2F;&#x2F;  1      3     4      4</span><br><span class="line">         &#x2F;*</span><br><span class="line">         i++: 赋值调用，故打印值为1，临时存储区放的值为2</span><br><span class="line">         ++i：i的值+1，故值为3</span><br><span class="line">         ++i：i的值+1，故值为4</span><br><span class="line">         i++：赋值调用，故输出临时存储区的值4，i自身值+1为5</span><br><span class="line">          *&#x2F;</span><br><span class="line">         System.out.print(j);&#x2F;&#x2F;故输出结果为12</span><br><span class="line">         System.out.print(i);&#x2F;&#x2F;没有参与调用，故输出i自身的值5</span><br><span class="line">         System.out.print(++i);&#x2F;&#x2F;输出值为6。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">同理，--i ，也只是在自身基础上- 1即可。</span><br></pre></td></tr></table></figure>
+
+<h2 id="举例说明：-1"><a href="#举例说明：-1" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         --i;</span><br><span class="line">         System.out.println(i);&#x2F;&#x2F;i自身减1，值为4</span><br><span class="line">         System.out.print(--i);&#x2F;&#x2F;i自身减1，值为3</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用自增操作符和自减操作符可以使表达式更加简短，但也会使它们比较复杂且难以读懂。比如上述代码中出现的 j = i++ + ++i + ++i + i++; 只是为了测试大家是否更好的掌握了i ++与 ++ i，但在实际编程过程中应该避免。</p>
+<h1 id="我的总结如下："><a href="#我的总结如下：" class="headerlink" title="我的总结如下："></a>我的总结如下：</h1><p>i++、i– ：若参与调用，输出值不 +1，否则 +1<br>++i、–i ：无论是否参与调用，输出值均 +1<br>希望大家在读懂我上述描述的基础上，再合理运用这两句话 ~</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">附：文章开头那道题，现在用我的方法来做，是不是易如反掌啦~</span><br><span class="line">  </span><br><span class="line"> int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 例如：a &#x3D; i ++;因为赋值调用了，所以输出值为临时存储区先复制的i的值，即 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 例如：a &#x3D; i ++; 输出结果直接 +1 即结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
+
+<p>参考文章：</p>
+<p>原文链接：<a href="https://blog.csdn.net/MillionSong/article/details/104204481" target="_blank" rel="noopener">https://blog.csdn.net/MillionSong/article/details/104204481</a></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>编程</tag>
+        <tag>Java</tag>
+        <tag>编程基础</tag>
       </tags>
   </entry>
   <entry>
@@ -915,6 +918,52 @@
       </tags>
   </entry>
   <entry>
+    <title>Linux下----telnet服务器的搭建</title>
+    <url>/2020/04/21/Linux%E4%B8%8B-telnet%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<p>前言： Linux使用的是红帽的rhel6.4的版本 </p>
+<h1 id="一、telnet服务器的简述"><a href="#一、telnet服务器的简述" class="headerlink" title="一、telnet服务器的简述"></a>一、telnet服务器的简述</h1><p>telnet服务器又称为远程登入服务器，采用telnet协议，Telnet协议是TCP/IP协议族中的一员，是Internet远程登陆服务的标准协议和主要方式。它为用户提供了在本地计算机上完成远程主机工作的能力。</p>
+<h1 id="二、telnet服务器的搭建"><a href="#二、telnet服务器的搭建" class="headerlink" title="二、telnet服务器的搭建"></a>二、telnet服务器的搭建</h1><p>查看有没有安装telnet服务端和客户端的软件，假如没有，就可以装，这里我们可以有两种方式装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#rpm -qa|grep telnet</span><br></pre></td></tr></table></figure>
+
+<h2 id="第一种是直接rpm-e-软件包名安装"><a href="#第一种是直接rpm-e-软件包名安装" class="headerlink" title="第一种是直接rpm -e +软件包名安装"></a>第一种是直接rpm -e +软件包名安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#rpm -ivh telnet-0.17-47.el6_3.1.i686.rpm</span><br></pre></td></tr></table></figure>
+
+<h2 id="还有就是yum安装-，安装之前先要做好yum的源文件"><a href="#还有就是yum安装-，安装之前先要做好yum的源文件" class="headerlink" title="还有就是yum安装 ，安装之前先要做好yum的源文件"></a>还有就是yum安装 ，安装之前先要做好yum的源文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#vi &#x2F;etc&#x2F;yum.repos.d&#x2F;dvd.repo</span><br></pre></td></tr></table></figure>
+
+<h3 id="然后添加以下指令"><a href="#然后添加以下指令" class="headerlink" title="然后添加以下指令"></a>然后添加以下指令</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[dvd] &#x2F;&#x2F;总名称</span><br><span class="line">name&#x3D;dvd &#x2F;&#x2F;仓库名字</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;cdrom &#x2F;&#x2F;光驱挂载的位置</span><br><span class="line">gpgcheck&#x3D;0 &#x2F;&#x2F;是否进行gpg校检，0为不检查</span><br><span class="line">enabled&#x3D;1 &#x2F;&#x2F;是否让文件生效，1表示是</span><br></pre></td></tr></table></figure>
+
+<p>然后就是挂载光盘，我们在yum源文件里面设置的是在根目录下的cdrom，<br>所以我们就要在根目录下创建cdrom文件夹，然后把光盘挂载进去</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#mkdir &#x2F;cdrom &#x2F;&#x2F;新建cdrom文件夹</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#mount &#x2F;dev&#x2F;cdrom &#x2F;cdrom &#x2F;&#x2F;挂载光驱</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#yum info telnet &#x2F;&#x2F;查看安装包的信息</span><br></pre></td></tr></table></figure>
+
+<h2 id="然后就是安装了"><a href="#然后就是安装了" class="headerlink" title="然后就是安装了"></a>然后就是安装了</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#yum install telnet –y</span><br><span class="line"></span><br><span class="line">因为telnet服务需要父进程xinetd，所以，可能会安装不成功，那是因为你没有安装xinetd服务</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#yum install xinetd –y</span><br><span class="line"></span><br><span class="line">然后telnet还需要安装服务端软件 telnet-server</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#yum install telnet-server -y</span><br><span class="line"></span><br><span class="line">\#查看xinetd服务的状态</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service xinetd status</span><br><span class="line"></span><br><span class="line">启动xinetd服务</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service xinetd start</span><br><span class="line"></span><br><span class="line">关闭xinetd服务</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service xinetd stop</span><br><span class="line"></span><br><span class="line">重启xinetd服务</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service xinetd restart</span><br><span class="line"></span><br><span class="line">\#设Xinetd服务开机自启</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]#chkconfig xinetd on</span><br><span class="line"></span><br><span class="line">\#关闭Xinetd服务开机自启</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]#chkconfig xinetd off</span><br><span class="line"></span><br><span class="line">接下来就是防火墙的配置</span><br><span class="line"></span><br><span class="line">\#查看防火墙</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# iptables-save</span><br><span class="line"></span><br><span class="line">\#允许TCP协议下23号端口通信</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# iptables -I INPUT -p tcp --dport 23 -j ACCEPT</span><br><span class="line"></span><br><span class="line">注意，这个23端口是默认的端口，不安全，假如要改别的端口，直接把23改成别的</span><br><span class="line"></span><br><span class="line">\#保存防火墙配置</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service iptables save</span><br><span class="line"></span><br><span class="line">\#重启防火墙</span><br><span class="line"></span><br><span class="line">[root@localhost Packages]# service iptables restart</span><br><span class="line"></span><br><span class="line">开启telnet服务</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;xinetd.d&#x2F;telnet</span><br></pre></td></tr></table></figure>
+
+<h2 id="编辑telnet配置文件"><a href="#编辑telnet配置文件" class="headerlink" title="编辑telnet配置文件"></a>编辑telnet配置文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service telnet</span><br><span class="line">&#123;</span><br><span class="line">flags &#x3D; REUSE</span><br><span class="line">socket_type &#x3D; stream</span><br><span class="line">wait &#x3D; no</span><br><span class="line">user &#x3D; root</span><br><span class="line">server &#x3D; &#x2F;usr&#x2F;sbin&#x2F;in.telnetd</span><br><span class="line">log_on_failure +&#x3D; USERID</span><br><span class="line">disable &#x3D; NO</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">注意：将“disable”的值改为“NO </span><br><span class="line"></span><br><span class="line">\#i键是插入模式，esc是命令模式，输入:wq保存退出</span><br><span class="line"></span><br><span class="line">然后重启服务</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# service xinetd restart</span><br><span class="line"></span><br><span class="line">测试，在客户机上输入telnet 192.168.1.118</span><br><span class="line"></span><br><span class="line">\#客户机上要安装了客户端软件</span><br><span class="line"></span><br><span class="line">注意：默认严禁使用“root”用户远程登录服务器</span><br></pre></td></tr></table></figure>
+
+<h1 id="三、telnet服务器安全配置"><a href="#三、telnet服务器安全配置" class="headerlink" title="三、telnet服务器安全配置"></a>三、telnet服务器安全配置</h1><h2 id="修改Telnet服务器的TCP通信端口"><a href="#修改Telnet服务器的TCP通信端口" class="headerlink" title="修改Telnet服务器的TCP通信端口"></a>修改Telnet服务器的TCP通信端口</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;services</span><br><span class="line">telnet 3000&#x2F;tcp</span><br><span class="line">telnet 3000&#x2F;udp</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#service xinetd restart</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改防火墙"><a href="#修改防火墙" class="headerlink" title="修改防火墙"></a>修改防火墙</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# iptables -I INPUT -p tcp --dport 3000 -j ACCEPT</span><br><span class="line">[root@localhost ~]# iptables -I INPUT -p udp --dport 3000 -j ACCEPT</span><br><span class="line">[root@localhost ~]# service iptables save</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：在客户端虚拟机上的终端窗口中输入："><a href="#测试：在客户端虚拟机上的终端窗口中输入：" class="headerlink" title="测试：在客户端虚拟机上的终端窗口中输入："></a>测试：在客户端虚拟机上的终端窗口中输入：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# telnet 192.168.1.118 3000</span><br></pre></td></tr></table></figure>
+
+<h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]#vi &#x2F;etc&#x2F;xinetd.d&#x2F;telnet</span><br><span class="line">bind &#x3D; 192.168.1.118 #定义telnet服务器的登录地址</span><br><span class="line">only_from &#x3D; 192.168.2.0&#x2F;24 #只允许 192.168.2.0 这个网段进入</span><br><span class="line">only_from &#x3D; .edu.cn #只有教育网才能进入！</span><br><span class="line">no_access &#x3D; 192.168.2.&#123;120,130&#125; #黑名单，这两个ip不可登陆</span><br><span class="line">access_times&#x3D; 8:00-12:00 20:00-23:59 # 每天只有这两个时间段开放服务</span><br></pre></td></tr></table></figure>
+
+<h2 id="telnet-root用户的登入"><a href="#telnet-root用户的登入" class="headerlink" title="telnet root用户的登入"></a>telnet root用户的登入</h2><p>telnet 不是很安全，默认的情况之下不允许 root 以 telnet 进入 Linux 主机 。若要允许root用户登入，可用下列方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@wljs root]# mv &#x2F;etc&#x2F;securetty &#x2F;etc&#x2F;securetty.bak</span><br><span class="line">这样， root 就可以直接进入 Linux 主机了。不过，建议不要这样做。也可以在普通用户进入后，切换到root用户,拥有root的权限。</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>服务器</category>
+        <category>telnet</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>服务器</tag>
+        <tag>telnet</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux下——Apache服务器的搭建</title>
     <url>/2020/04/21/Linux%E4%B8%8B%E2%80%94%E2%80%94Apache%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -1096,55 +1145,6 @@
       <tags>
         <tag>Linux</tag>
         <tag>定时任务</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java中i++与++i的区别，如何分清i++与++i</title>
-    <url>/2020/04/22/Java%E4%B8%ADi-%E4%B8%8E-i%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E5%A6%82%E4%BD%95%E5%88%86%E6%B8%85i-%E4%B8%8E-i/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="书上对-i-和-i-的解释如下："><a href="#书上对-i-和-i-的解释如下：" class="headerlink" title="书上对 i ++ 和 ++ i 的解释如下："></a>书上对 i ++ 和 ++ i 的解释如下：</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 先赋值再运算；例如：a &#x3D; i ++; 先赋值 a &#x3D; i ，再运算 i &#x3D; i + 1 ；所以输出结果为 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 先运算再赋值；例如：a &#x3D; i ++; 先运算 i &#x3D; i + 1 ，再 赋值 a &#x3D; i ；所以输出结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
-
-<p>懂了吗？我想大部分人会跟我一样 一脸懵逼，明明都 + 1 了，咋上面输出结果是 3 下面就是 4 呢？哈哈~不要着急，接下来我将分享一下我对它们的理解，希望对你们有帮助。</p>
-<h2 id="认识“-”与“–”"><a href="#认识“-”与“–”" class="headerlink" title="认识“++”与“–”"></a>认识“++”与“–”</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">“++”与“--”分别称作自增操作符和自减操作符，是对变量进行加 1 和减 1 的操作符。</span><br></pre></td></tr></table></figure>
-
-<h2 id="认识-i-与-i"><a href="#认识-i-与-i" class="headerlink" title="认识 i + + 与 i - -"></a>认识 i + + 与 i - -</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">i++读为 i 加 加，i--读为 i 减减，这些操作符分别称为后置自增操作符和后置自减操作符。</span><br></pre></td></tr></table></figure>
-
-<h2 id="以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤"><a href="#以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤" class="headerlink" title="以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤"></a>以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身+1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i++</span><br></pre></td></tr></table></figure>
-
-<h2 id="图解如下："><a href="#图解如下：" class="headerlink" title="图解如下："></a>图解如下：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235459.png" alt></p>
-<p>接下来我会举例说明</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 3;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值3，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3&#x2F;</span><br><span class="line">i ++;&#x2F;&#x2F;i自身加1，此时i的值为4         </span><br><span class="line">System.out.print(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i++);         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值+1变为5；</span><br><span class="line">         i++被输出调用，故输出存储区的值4&#x2F;         </span><br><span class="line">int j &#x3D; i++;         </span><br><span class="line">System.out.print(j);         </span><br><span class="line"></span><br><span class="line">         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了5，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5，i自身的值+1变为6；</span><br><span class="line">         i++被赋值调用，故输出存储区的值5&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值6         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6&#x2F;         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值为6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6</span><br><span class="line">          *&#x2F;</span><br><span class="line">         &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>同理可得 i - - 的计算方法如下，</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身 -1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i - -</span><br></pre></td></tr></table></figure>
-
-<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值5，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5 &#x2F;         </span><br><span class="line">i--;&#x2F;&#x2F;i自身减1，此时i的值为4         </span><br><span class="line">System.out.println(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i--);</span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被输出调用，故输出存储区的值4&#x2F;</span><br><span class="line">int j &#x3D; i--;</span><br><span class="line">System.out.print(j);&#x2F;&#x2F;3</span><br><span class="line">        &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被赋值调用，故输出存储区的值3&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值3         </span><br><span class="line">i &#x3D; i--;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;2         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了3，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3，i自身的值-1变为2；</span><br><span class="line">         i--被赋值调用，故输出存储区的值2</span><br><span class="line">          *&#x2F;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="认识-i-与-i-1"><a href="#认识-i-与-i-1" class="headerlink" title="认识+ + i 与 - - i"></a>认识+ + i 与 - - i</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">++i 读作加加i，--i读作减减i，分别称作前置自增操作符和前置自减操作符。</span><br></pre></td></tr></table></figure>
-
-<p>相对于i++来说，++i 的运算思路比较简单，只进行简单的+1操作即可。</p>
-<h2 id="举例说明："><a href="#举例说明：" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         i &#x3D; 1;</span><br><span class="line">         j &#x3D; i++ + ++i + ++i + i++;</span><br><span class="line">         &#x2F;&#x2F;  1      3     4      4</span><br><span class="line">         &#x2F;*</span><br><span class="line">         i++: 赋值调用，故打印值为1，临时存储区放的值为2</span><br><span class="line">         ++i：i的值+1，故值为3</span><br><span class="line">         ++i：i的值+1，故值为4</span><br><span class="line">         i++：赋值调用，故输出临时存储区的值4，i自身值+1为5</span><br><span class="line">          *&#x2F;</span><br><span class="line">         System.out.print(j);&#x2F;&#x2F;故输出结果为12</span><br><span class="line">         System.out.print(i);&#x2F;&#x2F;没有参与调用，故输出i自身的值5</span><br><span class="line">         System.out.print(++i);&#x2F;&#x2F;输出值为6。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">同理，--i ，也只是在自身基础上- 1即可。</span><br></pre></td></tr></table></figure>
-
-<h2 id="举例说明：-1"><a href="#举例说明：-1" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         --i;</span><br><span class="line">         System.out.println(i);&#x2F;&#x2F;i自身减1，值为4</span><br><span class="line">         System.out.print(--i);&#x2F;&#x2F;i自身减1，值为3</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用自增操作符和自减操作符可以使表达式更加简短，但也会使它们比较复杂且难以读懂。比如上述代码中出现的 j = i++ + ++i + ++i + i++; 只是为了测试大家是否更好的掌握了i ++与 ++ i，但在实际编程过程中应该避免。</p>
-<h1 id="我的总结如下："><a href="#我的总结如下：" class="headerlink" title="我的总结如下："></a>我的总结如下：</h1><p>i++、i– ：若参与调用，输出值不 +1，否则 +1<br>++i、–i ：无论是否参与调用，输出值均 +1<br>希望大家在读懂我上述描述的基础上，再合理运用这两句话 ~</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">附：文章开头那道题，现在用我的方法来做，是不是易如反掌啦~</span><br><span class="line">  </span><br><span class="line"> int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 例如：a &#x3D; i ++;因为赋值调用了，所以输出值为临时存储区先复制的i的值，即 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 例如：a &#x3D; i ++; 输出结果直接 +1 即结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
-
-<p>参考文章：</p>
-<p>原文链接：<a href="https://blog.csdn.net/MillionSong/article/details/104204481" target="_blank" rel="noopener">https://blog.csdn.net/MillionSong/article/details/104204481</a></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>编程</tag>
-        <tag>Java</tag>
-        <tag>编程基础</tag>
       </tags>
   </entry>
   <entry>
