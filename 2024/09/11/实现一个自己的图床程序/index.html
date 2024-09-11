@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="编程,Java," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="老苏叶的小窝" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="平时在博客中，经常使用gitee来作为自己的图床，原来都是用PicGo作为图床软件来上传图片并返回URL，由于最近为了方便自己写博客，搭建了个管理系统，集成了markdown写法。然后其中的上传图片接口直接把上传图片到了gitee，并返回url。然后闲来无事想到了PicGo这个软件，便想着自己来实现一款属于自己的图片上传软件  功能思考上传到gitee首先需要Token，仓库，用户名以及所属分支">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现一个自己的图床程序">
+<meta property="og:url" content="https://gitee.com/laosuye/laosuye.git/2024/09/11/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%9B%BE%E5%BA%8A%E7%A8%8B%E5%BA%8F/index.html">
+<meta property="og:site_name" content="老苏叶的小窝">
+<meta property="og:description" content="平时在博客中，经常使用gitee来作为自己的图床，原来都是用PicGo作为图床软件来上传图片并返回URL，由于最近为了方便自己写博客，搭建了个管理系统，集成了markdown写法。然后其中的上传图片接口直接把上传图片到了gitee，并返回url。然后闲来无事想到了PicGo这个软件，便想着自己来实现一款属于自己的图片上传软件  功能思考上传到gitee首先需要Token，仓库，用户名以及所属分支">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/34297780/1724145313927-8a379199-8fa4-488e-b822-411cfd08c66b.png#averageHue=%239aacaa&clientId=u597a5e27-0327-4&from=paste&height=514&id=uefb4fa6a&originHeight=642&originWidth=801&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=22647&status=done&style=none&taskId=u6a6453c2-d884-40a1-a6d1-3690f171dd9&title=&width=640.8">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/34297780/1724145343723-a1636a9f-e44d-42a4-87f7-1bdfa5647cdd.png#averageHue=%23f1f2db&clientId=u597a5e27-0327-4&from=paste&height=505&id=u7defd859&originHeight=631&originWidth=800&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=101422&status=done&style=none&taskId=u566b10a3-508b-4d2d-a814-14d6bf89a31&title=&width=640">
+<meta property="article:published_time" content="2024-09-11T08:52:29.000Z">
+<meta property="article:modified_time" content="2024-09-11T08:52:46.375Z">
+<meta property="article:author" content="老苏叶">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/34297780/1724145313927-8a379199-8fa4-488e-b822-411cfd08c66b.png#averageHue=%239aacaa&clientId=u597a5e27-0327-4&from=paste&height=514&id=uefb4fa6a&originHeight=642&originWidth=801&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=22647&status=done&style=none&taskId=u6a6453c2-d884-40a1-a6d1-3690f171dd9&title=&width=640.8">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://gitee.com/laosuye/laosuye.git/2024/09/11/实现一个自己的图床程序/"/>
+
+
+
+
+
+  <title>实现一个自己的图床程序 | 老苏叶的小窝</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e8f796a0dc919d18055bb061f82a6395";";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">老苏叶的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gitee.com/laosuye/laosuye.git/2024/09/11/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%9B%BE%E5%BA%8A%E7%A8%8B%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="老苏叶">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatra.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老苏叶的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">实现一个自己的图床程序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-09-11T16:52:29+08:00">
+                2024-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2024/09/11/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%9B%BE%E5%BA%8A%E7%A8%8B%E5%BA%8F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2024/09/11/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%9B%BE%E5%BA%8A%E7%A8%8B%E5%BA%8F/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长"> 分钟
+                  27
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <meta name="referrer" content="no-referrer">
+平时在博客中，经常使用gitee来作为自己的图床，原来都是用PicGo作为图床软件来上传图片并返回URL，由于最近为了方便自己写博客，搭建了个管理系统，集成了markdown写法。然后其中的上传图片接口直接把上传图片到了gitee，并返回url。然后闲来无事想到了PicGo这个软件，便想着自己来实现一款属于自己的图片上传软件
+
+<h2 id="功能思考"><a href="#功能思考" class="headerlink" title="功能思考"></a>功能思考</h2><p>上传到gitee首先需要Token，仓库，用户名以及所属分支，所以添加了一个配置页面，用来保存配置信息，不用每次输入配置信息，预期的是把软件打包成exe随便哪里都能使用，所以为了保存配置信息，这样看来，SQLite是最适合的数据库。界面用JavaFX来编写。</p>
+<p><strong>SQLite</strong>是一个进程内的库，实现了<strong>自给自足的</strong>、<strong>无服务器的</strong>、<strong>零配置的</strong>、<strong>事务性</strong>的 SQL 数据库引擎。它是一个零配置的数据库，这意味着与其他数据库不一样，您不需要在系统中配置。<br>就像其他数据库，<strong>SQLite</strong> 引擎不是一个独立的进程，可以按应用程序需求进行静态或动态连接。SQLite 直接访问其存储文件<br>所有功能：</p>
+<ul>
+<li>配置Token，仓库，用户名以及所属分支信息</li>
+<li>点击选择图片上传并返回url复制到剪切板</li>
+<li>剪切板复制了图片直接点击剪切板上传并复制url到剪切板</li>
+<li>图片回显</li>
+</ul>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- SpringWeb模块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- SQLite JDBC Driver --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.xerial<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sqlite-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.36.0.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--lombok--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--hutool--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.hutool<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hutool-all<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.8.27<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--springboot starter--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ImageUploadUtil"><a href="#ImageUploadUtil" class="headerlink" title="ImageUploadUtil"></a>ImageUploadUtil</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.laosuye.figurebed.utils;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.hutool.core.util.StrUtil;</span><br><span class="line"><span class="keyword">import</span> cn.hutool.http.HttpRequest;</span><br><span class="line"><span class="keyword">import</span> cn.hutool.http.HttpResponse;</span><br><span class="line"><span class="keyword">import</span> cn.hutool.http.HttpUtil;</span><br><span class="line"><span class="keyword">import</span> cn.hutool.json.JSONUtil;</span><br><span class="line"><span class="keyword">import</span> com.laosuye.figurebed.domain.ImageDto;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.HttpURLConnection;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.util.Base64;</span><br><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span>：1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>：yelixian</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>：</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@data</span>：2024-07-15-下午3:01</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ImageUploadUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Gitee API URL模板</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String GITEE_API_URL = <span class="string">"https://gitee.com/api/v5/repos/&#123;owner&#125;/&#123;repo&#125;/contents/&#123;path&#125;"</span>;</span><br><span class="line">    <span class="comment">// Gitee的访问令牌、仓库所有者、仓库名和默认分支</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String ACCESS_TOKEN = <span class="string">""</span>;</span><br><span class="line">    <span class="comment">//用户名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String OWNER = <span class="string">""</span>;</span><br><span class="line">    <span class="comment">//仓库名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String REPO = <span class="string">""</span>;</span><br><span class="line">    <span class="comment">//默认分支</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String BRANCH = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">uploadImage</span><span class="params">(File file, String originalFilename,String accessToken,String owner,String repo,String branch)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ACCESS_TOKEN = accessToken;</span><br><span class="line">        OWNER = owner;</span><br><span class="line">        REPO = repo;</span><br><span class="line">        BRANCH = branch;</span><br><span class="line">        InputStream inputStream = Files.newInputStream(file.toPath());</span><br><span class="line">        ImageDto imageDto = uploadImageToGitee(inputStream, originalFilename);</span><br><span class="line">        <span class="keyword">return</span> imageDto.getUrl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将图片上传至Gitee并通过API返回下载链接。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> inputStream      图片文件的输入流。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> originalFilename 图片的原始文件名。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> ImageDto。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException 当发生输入或输出异常时抛出。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ImageDto <span class="title">uploadImageToGitee</span><span class="params">(InputStream inputStream, String originalFilename)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 获取当前日期和时间以生成唯一的文件夹路径和文件名</span></span><br><span class="line">        Calendar calendar = Calendar.getInstance();</span><br><span class="line">        <span class="keyword">int</span> year = calendar.get(Calendar.YEAR);</span><br><span class="line">        <span class="keyword">int</span> month = calendar.get(Calendar.MONTH) + <span class="number">1</span>; <span class="comment">// Calendar.MONTH是以0为基础的</span></span><br><span class="line">        <span class="keyword">int</span> day = calendar.get(Calendar.DAY_OF_MONTH);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据年、月、日生成文件夹路径</span></span><br><span class="line">        String folderPath = <span class="string">"javaUploadImage/"</span> + year + <span class="string">"/"</span> + month + <span class="string">"/"</span> + day;</span><br><span class="line">        <span class="comment">// 生成文件名的时间戳部分</span></span><br><span class="line">        String timestamp = String.valueOf(System.currentTimeMillis());</span><br><span class="line">        <span class="comment">// 提取文件扩展名</span></span><br><span class="line">        String fileExtension = originalFilename.substring(originalFilename.lastIndexOf(<span class="string">"."</span>));</span><br><span class="line">        <span class="comment">// 结合时间戳和文件扩展名生成文件名</span></span><br><span class="line">        String filename = timestamp + fileExtension;</span><br><span class="line">        <span class="comment">// 将文件夹路径和文件名组合成完整的文件路径</span></span><br><span class="line">        String filePath = folderPath + <span class="string">"/"</span> + filename;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将图像文件编码为Base64字符串</span></span><br><span class="line">        String fileContent = encodeFileToBase64Binary(inputStream);</span><br><span class="line">        <span class="comment">// 构造用于文件上传的Gitee API URL</span></span><br><span class="line">        String apiUrl = GITEE_API_URL</span><br><span class="line">                .replace(<span class="string">"&#123;owner&#125;"</span>, OWNER)</span><br><span class="line">                .replace(<span class="string">"&#123;repo&#125;"</span>, REPO)</span><br><span class="line">                .replace(<span class="string">"&#123;path&#125;"</span>, filePath);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用Gitee API上传文件并获取响应</span></span><br><span class="line">        String jsonResponse = uploadToGitee(apiUrl, fileContent);</span><br><span class="line">        <span class="comment">// 从API响应中解析下载URL</span></span><br><span class="line">        String downloadUrl = parseDownloadUrl(jsonResponse);</span><br><span class="line">        <span class="comment">// 返回解析后的下载URL和文件名</span></span><br><span class="line">        ImageDto imageDto = <span class="keyword">new</span> ImageDto();</span><br><span class="line">        imageDto.setUrl(downloadUrl);</span><br><span class="line">        imageDto.setFileName(filename);</span><br><span class="line">        <span class="keyword">return</span> imageDto;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将文件转换为Base64编码的字符串。</span></span><br><span class="line"><span class="comment">     * 此方法通过读取输入流中的字节数据，并将其编码为Base64格式的字符串。</span></span><br><span class="line"><span class="comment">     * 使用此方法可以方便地对文件内容进行编码，以便在不支持二进制传输的环境中使用。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> inputStream 文件的输入流，提供要编码的文件数据。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 编码后的Base64字符串。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException 如果在读取输入流或编码过程中发生错误。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">encodeFileToBase64Binary</span><span class="params">(InputStream inputStream)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个字节数组输出流，用于存储从输入流读取的字节数据。</span></span><br><span class="line">        ByteArrayOutputStream byteArrayOutputStream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">        <span class="comment">// 创建一个缓冲区，用于临时存储从输入流读取的字节数据。</span></span><br><span class="line">        <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> bytesRead;</span><br><span class="line">        <span class="comment">// 循环读取输入流中的字节数据，直到读取结束（-1）。</span></span><br><span class="line">        <span class="keyword">while</span> ((bytesRead = inputStream.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 将读取的字节数据写入字节数组输出流。</span></span><br><span class="line">            byteArrayOutputStream.write(buffer, <span class="number">0</span>, bytesRead);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 将字节数组输出流中的所有字节数据转为字节数组。</span></span><br><span class="line">        <span class="keyword">byte</span>[] fileBytes = byteArrayOutputStream.toByteArray();</span><br><span class="line">        <span class="comment">// 使用Base64编码器将字节数组编码为Base64字符串。</span></span><br><span class="line">        <span class="keyword">return</span> Base64.getEncoder().encodeToString(fileBytes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将文件内容上传到Gitee。</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="comment">     * 该方法通过HTTP POST请求向指定的Gitee API发送文件内容，以实现文件的上传。</span></span><br><span class="line"><span class="comment">     * 请求体中包含提交信息和文件内容，以及固定的分支信息。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> apiUrl      Gitee API的URL，用于文件上传。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fileContent 文件的内容，以字符串形式提供。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 上传后的响应字符串，通常包含上传结果的信息。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException 如果网络通信发生错误。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">uploadToGitee</span><span class="params">(String apiUrl, String fileContent)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 构建请求体，包含上传的说明和文件内容。</span></span><br><span class="line">        String requestBody = <span class="string">"&#123;\"message\":\"upload image\",\"content\":\""</span> + fileContent + <span class="string">"\", \"branch\":\""</span> + BRANCH + <span class="string">"\"&#125;"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 构建请求URL，包含访问令牌以进行身份验证。</span></span><br><span class="line">        HttpURLConnection connection = getHttpURLConnection(apiUrl, requestBody);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 读取并返回服务器的响应。</span></span><br><span class="line">        <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(connection.getInputStream(), <span class="string">"utf-8"</span>))) &#123;</span><br><span class="line">            StringBuilder response = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            String responseLine;</span><br><span class="line">            <span class="keyword">while</span> ((responseLine = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                response.append(responseLine.trim());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> response.toString();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取与API的HttpURLConnection连接。</span></span><br><span class="line"><span class="comment">     * 该方法用于初始化与API的连接，设置请求方法为POST，并发送请求体。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> apiUrl      API的URL地址。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> requestBody 请求体的内容，以JSON格式表示。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回建立好的HttpURLConnection对象。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException 如果打开连接或发送请求时发生IO错误。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> HttpURLConnection <span class="title">getHttpURLConnection</span><span class="params">(String apiUrl, String requestBody)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 构建带访问令牌的完整API URL。</span></span><br><span class="line">        URL url = <span class="keyword">new</span> URL(apiUrl + <span class="string">"?access_token="</span> + ACCESS_TOKEN);</span><br><span class="line">        HttpURLConnection connection = (HttpURLConnection) url.openConnection();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置请求方法为POST，并配置请求头信息。</span></span><br><span class="line">        connection.setDoOutput(<span class="keyword">true</span>);</span><br><span class="line">        connection.setRequestMethod(<span class="string">"POST"</span>);</span><br><span class="line">        connection.setRequestProperty(<span class="string">"Content-Type"</span>, <span class="string">"application/json; utf-8"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发送请求体。</span></span><br><span class="line">        <span class="keyword">try</span> (OutputStream os = connection.getOutputStream()) &#123;</span><br><span class="line">            <span class="keyword">byte</span>[] input = requestBody.getBytes(StandardCharsets.UTF_8);</span><br><span class="line">            os.write(input, <span class="number">0</span>, input.length);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> connection;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解析下载链接。</span></span><br><span class="line"><span class="comment">     * 从JSON响应中提取下载URL。该函数假设JSON响应中存在一个名为"download_url"的字段，</span></span><br><span class="line"><span class="comment">     * 并且该字段的值是所需的下载链接。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jsonResponse JSON格式的响应字符串，其中包含下载链接信息。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 下载链接的字符串。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">parseDownloadUrl</span><span class="params">(String jsonResponse)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 计算下载链接开始的索引位置。</span></span><br><span class="line">        <span class="keyword">int</span> urlStartIndex = jsonResponse.indexOf(<span class="string">"\"download_url\":\""</span>) + <span class="number">16</span>;</span><br><span class="line">        <span class="comment">// 计算下载链接结束的索引位置。</span></span><br><span class="line">        <span class="keyword">int</span> urlEndIndex = jsonResponse.indexOf(<span class="string">"\""</span>, urlStartIndex);</span><br><span class="line">        <span class="comment">// 提取并返回下载链接。</span></span><br><span class="line">        <span class="keyword">return</span> jsonResponse.substring(urlStartIndex, urlEndIndex);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 从指定的URL下载图像。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> downloadUrl 图像的下载地址。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fileType 图像文件的MIME类型。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fileName 图像文件的名称。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response HTTP响应对象，用于向客户端发送图像数据。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException 如果在读取或写入过程中发生I/O错误。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">downloadImage</span><span class="params">(String downloadUrl, String fileType, String fileName, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        HttpResponse httpResponse = <span class="keyword">null</span>;</span><br><span class="line">        InputStream inputStream = <span class="keyword">null</span>;</span><br><span class="line">        ServletOutputStream outputStream = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 发起HTTP GET请求获取图像</span></span><br><span class="line">            httpResponse = HttpUtil.createGet(downloadUrl).execute();</span><br><span class="line">            <span class="comment">// 检查HTTP响应状态码是否表示成功</span></span><br><span class="line">            <span class="keyword">if</span> (httpResponse.isOk()) &#123;</span><br><span class="line">                <span class="comment">// 获取响应的输入流</span></span><br><span class="line">                inputStream = httpResponse.bodyStream();</span><br><span class="line">                <span class="comment">// 创建缓冲区用于读取图像数据</span></span><br><span class="line">                <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4096</span>];</span><br><span class="line">                <span class="keyword">int</span> bytesRead;</span><br><span class="line">                <span class="comment">// 设置响应的MIME类型</span></span><br><span class="line">                response.setContentType(fileType);</span><br><span class="line">                <span class="comment">// 设置响应头，指示浏览器以下载方式处理响应</span></span><br><span class="line">                response.setHeader(<span class="string">"Content-Disposition"</span>, <span class="string">"attachment;filename="</span> + fileName);</span><br><span class="line">                <span class="comment">// 获取响应的输出流</span></span><br><span class="line">                outputStream = response.getOutputStream();</span><br><span class="line">                <span class="comment">// 逐块读取图像数据并写入输出流</span></span><br><span class="line">                <span class="keyword">while</span> ((bytesRead = inputStream.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    outputStream.write(buffer, <span class="number">0</span>, bytesRead);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 刷新输出流确保所有数据都被写入</span></span><br><span class="line">                outputStream.flush();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 如果HTTP请求失败，抛出运行时异常</span></span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"下载图片失败，HTTP状态码："</span> + httpResponse.getStatus());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="comment">// 如果发生I/O错误，抛出运行时异常，并附带错误详情</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"下载图片失败"</span>, e);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// 关闭输入流和输出流，以释放资源</span></span><br><span class="line">            <span class="keyword">if</span> (inputStream != <span class="keyword">null</span>) &#123;</span><br><span class="line">                inputStream.close();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (outputStream != <span class="keyword">null</span>) &#123;</span><br><span class="line">                outputStream.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过API删除Gitee仓库中的文件。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fileUrl 文件的URL，用于构造文件在Gitee仓库中的路径。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception 如果URL处理或HTTP请求发送过程中出现错误。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title">deleteImage</span><span class="params">(String fileUrl)</span> </span>&#123;</span><br><span class="line">        Boolean isDeleted = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 解析文件URL，获取文件在仓库中的路径。</span></span><br><span class="line">            URL url = <span class="keyword">new</span> URL(fileUrl);</span><br><span class="line">            String path = url.getPath();</span><br><span class="line">            String filePath = StrUtil.subAfter(path, <span class="string">"/"</span> + BRANCH + <span class="string">"/"</span>, <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 获取文件的SHA值，这是Gitee识别文件的唯一标识。</span></span><br><span class="line">            <span class="comment">// 获取文件的sha</span></span><br><span class="line">            String sha = getFileSha(filePath);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 构建请求体，包含删除文件所需的必要信息。</span></span><br><span class="line">            <span class="comment">// 构建请求体</span></span><br><span class="line">            String requestBody = JSONUtil.toJsonStr(JSONUtil.createObj()</span><br><span class="line">                    .set(<span class="string">"message"</span>, <span class="string">"Delete file via API"</span>)</span><br><span class="line">                    .set(<span class="string">"sha"</span>, sha)</span><br><span class="line">                    .set(<span class="string">"branch"</span>, BRANCH));</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 发送HTTP POST请求，删除文件。</span></span><br><span class="line">            <span class="comment">// 发送POST请求（注意Gitee使用POST来删除文件）</span></span><br><span class="line">            HttpResponse response = HttpRequest.post(<span class="string">"https://gitee.com/api/v5/repos/"</span> + OWNER + <span class="string">"/"</span> + REPO + <span class="string">"/contents/"</span> + filePath)</span><br><span class="line">                    .header(<span class="string">"Authorization"</span>, <span class="string">"token "</span> + ACCESS_TOKEN)</span><br><span class="line">                    .body(requestBody)</span><br><span class="line">                    .execute();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 检查请求响应状态码，判断文件是否成功删除。</span></span><br><span class="line">            <span class="keyword">int</span> status = response.getStatus();</span><br><span class="line">            String body = response.body();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">                isDeleted = <span class="keyword">true</span>;</span><br><span class="line">                log.info(<span class="string">"文件删除成功"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                log.error(<span class="string">"删除文件失败，状态码：&#123;&#125;"</span>, status);</span><br><span class="line">                log.error(<span class="string">"响应体：&#123;&#125;"</span>, body);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"处理URL时发生错误: &#123;&#125;"</span>, e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(<span class="string">"文件删除结果：&#123;&#125;"</span>, isDeleted);</span><br><span class="line">        <span class="keyword">return</span> isDeleted;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过Gitee API 获取指定文件的SHA值。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> filePath 文件在仓库中的路径。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 文件的SHA值字符串。如果获取失败，则返回null。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">getFileSha</span><span class="params">(String filePath)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 向Gitee API发送GET请求，获取指定文件的内容信息</span></span><br><span class="line">        <span class="comment">// 发送GET请求获取文件的sha</span></span><br><span class="line">        HttpResponse response = HttpRequest.get(<span class="string">"https://gitee.com/api/v5/repos/"</span> + OWNER + <span class="string">"/"</span> + REPO + <span class="string">"/contents/"</span> + filePath)</span><br><span class="line">                .header(<span class="string">"Authorization"</span>, <span class="string">"token "</span> + ACCESS_TOKEN)</span><br><span class="line">                .execute();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取响应的状态码</span></span><br><span class="line">        <span class="keyword">int</span> status = response.getStatus();</span><br><span class="line">        <span class="comment">// 获取响应的主体内容</span></span><br><span class="line">        String body = response.body();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 检查响应状态码，成功的情况下解析返回的JSON，获取文件的SHA值</span></span><br><span class="line">        <span class="keyword">if</span> (status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">            log.info(<span class="string">"获取文件sha成功&#123;&#125;"</span>,JSONUtil.parseObj(body).get(<span class="string">"sha"</span>,String<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">            <span class="keyword">return</span> JSONUtil.parseObj(body).get(<span class="string">"sha"</span>, String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 记录获取文件SHA失败的日志，包括状态码和响应内容</span></span><br><span class="line">            log.error(<span class="string">"获取文件sha失败，状态码：&#123;&#125;"</span>, status);</span><br><span class="line">            log.error(<span class="string">"响应体：&#123;&#125;"</span>, body);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="MainApp"><a href="#MainApp" class="headerlink" title="MainApp"></a>MainApp</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.laosuye.figurebed.core;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.laosuye.figurebed.utils.DatabaseUtil;</span><br><span class="line"><span class="keyword">import</span> com.laosuye.figurebed.utils.ImageUploadUtil;</span><br><span class="line"><span class="keyword">import</span> javafx.application.Application;</span><br><span class="line"><span class="keyword">import</span> javafx.geometry.HPos;</span><br><span class="line"><span class="keyword">import</span> javafx.geometry.Insets;</span><br><span class="line"><span class="keyword">import</span> javafx.geometry.Pos;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.Scene;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.control.*;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.image.Image;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.image.ImageView;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.image.WritableImage;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.input.ClipboardContent;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.layout.*;</span><br><span class="line"><span class="keyword">import</span> javafx.stage.FileChooser;</span><br><span class="line"><span class="keyword">import</span> javafx.stage.Stage;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.input.Clipboard;</span><br><span class="line"><span class="keyword">import</span> javafx.embed.swing.SwingFXUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.image.BufferedImage;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainApp</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> BorderPane root;</span><br><span class="line">    <span class="keyword">private</span> TextField tokenField, ownerField, repoField, branchField;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 重写start方法作为程序的入口点</span></span><br><span class="line">    <span class="comment">// 参数：primaryStage - 主舞台对象，用于显示程序的主窗口</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">(Stage primaryStage)</span> </span>&#123;</span><br><span class="line">        primaryStage.setTitle(<span class="string">"图片上传应用"</span>); <span class="comment">// 设置主窗口标题</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化布局和导航栏</span></span><br><span class="line">        root = <span class="keyword">new</span> BorderPane(); <span class="comment">// 创建BorderPane布局作为主布局</span></span><br><span class="line">        setupNavigation(); <span class="comment">// 设置导航栏</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 默认显示配置页面</span></span><br><span class="line">        showConfigPage(); <span class="comment">// 初始化并显示配置页面</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置场景和样式表</span></span><br><span class="line">        Scene scene = <span class="keyword">new</span> Scene(root, <span class="number">800</span>, <span class="number">600</span>); <span class="comment">// 创建场景，并设置宽度和高度</span></span><br><span class="line">        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource(<span class="string">"/style.css"</span>)).toExternalForm()); <span class="comment">// 添加样式表</span></span><br><span class="line">        primaryStage.setScene(scene); <span class="comment">// 主窗口设置场景</span></span><br><span class="line">        primaryStage.show(); <span class="comment">// 显示主窗口</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化数据库</span></span><br><span class="line">        DatabaseUtil.initializeDatabase(); <span class="comment">// 初始化数据库，确保程序能够正常访问数据库</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showUploadPage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        VBox uploadPane = <span class="keyword">new</span> VBox();</span><br><span class="line">        uploadPane.getStyleClass().add(<span class="string">"upload-page"</span>);</span><br><span class="line">        uploadPane.setSpacing(<span class="number">40</span>);</span><br><span class="line">        uploadPane.setAlignment(Pos.CENTER);</span><br><span class="line">        uploadPane.setPadding(<span class="keyword">new</span> Insets(<span class="number">40</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建上传框</span></span><br><span class="line">        StackPane uploadFrame = <span class="keyword">new</span> StackPane();</span><br><span class="line">        uploadFrame.getStyleClass().add(<span class="string">"image-frame"</span>);</span><br><span class="line">        uploadFrame.setPrefSize(<span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">        uploadFrame.setAlignment(Pos.CENTER);</span><br><span class="line"></span><br><span class="line">        Label plusSign = <span class="keyword">new</span> Label(<span class="string">"+"</span>);</span><br><span class="line">        plusSign.getStyleClass().add(<span class="string">"plus-sign"</span>);</span><br><span class="line">        uploadFrame.getChildren().add(plusSign);</span><br><span class="line"></span><br><span class="line">        uploadFrame.setOnMouseClicked(e -&gt; &#123;</span><br><span class="line">            FileChooser fileChooser = <span class="keyword">new</span> FileChooser();</span><br><span class="line">            File file = fileChooser.showOpenDialog(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (file != <span class="keyword">null</span>) &#123;</span><br><span class="line">                Image image = <span class="keyword">new</span> Image(file.toURI().toString());</span><br><span class="line">                ImageView imageView = <span class="keyword">new</span> ImageView(image);</span><br><span class="line">                imageView.setPreserveRatio(<span class="keyword">true</span>);</span><br><span class="line">                imageView.setFitWidth(uploadFrame.getPrefWidth());</span><br><span class="line">                imageView.setFitHeight(uploadFrame.getPrefHeight());</span><br><span class="line"></span><br><span class="line">                uploadFrame.getChildren().clear();</span><br><span class="line">                uploadFrame.getChildren().addAll(imageView, plusSign);</span><br><span class="line"></span><br><span class="line">                String[] config = loadConfigurationFromDatabase();</span><br><span class="line">                <span class="keyword">if</span> (config == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    showAlert(Alert.AlertType.ERROR, <span class="string">"错误"</span>, <span class="string">"未找到配置，请先配置相关信息"</span>);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    String url = ImageUploadUtil.uploadImage(file, file.getName(), config[<span class="number">0</span>], config[<span class="number">1</span>], config[<span class="number">2</span>], config[<span class="number">3</span>]);</span><br><span class="line">                    copyToClipboard(url);</span><br><span class="line">                    showAlert(Alert.AlertType.INFORMATION, <span class="string">"上传成功"</span>, <span class="string">"URL: "</span> + url);</span><br><span class="line"></span><br><span class="line">                    Image uploadedImage = <span class="keyword">new</span> Image(url);</span><br><span class="line">                    ImageView uploadedImageView = <span class="keyword">new</span> ImageView(uploadedImage);</span><br><span class="line">                    uploadedImageView.setPreserveRatio(<span class="keyword">true</span>);</span><br><span class="line">                    uploadedImageView.setFitWidth(uploadFrame.getPrefWidth());</span><br><span class="line">                    uploadedImageView.setFitHeight(uploadFrame.getPrefHeight());</span><br><span class="line"></span><br><span class="line">                    uploadedImage.exceptionProperty().addListener((obs, oldException, newException) -&gt; &#123;</span><br><span class="line">                        <span class="keyword">if</span> (newException != <span class="keyword">null</span>) &#123;</span><br><span class="line">                            showAlert(Alert.AlertType.ERROR, <span class="string">"错误"</span>, <span class="string">"无法加载上传的图片: "</span> + newException.getMessage());</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line"></span><br><span class="line">                    uploadFrame.getChildren().clear();</span><br><span class="line">                    uploadFrame.getChildren().addAll(uploadedImageView, plusSign);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                    showAlert(Alert.AlertType.ERROR, <span class="string">"上传失败"</span>, <span class="string">"Failed to upload image: "</span> + ex.getMessage());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Button clipboardUploadButton = <span class="keyword">new</span> Button(<span class="string">"剪切板上传"</span>);</span><br><span class="line">        clipboardUploadButton.getStyleClass().add(<span class="string">"upload-button"</span>);</span><br><span class="line">        clipboardUploadButton.setOnAction(e -&gt; &#123;</span><br><span class="line">            Clipboard clipboard = Clipboard.getSystemClipboard();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 检查剪贴板中是否有图像</span></span><br><span class="line">            <span class="keyword">if</span> (clipboard.hasImage()) &#123;</span><br><span class="line">                Image clipboardImage = clipboard.getImage();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 使用 Image 对象创建 ImageView</span></span><br><span class="line">                ImageView imageView = <span class="keyword">new</span> ImageView(clipboardImage);</span><br><span class="line">                imageView.setPreserveRatio(<span class="keyword">true</span>);</span><br><span class="line">                imageView.setFitWidth(uploadFrame.getPrefWidth());</span><br><span class="line">                imageView.setFitHeight(uploadFrame.getPrefHeight());</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 清除并添加 ImageView 到容器</span></span><br><span class="line">                uploadFrame.getChildren().clear();</span><br><span class="line">                uploadFrame.getChildren().addAll(imageView, plusSign);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 创建临时文件</span></span><br><span class="line">                File tempFile = <span class="keyword">null</span>; <span class="comment">// 使用 PNG 格式</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    tempFile = File.createTempFile(<span class="string">"tempImage"</span>, <span class="string">".png"</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(ex);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 将 Image 对象写入临时文件</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    BufferedImage bufferedImage = SwingFXUtils.fromFXImage(clipboardImage, <span class="keyword">null</span>);</span><br><span class="line">                    ImageIO.write(bufferedImage, <span class="string">"png"</span>, tempFile); <span class="comment">// 明确指定格式为 PNG</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 读取临时文件以验证图像是否正确保存</span></span><br><span class="line">                    BufferedImage readBackImage = ImageIO.read(tempFile);</span><br><span class="line">                    <span class="keyword">if</span> (readBackImage == <span class="keyword">null</span>) &#123;</span><br><span class="line">                        showAlert(Alert.AlertType.ERROR, <span class="string">"错误"</span>, <span class="string">"无法读取临时文件中的图像数据"</span>);</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 上传图像</span></span><br><span class="line">                    String[] config = loadConfigurationFromDatabase();</span><br><span class="line">                    <span class="keyword">if</span> (config == <span class="keyword">null</span>) &#123;</span><br><span class="line">                        showAlert(Alert.AlertType.ERROR, <span class="string">"错误"</span>, <span class="string">"未找到配置，请先配置相关信息"</span>);</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        String url = ImageUploadUtil.uploadImage(tempFile, tempFile.getName(), config[<span class="number">0</span>], config[<span class="number">1</span>], config[<span class="number">2</span>], config[<span class="number">3</span>]);</span><br><span class="line">                        copyToClipboard(url);</span><br><span class="line">                        showAlert(Alert.AlertType.INFORMATION, <span class="string">"上传成功"</span>, <span class="string">"URL: "</span> + url);</span><br><span class="line"></span><br><span class="line">                        Image uploadedImage = <span class="keyword">new</span> Image(url);</span><br><span class="line">                        ImageView uploadedImageView = <span class="keyword">new</span> ImageView(uploadedImage);</span><br><span class="line">                        uploadedImageView.setPreserveRatio(<span class="keyword">true</span>);</span><br><span class="line">                        uploadedImageView.setFitWidth(uploadFrame.getPrefWidth());</span><br><span class="line">                        uploadedImageView.setFitHeight(uploadFrame.getPrefHeight());</span><br><span class="line"></span><br><span class="line">                        uploadedImage.exceptionProperty().addListener((obs, oldException, newException) -&gt; &#123;</span><br><span class="line">                            <span class="keyword">if</span> (newException != <span class="keyword">null</span>) &#123;</span><br><span class="line">                                showAlert(Alert.AlertType.ERROR, <span class="string">"错误"</span>, <span class="string">"无法加载上传的图片: "</span> + newException.getMessage());</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;);</span><br><span class="line"></span><br><span class="line">                        uploadFrame.getChildren().clear();</span><br><span class="line">                        uploadFrame.getChildren().addAll(uploadedImageView, plusSign);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                        showAlert(Alert.AlertType.ERROR, <span class="string">"上传失败"</span>, <span class="string">"Failed to upload image: "</span> + ex.getMessage());</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    tempFile.deleteOnExit();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                    showAlert(Alert.AlertType.ERROR, <span class="string">"错误"</span>, <span class="string">"无法读取图像文件: "</span> + ex.getMessage());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (clipboard.hasFiles()) &#123;  <span class="comment">// 如果剪贴板中有文件</span></span><br><span class="line">                List&lt;File&gt; files = clipboard.getFiles();</span><br><span class="line">                File file = files.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 获取文件扩展名</span></span><br><span class="line">                String fileName = file.getName();</span><br><span class="line">                String format = fileName.substring(fileName.lastIndexOf(<span class="string">'.'</span>) + <span class="number">1</span>).toLowerCase();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 检查文件是否为图像格式</span></span><br><span class="line">                <span class="keyword">if</span> (format.equals(<span class="string">"png"</span>) || format.equals(<span class="string">"jpg"</span>) || format.equals(<span class="string">"jpeg"</span>) || format.equals(<span class="string">"bmp"</span>) || format.equals(<span class="string">"gif"</span>)) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="comment">// 加载文件为Image</span></span><br><span class="line">                        BufferedImage bufferedImage = ImageIO.read(file);</span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 创建临时文件</span></span><br><span class="line">                        File tempFile = File.createTempFile(<span class="string">"tempImage"</span>, <span class="string">"."</span> + format);</span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 将BufferedImage写入临时文件</span></span><br><span class="line">                        ImageIO.write(bufferedImage, format, tempFile);</span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 显示剪贴板中的图片</span></span><br><span class="line">                        Image clipboardImage = <span class="keyword">new</span> Image(file.toURI().toString());</span><br><span class="line">                        ImageView imageView = <span class="keyword">new</span> ImageView(clipboardImage);</span><br><span class="line">                        imageView.setPreserveRatio(<span class="keyword">true</span>);</span><br><span class="line">                        imageView.setFitWidth(uploadFrame.getPrefWidth());</span><br><span class="line">                        imageView.setFitHeight(uploadFrame.getPrefHeight());</span><br><span class="line"></span><br><span class="line">                        uploadFrame.getChildren().clear();</span><br><span class="line">                        uploadFrame.getChildren().addAll(imageView, plusSign);</span><br><span class="line"></span><br><span class="line">                        String[] config = loadConfigurationFromDatabase();</span><br><span class="line">                        <span class="keyword">if</span> (config == <span class="keyword">null</span>) &#123;</span><br><span class="line">                            showAlert(Alert.AlertType.ERROR, <span class="string">"错误"</span>, <span class="string">"未找到配置，请先配置相关信息"</span>);</span><br><span class="line">                            <span class="keyword">return</span>;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            String url = ImageUploadUtil.uploadImage(tempFile, tempFile.getName(), config[<span class="number">0</span>], config[<span class="number">1</span>], config[<span class="number">2</span>], config[<span class="number">3</span>]);</span><br><span class="line">                            copyToClipboard(url);</span><br><span class="line">                            showAlert(Alert.AlertType.INFORMATION, <span class="string">"上传成功"</span>, <span class="string">"URL: "</span> + url);</span><br><span class="line"></span><br><span class="line">                            Image uploadedImage = <span class="keyword">new</span> Image(url);</span><br><span class="line">                            ImageView uploadedImageView = <span class="keyword">new</span> ImageView(uploadedImage);</span><br><span class="line">                            uploadedImageView.setPreserveRatio(<span class="keyword">true</span>);</span><br><span class="line">                            uploadedImageView.setFitWidth(uploadFrame.getPrefWidth());</span><br><span class="line">                            uploadedImageView.setFitHeight(uploadFrame.getPrefHeight());</span><br><span class="line"></span><br><span class="line">                            uploadedImage.exceptionProperty().addListener((obs, oldException, newException) -&gt; &#123;</span><br><span class="line">                                <span class="keyword">if</span> (newException != <span class="keyword">null</span>) &#123;</span><br><span class="line">                                    showAlert(Alert.AlertType.ERROR, <span class="string">"错误"</span>, <span class="string">"无法加载上传的图片: "</span> + newException.getMessage());</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;);</span><br><span class="line"></span><br><span class="line">                            uploadFrame.getChildren().clear();</span><br><span class="line">                            uploadFrame.getChildren().addAll(uploadedImageView, plusSign);</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                            showAlert(Alert.AlertType.ERROR, <span class="string">"上传失败"</span>, <span class="string">"Failed to upload image: "</span> + ex.getMessage());</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        tempFile.deleteOnExit();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                        showAlert(Alert.AlertType.ERROR, <span class="string">"错误"</span>, <span class="string">"无法读取图像文件: "</span> + ex.getMessage());</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    showAlert(Alert.AlertType.ERROR, <span class="string">"错误"</span>, <span class="string">"剪切板中的文件不是支持的图像格式"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                showAlert(Alert.AlertType.ERROR, <span class="string">"错误"</span>, <span class="string">"剪切板中没有文件或图像"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        uploadPane.getChildren().addAll(uploadFrame, clipboardUploadButton);</span><br><span class="line">        root.setCenter(uploadPane);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 显示配置页面</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showConfigPage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        GridPane configPane = <span class="keyword">new</span> GridPane();</span><br><span class="line">        configPane.setPadding(<span class="keyword">new</span> Insets(<span class="number">20</span>));</span><br><span class="line">        configPane.setHgap(<span class="number">15</span>); <span class="comment">// Horizontal gap between columns</span></span><br><span class="line">        configPane.setVgap(<span class="number">15</span>); <span class="comment">// Vertical gap between rows</span></span><br><span class="line"></span><br><span class="line">        Label tokenLabel = <span class="keyword">new</span> Label(<span class="string">"Token:"</span>);</span><br><span class="line">        tokenField = <span class="keyword">new</span> PasswordField();</span><br><span class="line"></span><br><span class="line">        Label ownerLabel = <span class="keyword">new</span> Label(<span class="string">"用户名:"</span>);</span><br><span class="line">        ownerField = <span class="keyword">new</span> TextField();</span><br><span class="line"></span><br><span class="line">        Label repoLabel = <span class="keyword">new</span> Label(<span class="string">"仓库:"</span>);</span><br><span class="line">        repoField = <span class="keyword">new</span> TextField();</span><br><span class="line"></span><br><span class="line">        Label branchLabel = <span class="keyword">new</span> Label(<span class="string">"分支:"</span>);</span><br><span class="line">        branchField = <span class="keyword">new</span> TextField();</span><br><span class="line"></span><br><span class="line">        Button saveButton = <span class="keyword">new</span> Button(<span class="string">"保存配置"</span>);</span><br><span class="line">        saveButton.setOnAction(e -&gt; &#123;</span><br><span class="line">            saveConfiguration();</span><br><span class="line">            showAlert(Alert.AlertType.INFORMATION, <span class="string">"保存成功"</span>, <span class="string">"配置已保存成功！"</span>);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 添加 CSS 类名以便于应用样式</span></span><br><span class="line">        tokenLabel.getStyleClass().add(<span class="string">"label"</span>);</span><br><span class="line">        ownerLabel.getStyleClass().add(<span class="string">"label"</span>);</span><br><span class="line">        repoLabel.getStyleClass().add(<span class="string">"label"</span>);</span><br><span class="line">        branchLabel.getStyleClass().add(<span class="string">"label"</span>);</span><br><span class="line">        tokenField.getStyleClass().add(<span class="string">"text-field"</span>);</span><br><span class="line">        ownerField.getStyleClass().add(<span class="string">"text-field"</span>);</span><br><span class="line">        repoField.getStyleClass().add(<span class="string">"text-field"</span>);</span><br><span class="line">        branchField.getStyleClass().add(<span class="string">"text-field"</span>);</span><br><span class="line">        saveButton.getStyleClass().add(<span class="string">"button"</span>);</span><br><span class="line"></span><br><span class="line">        configPane.add(tokenLabel, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        configPane.add(tokenField, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">        configPane.add(ownerLabel, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">        configPane.add(ownerField, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">        configPane.add(repoLabel, <span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line">        configPane.add(repoField, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">        configPane.add(branchLabel, <span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line">        configPane.add(branchField, <span class="number">1</span>, <span class="number">3</span>);</span><br><span class="line">        configPane.add(saveButton, <span class="number">1</span>, <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">        root.setCenter(configPane);</span><br><span class="line">        <span class="comment">// 设置按钮位置居中并保持与底部的间距</span></span><br><span class="line">        GridPane.setHalignment(saveButton, HPos.CENTER);</span><br><span class="line">        GridPane.setMargin(saveButton, <span class="keyword">new</span> Insets(<span class="number">0</span>, <span class="number">0</span>, <span class="number">60</span>, <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">        tokenField.setPrefWidth(<span class="number">450</span>); <span class="comment">// 设置宽度</span></span><br><span class="line">        tokenField.setPrefHeight(<span class="number">40</span>); <span class="comment">// 设置高度</span></span><br><span class="line">        ownerField.setPrefWidth(<span class="number">450</span>);</span><br><span class="line">        ownerField.setPrefHeight(<span class="number">40</span>);</span><br><span class="line">        repoField.setPrefWidth(<span class="number">450</span>);</span><br><span class="line">        repoField.setPrefHeight(<span class="number">40</span>);</span><br><span class="line">        branchField.setPrefWidth(<span class="number">450</span>);</span><br><span class="line">        branchField.setPrefHeight(<span class="number">40</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置按钮位置居中并保持与底部的间距</span></span><br><span class="line">        saveButton.setAlignment(Pos.CENTER);</span><br><span class="line">        root.setCenter(configPane);</span><br><span class="line">        <span class="comment">// 加载保存的配置</span></span><br><span class="line">        loadConfiguration();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setupNavigation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        VBox navBox = <span class="keyword">new</span> VBox();</span><br><span class="line">        navBox.getStyleClass().add(<span class="string">"nav-box"</span>);</span><br><span class="line">        navBox.setPadding(<span class="keyword">new</span> Insets(<span class="number">20</span>));</span><br><span class="line">        navBox.setSpacing(<span class="number">20</span>);</span><br><span class="line">        navBox.setAlignment(Pos.CENTER);</span><br><span class="line"></span><br><span class="line">        Hyperlink configLink = <span class="keyword">new</span> Hyperlink(<span class="string">"配置"</span>);</span><br><span class="line">        configLink.setOnAction(e -&gt; showConfigPage());</span><br><span class="line">        configLink.getStyleClass().add(<span class="string">"nav-link"</span>);</span><br><span class="line"></span><br><span class="line">        Hyperlink uploadLink = <span class="keyword">new</span> Hyperlink(<span class="string">"上传"</span>);</span><br><span class="line">        uploadLink.setOnAction(e -&gt; showUploadPage());</span><br><span class="line">        uploadLink.getStyleClass().add(<span class="string">"nav-link"</span>);</span><br><span class="line"></span><br><span class="line">        navBox.getChildren().addAll(configLink, uploadLink);</span><br><span class="line">        root.setLeft(navBox);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存配置信息到 SQLite 数据库</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">saveConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (Connection conn = DatabaseUtil.getConnection()) &#123;</span><br><span class="line">            <span class="comment">// 检查是否已有记录</span></span><br><span class="line">            ResultSet rs = conn.createStatement().executeQuery(<span class="string">"SELECT COUNT(*) FROM config"</span>);</span><br><span class="line">            <span class="keyword">if</span> (rs.next() &amp;&amp; rs.getInt(<span class="number">1</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 已有记录，执行更新</span></span><br><span class="line">                <span class="keyword">try</span> (PreparedStatement pstmt = conn.prepareStatement(<span class="string">"UPDATE config SET accessToken = ?, owner = ?, repo = ?, branch = ? WHERE id = 1"</span>)) &#123;</span><br><span class="line">                    pstmt.setString(<span class="number">1</span>, tokenField.getText());</span><br><span class="line">                    pstmt.setString(<span class="number">2</span>, ownerField.getText());</span><br><span class="line">                    pstmt.setString(<span class="number">3</span>, repoField.getText());</span><br><span class="line">                    pstmt.setString(<span class="number">4</span>, branchField.getText());</span><br><span class="line">                    pstmt.executeUpdate();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 无记录，执行插入</span></span><br><span class="line">                <span class="keyword">try</span> (PreparedStatement pstmt = conn.prepareStatement(<span class="string">"INSERT INTO config (accessToken, owner, repo, branch) VALUES (?, ?, ?, ?)"</span>)) &#123;</span><br><span class="line">                    pstmt.setString(<span class="number">1</span>, tokenField.getText());</span><br><span class="line">                    pstmt.setString(<span class="number">2</span>, ownerField.getText());</span><br><span class="line">                    pstmt.setString(<span class="number">3</span>, repoField.getText());</span><br><span class="line">                    pstmt.setString(<span class="number">4</span>, branchField.getText());</span><br><span class="line">                    pstmt.executeUpdate();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从 SQLite 数据库中加载配置信息</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (Connection conn = DatabaseUtil.getConnection();</span><br><span class="line">             Statement stmt = conn.createStatement();</span><br><span class="line">             ResultSet rs = stmt.executeQuery(<span class="string">"SELECT accessToken, owner, repo, branch FROM config LIMIT 1"</span>)) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (rs.next()) &#123;</span><br><span class="line">                tokenField.setText(rs.getString(<span class="string">"accessToken"</span>));</span><br><span class="line">                ownerField.setText(rs.getString(<span class="string">"owner"</span>));</span><br><span class="line">                repoField.setText(rs.getString(<span class="string">"repo"</span>));</span><br><span class="line">                branchField.setText(rs.getString(<span class="string">"branch"</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从 SQLite 数据库中获取配置信息</span></span><br><span class="line">    <span class="keyword">private</span> String[] loadConfigurationFromDatabase() &#123;</span><br><span class="line">        String[] config = <span class="keyword">new</span> String[<span class="number">4</span>];</span><br><span class="line">        <span class="keyword">try</span> (Connection conn = DatabaseUtil.getConnection();</span><br><span class="line">             Statement stmt = conn.createStatement();</span><br><span class="line">             ResultSet rs = stmt.executeQuery(<span class="string">"SELECT accessToken, owner, repo, branch FROM config LIMIT 1"</span>)) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (rs.next()) &#123;</span><br><span class="line">                config[<span class="number">0</span>] = rs.getString(<span class="string">"accessToken"</span>);</span><br><span class="line">                config[<span class="number">1</span>] = rs.getString(<span class="string">"owner"</span>);</span><br><span class="line">                config[<span class="number">2</span>] = rs.getString(<span class="string">"repo"</span>);</span><br><span class="line">                config[<span class="number">3</span>] = rs.getString(<span class="string">"branch"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>; <span class="comment">// 如果没有找到配置，返回 null</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> config;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 显示提示框</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showAlert</span><span class="params">(Alert.AlertType alertType, String title, String message)</span> </span>&#123;</span><br><span class="line">        Alert alert = <span class="keyword">new</span> Alert(alertType);</span><br><span class="line">        alert.setTitle(title);</span><br><span class="line">        alert.setHeaderText(<span class="keyword">null</span>);</span><br><span class="line">        alert.setContentText(message);</span><br><span class="line">        alert.showAndWait();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">copyToClipboard</span><span class="params">(String text)</span> </span>&#123;</span><br><span class="line">        Clipboard clipboard = Clipboard.getSystemClipboard();</span><br><span class="line">        ClipboardContent content = <span class="keyword">new</span> ClipboardContent();</span><br><span class="line">        content.putString(text);</span><br><span class="line">        clipboard.setContent(content);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动类"><a href="#启动类" class="headerlink" title="启动类"></a>启动类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FigureBedApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(FigureBedApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">        Application.launch(MainApp<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>; <span class="comment">// 启动JavaFX应用程序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="style-css"><a href="#style-css" class="headerlink" title="style.css"></a>style.css</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* style.css */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Root Styles */</span></span><br><span class="line"><span class="selector-class">.root</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#ecf0f1</span>; <span class="comment">/* Light background for the main area */</span></span><br><span class="line">    <span class="attribute">-fx-padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">-fx-margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Navigation Box Styles */</span></span><br><span class="line"><span class="selector-class">.nav-box</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#2c3e50</span>; <span class="comment">/* Dark background color for the navigation */</span></span><br><span class="line">    <span class="attribute">-fx-padding</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">-fx-spacing</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">-fx-alignment</span>: center;</span><br><span class="line">    <span class="attribute">-fx-border-color</span>: <span class="number">#34495e</span>; <span class="comment">/* Border color */</span></span><br><span class="line">    <span class="attribute">-fx-border-width</span>: <span class="number">2px</span>;</span><br><span class="line">    <span class="attribute">-fx-min-width</span>: <span class="number">200px</span>; <span class="comment">/* Ensure the navigation box is wide enough */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Navigation Link Styles */</span></span><br><span class="line"><span class="selector-class">.nav-link</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-text-fill</span>: white;</span><br><span class="line">    <span class="attribute">-fx-font-size</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">-fx-padding</span>: <span class="number">10px</span> <span class="number">20px</span>; <span class="comment">/* Increased padding for wider buttons */</span></span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#3498db</span>; <span class="comment">/* Link background color */</span></span><br><span class="line">    <span class="attribute">-fx-background-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">-fx-border-color</span>: <span class="number">#2980b9</span>;</span><br><span class="line">    <span class="attribute">-fx-border-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">-fx-cursor</span>: hand;</span><br><span class="line">    <span class="attribute">-fx-underline</span>: false;</span><br><span class="line">    <span class="attribute">-fx-min-width</span>: <span class="number">150px</span>; <span class="comment">/* Set a minimum width for the navigation links */</span></span><br><span class="line">    <span class="attribute">-fx-alignment</span>: center; <span class="comment">/* Center-align text */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.nav-link</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#2980b9</span>; <span class="comment">/* Darker blue on hover */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Configuration Page Styles */</span></span><br><span class="line"><span class="selector-class">.config-page</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#ffffff</span>; <span class="comment">/* White background for the configuration page */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.config-label</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-font-size</span>: <span class="number">14px</span>;</span><br><span class="line">    <span class="attribute">-fx-text-fill</span>: <span class="number">#2c3e50</span>; <span class="comment">/* Dark text color for labels */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.config-field</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-pref-width</span>: <span class="number">400px</span>; <span class="comment">/* Make the text fields wider */</span></span><br><span class="line">    <span class="attribute">-fx-padding</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.save-button</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#2ecc71</span>; <span class="comment">/* Green background color */</span></span><br><span class="line">    <span class="attribute">-fx-text-fill</span>: white;</span><br><span class="line">    <span class="attribute">-fx-padding</span>: <span class="number">10px</span> <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">-fx-font-size</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">-fx-background-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">-fx-border-color</span>: <span class="number">#27ae60</span>;</span><br><span class="line">    <span class="attribute">-fx-border-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">-fx-cursor</span>: hand;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.save-button</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#27ae60</span>; <span class="comment">/* Darker green on hover */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Upload Page Styles */</span></span><br><span class="line"><span class="selector-class">.upload-page</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#ffffff</span>; <span class="comment">/* White background for the upload page */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Upload Frame Styles */</span></span><br><span class="line"><span class="selector-class">.image-frame</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-border-color</span>: <span class="number">#3498db</span>; <span class="comment">/* Blue border color */</span></span><br><span class="line">    <span class="attribute">-fx-border-width</span>: <span class="number">2px</span>; <span class="comment">/* Increased border width */</span></span><br><span class="line">    <span class="attribute">-fx-border-style</span>: solid; <span class="comment">/* Solid border style */</span></span><br><span class="line">    <span class="attribute">-fx-border-radius</span>: <span class="number">10px</span>; <span class="comment">/* Rounded corners */</span></span><br><span class="line">    <span class="attribute">-fx-pref-width</span>: <span class="number">400px</span>; <span class="comment">/* Preferred width for the frame */</span></span><br><span class="line">    <span class="attribute">-fx-pref-height</span>: <span class="number">300px</span>; <span class="comment">/* Preferred height for the frame */</span></span><br><span class="line">    <span class="attribute">-fx-alignment</span>: center;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#f5f6f7</span>; <span class="comment">/* Light background color */</span></span><br><span class="line">    <span class="attribute">-fx-padding</span>: <span class="number">10px</span>; <span class="comment">/* Padding inside the frame */</span></span><br><span class="line">    <span class="attribute">-fx-margin-bottom</span>: <span class="number">80px</span>; <span class="comment">/* Margin below the frame */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Plus Icon Style */</span></span><br><span class="line"><span class="selector-class">.image-frame</span> <span class="selector-class">.plus-icon</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-font-size</span>: <span class="number">48px</span>; <span class="comment">/* Increase the size of the + icon */</span></span><br><span class="line">    <span class="attribute">-fx-text-fill</span>: <span class="number">#3498db</span>; <span class="comment">/* Blue color for the + icon */</span></span><br><span class="line">    <span class="attribute">-fx-alignment</span>: center;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#ffffff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Centering and Styling for Upload Page */</span></span><br><span class="line"><span class="selector-class">.upload-container</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-alignment</span>: center;</span><br><span class="line">    <span class="attribute">-fx-padding</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.upload-button</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#2ecc71</span>; <span class="comment">/* Green background color */</span></span><br><span class="line">    <span class="attribute">-fx-text-fill</span>: white;</span><br><span class="line">    <span class="attribute">-fx-padding</span>: <span class="number">10px</span> <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">-fx-font-size</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">-fx-background-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">-fx-border-color</span>: <span class="number">#27ae60</span>;</span><br><span class="line">    <span class="attribute">-fx-border-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">-fx-cursor</span>: hand;</span><br><span class="line">    <span class="attribute">-fx-margin-top</span>: <span class="number">20px</span>; <span class="comment">/* Margin above the button */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Clipboard Upload Button */</span></span><br><span class="line"><span class="selector-class">.clipboard-upload-button</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#3498db</span>; <span class="comment">/* Blue background color */</span></span><br><span class="line">    <span class="attribute">-fx-text-fill</span>: white;</span><br><span class="line">    <span class="attribute">-fx-padding</span>: <span class="number">10px</span> <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">-fx-font-size</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">-fx-background-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">-fx-border-color</span>: <span class="number">#2980b9</span>;</span><br><span class="line">    <span class="attribute">-fx-border-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">-fx-cursor</span>: hand;</span><br><span class="line">    <span class="attribute">-fx-margin-top</span>: <span class="number">20px</span>; <span class="comment">/* Margin above the button */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* General Styles */</span></span><br><span class="line"><span class="selector-class">.button</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#3498db</span>; <span class="comment">/* Default button color */</span></span><br><span class="line">    <span class="attribute">-fx-text-fill</span>: white;</span><br><span class="line">    <span class="attribute">-fx-padding</span>: <span class="number">10px</span> <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">-fx-font-size</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">-fx-background-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">-fx-border-color</span>: <span class="number">#2980b9</span>;</span><br><span class="line">    <span class="attribute">-fx-border-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">-fx-cursor</span>: hand;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.button</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">-fx-background-color</span>: <span class="number">#2980b9</span>; <span class="comment">/* Darker color on hover */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DatabaseUtil"><a href="#DatabaseUtil" class="headerlink" title="DatabaseUtil"></a>DatabaseUtil</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.laosuye.figurebed.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DatabaseUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String DATABASE_URL = <span class="string">"jdbc:sqlite:config.db"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化数据库，创建配置表</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initializeDatabase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (Connection conn = DriverManager.getConnection(DATABASE_URL);</span><br><span class="line">             Statement stmt = conn.createStatement()) &#123;</span><br><span class="line">            String sql = <span class="string">"CREATE TABLE IF NOT EXISTS config ("</span> +</span><br><span class="line">                    <span class="string">"id INTEGER PRIMARY KEY AUTOINCREMENT, "</span> +</span><br><span class="line">                    <span class="string">"accessToken TEXT, "</span> +</span><br><span class="line">                    <span class="string">"owner TEXT, "</span> +</span><br><span class="line">                    <span class="string">"repo TEXT, "</span> +</span><br><span class="line">                    <span class="string">"branch TEXT)"</span>;</span><br><span class="line">            stmt.execute(sql);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取数据库连接</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> DriverManager.getConnection(DATABASE_URL);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="程序打包"><a href="#程序打包" class="headerlink" title="程序打包"></a>程序打包</h2><p>打包用的是exe4j<br>网上方法一堆，不再详述，自行百度</p>
+<h2 id="功能效果"><a href="#功能效果" class="headerlink" title="功能效果"></a>功能效果</h2><p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1724145313927-8a379199-8fa4-488e-b822-411cfd08c66b.png#averageHue=%239aacaa&clientId=u597a5e27-0327-4&from=paste&height=514&id=uefb4fa6a&originHeight=642&originWidth=801&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=22647&status=done&style=none&taskId=u6a6453c2-d884-40a1-a6d1-3690f171dd9&title=&width=640.8" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1724145343723-a1636a9f-e44d-42a4-87f7-1bdfa5647cdd.png#averageHue=%23f1f2db&clientId=u597a5e27-0327-4&from=paste&height=505&id=u7defd859&originHeight=631&originWidth=800&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=101422&status=done&style=none&taskId=u566b10a3-508b-4d2d-a814-14d6bf89a31&title=&width=640" alt="image.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="老苏叶 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="老苏叶 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 编程</a>
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/06/20/SSM%E6%A1%86%E6%9E%B6%E4%B9%8BMybatis%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="SSM框架之Mybatis框架的学习笔记">
+                <i class="fa fa-chevron-left"></i> SSM框架之Mybatis框架的学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatra.jpg"
+                alt="老苏叶" />
+            
+              <p class="site-author-name" itemprop="name">老苏叶</p>
+              <p class="site-description motion-element" itemprop="description">狂热的代码爱好者卑微的菜鸟程序员</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/By-laosuye/By-laosuye.github.io.git" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://39.106.175.113" target="_blank" title="空间">
+                      
+                        <i class="fa fa-fw fa-vk"></i>空间</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="/qq" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="/weixin" target="_blank" title="微信">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>微信</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#功能思考"><span class="nav-text">功能思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖"><span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ImageUploadUtil"><span class="nav-text">ImageUploadUtil</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MainApp"><span class="nav-text">MainApp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动类"><span class="nav-text">启动类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#style-css"><span class="nav-text">style.css</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DatabaseUtil"><span class="nav-text">DatabaseUtil</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序打包"><span class="nav-text">程序打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能效果"><span class="nav-text">功能效果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+       <div>
+       <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30431643&auto=1&height=66"></iframe>
+       </div>
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">老苏叶</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">44.7k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: '4ePJvrPIyoMuyL54g1K6fNGc-gzGzoHsz',
+        appKey: 'MKyiWYqHi0PIzxhH8jC1Q9pe',
+        placeholder: '留下你的爪印吧～',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
