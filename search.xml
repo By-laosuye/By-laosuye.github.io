@@ -2126,10 +2126,8 @@
     <title>JUC学习笔记（一）</title>
     <url>/2024/09/20/JUC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
-## 进程、线程、纤程（携程）
-### 什么是进程？
-**专业说法：**在操作系统中，进程是最基本的资源单位，操作系统通过进程来管理计算机操作资源，如CPU、内存、磁盘等。每一个进程都有一个唯一的进程标识符（PID），用于区分不同的进程。
 
+<h2 id="进程、线程、纤程（携程）"><a href="#进程、线程、纤程（携程）" class="headerlink" title="进程、线程、纤程（携程）"></a>进程、线程、纤程（携程）</h2><h3 id="什么是进程？"><a href="#什么是进程？" class="headerlink" title="什么是进程？"></a>什么是进程？</h3><p><strong>专业说法：</strong>在操作系统中，进程是最基本的资源单位，操作系统通过进程来管理计算机操作资源，如CPU、内存、磁盘等。每一个进程都有一个唯一的进程标识符（PID），用于区分不同的进程。</p>
 <p><strong>通俗说话：</strong>可以看作正在执行的程序，如QQ.exe等</p>
 <p>在Java中，当我们启动main函数时其实就是启动了一个JVM的进程，而mian函数所在的线程就是这个进程中的一个线程，也称主线程。</p>
 <p>如下图所示，在Windows中通过查看任务管理器的方式，我们就可以清楚看到Windows当前运行的进程（<code>&lt;font style=&quot;color:rgb(44, 62, 80);&quot;&gt;.exe&lt;/font&gt;</code>文件的运行）</p>
