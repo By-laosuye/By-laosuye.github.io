@@ -1,6 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CSS中Position属性详解</title>
+    <url>/2020/05/05/CSS%E4%B8%ADPosition%E5%B1%9E%E6%80%A7%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="一、Position属性是什么？"><a href="#一、Position属性是什么？" class="headerlink" title="一、Position属性是什么？"></a>一、Position属性是什么？</h1><p>Position属性在CSS中是定位的意思！而定位指的是将指定元素摆放到页面的任意方式，通过定位可以任意的摆放元素，其中Position可选的值分别有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.static          默认值，元素没有开启定位</span><br><span class="line">2.relative				相对定位</span><br><span class="line">3.absolute				绝对定位</span><br><span class="line">4.fixed						固定定位</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们会对这四个值分别做详细的解释，并且举例子说明</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">当开启了元素的定位（position的属性值是一个非static的值）时</span><br><span class="line">可以通过left、right、top、bottom四个属性来设置元素的偏移量</span><br><span class="line">    left：元素相对于其定位位置的左侧偏移量</span><br><span class="line">    right：元素相对于其定位位置的右侧偏移量</span><br><span class="line">    top：元素相对于其定位位置的上面偏移量</span><br><span class="line">    bottom：元素相对于其定位位置的下面偏移量</span><br><span class="line">    </span><br><span class="line"> 注意： 通常偏移量只需要使用两个，就可以对一个元素进行定位，一般选择水平的一个偏移量和一个垂直方向的偏移</span><br><span class="line">量来为一个元素进行定位</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-static默认值"><a href="#1-static默认值" class="headerlink" title="1.static默认值"></a>1.static默认值</h2><p>在Position的值为这个的时候，元素不会发生任何变化，元素的位置也还是在该位置</p>
+<h2 id="2-relative相对定位"><a href="#2-relative相对定位" class="headerlink" title="2.relative相对定位"></a>2.relative相对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">relative        开启元素的相对定位</span><br><span class="line">                当position的属性是relative的时候，就开启了相对定位</span><br><span class="line">                1.开启了元素的相对定位以后，而不设置偏移量时，元素不会发生改变</span><br><span class="line">                2.相对定位是相对于元素在文档流中原来的位置进行定位</span><br><span class="line">                3.相对定位的元素不会脱离文档流</span><br><span class="line">                4.相对定位会使元素提升一个层级</span><br><span class="line">                5.相对定位不会改变元素的性质，快元素还是块元素，内联还是内联元素</span><br></pre></td></tr></table></figure>
+
+<p>接下来给出一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启相对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>图例子</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527002841.png">
+
+<p>可以看到，盒子在设置了相对定位并且设置了向左偏移了200像素，盒子是向右出去了200像素，所以这个偏移量往哪边偏移就是往相反的方向去！</p>
+<h2 id="3-absolute绝对定位"><a href="#3-absolute绝对定位" class="headerlink" title="3.absolute绝对定位"></a>3.absolute绝对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">absolute     开启元素的绝对定位</span><br><span class="line">             当position的属性是absolute的时候，就开启了相对定位</span><br><span class="line">             1.开启绝对定位元素会脱离文档流</span><br><span class="line">             2.开启绝对定位以后如果不设置偏移量，则元素的位置不会发生改变</span><br><span class="line">             3.绝对定位是相对于离他最近的开启了祖先元素进行定位，如果所有的祖先元素都没有开启定位，则会相对于浏览器窗口进行定位</span><br><span class="line">             一般情况开启了字元素的的绝对定位，都会开启父元素的相对定位</span><br><span class="line">             4.绝对定位会使元素提升一个层级</span><br><span class="line">             5.绝对定位会改变元素的性质</span><br><span class="line">                 内联元素会变成块元素</span><br><span class="line">                 块元素的宽度和高度都会默认都被内容撑开</span><br></pre></td></tr></table></figure>
+
+<p>接下来给出一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: absolute;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>图解：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002855.png" alt></p>
+<p>可以看到，现在box2没有祖先元素，所以它相对于浏览器窗口进行定位，而且也不占据位置</p>
+<p>接下来我们在box2中嵌套一个box4，并且给他设置偏移量，把box2也开启定位，并设置坐外边距，让其距离左边远一点，看看情况会是怎么样的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: static;</span><br><span class="line">        &#x2F;* left: 200px; *&#x2F;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box4 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: cornflowerblue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;</span><br><span class="line">      我是盒子2</span><br><span class="line">      &lt;div class&#x3D;&quot;box4&quot;&gt;我是盒子4&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>图解：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002913.png" alt></p>
+<p>可以很清晰的看到盒子是根据其开了定位的祖先元素进行偏移的，而不是针对浏览器进行偏移</p>
+<h2 id="4-fixed固定定位"><a href="#4-fixed固定定位" class="headerlink" title="4.fixed固定定位"></a>4.fixed固定定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fixed  开启元素的固定地位（也是绝对定位的一种）</span><br><span class="line">    当position的属性是fixed的时候，就开启了固定定位</span><br><span class="line">    固定定位也是一种绝对定位，它的大部分特点都和绝对定位一样</span><br><span class="line">    不同的是：</span><br><span class="line">        固定定位永远都会相对于浏览器的窗口定位</span><br><span class="line">        固定定位会固定在浏览器的某个位置，不会随滚动条滚动</span><br></pre></td></tr></table></figure>
+
+<p>看一下例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002919.png" alt></p>
+<p>可以看到，和相对定位是没有什么差别的，但是现在我们把body的高度设置很长，右侧出现滚动条。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        body&#123;</span><br><span class="line">            width: 1000px;</span><br><span class="line">            height: 5000px;</span><br><span class="line">        &#125;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后这个时候运行，再拖动滚动条你就会发现无论你页面拖动到什么位置，box1一直都会出现在左上角。</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002927.png" alt></p>
+<p>可以看到我滚动条拖到一半了，box1还是在左上角位置从没变过</p>
+<p>注意：在网页开发中，固定定位一般不常使用，只有在特定的用处才会使用，比如网页上常见的小广告。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CSS定位属性允许你为一个元素定位。它也可以将一个元素放在另一个元素后面，</span><br><span class="line">并指定一个元素的内容太大时，</span><br><span class="line">应该发生什么。元素可以使用的顶部，底部，左侧和右侧属性定位。然而，这些属性无法工作，</span><br><span class="line">除非事先设定position属性。他们也有不同的工作方式，这取决于定位方法.</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>编程</category>
+        <category>前端</category>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>CSS</tag>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ftp服务器的配置与管理</title>
+    <url>/2020/04/25/Ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="第一步：我们先检查是否安装-ftp服务器的软件"><a href="#第一步：我们先检查是否安装-ftp服务器的软件" class="headerlink" title="第一步：我们先检查是否安装 ftp服务器的软件"></a>第一步：我们先检查是否安装 ftp服务器的软件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa|grep vsftpd</span><br></pre></td></tr></table></figure>
+
+<h1 id="第二步：使用yum方式安装ftp服务器软件"><a href="#第二步：使用yum方式安装ftp服务器软件" class="headerlink" title="第二步：使用yum方式安装ftp服务器软件"></a>第二步：使用yum方式安装ftp服务器软件</h1><h2 id="创建存储库"><a href="#创建存储库" class="headerlink" title="创建存储库"></a>创建存储库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mkdir &#x2F;cdrom</span><br></pre></td></tr></table></figure>
+
+<h2 id="挂载光盘"><a href="#挂载光盘" class="headerlink" title="挂载光盘"></a>挂载光盘</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mount &#x2F;dev&#x2F;cdrom &#x2F;cdrom</span><br><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;yum.repos.d&#x2F;dvd.repo#制作yum源文件</span><br><span class="line">[dvd]</span><br><span class="line">name&#x3D;dvd</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;cdrom</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enabeld&#x3D;1</span><br><span class="line">[root@localhost ~]# yum install vsftpd –y  #安装vsftpd服务</span><br><span class="line">[root@localhost ~]# yum install ftp –y  #安装vsftpd服务</span><br></pre></td></tr></table></figure>
+
+<h1 id="第三步：重新启动vsftpd服务"><a href="#第三步：重新启动vsftpd服务" class="headerlink" title="第三步：重新启动vsftpd服务"></a>第三步：重新启动vsftpd服务</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置文件解释："><a href="#配置文件解释：" class="headerlink" title="配置文件解释："></a>配置文件解释：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">改：anonymous_enable&#x3D;NO  #不允许匿名用户登录  YES 则匿名用户可以登录</span><br><span class="line">改：anon_upload_enable&#x3D;YES#把这行的注释去掉  允许匿名用户上传文件 NO 则是不允许上传文件</span><br><span class="line">改：anon_mkdir_write_enable&#x3D;YES #将这行的注释去掉允许匿名用户创建文件夹 NO 则是不允许创建文件夹</span><br><span class="line">添加：</span><br><span class="line">anon_world_readable_only&#x3D;NO</span><br><span class="line">此命令的默认值为YES，表示仅当所有用户对该文件都拥有读权限时，才允许</span><br><span class="line">匿名用户下载该文件；此处为NO，则允许匿名用户下载不具有全部读权限的文件</span><br><span class="line">anon_other_write_enable&#x3D;YES</span><br><span class="line">允许匿名用户改名和删除文件</span><br><span class="line">max_clients&#x3D;100</span><br><span class="line">设置同时连接FTP服务器的并发用户为100</span><br><span class="line">max_per_ip&#x3D;2</span><br><span class="line">设置每个用户同一时间段并发下载线程数为2，同时只能下载两个文件</span><br><span class="line">anon_max_rate&#x3D;20000</span><br><span class="line">设置匿名用户最大的传输速率为20kbit&#x2F;s</span><br><span class="line">改：chown_uploads&#x3D;YES  #将这行注释去掉 允许匿名用户修改上传文件的所有权</span><br><span class="line">chown_username&#x3D;cmx1 #将这行注释去掉 匿名用户上传的文件的所有者改为bob</span><br><span class="line">改：ascii_upload_enable&#x3D;YES #将注释去掉 允许ASCII格式来上传文件</span><br><span class="line">ascii_download_enable&#x3D;YES #将注释去掉 允许ASCII格式来下载文件</span><br><span class="line">改：ftpd_banner&#x3D;Hi,Welcome to FTP service. #将这行注释去掉设置ftp服务器的欢迎信息</span><br><span class="line">tcp_wrappers&#x3D;YES</span><br><span class="line">设置采用tcp_wrappers来实现来对主机的访问控制，具体控制功能由&#x2F;etc&#x2F;hosts.allow</span><br><span class="line">文件来实现</span><br><span class="line">guest_enable&#x3D;YES</span><br><span class="line">激活虚拟用户登录功能</span><br><span class="line">guest_username&#x3D;virtuser</span><br><span class="line">指定虚拟用户所对应的真实含义</span><br><span class="line">pam_service_name&#x3D;vsftpd.virtual</span><br><span class="line">修改源文件中的pam_service_name&#x3D;vsftpd.virtual的值   (认证文件自己要创建的,已经定义过了) .</span><br></pre></td></tr></table></figure>
+
+<p>更改主配置文件完毕!</p>
+<h2 id="重启ftp服务器"><a href="#重启ftp服务器" class="headerlink" title="重启ftp服务器"></a>重启ftp服务器</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+<h1 id="第一个实验：使用匿名账号登录"><a href="#第一个实验：使用匿名账号登录" class="headerlink" title="第一个实验：使用匿名账号登录"></a>第一个实验：使用匿名账号登录</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">匿名账号默认：ftp</span><br><span class="line">匿名账号密码：ftp</span><br><span class="line">修改配置文件： </span><br><span class="line">[root@ns Packages]# vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">anon_upload_enable&#x3D;YES   </span><br><span class="line">anon_mkdir_write_enable&#x3D;YES</span><br><span class="line">将以上两行注释去掉 让匿名用户可以上传和下载文件</span><br><span class="line">chown_uploads&#x3D;YES #将这行注释去掉,允许匿名上传者拥有修改文件所有权</span><br><span class="line">chown_username&#x3D;cmx1  #将这行注释去掉, 匿名用户上传的文件的所有者改为cmx1  这用户必须要存在  文件夹权限和属组也要做好才有用!</span><br><span class="line">修改了配置文件 重启服务器</span><br><span class="line">Service vsftpd restart</span><br><span class="line">我ftp服务器地址为192.168.1.118</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：默认匿名用户名：ftp-匿名用户密码：ftp"><a href="#测试：默认匿名用户名：ftp-匿名用户密码：ftp" class="headerlink" title="测试：默认匿名用户名：ftp 匿名用户密码：ftp"></a>测试：默认匿名用户名：ftp 匿名用户密码：ftp</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001440.png" style="zoom:150%;">
+
+<h1 id="第二个实验：独立的两个用户ftp文件夹"><a href="#第二个实验：独立的两个用户ftp文件夹" class="headerlink" title="第二个实验：独立的两个用户ftp文件夹"></a>第二个实验：独立的两个用户ftp文件夹</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用户名：cmx1 密码:123456</span><br><span class="line">用户名：cmx2 密码:123456</span><br></pre></td></tr></table></figure>
+
+<h4 id="进入终端："><a href="#进入终端：" class="headerlink" title="进入终端："></a>进入终端：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# useradd cmx1   #创建用户</span><br><span class="line">[root@ns ~]# useradd cmx2</span><br><span class="line">[root@ns ~]# passwd cmx1    #修改口令</span><br><span class="line">[root@ns ~]# passwd cmx2</span><br><span class="line">[root@ns ~]# mkdir -m 777 &#x2F;home&#x2F;cmx1&#x2F;ftp   #赋予文件夹最大权限</span><br><span class="line">[root@ns ~]# chmod 755 &#x2F;home&#x2F;cmx1   #普通用户拥有对此文件夹所有权,其他用户只能读与执行.不能写</span><br><span class="line">[root@ns ~]# chown cmx1:cmx1 &#x2F;home&#x2F;cmx1&#x2F;ftp   #更改文件夹的属主属组为刚创的普通用户cmx1</span><br><span class="line">[root@ns ~]# mkdir -m 777 &#x2F;home&#x2F;cmx2&#x2F;ftp</span><br><span class="line">[root@ns ~]# chmod 755 &#x2F;home&#x2F;cmx2</span><br><span class="line">[root@ns ~]# chown cmx2:cmx2 &#x2F;home&#x2F;cmx2&#x2F;ftp</span><br></pre></td></tr></table></figure>
+
+<h4 id="接下来修改主配置文件："><a href="#接下来修改主配置文件：" class="headerlink" title="接下来修改主配置文件："></a>接下来修改主配置文件：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">anonymous_enable&#x3D;NO  #将匿名登录改为不允许,NO  YES是允许</span><br><span class="line">xferlog_file&#x3D;&#x2F;var&#x2F;log&#x2F;xferlog  #将这行注释去掉 日志文件存放的位置!</span><br><span class="line">idle_session_timeout&#x3D;600   #用户登录超时不能超过600秒！</span><br><span class="line">data_connection_timeout&#x3D;120  #数据链接超时不能超过120秒！</span><br><span class="line">ascii_upload_enable&#x3D;YES</span><br><span class="line">ascii_download_enable&#x3D;YES</span><br><span class="line">将这两行注释去掉  使用ascii码形式上传和下载文件！</span><br><span class="line">chroot_local_user&#x3D;YES  </span><br><span class="line">个人主页的目录控制，会隐藏真实目录,匿名用户自带目录控制隐藏真实目录.</span><br><span class="line">userlist_deny&#x3D;NO  </span><br><span class="line">添加这条指令是账号控制,现在只有user_list(白名单)文件下的写入的用户能登入ftp服务器。</span><br></pre></td></tr></table></figure>
+
+<h4 id="现在在白名单下添加用户-才能访问ftp服务器"><a href="#现在在白名单下添加用户-才能访问ftp服务器" class="headerlink" title="现在在白名单下添加用户 才能访问ftp服务器"></a>现在在白名单下添加用户 才能访问ftp服务器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;user_list(格式顶格写，里面不允许注释,添加的就是我们刚创建的用户)</span><br><span class="line">cmx1   </span><br><span class="line">cmx2</span><br><span class="line">修改了配置文件 ：重启服务器</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001457.png" style="zoom:150%;">
+
+<p>恭喜你个人用户的ftp已完成!</p>
+<h1 id="第三个实验："><a href="#第三个实验：" class="headerlink" title="第三个实验："></a>第三个实验：</h1><h2 id="ftp服务器对网络的控制"><a href="#ftp服务器对网络的控制" class="headerlink" title="ftp服务器对网络的控制"></a>ftp服务器对网络的控制</h2><p>我ftp服务器地址为192.168.1.118<br>我ftp客户端地址为 192.168.1.188<br>进入终端：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;hosts.allow  #修改配置文件</span><br><span class="line">vsftpd:192.168.1.188 192.168.1.189:DENY   #拒绝.188 和 .189的主机访问ftp服务器</span><br><span class="line">vsftpd:192.168.1.0    #允许192.168.1.0这个网段的主机访问ftp服务器</span><br><span class="line">修改了配置文件：重启vsftp服务器</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试：-1"><a href="#测试：-1" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001506.png" style="zoom:200%;">
+
+<p>登录不了 ，恭喜你网络控制搭建成功！</p>
+<h4 id="修改IP地址"><a href="#修改IP地址" class="headerlink" title="修改IP地址"></a>修改IP地址</h4><img src="https://gitee.com/laosuye/TC/raw/master/20200527001514.png" style="zoom:150%;">
+
+<p>又能登录了所以网络控制成功！</p>
+<h1 id="第四个实验：做虚拟账号登录ftp服务器-账号是不存在的-保护了ftp的安全"><a href="#第四个实验：做虚拟账号登录ftp服务器-账号是不存在的-保护了ftp的安全" class="headerlink" title="第四个实验：做虚拟账号登录ftp服务器 账号是不存在的 保护了ftp的安全"></a>第四个实验：做虚拟账号登录ftp服务器 账号是不存在的 保护了ftp的安全</h1><h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">虚拟账号：chenchen1</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">虚拟账号：chenchen2</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">虚拟账号：chenchen3</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;virtuserdb.txt   #制作虚拟账号口令存放的文件</span><br><span class="line">奇数行是账号,偶数行是密码！</span><br><span class="line">chenchen1</span><br><span class="line">995523</span><br><span class="line">chenchen2</span><br><span class="line">995523</span><br><span class="line">chenchen3</span><br><span class="line">995523</span><br><span class="line">执行一下命令生成虚拟数据库文件</span><br><span class="line">[root@ns ~]# db_load -T -t hash -f &#x2F;etc&#x2F;virtuserdb.txt &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db</span><br><span class="line">这个命令作用是把&#x2F;etc&#x2F;virtuserdb.txt的文件导入到&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db数据库文件里去.</span><br><span class="line">定义数据库vsftpd.db的权限  普通用户对此文件可读可写！</span><br><span class="line">[root@ns ~]# chmod 600 &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db</span><br></pre></td></tr></table></figure>
+
+<h2 id="第二步："><a href="#第二步：" class="headerlink" title="第二步："></a>第二步：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建PAM认证文件.</span><br><span class="line">&#x2F;etc&#x2F;pam.d&#x2F;vsftpd.virtual</span><br><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;pam.d&#x2F;vsftpd.virtual</span><br><span class="line">auth    required &#x2F;lib&#x2F;security&#x2F;pam_userdb.so db&#x3D;&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd</span><br><span class="line">account required &#x2F;lib&#x2F;security&#x2F;pam_userdb.so db&#x3D;&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd</span><br><span class="line">注意：以上两条代码为认证规则</span><br><span class="line">     第一条规则的功能是利用pam_userdb.so模块来进行身份认证,主要是接受用户名和口令,进而对该用户的口令进行口令进行认证,并负责设置用户的一些秘密信息.其中采用的数据库是&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db文件(此处省略文件名后面的扩展名.db)</span><br><span class="line">    第二条规则的功能是检查帐号是否被允许登录系统,帐号是否已经过期,帐号登录是否有时间段的限制等.设置在进行授权时采用的数据库也是这个数据库也是etc&#x2F;vsftpd&#x2F;vsftpd.db。</span><br></pre></td></tr></table></figure>
+
+<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步:"></a>第三步:</h2><p>创建虚拟用户所对应的真实帐号及所登录的目录,并设置相应的权限</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# useradd -d &#x2F;var&#x2F;virtuser virtuser  #添加账号与更改账号路径,默认是在&#x2F;home目录下</span><br><span class="line">[root@ns ~]# chmod 744 &#x2F;var&#x2F;virtuser  #普通用户拥有所有权,其他用户同组用户只能读</span><br><span class="line">第四步:</span><br><span class="line">编辑 &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf 配置文件,增加以下内容(顶格写,等号两边不允许空格):</span><br><span class="line">guest_enable&#x3D;YES</span><br><span class="line">激活虚拟用户登录功能</span><br><span class="line">guest_username&#x3D;virtuser</span><br><span class="line">指定虚拟用户所对应的真实含义</span><br><span class="line">pam_service_name&#x3D;vsftpd.virtual</span><br><span class="line">修改源文件中的pam_service_name&#x3D;vsftpd.virtual的值   (认证文件自己要创建的,已经定义过了) .</span><br></pre></td></tr></table></figure>
+
+<p>因为我们帐号控制 userlist功能也就是白名单 所以我们的虚拟帐号要加入这个配置文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;user_list  #在配置文件添加虚拟帐号 就是 刚刚创建得虚拟账号 以下内容</span><br><span class="line">chenchen1</span><br><span class="line">chenchen2</span><br><span class="line">chenchen3</span><br><span class="line">保存后重启服务！</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+<p>测试：虚拟账号登录成功 .实验搭建成功！</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527001523.png" style="zoom:200%;">
+
+<h1 id="基于ftp服务器端口的控制"><a href="#基于ftp服务器端口的控制" class="headerlink" title="基于ftp服务器端口的控制"></a>基于ftp服务器端口的控制</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]#vi &#x2F;etc&#x2F;services</span><br></pre></td></tr></table></figure>
+
+<p>在下面改端口想改啥改啥</p>
+<p>要记得端口放行防火墙</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# service vsftpd restart (加这个指令后面是端口,自己指的是21)</span><br><span class="line">listen_port&#x3D;21</span><br></pre></td></tr></table></figure>
+
+<p>在windows下输入的格式</p>
+<img src="https://gitee.com/laosuye/TC/raw/master/20200527001532.png" style="zoom:200%;">
+
+<p>自此：Ftp服务器的配置与管理结束！</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>服务器</category>
+        <category>Ftp</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>服务器</tag>
+        <tag>Ftp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo+Gitee搭建个人博客&#39;</title>
     <url>/2024/06/20/Hexo-Gitee%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -91,83 +231,6 @@
       <tags>
         <tag>Hexo</tag>
         <tag>Gitee - 博客</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ftp服务器的配置与管理</title>
-    <url>/2020/04/25/Ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="第一步：我们先检查是否安装-ftp服务器的软件"><a href="#第一步：我们先检查是否安装-ftp服务器的软件" class="headerlink" title="第一步：我们先检查是否安装 ftp服务器的软件"></a>第一步：我们先检查是否安装 ftp服务器的软件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa|grep vsftpd</span><br></pre></td></tr></table></figure>
-
-<h1 id="第二步：使用yum方式安装ftp服务器软件"><a href="#第二步：使用yum方式安装ftp服务器软件" class="headerlink" title="第二步：使用yum方式安装ftp服务器软件"></a>第二步：使用yum方式安装ftp服务器软件</h1><h2 id="创建存储库"><a href="#创建存储库" class="headerlink" title="创建存储库"></a>创建存储库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mkdir &#x2F;cdrom</span><br></pre></td></tr></table></figure>
-
-<h2 id="挂载光盘"><a href="#挂载光盘" class="headerlink" title="挂载光盘"></a>挂载光盘</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# mount &#x2F;dev&#x2F;cdrom &#x2F;cdrom</span><br><span class="line">[root@localhost ~]# vi &#x2F;etc&#x2F;yum.repos.d&#x2F;dvd.repo#制作yum源文件</span><br><span class="line">[dvd]</span><br><span class="line">name&#x3D;dvd</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;cdrom</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">enabeld&#x3D;1</span><br><span class="line">[root@localhost ~]# yum install vsftpd –y  #安装vsftpd服务</span><br><span class="line">[root@localhost ~]# yum install ftp –y  #安装vsftpd服务</span><br></pre></td></tr></table></figure>
-
-<h1 id="第三步：重新启动vsftpd服务"><a href="#第三步：重新启动vsftpd服务" class="headerlink" title="第三步：重新启动vsftpd服务"></a>第三步：重新启动vsftpd服务</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
-
-<h3 id="配置文件解释："><a href="#配置文件解释：" class="headerlink" title="配置文件解释："></a>配置文件解释：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">改：anonymous_enable&#x3D;NO  #不允许匿名用户登录  YES 则匿名用户可以登录</span><br><span class="line">改：anon_upload_enable&#x3D;YES#把这行的注释去掉  允许匿名用户上传文件 NO 则是不允许上传文件</span><br><span class="line">改：anon_mkdir_write_enable&#x3D;YES #将这行的注释去掉允许匿名用户创建文件夹 NO 则是不允许创建文件夹</span><br><span class="line">添加：</span><br><span class="line">anon_world_readable_only&#x3D;NO</span><br><span class="line">此命令的默认值为YES，表示仅当所有用户对该文件都拥有读权限时，才允许</span><br><span class="line">匿名用户下载该文件；此处为NO，则允许匿名用户下载不具有全部读权限的文件</span><br><span class="line">anon_other_write_enable&#x3D;YES</span><br><span class="line">允许匿名用户改名和删除文件</span><br><span class="line">max_clients&#x3D;100</span><br><span class="line">设置同时连接FTP服务器的并发用户为100</span><br><span class="line">max_per_ip&#x3D;2</span><br><span class="line">设置每个用户同一时间段并发下载线程数为2，同时只能下载两个文件</span><br><span class="line">anon_max_rate&#x3D;20000</span><br><span class="line">设置匿名用户最大的传输速率为20kbit&#x2F;s</span><br><span class="line">改：chown_uploads&#x3D;YES  #将这行注释去掉 允许匿名用户修改上传文件的所有权</span><br><span class="line">chown_username&#x3D;cmx1 #将这行注释去掉 匿名用户上传的文件的所有者改为bob</span><br><span class="line">改：ascii_upload_enable&#x3D;YES #将注释去掉 允许ASCII格式来上传文件</span><br><span class="line">ascii_download_enable&#x3D;YES #将注释去掉 允许ASCII格式来下载文件</span><br><span class="line">改：ftpd_banner&#x3D;Hi,Welcome to FTP service. #将这行注释去掉设置ftp服务器的欢迎信息</span><br><span class="line">tcp_wrappers&#x3D;YES</span><br><span class="line">设置采用tcp_wrappers来实现来对主机的访问控制，具体控制功能由&#x2F;etc&#x2F;hosts.allow</span><br><span class="line">文件来实现</span><br><span class="line">guest_enable&#x3D;YES</span><br><span class="line">激活虚拟用户登录功能</span><br><span class="line">guest_username&#x3D;virtuser</span><br><span class="line">指定虚拟用户所对应的真实含义</span><br><span class="line">pam_service_name&#x3D;vsftpd.virtual</span><br><span class="line">修改源文件中的pam_service_name&#x3D;vsftpd.virtual的值   (认证文件自己要创建的,已经定义过了) .</span><br></pre></td></tr></table></figure>
-
-<p>更改主配置文件完毕!</p>
-<h2 id="重启ftp服务器"><a href="#重启ftp服务器" class="headerlink" title="重启ftp服务器"></a>重启ftp服务器</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
-
-<h1 id="第一个实验：使用匿名账号登录"><a href="#第一个实验：使用匿名账号登录" class="headerlink" title="第一个实验：使用匿名账号登录"></a>第一个实验：使用匿名账号登录</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">匿名账号默认：ftp</span><br><span class="line">匿名账号密码：ftp</span><br><span class="line">修改配置文件： </span><br><span class="line">[root@ns Packages]# vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">anon_upload_enable&#x3D;YES   </span><br><span class="line">anon_mkdir_write_enable&#x3D;YES</span><br><span class="line">将以上两行注释去掉 让匿名用户可以上传和下载文件</span><br><span class="line">chown_uploads&#x3D;YES #将这行注释去掉,允许匿名上传者拥有修改文件所有权</span><br><span class="line">chown_username&#x3D;cmx1  #将这行注释去掉, 匿名用户上传的文件的所有者改为cmx1  这用户必须要存在  文件夹权限和属组也要做好才有用!</span><br><span class="line">修改了配置文件 重启服务器</span><br><span class="line">Service vsftpd restart</span><br><span class="line">我ftp服务器地址为192.168.1.118</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试：默认匿名用户名：ftp-匿名用户密码：ftp"><a href="#测试：默认匿名用户名：ftp-匿名用户密码：ftp" class="headerlink" title="测试：默认匿名用户名：ftp 匿名用户密码：ftp"></a>测试：默认匿名用户名：ftp 匿名用户密码：ftp</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001440.png" style="zoom:150%;">
-
-<h1 id="第二个实验：独立的两个用户ftp文件夹"><a href="#第二个实验：独立的两个用户ftp文件夹" class="headerlink" title="第二个实验：独立的两个用户ftp文件夹"></a>第二个实验：独立的两个用户ftp文件夹</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用户名：cmx1 密码:123456</span><br><span class="line">用户名：cmx2 密码:123456</span><br></pre></td></tr></table></figure>
-
-<h4 id="进入终端："><a href="#进入终端：" class="headerlink" title="进入终端："></a>进入终端：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# useradd cmx1   #创建用户</span><br><span class="line">[root@ns ~]# useradd cmx2</span><br><span class="line">[root@ns ~]# passwd cmx1    #修改口令</span><br><span class="line">[root@ns ~]# passwd cmx2</span><br><span class="line">[root@ns ~]# mkdir -m 777 &#x2F;home&#x2F;cmx1&#x2F;ftp   #赋予文件夹最大权限</span><br><span class="line">[root@ns ~]# chmod 755 &#x2F;home&#x2F;cmx1   #普通用户拥有对此文件夹所有权,其他用户只能读与执行.不能写</span><br><span class="line">[root@ns ~]# chown cmx1:cmx1 &#x2F;home&#x2F;cmx1&#x2F;ftp   #更改文件夹的属主属组为刚创的普通用户cmx1</span><br><span class="line">[root@ns ~]# mkdir -m 777 &#x2F;home&#x2F;cmx2&#x2F;ftp</span><br><span class="line">[root@ns ~]# chmod 755 &#x2F;home&#x2F;cmx2</span><br><span class="line">[root@ns ~]# chown cmx2:cmx2 &#x2F;home&#x2F;cmx2&#x2F;ftp</span><br></pre></td></tr></table></figure>
-
-<h4 id="接下来修改主配置文件："><a href="#接下来修改主配置文件：" class="headerlink" title="接下来修改主配置文件："></a>接下来修改主配置文件：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf</span><br><span class="line">anonymous_enable&#x3D;NO  #将匿名登录改为不允许,NO  YES是允许</span><br><span class="line">xferlog_file&#x3D;&#x2F;var&#x2F;log&#x2F;xferlog  #将这行注释去掉 日志文件存放的位置!</span><br><span class="line">idle_session_timeout&#x3D;600   #用户登录超时不能超过600秒！</span><br><span class="line">data_connection_timeout&#x3D;120  #数据链接超时不能超过120秒！</span><br><span class="line">ascii_upload_enable&#x3D;YES</span><br><span class="line">ascii_download_enable&#x3D;YES</span><br><span class="line">将这两行注释去掉  使用ascii码形式上传和下载文件！</span><br><span class="line">chroot_local_user&#x3D;YES  </span><br><span class="line">个人主页的目录控制，会隐藏真实目录,匿名用户自带目录控制隐藏真实目录.</span><br><span class="line">userlist_deny&#x3D;NO  </span><br><span class="line">添加这条指令是账号控制,现在只有user_list(白名单)文件下的写入的用户能登入ftp服务器。</span><br></pre></td></tr></table></figure>
-
-<h4 id="现在在白名单下添加用户-才能访问ftp服务器"><a href="#现在在白名单下添加用户-才能访问ftp服务器" class="headerlink" title="现在在白名单下添加用户 才能访问ftp服务器"></a>现在在白名单下添加用户 才能访问ftp服务器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;user_list(格式顶格写，里面不允许注释,添加的就是我们刚创建的用户)</span><br><span class="line">cmx1   </span><br><span class="line">cmx2</span><br><span class="line">修改了配置文件 ：重启服务器</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001457.png" style="zoom:150%;">
-
-<p>恭喜你个人用户的ftp已完成!</p>
-<h1 id="第三个实验："><a href="#第三个实验：" class="headerlink" title="第三个实验："></a>第三个实验：</h1><h2 id="ftp服务器对网络的控制"><a href="#ftp服务器对网络的控制" class="headerlink" title="ftp服务器对网络的控制"></a>ftp服务器对网络的控制</h2><p>我ftp服务器地址为192.168.1.118<br>我ftp客户端地址为 192.168.1.188<br>进入终端：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;hosts.allow  #修改配置文件</span><br><span class="line">vsftpd:192.168.1.188 192.168.1.189:DENY   #拒绝.188 和 .189的主机访问ftp服务器</span><br><span class="line">vsftpd:192.168.1.0    #允许192.168.1.0这个网段的主机访问ftp服务器</span><br><span class="line">修改了配置文件：重启vsftp服务器</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试：-1"><a href="#测试：-1" class="headerlink" title="测试："></a>测试：</h2><img src="https://gitee.com/laosuye/TC/raw/master/20200527001506.png" style="zoom:200%;">
-
-<p>登录不了 ，恭喜你网络控制搭建成功！</p>
-<h4 id="修改IP地址"><a href="#修改IP地址" class="headerlink" title="修改IP地址"></a>修改IP地址</h4><img src="https://gitee.com/laosuye/TC/raw/master/20200527001514.png" style="zoom:150%;">
-
-<p>又能登录了所以网络控制成功！</p>
-<h1 id="第四个实验：做虚拟账号登录ftp服务器-账号是不存在的-保护了ftp的安全"><a href="#第四个实验：做虚拟账号登录ftp服务器-账号是不存在的-保护了ftp的安全" class="headerlink" title="第四个实验：做虚拟账号登录ftp服务器 账号是不存在的 保护了ftp的安全"></a>第四个实验：做虚拟账号登录ftp服务器 账号是不存在的 保护了ftp的安全</h1><h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">虚拟账号：chenchen1</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">虚拟账号：chenchen2</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">虚拟账号：chenchen3</span><br><span class="line">虚拟账号口令：995523</span><br><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;virtuserdb.txt   #制作虚拟账号口令存放的文件</span><br><span class="line">奇数行是账号,偶数行是密码！</span><br><span class="line">chenchen1</span><br><span class="line">995523</span><br><span class="line">chenchen2</span><br><span class="line">995523</span><br><span class="line">chenchen3</span><br><span class="line">995523</span><br><span class="line">执行一下命令生成虚拟数据库文件</span><br><span class="line">[root@ns ~]# db_load -T -t hash -f &#x2F;etc&#x2F;virtuserdb.txt &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db</span><br><span class="line">这个命令作用是把&#x2F;etc&#x2F;virtuserdb.txt的文件导入到&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db数据库文件里去.</span><br><span class="line">定义数据库vsftpd.db的权限  普通用户对此文件可读可写！</span><br><span class="line">[root@ns ~]# chmod 600 &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db</span><br></pre></td></tr></table></figure>
-
-<h2 id="第二步："><a href="#第二步：" class="headerlink" title="第二步："></a>第二步：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建PAM认证文件.</span><br><span class="line">&#x2F;etc&#x2F;pam.d&#x2F;vsftpd.virtual</span><br><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;pam.d&#x2F;vsftpd.virtual</span><br><span class="line">auth    required &#x2F;lib&#x2F;security&#x2F;pam_userdb.so db&#x3D;&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd</span><br><span class="line">account required &#x2F;lib&#x2F;security&#x2F;pam_userdb.so db&#x3D;&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd</span><br><span class="line">注意：以上两条代码为认证规则</span><br><span class="line">     第一条规则的功能是利用pam_userdb.so模块来进行身份认证,主要是接受用户名和口令,进而对该用户的口令进行口令进行认证,并负责设置用户的一些秘密信息.其中采用的数据库是&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.db文件(此处省略文件名后面的扩展名.db)</span><br><span class="line">    第二条规则的功能是检查帐号是否被允许登录系统,帐号是否已经过期,帐号登录是否有时间段的限制等.设置在进行授权时采用的数据库也是这个数据库也是etc&#x2F;vsftpd&#x2F;vsftpd.db。</span><br></pre></td></tr></table></figure>
-
-<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步:"></a>第三步:</h2><p>创建虚拟用户所对应的真实帐号及所登录的目录,并设置相应的权限</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# useradd -d &#x2F;var&#x2F;virtuser virtuser  #添加账号与更改账号路径,默认是在&#x2F;home目录下</span><br><span class="line">[root@ns ~]# chmod 744 &#x2F;var&#x2F;virtuser  #普通用户拥有所有权,其他用户同组用户只能读</span><br><span class="line">第四步:</span><br><span class="line">编辑 &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf 配置文件,增加以下内容(顶格写,等号两边不允许空格):</span><br><span class="line">guest_enable&#x3D;YES</span><br><span class="line">激活虚拟用户登录功能</span><br><span class="line">guest_username&#x3D;virtuser</span><br><span class="line">指定虚拟用户所对应的真实含义</span><br><span class="line">pam_service_name&#x3D;vsftpd.virtual</span><br><span class="line">修改源文件中的pam_service_name&#x3D;vsftpd.virtual的值   (认证文件自己要创建的,已经定义过了) .</span><br></pre></td></tr></table></figure>
-
-<p>因为我们帐号控制 userlist功能也就是白名单 所以我们的虚拟帐号要加入这个配置文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# vi &#x2F;etc&#x2F;vsftpd&#x2F;user_list  #在配置文件添加虚拟帐号 就是 刚刚创建得虚拟账号 以下内容</span><br><span class="line">chenchen1</span><br><span class="line">chenchen2</span><br><span class="line">chenchen3</span><br><span class="line">保存后重启服务！</span><br><span class="line">[root@ns ~]# service vsftpd restart</span><br></pre></td></tr></table></figure>
-
-<p>测试：虚拟账号登录成功 .实验搭建成功！</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527001523.png" style="zoom:200%;">
-
-<h1 id="基于ftp服务器端口的控制"><a href="#基于ftp服务器端口的控制" class="headerlink" title="基于ftp服务器端口的控制"></a>基于ftp服务器端口的控制</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]#vi &#x2F;etc&#x2F;services</span><br></pre></td></tr></table></figure>
-
-<p>在下面改端口想改啥改啥</p>
-<p>要记得端口放行防火墙</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ns ~]# service vsftpd restart (加这个指令后面是端口,自己指的是21)</span><br><span class="line">listen_port&#x3D;21</span><br></pre></td></tr></table></figure>
-
-<p>在windows下输入的格式</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527001532.png" style="zoom:200%;">
-
-<p>自此：Ftp服务器的配置与管理结束！</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>服务器</category>
-        <category>Ftp</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>服务器</tag>
-        <tag>Ftp</tag>
       </tags>
   </entry>
   <entry>
@@ -625,69 +688,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CSS中Position属性详解</title>
-    <url>/2020/05/05/CSS%E4%B8%ADPosition%E5%B1%9E%E6%80%A7%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="一、Position属性是什么？"><a href="#一、Position属性是什么？" class="headerlink" title="一、Position属性是什么？"></a>一、Position属性是什么？</h1><p>Position属性在CSS中是定位的意思！而定位指的是将指定元素摆放到页面的任意方式，通过定位可以任意的摆放元素，其中Position可选的值分别有：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.static          默认值，元素没有开启定位</span><br><span class="line">2.relative				相对定位</span><br><span class="line">3.absolute				绝对定位</span><br><span class="line">4.fixed						固定定位</span><br></pre></td></tr></table></figure>
-
-<p>接下来我们会对这四个值分别做详细的解释，并且举例子说明</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">当开启了元素的定位（position的属性值是一个非static的值）时</span><br><span class="line">可以通过left、right、top、bottom四个属性来设置元素的偏移量</span><br><span class="line">    left：元素相对于其定位位置的左侧偏移量</span><br><span class="line">    right：元素相对于其定位位置的右侧偏移量</span><br><span class="line">    top：元素相对于其定位位置的上面偏移量</span><br><span class="line">    bottom：元素相对于其定位位置的下面偏移量</span><br><span class="line">    </span><br><span class="line"> 注意： 通常偏移量只需要使用两个，就可以对一个元素进行定位，一般选择水平的一个偏移量和一个垂直方向的偏移</span><br><span class="line">量来为一个元素进行定位</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-static默认值"><a href="#1-static默认值" class="headerlink" title="1.static默认值"></a>1.static默认值</h2><p>在Position的值为这个的时候，元素不会发生任何变化，元素的位置也还是在该位置</p>
-<h2 id="2-relative相对定位"><a href="#2-relative相对定位" class="headerlink" title="2.relative相对定位"></a>2.relative相对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">relative        开启元素的相对定位</span><br><span class="line">                当position的属性是relative的时候，就开启了相对定位</span><br><span class="line">                1.开启了元素的相对定位以后，而不设置偏移量时，元素不会发生改变</span><br><span class="line">                2.相对定位是相对于元素在文档流中原来的位置进行定位</span><br><span class="line">                3.相对定位的元素不会脱离文档流</span><br><span class="line">                4.相对定位会使元素提升一个层级</span><br><span class="line">                5.相对定位不会改变元素的性质，快元素还是块元素，内联还是内联元素</span><br></pre></td></tr></table></figure>
-
-<p>接下来给出一个例子。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启相对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>图例子</p>
-<img src="https://gitee.com/laosuye/TC/raw/master/20200527002841.png">
-
-<p>可以看到，盒子在设置了相对定位并且设置了向左偏移了200像素，盒子是向右出去了200像素，所以这个偏移量往哪边偏移就是往相反的方向去！</p>
-<h2 id="3-absolute绝对定位"><a href="#3-absolute绝对定位" class="headerlink" title="3.absolute绝对定位"></a>3.absolute绝对定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">absolute     开启元素的绝对定位</span><br><span class="line">             当position的属性是absolute的时候，就开启了相对定位</span><br><span class="line">             1.开启绝对定位元素会脱离文档流</span><br><span class="line">             2.开启绝对定位以后如果不设置偏移量，则元素的位置不会发生改变</span><br><span class="line">             3.绝对定位是相对于离他最近的开启了祖先元素进行定位，如果所有的祖先元素都没有开启定位，则会相对于浏览器窗口进行定位</span><br><span class="line">             一般情况开启了字元素的的绝对定位，都会开启父元素的相对定位</span><br><span class="line">             4.绝对定位会使元素提升一个层级</span><br><span class="line">             5.绝对定位会改变元素的性质</span><br><span class="line">                 内联元素会变成块元素</span><br><span class="line">                 块元素的宽度和高度都会默认都被内容撑开</span><br></pre></td></tr></table></figure>
-
-<p>接下来给出一个例子。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: absolute;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;我是盒子2&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>图解：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002855.png" alt></p>
-<p>可以看到，现在box2没有祖先元素，所以它相对于浏览器窗口进行定位，而且也不占据位置</p>
-<p>接下来我们在box2中嵌套一个box4，并且给他设置偏移量，把box2也开启定位，并设置坐外边距，让其距离左边远一点，看看情况会是怎么样的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;相对定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        &#x2F;* 清除浏览器自带的样式 *&#x2F;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 定义三个盒子分别的颜色，然后宽高都设置为200像素 *&#x2F;</span><br><span class="line">      .box1 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: aqua;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* 盒子开启绝对定位让其相对left偏移200像素 *&#x2F;</span><br><span class="line">      .box2 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        position: static;</span><br><span class="line">        &#x2F;* left: 200px; *&#x2F;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box3 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: red;</span><br><span class="line">        margin-left: 100px;</span><br><span class="line">      &#125;</span><br><span class="line">      .box4 &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        background-color: cornflowerblue;</span><br><span class="line">        position: relative;</span><br><span class="line">        left: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 定义三个盒子 --&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是盒子1&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box2&quot;&gt;</span><br><span class="line">      我是盒子2</span><br><span class="line">      &lt;div class&#x3D;&quot;box4&quot;&gt;我是盒子4&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box3&quot;&gt;我是盒子3&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>图解：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002913.png" alt></p>
-<p>可以很清晰的看到盒子是根据其开了定位的祖先元素进行偏移的，而不是针对浏览器进行偏移</p>
-<h2 id="4-fixed固定定位"><a href="#4-fixed固定定位" class="headerlink" title="4.fixed固定定位"></a>4.fixed固定定位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fixed  开启元素的固定地位（也是绝对定位的一种）</span><br><span class="line">    当position的属性是fixed的时候，就开启了固定定位</span><br><span class="line">    固定定位也是一种绝对定位，它的大部分特点都和绝对定位一样</span><br><span class="line">    不同的是：</span><br><span class="line">        固定定位永远都会相对于浏览器的窗口定位</span><br><span class="line">        固定定位会固定在浏览器的某个位置，不会随滚动条滚动</span><br></pre></td></tr></table></figure>
-
-<p>看一下例子：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002919.png" alt></p>
-<p>可以看到，和相对定位是没有什么差别的，但是现在我们把body的高度设置很长，右侧出现滚动条。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;固定定位&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        body&#123;</span><br><span class="line">            width: 1000px;</span><br><span class="line">            height: 5000px;</span><br><span class="line">        &#125;</span><br><span class="line">        .box1 &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: cyan;</span><br><span class="line">            position: fixed;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box1&quot;&gt;我是box1&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后这个时候运行，再拖动滚动条你就会发现无论你页面拖动到什么位置，box1一直都会出现在左上角。</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527002927.png" alt></p>
-<p>可以看到我滚动条拖到一半了，box1还是在左上角位置从没变过</p>
-<p>注意：在网页开发中，固定定位一般不常使用，只有在特定的用处才会使用，比如网页上常见的小广告。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CSS定位属性允许你为一个元素定位。它也可以将一个元素放在另一个元素后面，</span><br><span class="line">并指定一个元素的内容太大时，</span><br><span class="line">应该发生什么。元素可以使用的顶部，底部，左侧和右侧属性定位。然而，这些属性无法工作，</span><br><span class="line">除非事先设定position属性。他们也有不同的工作方式，这取决于定位方法.</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>编程</category>
-        <category>前端</category>
-        <category>CSS</category>
-      </categories>
-      <tags>
-        <tag>编程</tag>
-        <tag>前端</tag>
-        <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java——leetcode18. 四数之和</title>
     <url>/2020/04/23/Java%E2%80%94%E2%80%94leetcode18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -709,6 +709,55 @@
       <tags>
         <tag>编程</tag>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java中i++与++i的区别，如何分清i++与++i</title>
+    <url>/2020/04/22/Java%E4%B8%ADi-%E4%B8%8E-i%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E5%A6%82%E4%BD%95%E5%88%86%E6%B8%85i-%E4%B8%8E-i/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="书上对-i-和-i-的解释如下："><a href="#书上对-i-和-i-的解释如下：" class="headerlink" title="书上对 i ++ 和 ++ i 的解释如下："></a>书上对 i ++ 和 ++ i 的解释如下：</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 先赋值再运算；例如：a &#x3D; i ++; 先赋值 a &#x3D; i ，再运算 i &#x3D; i + 1 ；所以输出结果为 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 先运算再赋值；例如：a &#x3D; i ++; 先运算 i &#x3D; i + 1 ，再 赋值 a &#x3D; i ；所以输出结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
+
+<p>懂了吗？我想大部分人会跟我一样 一脸懵逼，明明都 + 1 了，咋上面输出结果是 3 下面就是 4 呢？哈哈~不要着急，接下来我将分享一下我对它们的理解，希望对你们有帮助。</p>
+<h2 id="认识“-”与“–”"><a href="#认识“-”与“–”" class="headerlink" title="认识“++”与“–”"></a>认识“++”与“–”</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">“++”与“--”分别称作自增操作符和自减操作符，是对变量进行加 1 和减 1 的操作符。</span><br></pre></td></tr></table></figure>
+
+<h2 id="认识-i-与-i"><a href="#认识-i-与-i" class="headerlink" title="认识 i + + 与 i - -"></a>认识 i + + 与 i - -</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">i++读为 i 加 加，i--读为 i 减减，这些操作符分别称为后置自增操作符和后置自减操作符。</span><br></pre></td></tr></table></figure>
+
+<h2 id="以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤"><a href="#以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤" class="headerlink" title="以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤"></a>以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身+1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i++</span><br></pre></td></tr></table></figure>
+
+<h2 id="图解如下："><a href="#图解如下：" class="headerlink" title="图解如下："></a>图解如下：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235459.png" alt></p>
+<p>接下来我会举例说明</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 3;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值3，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3&#x2F;</span><br><span class="line">i ++;&#x2F;&#x2F;i自身加1，此时i的值为4         </span><br><span class="line">System.out.print(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i++);         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值+1变为5；</span><br><span class="line">         i++被输出调用，故输出存储区的值4&#x2F;         </span><br><span class="line">int j &#x3D; i++;         </span><br><span class="line">System.out.print(j);         </span><br><span class="line"></span><br><span class="line">         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了5，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5，i自身的值+1变为6；</span><br><span class="line">         i++被赋值调用，故输出存储区的值5&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值6         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6&#x2F;         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值为6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6</span><br><span class="line">          *&#x2F;</span><br><span class="line">         &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>同理可得 i - - 的计算方法如下，</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身 -1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i - -</span><br></pre></td></tr></table></figure>
+
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值5，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5 &#x2F;         </span><br><span class="line">i--;&#x2F;&#x2F;i自身减1，此时i的值为4         </span><br><span class="line">System.out.println(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i--);</span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被输出调用，故输出存储区的值4&#x2F;</span><br><span class="line">int j &#x3D; i--;</span><br><span class="line">System.out.print(j);&#x2F;&#x2F;3</span><br><span class="line">        &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被赋值调用，故输出存储区的值3&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值3         </span><br><span class="line">i &#x3D; i--;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;2         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了3，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3，i自身的值-1变为2；</span><br><span class="line">         i--被赋值调用，故输出存储区的值2</span><br><span class="line">          *&#x2F;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="认识-i-与-i-1"><a href="#认识-i-与-i-1" class="headerlink" title="认识+ + i 与 - - i"></a>认识+ + i 与 - - i</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">++i 读作加加i，--i读作减减i，分别称作前置自增操作符和前置自减操作符。</span><br></pre></td></tr></table></figure>
+
+<p>相对于i++来说，++i 的运算思路比较简单，只进行简单的+1操作即可。</p>
+<h2 id="举例说明："><a href="#举例说明：" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         i &#x3D; 1;</span><br><span class="line">         j &#x3D; i++ + ++i + ++i + i++;</span><br><span class="line">         &#x2F;&#x2F;  1      3     4      4</span><br><span class="line">         &#x2F;*</span><br><span class="line">         i++: 赋值调用，故打印值为1，临时存储区放的值为2</span><br><span class="line">         ++i：i的值+1，故值为3</span><br><span class="line">         ++i：i的值+1，故值为4</span><br><span class="line">         i++：赋值调用，故输出临时存储区的值4，i自身值+1为5</span><br><span class="line">          *&#x2F;</span><br><span class="line">         System.out.print(j);&#x2F;&#x2F;故输出结果为12</span><br><span class="line">         System.out.print(i);&#x2F;&#x2F;没有参与调用，故输出i自身的值5</span><br><span class="line">         System.out.print(++i);&#x2F;&#x2F;输出值为6。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">同理，--i ，也只是在自身基础上- 1即可。</span><br></pre></td></tr></table></figure>
+
+<h2 id="举例说明：-1"><a href="#举例说明：-1" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         --i;</span><br><span class="line">         System.out.println(i);&#x2F;&#x2F;i自身减1，值为4</span><br><span class="line">         System.out.print(--i);&#x2F;&#x2F;i自身减1，值为3</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用自增操作符和自减操作符可以使表达式更加简短，但也会使它们比较复杂且难以读懂。比如上述代码中出现的 j = i++ + ++i + ++i + i++; 只是为了测试大家是否更好的掌握了i ++与 ++ i，但在实际编程过程中应该避免。</p>
+<h1 id="我的总结如下："><a href="#我的总结如下：" class="headerlink" title="我的总结如下："></a>我的总结如下：</h1><p>i++、i– ：若参与调用，输出值不 +1，否则 +1<br>++i、–i ：无论是否参与调用，输出值均 +1<br>希望大家在读懂我上述描述的基础上，再合理运用这两句话 ~</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">附：文章开头那道题，现在用我的方法来做，是不是易如反掌啦~</span><br><span class="line">  </span><br><span class="line"> int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 例如：a &#x3D; i ++;因为赋值调用了，所以输出值为临时存储区先复制的i的值，即 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 例如：a &#x3D; i ++; 输出结果直接 +1 即结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
+
+<p>参考文章：</p>
+<p>原文链接：<a href="https://blog.csdn.net/MillionSong/article/details/104204481" target="_blank" rel="noopener">https://blog.csdn.net/MillionSong/article/details/104204481</a></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>编程</tag>
+        <tag>Java</tag>
+        <tag>编程基础</tag>
       </tags>
   </entry>
   <entry>
@@ -1086,55 +1135,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java中i++与++i的区别，如何分清i++与++i</title>
-    <url>/2020/04/22/Java%E4%B8%ADi-%E4%B8%8E-i%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E5%A6%82%E4%BD%95%E5%88%86%E6%B8%85i-%E4%B8%8E-i/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="书上对-i-和-i-的解释如下："><a href="#书上对-i-和-i-的解释如下：" class="headerlink" title="书上对 i ++ 和 ++ i 的解释如下："></a>书上对 i ++ 和 ++ i 的解释如下：</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 先赋值再运算；例如：a &#x3D; i ++; 先赋值 a &#x3D; i ，再运算 i &#x3D; i + 1 ；所以输出结果为 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 先运算再赋值；例如：a &#x3D; i ++; 先运算 i &#x3D; i + 1 ，再 赋值 a &#x3D; i ；所以输出结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
-
-<p>懂了吗？我想大部分人会跟我一样 一脸懵逼，明明都 + 1 了，咋上面输出结果是 3 下面就是 4 呢？哈哈~不要着急，接下来我将分享一下我对它们的理解，希望对你们有帮助。</p>
-<h2 id="认识“-”与“–”"><a href="#认识“-”与“–”" class="headerlink" title="认识“++”与“–”"></a>认识“++”与“–”</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">“++”与“--”分别称作自增操作符和自减操作符，是对变量进行加 1 和减 1 的操作符。</span><br></pre></td></tr></table></figure>
-
-<h2 id="认识-i-与-i"><a href="#认识-i-与-i" class="headerlink" title="认识 i + + 与 i - -"></a>认识 i + + 与 i - -</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">i++读为 i 加 加，i--读为 i 减减，这些操作符分别称为后置自增操作符和后置自减操作符。</span><br></pre></td></tr></table></figure>
-
-<h2 id="以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤"><a href="#以-i-为例，先来介绍一下i-，-i-的计算方法分为以下5个步骤" class="headerlink" title="以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤"></a>以 i++为例，先来介绍一下i++， i++ 的计算方法分为以下5个步骤</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身+1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i++</span><br></pre></td></tr></table></figure>
-
-<h2 id="图解如下："><a href="#图解如下：" class="headerlink" title="图解如下："></a>图解如下：</h2><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235459.png" alt></p>
-<p>接下来我会举例说明</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 3;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值3，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3&#x2F;</span><br><span class="line">i ++;&#x2F;&#x2F;i自身加1，此时i的值为4         </span><br><span class="line">System.out.print(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i++);         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值+1变为5；</span><br><span class="line">         i++被输出调用，故输出存储区的值4&#x2F;         </span><br><span class="line">int j &#x3D; i++;         </span><br><span class="line">System.out.print(j);         </span><br><span class="line"></span><br><span class="line">         </span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了5，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5，i自身的值+1变为6；</span><br><span class="line">         i++被赋值调用，故输出存储区的值5&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值6         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6&#x2F;         </span><br><span class="line">i &#x3D; i++;         </span><br><span class="line">System.out.print(i);         &#x2F;</span><br><span class="line">         上一行代码中i的值为6，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为6，i自身的值+1变为7；</span><br><span class="line">         i++被赋值调用，故输出存储区的值6</span><br><span class="line">          *&#x2F;</span><br><span class="line">         &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>同理可得 i - - 的计算方法如下，</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">先开批一个临时存储区</span><br><span class="line">将 i 的值复制到存储区</span><br><span class="line">i 自身 -1</span><br><span class="line">临时存储区的值等待被调用（参与运算、输出、赋值）</span><br><span class="line">若 i 被调用则输出值为 i ，否则输出 i - -</span><br></pre></td></tr></table></figure>
-
-<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         &#x2F;*</span><br><span class="line">         创建一个变量i，里面放i的初始值5，先开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为5 &#x2F;         </span><br><span class="line">i--;&#x2F;&#x2F;i自身减1，此时i的值为4         </span><br><span class="line">System.out.println(i);&#x2F;&#x2F;打印输出i，因为i没有被调用，故输出i自身的值4         System.out.print(i--);</span><br><span class="line">         &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被输出调用，故输出存储区的值4&#x2F;</span><br><span class="line">int j &#x3D; i--;</span><br><span class="line">System.out.print(j);&#x2F;&#x2F;3</span><br><span class="line">        &#x2F;上一行代码中i的值已经变成了4，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为4，i自身的值-1变为3；</span><br><span class="line">         i--被赋值调用，故输出存储区的值3&#x2F;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;没被调用，故打印值为i自身的值3         </span><br><span class="line">i &#x3D; i--;</span><br><span class="line">System.out.print(i);&#x2F;&#x2F;2         &#x2F;</span><br><span class="line">         上一行代码中i的值已经变成了3，再开辟一个临时存储区，</span><br><span class="line">         将i的值复制到存储区，此时存储区里面i的值为3，i自身的值-1变为2；</span><br><span class="line">         i--被赋值调用，故输出存储区的值2</span><br><span class="line">          *&#x2F;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="认识-i-与-i-1"><a href="#认识-i-与-i-1" class="headerlink" title="认识+ + i 与 - - i"></a>认识+ + i 与 - - i</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">++i 读作加加i，--i读作减减i，分别称作前置自增操作符和前置自减操作符。</span><br></pre></td></tr></table></figure>
-
-<p>相对于i++来说，++i 的运算思路比较简单，只进行简单的+1操作即可。</p>
-<h2 id="举例说明："><a href="#举例说明：" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         i &#x3D; 1;</span><br><span class="line">         j &#x3D; i++ + ++i + ++i + i++;</span><br><span class="line">         &#x2F;&#x2F;  1      3     4      4</span><br><span class="line">         &#x2F;*</span><br><span class="line">         i++: 赋值调用，故打印值为1，临时存储区放的值为2</span><br><span class="line">         ++i：i的值+1，故值为3</span><br><span class="line">         ++i：i的值+1，故值为4</span><br><span class="line">         i++：赋值调用，故输出临时存储区的值4，i自身值+1为5</span><br><span class="line">          *&#x2F;</span><br><span class="line">         System.out.print(j);&#x2F;&#x2F;故输出结果为12</span><br><span class="line">         System.out.print(i);&#x2F;&#x2F;没有参与调用，故输出i自身的值5</span><br><span class="line">         System.out.print(++i);&#x2F;&#x2F;输出值为6。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">同理，--i ，也只是在自身基础上- 1即可。</span><br></pre></td></tr></table></figure>
-
-<h2 id="举例说明：-1"><a href="#举例说明：-1" class="headerlink" title="举例说明："></a>举例说明：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class test01&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">         int i &#x3D; 5;</span><br><span class="line">         --i;</span><br><span class="line">         System.out.println(i);&#x2F;&#x2F;i自身减1，值为4</span><br><span class="line">         System.out.print(--i);&#x2F;&#x2F;i自身减1，值为3</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用自增操作符和自减操作符可以使表达式更加简短，但也会使它们比较复杂且难以读懂。比如上述代码中出现的 j = i++ + ++i + ++i + i++; 只是为了测试大家是否更好的掌握了i ++与 ++ i，但在实际编程过程中应该避免。</p>
-<h1 id="我的总结如下："><a href="#我的总结如下：" class="headerlink" title="我的总结如下："></a>我的总结如下：</h1><p>i++、i– ：若参与调用，输出值不 +1，否则 +1<br>++i、–i ：无论是否参与调用，输出值均 +1<br>希望大家在读懂我上述描述的基础上，再合理运用这两句话 ~</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">附：文章开头那道题，现在用我的方法来做，是不是易如反掌啦~</span><br><span class="line">  </span><br><span class="line"> int i &#x3D; 3，a &#x3D; 0 ；</span><br><span class="line"> i ++ : 例如：a &#x3D; i ++;因为赋值调用了，所以输出值为临时存储区先复制的i的值，即 a &#x3D;&#x3D;3;</span><br><span class="line"> ++ i : 例如：a &#x3D; i ++; 输出结果直接 +1 即结果为 a &#x3D;&#x3D;4;</span><br></pre></td></tr></table></figure>
-
-<p>参考文章：</p>
-<p>原文链接：<a href="https://blog.csdn.net/MillionSong/article/details/104204481" target="_blank" rel="noopener">https://blog.csdn.net/MillionSong/article/details/104204481</a></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>编程</tag>
-        <tag>Java</tag>
-        <tag>编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux下——磁盘管理与crontab调度</title>
     <url>/2020/04/27/Linux%E4%B8%8B%E2%80%94%E2%80%94%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E4%B8%8Ecrontab%E8%B0%83%E5%BA%A6/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -1353,81 +1353,118 @@
       </tags>
   </entry>
   <entry>
-    <title>netkeeper校园网破解</title>
-    <url>/2024/06/20/netkeeper%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%A0%B4%E8%A7%A3/</url>
+    <title>Python基础知识点梳理</title>
+    <url>/2020/04/22/Python%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
 
-<h1 id="netkeeper校园网破解教程"><a href="#netkeeper校园网破解教程" class="headerlink" title="netkeeper校园网破解教程"></a>netkeeper校园网破解教程</h1><p> 分享一个关于破解netkeeper限制的教程，现在很多高校都使用netkeeper这个电信的 客户端进行拨号上网，并且限制一个宽带账号只能一个电脑一个手机两台设备使用，这样的限制让很多有多台设备的人感到十分的困扰，所以今天带来的netkeeper的破解教程就是破解netkeeper限制设备使用的教程，让整个宿舍都能用一个宽带账号。不用后台再挂着软件了。</p>
-<p>适用的范围：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">netkeeper</span><br><span class="line">或者闪讯等软件进行拨号上网的校园网</span><br></pre></td></tr></table></figure>
+<h2 id="python基础知识点梳理"><a href="#python基础知识点梳理" class="headerlink" title="python基础知识点梳理"></a>python基础知识点梳理</h2><p>摘要：<br>本文主要介绍一些平时经常会用到的python基础知识点，用于加深印象，也算是对于学习这门语言的一个总结与回顾。python的详细语法介绍可以查看官方编程手册，也有一些在线网站对python语法进行了比较全面的介绍。</p>
+<h3 id="python语言介绍"><a href="#python语言介绍" class="headerlink" title="python语言介绍"></a>python语言介绍</h3><p>python是一门解释型语言，python的设计目标：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一门简单直观的语言并与主要竞争者一样强大</span><br><span class="line">开源，以便任何人都可以为它做贡献</span><br><span class="line">代码像纯英语那样容易理解</span><br><span class="line">适用于短期开发的日常任务</span><br></pre></td></tr></table></figure>
 
-<p> <strong>设备：</strong>裴讯K2(可自行选择，方法大同小异)</p>
-<p> <strong>注意：</strong>k2软件版本v22.6.5.29.xxx之后不可降级，会提示telnet连接失败，有编译器的话略过，没有的话避个雷。</p>
-<h2 id="教程总览"><a href="#教程总览" class="headerlink" title="教程总览"></a>教程总览</h2><ol>
-<li>刷入breed</li>
-<li>输入潘多拉固件</li>
-<li>安装脚本，拦截</li>
-<li>拨号上网</li>
-<li>配置路由器</li>
-</ol>
-<h3 id="刷入breed"><a href="#刷入breed" class="headerlink" title="刷入breed"></a>刷入breed</h3><p><strong>链接:</strong> <a href="https://wws.lanzous.com/iVNhbgfjcxa" target="_blank" rel="noopener">https://wws.lanzous.com/iVNhbgfjcxa</a><br><strong>密码:</strong>1234</p>
-<p>首先要给路由器刷入breed，相当于手机的rec，可以刷固件，还有其他功能，自行研究，不多叙述</p>
-<p>这里用的是斐讯breed专用工具，比较简单</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416160633.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416160633.png" alt="img"></a></p>
-<p>输入路由器的登入地址，还有密码开始刷机</p>
-<p>k2的路由器登入地址默认的是192.168.1.1，默认密码是admin</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416160829.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416160829.png" alt="img"></a></p>
-<p>软件可能会报毒，需要临时关闭杀毒软件</p>
-<p>等待成功</p>
-<p>刷入breed完成</p>
-<h3 id="准备刷入潘多拉固件"><a href="#准备刷入潘多拉固件" class="headerlink" title="准备刷入潘多拉固件"></a>准备刷入潘多拉固件</h3><p>假如你买的是刷机版的k2的话，卖家一般都是刷入了breed，所以一般都是从这里开始就行了</p>
-<h4 id="潘多拉下载"><a href="#潘多拉下载" class="headerlink" title="潘多拉下载"></a>潘多拉下载</h4><p>进入潘多拉下载站</p>
-<p><a href="http://pandorabox.tuuz.cc:8000/" target="_blank" rel="noopener">Pandorabox</a></p>
-<p>进入pandorabox/19.01/targets/ralink/目录</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416161921.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416161921.png" alt="img"></a></p>
-<p>选择你路由器的处理器进入，不知道的自行百度</p>
-<p>k2的处理器是MT7620</p>
-<p>k2p的处理器是MT7621</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416162137.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162137.png" alt="img"></a></p>
-<p>直接搜索你路由器的型号，然后下载就行</p>
-<h4 id="进入breed"><a href="#进入breed" class="headerlink" title="进入breed"></a>进入breed</h4><p>网线连接lan口与电脑，拔掉路由器电源接头（插在路由器上的接头）<br>长按reset复位键三秒不松，插上接头，等三秒松开，浏览器网址栏输入192.168.1.1进入breed界面<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162253.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162253.png" alt="img"></a></p>
-<p>选择固件更新，如图<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162339.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162339.png" alt="img"></a></p>
-<p>选择刚刚下载好的k2固件然后点击上传就行</p>
-<p>开始刷机，等待进度条完成100%，路由器会重启，直到完成，浏览器输入192.168.1.1打开如下图界面成功<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162457.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162457.png" alt="img"></a></p>
-<h4 id="安装脚本拦截"><a href="#安装脚本拦截" class="headerlink" title="安装脚本拦截"></a>安装脚本拦截</h4><p>此时已经完成了大半，开始针对netkeeper进行破译</p>
-<p>在固件文件夹中，打开如下软件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">链接: https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1Z2t3ckebzfnrxpB6fz4g6Q 提取码: c6fq</span><br></pre></td></tr></table></figure>
+<p>设计哲学是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.优雅</span><br><span class="line">2.明确</span><br><span class="line">3.简单</span><br></pre></td></tr></table></figure>
 
-<p>解压缩打开setup_telnet.exe</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163035.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163035.png" alt="img"></a></p>
-<p>然后我们需要下载和固件兼容的PPPoE文件</p>
-<p>还是刚刚下载固件的网址</p>
-<p>进入/pandorabox/19.01/packages/目录</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416161354.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416161354.png" alt="img"></a></p>
-<p>具体选择哪个要看你路由器的处理器是什么，自行百度</p>
-<p>k2的cpu是7620使用mipsel_24kec_dsp/</p>
-<p>k2p的cpu是7621使用mipsel_1004kc_dsp/</p>
-<p>这里我进入mipsel_24kec_dsp/packages直接搜pppoe</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163550.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163550.png" alt="img"></a></p>
-<p>下载好了按照脚本提示改一下名字把后缀删除放在脚本文件夹目录</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163719.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163719.png" alt="img"></a></p>
-<p>然后按照提示输入路由器的管理ip和管理密码就行，假如是默认的192.168.1.1和admin就直接回车就行</p>
-<p>完成以后等待路由器重启完成</p>
-<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416164141.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416164141.png" alt="img"></a></p>
-<p>就可以看到路由器的wan口变成了pop拨号上网。</p>
-<h3 id="拨号上网"><a href="#拨号上网" class="headerlink" title="拨号上网"></a>拨号上网</h3><p>打开netkeeper拨号即可，提示错误691成功，等待15s左右，路由器即有网。</p>
-<h3 id="路由器配置"><a href="#路由器配置" class="headerlink" title="路由器配置"></a>路由器配置</h3><p>要说的是，在潘多拉固件中该怎么修改管理密码和wifi密码呢</p>
-<p>浏览器网址栏192.168.1.1进入管理界面<br>在系统&gt;&gt;&gt;管理 中可以修改管理员密码<br>在网络&gt;&gt;&gt;无线 中可以修改wifi名称和密码</p>
-<p>在网络栏接口中高级设置中勾选开机自动运行<br>路由器就可以开机自动拨号了</p>
-<p>基本设置中也能看到被加密的校园网帐号</p>
+<h3 id="python基础语法"><a href="#python基础语法" class="headerlink" title="python基础语法"></a>python基础语法</h3><h4 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">第一个字符必须是字母表中字母或下划线 。</span><br><span class="line">标识符的其他的部分由字母、数字和下划线组成。</span><br><span class="line">标识符对大小写敏感。</span><br></pre></td></tr></table></figure>
+
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235809.png" alt></p>
+<h4 id="行与缩进"><a href="#行与缩进" class="headerlink" title="行与缩进"></a>行与缩进</h4><p>python与其他语言明显的区别是没有大括号，而是用缩进表示代码块。<br>另外，每行语句不需要以分号结束。</p>
+<h4 id="多行语句"><a href="#多行语句" class="headerlink" title="多行语句"></a>多行语句</h4><p>如果语句很长，可以使用反斜杠()来实现多行语句<br>说明：在 [], {}, 或 () 中的多行语句不需要使用反斜杠</p>
+<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235816.png" alt></p>
+<h3 id="判断语法"><a href="#判断语法" class="headerlink" title="判断语法"></a>判断语法</h3><h4 id="if-else语句"><a href="#if-else语句" class="headerlink" title="if else语句"></a>if else语句</h4><p>if 和 else用于对条件进行判断并进行处理，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if 要判断的条件:</span><br><span class="line">     条件成立时要做的事情</span><br><span class="line">     …</span><br><span class="line"> else:</span><br><span class="line">     条件不成立时要做的事情</span><br></pre></td></tr></table></figure>
+
+<h4 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h4><p>对于同时判断多个条件的情况可以用逻辑运算符，有如下三种：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235824.png" alt></p>
+<h4 id="elif-语句"><a href="#elif-语句" class="headerlink" title="elif 语句"></a>elif 语句</h4><p>elif语句用于有多个条件进行判断的场景，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if 条件1:</span><br><span class="line">    条件1满足时执行的代码</span><br><span class="line">elif 条件2:</span><br><span class="line">    条件2满足时执行的代码</span><br><span class="line">elif 条件3:</span><br><span class="line">    条件3满足时执行的代码</span><br><span class="line">else:</span><br><span class="line">    以上都不满足时执行的代码</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环语法"><a href="#循环语法" class="headerlink" title="循环语法"></a>循环语法</h3><h4 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h4><p>循环的作用就是让指定的代码重复执行<br>while循环是python中常见的循环，用于让执行的代码按照指定次数重复执行，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">初始条件设置，通常是计数器</span><br><span class="line">while 条件(判断计数器是否达到目标次数):</span><br><span class="line">    条件满足时候执行的代码</span><br><span class="line">    …</span><br><span class="line">    处理条件(计数器 + 1)</span><br></pre></td></tr></table></figure>
+
+<h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><p>for循环可以方便地遍历列表，元组，字典等数据类型，比如遍历一个列表的代码片段如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nameList &#x3D; [&quot;zhangsan&quot;, &quot;lisi&quot;, &quot;wangwu&quot;]</span><br><span class="line">for name in nameList:</span><br><span class="line">    print(name)</span><br></pre></td></tr></table></figure>
+
+<p>python中，for循环经常与range函数搭配使用，如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for i in range(1, 10):</span><br><span class="line">     print(i)</span><br></pre></td></tr></table></figure>
+
+<h3 id="python数据类型介绍"><a href="#python数据类型介绍" class="headerlink" title="python数据类型介绍"></a>python数据类型介绍</h3><h4 id="按照是否是数字可以按照如下表格分类："><a href="#按照是否是数字可以按照如下表格分类：" class="headerlink" title="按照是否是数字可以按照如下表格分类："></a>按照是否是数字可以按照如下表格分类：</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235829.png" alt></p>
+<p>说明：使用type函数可以返回变量的数据类型</p>
+<h4 id="按照是否可变可以分为："><a href="#按照是否可变可以分为：" class="headerlink" title="按照是否可变可以分为："></a>按照是否可变可以分为：</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235839.png" alt></p>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p>列表(list)是python中使用最频繁的数据类型，类似其他语言的数组<br>列表的符号是中括号[]，初始化一个列表语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">program_list &#x3D; [&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>列表中常见的几种操作如下：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235847.png" alt></p>
+<h4 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h4><p>元组(tuple)与列表类似，区别是元组的数据不能修改，元组的符号是小括号()，初始化一个元组的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">program_tuple &#x3D; (&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>元组主要用于函数的参数和返回值，格式化字符串，以及保护列表数据，由于元组的数据无法修改，因此提供的方法也比较少：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235855.png" alt></p>
+<p>元组在python中还可以用于交换两个变量的值:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a &#x3D; 10</span><br><span class="line">b &#x3D; 9</span><br><span class="line">a, b &#x3D; (b, a)</span><br></pre></td></tr></table></figure>
+
+<h4 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h4><p>字典(dict)通常用于描述一个物体的相关信息，使用键值对存储数据，键必须唯一，由于要使用hash算法，只有不可变类型才能用作键，字典的符号是大括号{}，初始化一个字典的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">human_dic &#x3D; &#123;&quot;name&quot;: &quot;zhangsan&quot;,</span><br><span class="line">             &quot;age&quot;: 26,</span><br><span class="line">             &quot;height&quot;: 1.75,</span><br><span class="line">             &quot;weight&quot;: 66&#125;</span><br></pre></td></tr></table></figure>
+
+<p>字典的常用操作函数如下：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235901.png" alt></p>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>字符串(str)的使用也非常广泛，可以使用引号(‘或”)来创建字符串，初始化一个字符串的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">testStr &#x3D; &quot;Wasting time is robbing oneself&quot;</span><br></pre></td></tr></table></figure>
+
+<p>python对于str提供了很多实用的方法，比较常用的有以下这些：</p>
+<p>对字符串进行判断的方法：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235908.png" alt></p>
+<p>对字符串进行修改(包括格式化，大小写转换)：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235915.png" alt></p>
+<p>字符串的查找和替换：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235922.png" alt></p>
+<p>字符串的拆分和连接：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235931.png" alt></p>
+<h5 id="公共方法"><a href="#公共方法" class="headerlink" title="公共方法"></a>公共方法</h5><h6 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h6><p>对于列表，元组，字典，字符串，python也提供了一些公共方法，如下：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235936.png" alt></p>
+<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><p>高级数据类型同样支持以下常见的运算符：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235943.png" alt></p>
+<h4 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h4><p>切片使用索引值可以方便地截取容器中一定范围的数据，适用于列表，元组，字符串。<br>切片语法如下：<br>item[N:M:S]<br>其中N表示要截取的开始位置，M表示结束位置，S表示step也就是步长，默认是1，截取的时候[N:M]是个半闭合区间，等效于数学上[N,M)取值范围，取N不取M, N和M都可以省略。python中，-1可以表示最后一个元素，字符串利用切片完成翻转的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; test_str &#x3D; &quot;Hello World&quot; </span><br><span class="line">&gt;&gt;&gt; print(test_str[::-1])</span><br></pre></td></tr></table></figure>
+
+<h3 id="python函数语法"><a href="#python函数语法" class="headerlink" title="python函数语法"></a>python函数语法</h3><p>在python中定义一个函数需要使用def关键字，相比其他语言，返回值不需要声明，定义一个函数的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_hello():</span><br><span class="line">     print(&quot;Hello, World!&quot;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="缺省参数"><a href="#缺省参数" class="headerlink" title="缺省参数"></a>缺省参数</h4><p>除了常见的必须参数外，python支持缺省参数，即为参数指定一个默认值，可以不传入这个参数，代码例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_human(name, age &#x3D; 23):</span><br><span class="line">     print(&quot;body info: name is %s, age is %s&quot; % (name, age) )</span><br><span class="line"> print_human(&quot;wangwu&quot;)</span><br><span class="line"> print_human(&quot;lisi&quot;, 25)</span><br><span class="line"> print_human(&quot;zhangsan&quot;, age &#x3D; 36)</span><br></pre></td></tr></table></figure>
+
+<h4 id="多值参数"><a href="#多值参数" class="headerlink" title="多值参数"></a>多值参数</h4><p>如果函数处理的参数的个数不确定，就可以用多值参数：</p>
+<p>参数名前面增加一个<em>可</em>以接收元组 </p>
+<p>参数名前面增加两个可以接收字典</p>
+<p>使用了这两个多值参数的代码例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_info(*args, **kwargs):</span><br><span class="line">     print(args)</span><br><span class="line">     print(kwargs)</span><br><span class="line"> program_list &#x3D; [&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;]</span><br><span class="line"> human_dic &#x3D; &#123;&quot;name&quot;: &quot;zhangsan&quot;, &quot;age&quot;: 26, &quot;height&quot;: 1.75, &quot;weight&quot;: 66&#125;</span><br><span class="line"> print_info(*program_list, **human_dic)</span><br></pre></td></tr></table></figure>
+
+<h6 id="返回多个值"><a href="#返回多个值" class="headerlink" title="返回多个值"></a>返回多个值</h6><p>python中可以利用元组返回多个值，多个返回值的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def measure_rect():</span><br><span class="line">     width &#x3D; 12</span><br><span class="line">     height &#x3D; 6</span><br><span class="line">     return width, height</span><br><span class="line"> w, h &#x3D; measure_rect()</span><br><span class="line"> print(&quot;width is %d, height is %d&quot; % (w, h))</span><br></pre></td></tr></table></figure>
+
+<h3 id="python常用函数"><a href="#python常用函数" class="headerlink" title="python常用函数"></a>python常用函数</h3><h4 id="print输出函数"><a href="#print输出函数" class="headerlink" title="print输出函数"></a>print输出函数</h4><p>python使用print函数将信息输出到控制台，输出数据时经常会用到格式化操作符，不同的格式化字符串含义如下表：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235949.png" alt></p>
+<p>语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(&quot;格式化字符串&quot; % 变量1)</span><br><span class="line">print(&quot;格式化字符串&quot; % (变量1, 变量2…))</span><br></pre></td></tr></table></figure>
+
+<p>print函数默认会自动在内容末尾增加换行，如果不希望换行，可以用end参数指定需要输出的内容<br>语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(&quot;Hello word!&quot;, end&#x3D;&quot;&quot;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="input输入函数"><a href="#input输入函数" class="headerlink" title="input输入函数"></a>input输入函数</h4><p>使用input函数从键盘等待用户的输入，默认都是一个字符串<br>语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">字符串变量 &#x3D; input(&quot;提示信息：&quot;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="类型转换函数"><a href="#类型转换函数" class="headerlink" title="类型转换函数"></a>类型转换函数</h4><p>常见的类型转换函数如下：</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527000004.png" alt></p>
+<p>参考文献:原文链接：<a href="https://blog.csdn.net/m0_46245938/article/details/104160793" target="_blank" rel="noopener">https://blog.csdn.net/m0_46245938/article/details/104160793</a></p>
 ]]></content>
       <categories>
-        <category>netkeeper</category>
-        <category>校园网</category>
+        <category>编程</category>
+        <category>python</category>
       </categories>
       <tags>
-        <tag>netkeeper</tag>
-        <tag>校园网</tag>
+        <tag>编程</tag>
+        <tag>编程基础</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -1714,118 +1751,81 @@
       </tags>
   </entry>
   <entry>
-    <title>Python基础知识点梳理</title>
-    <url>/2020/04/22/Python%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/</url>
+    <title>netkeeper校园网破解</title>
+    <url>/2024/06/20/netkeeper%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%A0%B4%E8%A7%A3/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
 
-<h2 id="python基础知识点梳理"><a href="#python基础知识点梳理" class="headerlink" title="python基础知识点梳理"></a>python基础知识点梳理</h2><p>摘要：<br>本文主要介绍一些平时经常会用到的python基础知识点，用于加深印象，也算是对于学习这门语言的一个总结与回顾。python的详细语法介绍可以查看官方编程手册，也有一些在线网站对python语法进行了比较全面的介绍。</p>
-<h3 id="python语言介绍"><a href="#python语言介绍" class="headerlink" title="python语言介绍"></a>python语言介绍</h3><p>python是一门解释型语言，python的设计目标：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一门简单直观的语言并与主要竞争者一样强大</span><br><span class="line">开源，以便任何人都可以为它做贡献</span><br><span class="line">代码像纯英语那样容易理解</span><br><span class="line">适用于短期开发的日常任务</span><br></pre></td></tr></table></figure>
+<h1 id="netkeeper校园网破解教程"><a href="#netkeeper校园网破解教程" class="headerlink" title="netkeeper校园网破解教程"></a>netkeeper校园网破解教程</h1><p> 分享一个关于破解netkeeper限制的教程，现在很多高校都使用netkeeper这个电信的 客户端进行拨号上网，并且限制一个宽带账号只能一个电脑一个手机两台设备使用，这样的限制让很多有多台设备的人感到十分的困扰，所以今天带来的netkeeper的破解教程就是破解netkeeper限制设备使用的教程，让整个宿舍都能用一个宽带账号。不用后台再挂着软件了。</p>
+<p>适用的范围：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">netkeeper</span><br><span class="line">或者闪讯等软件进行拨号上网的校园网</span><br></pre></td></tr></table></figure>
 
-<p>设计哲学是：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.优雅</span><br><span class="line">2.明确</span><br><span class="line">3.简单</span><br></pre></td></tr></table></figure>
+<p> <strong>设备：</strong>裴讯K2(可自行选择，方法大同小异)</p>
+<p> <strong>注意：</strong>k2软件版本v22.6.5.29.xxx之后不可降级，会提示telnet连接失败，有编译器的话略过，没有的话避个雷。</p>
+<h2 id="教程总览"><a href="#教程总览" class="headerlink" title="教程总览"></a>教程总览</h2><ol>
+<li>刷入breed</li>
+<li>输入潘多拉固件</li>
+<li>安装脚本，拦截</li>
+<li>拨号上网</li>
+<li>配置路由器</li>
+</ol>
+<h3 id="刷入breed"><a href="#刷入breed" class="headerlink" title="刷入breed"></a>刷入breed</h3><p><strong>链接:</strong> <a href="https://wws.lanzous.com/iVNhbgfjcxa" target="_blank" rel="noopener">https://wws.lanzous.com/iVNhbgfjcxa</a><br><strong>密码:</strong>1234</p>
+<p>首先要给路由器刷入breed，相当于手机的rec，可以刷固件，还有其他功能，自行研究，不多叙述</p>
+<p>这里用的是斐讯breed专用工具，比较简单</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416160633.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416160633.png" alt="img"></a></p>
+<p>输入路由器的登入地址，还有密码开始刷机</p>
+<p>k2的路由器登入地址默认的是192.168.1.1，默认密码是admin</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416160829.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416160829.png" alt="img"></a></p>
+<p>软件可能会报毒，需要临时关闭杀毒软件</p>
+<p>等待成功</p>
+<p>刷入breed完成</p>
+<h3 id="准备刷入潘多拉固件"><a href="#准备刷入潘多拉固件" class="headerlink" title="准备刷入潘多拉固件"></a>准备刷入潘多拉固件</h3><p>假如你买的是刷机版的k2的话，卖家一般都是刷入了breed，所以一般都是从这里开始就行了</p>
+<h4 id="潘多拉下载"><a href="#潘多拉下载" class="headerlink" title="潘多拉下载"></a>潘多拉下载</h4><p>进入潘多拉下载站</p>
+<p><a href="http://pandorabox.tuuz.cc:8000/" target="_blank" rel="noopener">Pandorabox</a></p>
+<p>进入pandorabox/19.01/targets/ralink/目录</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416161921.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416161921.png" alt="img"></a></p>
+<p>选择你路由器的处理器进入，不知道的自行百度</p>
+<p>k2的处理器是MT7620</p>
+<p>k2p的处理器是MT7621</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416162137.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162137.png" alt="img"></a></p>
+<p>直接搜索你路由器的型号，然后下载就行</p>
+<h4 id="进入breed"><a href="#进入breed" class="headerlink" title="进入breed"></a>进入breed</h4><p>网线连接lan口与电脑，拔掉路由器电源接头（插在路由器上的接头）<br>长按reset复位键三秒不松，插上接头，等三秒松开，浏览器网址栏输入192.168.1.1进入breed界面<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162253.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162253.png" alt="img"></a></p>
+<p>选择固件更新，如图<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162339.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162339.png" alt="img"></a></p>
+<p>选择刚刚下载好的k2固件然后点击上传就行</p>
+<p>开始刷机，等待进度条完成100%，路由器会重启，直到完成，浏览器输入192.168.1.1打开如下图界面成功<br><a href="https://gitee.com/laosuye/TC/raw/master/20210416162457.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416162457.png" alt="img"></a></p>
+<h4 id="安装脚本拦截"><a href="#安装脚本拦截" class="headerlink" title="安装脚本拦截"></a>安装脚本拦截</h4><p>此时已经完成了大半，开始针对netkeeper进行破译</p>
+<p>在固件文件夹中，打开如下软件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">链接: https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1Z2t3ckebzfnrxpB6fz4g6Q 提取码: c6fq</span><br></pre></td></tr></table></figure>
 
-<h3 id="python基础语法"><a href="#python基础语法" class="headerlink" title="python基础语法"></a>python基础语法</h3><h4 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">第一个字符必须是字母表中字母或下划线 。</span><br><span class="line">标识符的其他的部分由字母、数字和下划线组成。</span><br><span class="line">标识符对大小写敏感。</span><br></pre></td></tr></table></figure>
-
-<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235809.png" alt></p>
-<h4 id="行与缩进"><a href="#行与缩进" class="headerlink" title="行与缩进"></a>行与缩进</h4><p>python与其他语言明显的区别是没有大括号，而是用缩进表示代码块。<br>另外，每行语句不需要以分号结束。</p>
-<h4 id="多行语句"><a href="#多行语句" class="headerlink" title="多行语句"></a>多行语句</h4><p>如果语句很长，可以使用反斜杠()来实现多行语句<br>说明：在 [], {}, 或 () 中的多行语句不需要使用反斜杠</p>
-<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235816.png" alt></p>
-<h3 id="判断语法"><a href="#判断语法" class="headerlink" title="判断语法"></a>判断语法</h3><h4 id="if-else语句"><a href="#if-else语句" class="headerlink" title="if else语句"></a>if else语句</h4><p>if 和 else用于对条件进行判断并进行处理，语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if 要判断的条件:</span><br><span class="line">     条件成立时要做的事情</span><br><span class="line">     …</span><br><span class="line"> else:</span><br><span class="line">     条件不成立时要做的事情</span><br></pre></td></tr></table></figure>
-
-<h4 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h4><p>对于同时判断多个条件的情况可以用逻辑运算符，有如下三种：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235824.png" alt></p>
-<h4 id="elif-语句"><a href="#elif-语句" class="headerlink" title="elif 语句"></a>elif 语句</h4><p>elif语句用于有多个条件进行判断的场景，语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if 条件1:</span><br><span class="line">    条件1满足时执行的代码</span><br><span class="line">elif 条件2:</span><br><span class="line">    条件2满足时执行的代码</span><br><span class="line">elif 条件3:</span><br><span class="line">    条件3满足时执行的代码</span><br><span class="line">else:</span><br><span class="line">    以上都不满足时执行的代码</span><br></pre></td></tr></table></figure>
-
-<h3 id="循环语法"><a href="#循环语法" class="headerlink" title="循环语法"></a>循环语法</h3><h4 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h4><p>循环的作用就是让指定的代码重复执行<br>while循环是python中常见的循环，用于让执行的代码按照指定次数重复执行，语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">初始条件设置，通常是计数器</span><br><span class="line">while 条件(判断计数器是否达到目标次数):</span><br><span class="line">    条件满足时候执行的代码</span><br><span class="line">    …</span><br><span class="line">    处理条件(计数器 + 1)</span><br></pre></td></tr></table></figure>
-
-<h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><p>for循环可以方便地遍历列表，元组，字典等数据类型，比如遍历一个列表的代码片段如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nameList &#x3D; [&quot;zhangsan&quot;, &quot;lisi&quot;, &quot;wangwu&quot;]</span><br><span class="line">for name in nameList:</span><br><span class="line">    print(name)</span><br></pre></td></tr></table></figure>
-
-<p>python中，for循环经常与range函数搭配使用，如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for i in range(1, 10):</span><br><span class="line">     print(i)</span><br></pre></td></tr></table></figure>
-
-<h3 id="python数据类型介绍"><a href="#python数据类型介绍" class="headerlink" title="python数据类型介绍"></a>python数据类型介绍</h3><h4 id="按照是否是数字可以按照如下表格分类："><a href="#按照是否是数字可以按照如下表格分类：" class="headerlink" title="按照是否是数字可以按照如下表格分类："></a>按照是否是数字可以按照如下表格分类：</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235829.png" alt></p>
-<p>说明：使用type函数可以返回变量的数据类型</p>
-<h4 id="按照是否可变可以分为："><a href="#按照是否可变可以分为：" class="headerlink" title="按照是否可变可以分为："></a>按照是否可变可以分为：</h4><p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235839.png" alt></p>
-<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p>列表(list)是python中使用最频繁的数据类型，类似其他语言的数组<br>列表的符号是中括号[]，初始化一个列表语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">program_list &#x3D; [&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;]</span><br></pre></td></tr></table></figure>
-
-<p>列表中常见的几种操作如下：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235847.png" alt></p>
-<h4 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h4><p>元组(tuple)与列表类似，区别是元组的数据不能修改，元组的符号是小括号()，初始化一个元组的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">program_tuple &#x3D; (&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>元组主要用于函数的参数和返回值，格式化字符串，以及保护列表数据，由于元组的数据无法修改，因此提供的方法也比较少：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235855.png" alt></p>
-<p>元组在python中还可以用于交换两个变量的值:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a &#x3D; 10</span><br><span class="line">b &#x3D; 9</span><br><span class="line">a, b &#x3D; (b, a)</span><br></pre></td></tr></table></figure>
-
-<h4 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h4><p>字典(dict)通常用于描述一个物体的相关信息，使用键值对存储数据，键必须唯一，由于要使用hash算法，只有不可变类型才能用作键，字典的符号是大括号{}，初始化一个字典的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">human_dic &#x3D; &#123;&quot;name&quot;: &quot;zhangsan&quot;,</span><br><span class="line">             &quot;age&quot;: 26,</span><br><span class="line">             &quot;height&quot;: 1.75,</span><br><span class="line">             &quot;weight&quot;: 66&#125;</span><br></pre></td></tr></table></figure>
-
-<p>字典的常用操作函数如下：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235901.png" alt></p>
-<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>字符串(str)的使用也非常广泛，可以使用引号(‘或”)来创建字符串，初始化一个字符串的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">testStr &#x3D; &quot;Wasting time is robbing oneself&quot;</span><br></pre></td></tr></table></figure>
-
-<p>python对于str提供了很多实用的方法，比较常用的有以下这些：</p>
-<p>对字符串进行判断的方法：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235908.png" alt></p>
-<p>对字符串进行修改(包括格式化，大小写转换)：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235915.png" alt></p>
-<p>字符串的查找和替换：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235922.png" alt></p>
-<p>字符串的拆分和连接：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235931.png" alt></p>
-<h5 id="公共方法"><a href="#公共方法" class="headerlink" title="公共方法"></a>公共方法</h5><h6 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h6><p>对于列表，元组，字典，字符串，python也提供了一些公共方法，如下：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235936.png" alt></p>
-<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><p>高级数据类型同样支持以下常见的运算符：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235943.png" alt></p>
-<h4 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h4><p>切片使用索引值可以方便地截取容器中一定范围的数据，适用于列表，元组，字符串。<br>切片语法如下：<br>item[N:M:S]<br>其中N表示要截取的开始位置，M表示结束位置，S表示step也就是步长，默认是1，截取的时候[N:M]是个半闭合区间，等效于数学上[N,M)取值范围，取N不取M, N和M都可以省略。python中，-1可以表示最后一个元素，字符串利用切片完成翻转的代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; test_str &#x3D; &quot;Hello World&quot; </span><br><span class="line">&gt;&gt;&gt; print(test_str[::-1])</span><br></pre></td></tr></table></figure>
-
-<h3 id="python函数语法"><a href="#python函数语法" class="headerlink" title="python函数语法"></a>python函数语法</h3><p>在python中定义一个函数需要使用def关键字，相比其他语言，返回值不需要声明，定义一个函数的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_hello():</span><br><span class="line">     print(&quot;Hello, World!&quot;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="缺省参数"><a href="#缺省参数" class="headerlink" title="缺省参数"></a>缺省参数</h4><p>除了常见的必须参数外，python支持缺省参数，即为参数指定一个默认值，可以不传入这个参数，代码例子如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_human(name, age &#x3D; 23):</span><br><span class="line">     print(&quot;body info: name is %s, age is %s&quot; % (name, age) )</span><br><span class="line"> print_human(&quot;wangwu&quot;)</span><br><span class="line"> print_human(&quot;lisi&quot;, 25)</span><br><span class="line"> print_human(&quot;zhangsan&quot;, age &#x3D; 36)</span><br></pre></td></tr></table></figure>
-
-<h4 id="多值参数"><a href="#多值参数" class="headerlink" title="多值参数"></a>多值参数</h4><p>如果函数处理的参数的个数不确定，就可以用多值参数：</p>
-<p>参数名前面增加一个<em>可</em>以接收元组 </p>
-<p>参数名前面增加两个可以接收字典</p>
-<p>使用了这两个多值参数的代码例子如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def print_info(*args, **kwargs):</span><br><span class="line">     print(args)</span><br><span class="line">     print(kwargs)</span><br><span class="line"> program_list &#x3D; [&quot;c++&quot;, &quot;java&quot;, &quot;python&quot;, &quot;php&quot;]</span><br><span class="line"> human_dic &#x3D; &#123;&quot;name&quot;: &quot;zhangsan&quot;, &quot;age&quot;: 26, &quot;height&quot;: 1.75, &quot;weight&quot;: 66&#125;</span><br><span class="line"> print_info(*program_list, **human_dic)</span><br></pre></td></tr></table></figure>
-
-<h6 id="返回多个值"><a href="#返回多个值" class="headerlink" title="返回多个值"></a>返回多个值</h6><p>python中可以利用元组返回多个值，多个返回值的代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def measure_rect():</span><br><span class="line">     width &#x3D; 12</span><br><span class="line">     height &#x3D; 6</span><br><span class="line">     return width, height</span><br><span class="line"> w, h &#x3D; measure_rect()</span><br><span class="line"> print(&quot;width is %d, height is %d&quot; % (w, h))</span><br></pre></td></tr></table></figure>
-
-<h3 id="python常用函数"><a href="#python常用函数" class="headerlink" title="python常用函数"></a>python常用函数</h3><h4 id="print输出函数"><a href="#print输出函数" class="headerlink" title="print输出函数"></a>print输出函数</h4><p>python使用print函数将信息输出到控制台，输出数据时经常会用到格式化操作符，不同的格式化字符串含义如下表：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200526235949.png" alt></p>
-<p>语法格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(&quot;格式化字符串&quot; % 变量1)</span><br><span class="line">print(&quot;格式化字符串&quot; % (变量1, 变量2…))</span><br></pre></td></tr></table></figure>
-
-<p>print函数默认会自动在内容末尾增加换行，如果不希望换行，可以用end参数指定需要输出的内容<br>语法格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(&quot;Hello word!&quot;, end&#x3D;&quot;&quot;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="input输入函数"><a href="#input输入函数" class="headerlink" title="input输入函数"></a>input输入函数</h4><p>使用input函数从键盘等待用户的输入，默认都是一个字符串<br>语法格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">字符串变量 &#x3D; input(&quot;提示信息：&quot;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="类型转换函数"><a href="#类型转换函数" class="headerlink" title="类型转换函数"></a>类型转换函数</h4><p>常见的类型转换函数如下：</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527000004.png" alt></p>
-<p>参考文献:原文链接：<a href="https://blog.csdn.net/m0_46245938/article/details/104160793" target="_blank" rel="noopener">https://blog.csdn.net/m0_46245938/article/details/104160793</a></p>
+<p>解压缩打开setup_telnet.exe</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163035.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163035.png" alt="img"></a></p>
+<p>然后我们需要下载和固件兼容的PPPoE文件</p>
+<p>还是刚刚下载固件的网址</p>
+<p>进入/pandorabox/19.01/packages/目录</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416161354.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416161354.png" alt="img"></a></p>
+<p>具体选择哪个要看你路由器的处理器是什么，自行百度</p>
+<p>k2的cpu是7620使用mipsel_24kec_dsp/</p>
+<p>k2p的cpu是7621使用mipsel_1004kc_dsp/</p>
+<p>这里我进入mipsel_24kec_dsp/packages直接搜pppoe</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163550.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163550.png" alt="img"></a></p>
+<p>下载好了按照脚本提示改一下名字把后缀删除放在脚本文件夹目录</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416163719.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416163719.png" alt="img"></a></p>
+<p>然后按照提示输入路由器的管理ip和管理密码就行，假如是默认的192.168.1.1和admin就直接回车就行</p>
+<p>完成以后等待路由器重启完成</p>
+<p><a href="https://gitee.com/laosuye/TC/raw/master/20210416164141.png" target="_blank" rel="noopener"><img src="https://gitee.com/laosuye/TC/raw/master/20210416164141.png" alt="img"></a></p>
+<p>就可以看到路由器的wan口变成了pop拨号上网。</p>
+<h3 id="拨号上网"><a href="#拨号上网" class="headerlink" title="拨号上网"></a>拨号上网</h3><p>打开netkeeper拨号即可，提示错误691成功，等待15s左右，路由器即有网。</p>
+<h3 id="路由器配置"><a href="#路由器配置" class="headerlink" title="路由器配置"></a>路由器配置</h3><p>要说的是，在潘多拉固件中该怎么修改管理密码和wifi密码呢</p>
+<p>浏览器网址栏192.168.1.1进入管理界面<br>在系统&gt;&gt;&gt;管理 中可以修改管理员密码<br>在网络&gt;&gt;&gt;无线 中可以修改wifi名称和密码</p>
+<p>在网络栏接口中高级设置中勾选开机自动运行<br>路由器就可以开机自动拨号了</p>
+<p>基本设置中也能看到被加密的校园网帐号</p>
 ]]></content>
       <categories>
-        <category>编程</category>
-        <category>python</category>
+        <category>netkeeper</category>
+        <category>校园网</category>
       </categories>
       <tags>
-        <tag>编程</tag>
-        <tag>编程基础</tag>
-        <tag>python</tag>
+        <tag>netkeeper</tag>
+        <tag>校园网</tag>
       </tags>
   </entry>
   <entry>
@@ -1929,36 +1929,6 @@
       </tags>
   </entry>
   <entry>
-    <title>摄影--城市</title>
-    <url>/2020/05/27/%E6%91%84%E5%BD%B1-%E5%9F%8E%E5%B8%82/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<p>今年由于疫情原因，再也没有了当初的年味，过年都是安安静静。</p>
-<p>​                        那些不经意想起的，总是记忆里最深刻的</p>
-<p>​                        带着面具时你说我虚伪，摘下面具你问我是谁。</p>
-<p>​                        我们都生活在阴沟里，但仍有人仰望星空。</p>
-<p>​                        人间不会有单纯的快乐，快乐总夹杂着烦恼和忧虑，人间也没有永远</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527011339.jpeg" alt></p>
-<p>​                人的一生注定会遇到两个人，一个惊艳了时光，一个温柔了岁月。</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527011442.jpeg" alt></p>
-<p>​                岁月悠长，山河无恙，爱你如昔，念你如昨</p>
-<p>​                翻过高山，正遇江海。行过雪原，恰逢花期。这大概就是行走的意义</p>
-<p>​                就这样与你告别，借万里青山，以之为隔，世世不见。</p>
-<p>​                遇见你是多小的概率我没兴趣知道，我只想把失去你的概率变为零</p>
-<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527011934.jpeg" alt></p>
-]]></content>
-      <categories>
-        <category>摄影</category>
-        <category>相片</category>
-        <category>城市</category>
-        <category>灯光</category>
-      </categories>
-      <tags>
-        <tag>摄影</tag>
-        <tag>城市</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>思科生成树(stp)配置</title>
     <url>/2020/04/24/%E6%80%9D%E7%A7%91%E7%94%9F%E6%88%90%E6%A0%91-stp-%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer">
@@ -2009,6 +1979,36 @@
       <tags>
         <tag>Linux</tag>
         <tag>Cisco</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>摄影--城市</title>
+    <url>/2020/05/27/%E6%91%84%E5%BD%B1-%E5%9F%8E%E5%B8%82/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<p>今年由于疫情原因，再也没有了当初的年味，过年都是安安静静。</p>
+<p>​                        那些不经意想起的，总是记忆里最深刻的</p>
+<p>​                        带着面具时你说我虚伪，摘下面具你问我是谁。</p>
+<p>​                        我们都生活在阴沟里，但仍有人仰望星空。</p>
+<p>​                        人间不会有单纯的快乐，快乐总夹杂着烦恼和忧虑，人间也没有永远</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527011339.jpeg" alt></p>
+<p>​                人的一生注定会遇到两个人，一个惊艳了时光，一个温柔了岁月。</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527011442.jpeg" alt></p>
+<p>​                岁月悠长，山河无恙，爱你如昔，念你如昨</p>
+<p>​                翻过高山，正遇江海。行过雪原，恰逢花期。这大概就是行走的意义</p>
+<p>​                就这样与你告别，借万里青山，以之为隔，世世不见。</p>
+<p>​                遇见你是多小的概率我没兴趣知道，我只想把失去你的概率变为零</p>
+<p><img src="https://gitee.com/laosuye/TC/raw/master/20200527011934.jpeg" alt></p>
+]]></content>
+      <categories>
+        <category>摄影</category>
+        <category>相片</category>
+        <category>城市</category>
+        <category>灯光</category>
+      </categories>
+      <tags>
+        <tag>摄影</tag>
+        <tag>城市</tag>
       </tags>
   </entry>
   <entry>
@@ -2120,6 +2120,455 @@
       </categories>
       <tags>
         <tag>个人</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JUC学习笔记（一）</title>
+    <url>/2024/09/20/JUC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+## 进程、线程、纤程（携程）
+### 什么是进程？
+**专业说法：**在操作系统中，进程是最基本的资源单位，操作系统通过进程来管理计算机操作资源，如CPU、内存、磁盘等。每一个进程都有一个唯一的进程标识符（PID），用于区分不同的进程。
+
+<p><strong>通俗说话：</strong>可以看作正在执行的程序，如QQ.exe等</p>
+<p>在Java中，当我们启动main函数时其实就是启动了一个JVM的进程，而mian函数所在的线程就是这个进程中的一个线程，也称主线程。</p>
+<p>如下图所示，在Windows中通过查看任务管理器的方式，我们就可以清楚看到Windows当前运行的进程（<code>&lt;font style=&quot;color:rgb(44, 62, 80);&quot;&gt;.exe&lt;/font&gt;</code>文件的运行）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726275943754-fe64ee1b-08cd-4cd0-9a9a-aa99554da168.png" alt></p>
+<h3 id="什么是线程？"><a href="#什么是线程？" class="headerlink" title="什么是线程？"></a>什么是线程？</h3><p>线程和进程相似，但是线程是比进程更小的执行单位，一个进程在其执行的过程中可以产生多个线程。与进程不同的是同类的多个线程共享进程的<strong>堆</strong>和<strong>方法区</strong>资源，但是每个线程有自己的<strong>程序计数器</strong>，<strong>虚拟机栈</strong>和<strong>本地方法栈，</strong>所以系统在产生了一个线程，或者是在多个线程之前做切换工作时，负担比进程小的多，也正因为如此，线程也被称为轻量级进程。</p>
+<p>同一时刻，一个CPU核心只能运行一个线程，也就是CPU内核和同时运行的线程数量是1:1的关系，也就是说8核CPU同时可以执行8个线程的代码。</p>
+<p>通俗来说：线程可以理解为一个饭店的饭桌，每个饭桌可以点不同的菜，但是都可以共享饭店服务员，厨师，饭店的多少决定客户的处理效率。‘</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726282418135-28827dde-6271-4006-9c80-ea687fbfe784.png" alt></p>
+<h3 id="什么是纤程（协程）？"><a href="#什么是纤程（协程）？" class="headerlink" title="什么是纤程（协程）？"></a>什么是纤程（协程）？</h3><p>底层角度：</p>
+<ul>
+<li>纤程可以在一个线程内创建多个纤程，这些纤程之间可以共享同一个线程的资源。</li>
+<li>纤程是在同一个进程内部运行的，不需要操作系统的介入，可以在用户空间内实现协作式多任务处理。因此纤程的创建和销毁开销很小，可以更高效的利用系统资源。</li>
+</ul>
+<p>通俗角度：通俗的说，如果线程是饭店的饭桌，携程就是座椅</p>
+<p>Java19才支持虚拟线程（纤程）或者使用第三方协程库quasar</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>先有进程，然后进程可以创建线程，线程是依附在进程里面的，线程里面可以包含多个协程</li>
+<li>进程之间不共享全局变量，线程之间共享全局变量，但是要注意资源竞争问题</li>
+</ul>
+<h2 id="并行、并发、串行"><a href="#并行、并发、串行" class="headerlink" title="并行、并发、串行"></a>并行、并发、串行</h2><p>我们举个例子，饭店的客户是线程，菜单是指令，厨师是CPU</p>
+<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><p><strong>通俗：</strong>并发是多个客户在<strong>同一时间段</strong>不约而同的来到饭店，都想快点上菜，却只有一个厨师，厨师想了个办法，给每一桌上一个菜，然后再轮流炒第二第三个菜。。。达到雨露均沾，不至于后面来的厨师闹情绪。</p>
+<p><strong>底层：</strong>在操作系统中，安装多个程序，并发的是<strong>同一时间段</strong>内，宏观是有多个程序同时运行，这在单系统的CPU系统中，每一刻只能有一道程序执行，即微观上这些程序是分时的<strong>交替运行</strong>，只不过给人的感觉是同时运行，那是因为交替运行的时间是非常短的。</p>
+<h3 id="并行"><a href="#并行" class="headerlink" title="并行"></a>并行</h3><p><strong>通俗：</strong>并行是多个客户同一时刻一起来到了饭店，没人愿意排队，但是饭店有多个厨师，每桌安排一个厨师，这就是并行</p>
+<p><strong>底层：</strong>在<strong>多核CPU</strong>系统中，这些<strong>同一时刻</strong>的程序可以分配到多个处理器上（CPU），实现多任务并行执行，即利用每个处理器来处理一个可以并发执行的程序，这样可以使多个程序同时执行，目前电脑上的多核CPU，便是多核处理器，核越多，并行处理的程序越多，能大大提高电脑运行的效率。</p>
+<h3 id="串行"><a href="#串行" class="headerlink" title="串行"></a>串行</h3><p><strong>通俗：</strong>串行就比较好理解了，简单来说就是根据先后顺序来，先到先得，厨师根据点单顺序来做菜</p>
+<p><strong>底层：</strong>如单核CPU，同一时刻只能运行一个程序，如果存在多个程序，需要根据先后顺序执行，例如，打开QQ后不能再同时打开微信，只能等qq执行完毕（关闭）后打开微信，线程的串行亦是如此，一次只能执行一个线程代码指令，其他线程需要排队等候。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>并发<strong>Concurrent：</strong>指应用能够交替执行不同的任务，比如单核CPU核心下执行多线程并非是同时执行多个任务如果你开两个线程执行，就是在你几乎不可察觉到的速度下不断切换这两个任务而已，已达到“同时执行”的效果，真实并不是，只是计算机执行的速度太快，我们无法察觉到。</p>
+<p>并行<strong>Parallel：</strong>指应用能够同时执行不同的任务，例如：吃饭的时候可以边吃饭边打电话，这两件事是可以同时执行的</p>
+<p>串行<strong>Serial：</strong>一个一个排队执行</p>
+<p>两者的区别是：一个交替执行，一个同时执行。</p>
+<h3 id="CPU的核心数和线程数的关系"><a href="#CPU的核心数和线程数的关系" class="headerlink" title="CPU的核心数和线程数的关系"></a>CPU的核心数和线程数的关系</h3><p>目前主流的CPU都是多核的，线程是CPU调度的最小单位，同一时刻，一个CPU只能运行一个线程，也就是CPU内核和同时运行的线程数是1：1的关系，也就是说8核CPU同时可以执行8个线程的代码，但是Inter引入超线程技术后，产生了逻辑处理器的概念，使核心数和线程数形成了1：2的关系，内核6而逻辑处理器数量是12。</p>
+<p>在Java中提供了<code>Runtime.getRuntime().availableProcessors()</code>,可以让我们获取当前CPU的核心，记住这个核心指的是逻辑处理数。</p>
+<p>获得CPU的核心数在并发编程中很重要，并发编程的性能优化往往和CPU的核心数密切相关。</p>
+<h3 id="上下文切换（Context-switch）"><a href="#上下文切换（Context-switch）" class="headerlink" title="上下文切换（Context switch）"></a>上下文切换（Context switch）</h3><p>由于现在大多数计算机都是多核CPU，多线程往往会比单线程更快，更能够提高并发，但提高并发并不意味着启动更多的线程来执行，更多的线程意味着线程创建销毁开销更大，上下文非常频繁，你的程序反而不能支持更高的TPS。</p>
+<p><strong>时间片</strong></p>
+<p>多任务系统往往需要同时执行多道作业，作业往往大于机器的CPU数，然后一颗CPU同时只能够执行一项任务，如何让用户感觉这些任务正在同时执行呢？操作系统的设计者巧妙地利用了时间片轮转的方式</p>
+<p>时间片是CPU分配给各个任务（线程）的时间！</p>
+<p>时间片是CPU分配给各个任务（线程）的时间！</p>
+<p><font style="background-color:#D9EAFC;">思考：单核CPU为何也支持多线程呢？</font></p>
+<p><font style="background-color:#D9EAFC;"></font></p>
+<blockquote>
+<p>单核 CPU 支持多线程是通过 时间片轮转（time slicing） 和 上下文切换（context switching） 来实现的，而不是同时执行多个线程。以下是单核 CPU 支持多线程的原因：</p>
+<ol>
+<li>时间片轮转<br>操作系统为每个线程分配了一个非常短的时间片（通常为几毫秒），在时间片内该线程独占 CPU 运行。时间片结束后，操作系统会暂停当前线程并切换到下一个线程执行。由于时间片非常短，在人类感知上会感觉多个线程同时运行，但实际上它们是分时运行的。</li>
+<li>上下文切换<br>当 CPU 切换到另一个线程时，它会保存当前线程的状态（比如寄存器的值、程序计数器等），然后加载另一个线程的状态。这个过程称为 上下文切换。虽然上下文切换会有一定的开销，但它使得单核 CPU 能够处理多个任务。</li>
+</ol>
+</blockquote>
+<p>线程上下文是指某一时间点CPU寄存器和程序计数器的内容，CPU通过时间片分配算法来循环执行任务（线程），因为时间片非常的短，所以CPU通过不停的切换线程执行。</p>
+<p>换言之，单CPU这么频繁，多核CPU可以一定程度上可以减少上下文切换。</p>
+<p><strong>总结</strong></p>
+<ul>
+<li>（单核CPU）同一时间，CPU只能处理一个线程，只有一个线程在执行。</li>
+<li>多线程同时执行：是CPU快速的在多个线程直线切换</li>
+<li>CPU调度线程的时间足够快，就造成了多个线程“同时”执行</li>
+<li>如果线程数非常多，CPU会在n个线程之间切换，消耗了大量的CPU资源</li>
+<li>每个线程的调度次数会降低，线程的执行效率降低</li>
+</ul>
+<p><strong>建议</strong></p>
+<p>合理的设置线程数目即可以最大化利用CPU，又可以减少线程切换的开销</p>
+<ul>
+<li>高并发，低耗时的情况，建议少线程</li>
+<li>低并发，高耗时的情况，建议多线程</li>
+<li>高并发高耗时，要分析任务类型，增加排队，加大线程数</li>
+</ul>
+<h2 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//通过继承Thread类</span></span><br><span class="line">        MyThread myThread = <span class="keyword">new</span> MyThread();</span><br><span class="line">        <span class="comment">//开启线程</span></span><br><span class="line">        myThread.start();</span><br><span class="line">        <span class="comment">//通过实现Runnable接口</span></span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> MyRunnable());</span><br><span class="line">        <span class="comment">//开启线程</span></span><br><span class="line">        thread.start();</span><br><span class="line">        System.out.println(<span class="string">"main方法"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="继承Thread"><a href="#继承Thread" class="headerlink" title="继承Thread"></a>继承Thread</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"继承Thread类方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现Runnable"><a href="#实现Runnable" class="headerlink" title="实现Runnable"></a>实现Runnable</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"实现Runnable接口方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="匿名内部类方式"><a href="#匿名内部类方式" class="headerlink" title="匿名内部类方式"></a>匿名内部类方式</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">createThread</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"Runnable 匿名内部类方式创建线程"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Lambda方式"><a href="#Lambda方式" class="headerlink" title="Lambda方式"></a>Lambda方式</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">createThread2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(() -&gt; System.out.println(<span class="string">"Runnable lambda表达式创建线程"</span>));</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="线程执行的原理"><a href="#线程执行的原理" class="headerlink" title="线程执行的原理"></a>线程执行的原理</h3><p>我们看到，⽆论以哪种⽅式创建，最终我们都会重写⼀个叫做 run 的⽅法，来处理我们的业务逻辑，然</p>
+<p>⽽我们都是调⽤⼀个start⽅法，来启动⼀个线程；</p>
+<p>那 start⽅法和run⽅法之间是⼀个什么关系呢？从后边的介绍我们将获得这样⼀个信息：run就是⼀个回调函</p>
+<p>数，和我们普通的函数没有区别。</p>
+<h4 id="线程的实现"><a href="#线程的实现" class="headerlink" title="线程的实现"></a>线程的实现</h4><p>⼀个 Java 线程的创建本质上就对应了⼀个本地线程（native thread）的创建，两者是⼀⼀对应的。</p>
+<p>关键问题是：本地线程执⾏的应该是本地代码，⽽ Java 线程提供的线程函数（run）是 Java ⽅法，编译出的</p>
+<p>是 Java 字节码，</p>
+<p>所以， Java 线程其实提供了⼀个统⼀的线程函数，该线程函数通过 Java 虚拟机调⽤ Java 线程⽅法 , 这是通</p>
+<p>过 Java 本地⽅法调⽤来实现的。</p>
+<p><strong>以下是Thread的start方法示例</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726814478434-703be79a-c5db-48d1-8fce-be112314bb32.png" alt></p>
+<p>可以看到它实际上调⽤了本地⽅法 <code>start0</code>, ⽽<code>start0</code>声明如下：</p>
+<p><code>private native void start0();</code></p>
+<p>也就是新创建的线程启动调⽤<code>native start0</code>⽅法，⽽这些<code>native</code>⽅法的注册是在<code>Thread</code>对象初始化的时候完成的，look：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726814632040-0ab55f30-f994-4cf6-a8dd-866740250c8f.png" alt></p>
+<p><code>Thread</code> 类有个 <code>registerNatives</code> 本地⽅法，该⽅法主要的作⽤就是注册⼀些本地⽅法供 Thread 类使⽤，如<code>start0()</code>，<code>stop0()</code> 等等，可以说，所有操作本地线程的本地⽅法都是由它注册的。</p>
+<p>这个⽅法放在⼀个 <code>static</code>语句块中，当该类被加载到 JVM 中的时候，它就会被调⽤，进⽽注册相应的本地⽅</p>
+<p>法。⽽本地⽅法 <code>registerNatives</code> 是定义在<code>Thread.c</code> ⽂件中的。<code>Thread.c</code> 是个很⼩的⽂件，它定义了各个操作系统平台都要⽤到的关于线程的公⽤数据和操作。</p>
+<h4 id="Java线程的调用关系"><a href="#Java线程的调用关系" class="headerlink" title="Java线程的调用关系"></a>Java线程的调用关系</h4><p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726814740885-2a47eae2-0a41-4a6d-9214-6d62a798bae9.png" alt></p>
+<p><strong>第一种：</strong> 继承<code>Thread</code>，并重写<code>Thread</code>的<code>run</code>⽅法，启动过程为：<code>thread.start()</code>–&gt;中间过程– &gt;<code>&lt;font style=&quot;background-color:#DF2A3F;&quot;&gt;thread.run()&lt;/font&gt;</code>。  </p>
+<p><strong>第二种：</strong> 实例化<code>Thread</code>，传递⼀个<code>Runable</code>任务，启动过程为：<code>thread.start()</code>–&gt;中间过程– &gt;<code>&lt;font style=&quot;background-color:#DF2A3F;&quot;&gt;thread.run()&lt;/font&gt;</code>–&gt;<code>runable.run()</code>。  </p>
+<p>注意两处标红的<code>thread.run()</code>，此<code>run</code>⾮彼<code>run</code>。第⼀处<code>run</code>⽅法已经被我们重写了，是真正的业务逻辑，而第⼆处是<code>Thread</code>类⾥⾯的默认逻辑，他会调⽤<code>runable.run()</code>⽅法，业务逻辑都在<code>runable.run()</code>⾥⾯。这样看来仅仅是<code>JDK</code>的内部逻辑处理有点差异，对我们来说没有任何影响，喜欢哪种⽅式就⽤哪种。</p>
+<h2 id="线程常用方法"><a href="#线程常用方法" class="headerlink" title="线程常用方法"></a>线程常用方法</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public void start()</td>
+<td>启动⼀个新线程；Java虚拟 机调⽤此线程的run⽅法</td>
+<td>start ⽅法只是让线程进⼊就 绪，⾥⾯代码不⼀定⽴刻 运 ⾏（CPU 的时间⽚还没分给 它）。每个线程对象的 start ⽅法只能调⽤⼀次，如果调⽤ 了多次会出现 IllegalThreadStateException</td>
+</tr>
+<tr>
+<td>public void run()</td>
+<td>线程启动后调⽤该⽅法</td>
+<td>如果在构造 Thread 对象时传 递了 Runnable 参数，则 线 程启动后会调⽤ Runnable 中 的 run ⽅法，否则默 认不执 ⾏任何操作。但可以创建 Thread 的⼦类对象， 来覆盖 默认⾏为</td>
+</tr>
+<tr>
+<td>public void setName(String name)</td>
+<td>给当前线程取名字</td>
+<td></td>
+</tr>
+<tr>
+<td>public void getName()</td>
+<td>获取当前线程的名字。线程存 在默认名称：⼦线程是 Thread-索引，主线程是 main</td>
+<td></td>
+</tr>
+<tr>
+<td>public static Thread currentThread()</td>
+<td>获取当前线程对象，代码在哪 个线程中执⾏</td>
+<td></td>
+</tr>
+<tr>
+<td>public static void sleep(long time)</td>
+<td>让当前线程休眠多少毫秒再继 续执⾏。Thread.sleep(0) : 让操作系统⽴刻重新进⾏⼀次 cpu竞争</td>
+<td></td>
+</tr>
+<tr>
+<td>public static native void yield()</td>
+<td>提示线程调度器尽⼒让出当前 线程对CPU的使⽤</td>
+<td>主要是为了测试和调试</td>
+</tr>
+<tr>
+<td>public final int getPriority()</td>
+<td>返回此线程的优先级</td>
+<td></td>
+</tr>
+<tr>
+<td>public final void setPriority(int priority)</td>
+<td>更改此线程的优先级，常⽤1 5 10</td>
+<td>java中规定线程优先级是1~10 的整数，较⼤的优先级 能提 ⾼该线程被 CPU 调度的机率</td>
+</tr>
+<tr>
+<td>public void interrupt()</td>
+<td>中断这个线程，异常处理机制</td>
+<td></td>
+</tr>
+<tr>
+<td>public static boolean interrupted()</td>
+<td>判断当前线程是否被打断，清 除打断标记</td>
+<td></td>
+</tr>
+<tr>
+<td>public boolean isInterrupted()</td>
+<td>判断当前线程是否被打断，不 清除打断标记</td>
+<td></td>
+</tr>
+<tr>
+<td>public final void join()</td>
+<td>等待这个线程结束</td>
+<td></td>
+</tr>
+<tr>
+<td>public final void join(long millis)</td>
+<td>等待这个线程死亡millis毫 秒，0意味着永远等待</td>
+<td></td>
+</tr>
+<tr>
+<td>public final native boolean isAlive()</td>
+<td>线程是否存活（还没有运⾏完 毕）</td>
+<td></td>
+</tr>
+<tr>
+<td>public final void setDaemon(boolean on)</td>
+<td>将此线程标记为守护线程或⽤ 户线程</td>
+<td></td>
+</tr>
+<tr>
+<td>public long getId()</td>
+<td>获取线程⻓整型 的 id</td>
+<td>id唯一</td>
+</tr>
+<tr>
+<td>public state getState()</td>
+<td>获取线程状态</td>
+<td>Java 中线程状态是⽤ 6 个 enum 表示，分别为： NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED</td>
+</tr>
+</tbody></table>
+<h3 id="start-与-run"><a href="#start-与-run" class="headerlink" title="start 与 run"></a>start 与 run</h3><p><strong>类型</strong></p>
+<p>run方法是同步方法，而start方法是异步方法</p>
+<p><strong>作用</strong></p>
+<p>run方法的作用是存放任务代码，而start方法是启动线程</p>
+<p><strong>线程数量方面</strong></p>
+<p>执行run方法它不会产生新线程，而执行start方法会创建新的线程</p>
+<p><strong>调用次数</strong></p>
+<p>run方法会被执行无数次，而start方法只能执行一次，原因就在于线程不能被重复被启动</p>
+<h3 id="线程的休眠"><a href="#线程的休眠" class="headerlink" title="线程的休眠"></a>线程的休眠</h3><p>使⽤线程的 sleep() 可以使线程休眠指定的毫秒数,在休眠结束的时候继续执⾏线程 示例：  、</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SleepThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            String[] names = <span class="keyword">new</span> String[]&#123;<span class="string">"zs"</span>, <span class="string">"ls"</span>, <span class="string">"ww"</span>, <span class="string">"z6"</span>&#125;;</span><br><span class="line">            <span class="keyword">int</span> index = (<span class="keyword">int</span>) (Math.random() * <span class="number">4</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">                System.out.println(i);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"倒计时："</span> + i);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"抽中学员为:"</span> + names[index]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p> 测试：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestSleep</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line"> <span class="keyword">new</span> SleepThread().start();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其它线程可以使⽤ <code>interrupt</code> ⽅法打断正在睡眠的线程，这时 <code>sleep</code> ⽅法会抛出 <code>InterruptedException</code> </li>
+<li>建议⽤ <code>TimeUnit</code> 的 <code>sleep</code> 代替 <code>Thread</code> 的 sleep 来获得更好的可读性 。其底层还是sleep⽅ 法</li>
+<li>在循环访问锁的过程中，可以加⼊<code>sleep</code>让线程阻塞时间，防⽌⼤量占⽤cpu资源。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">         Thread.sleep( <span class="number">10000</span> );</span><br><span class="line">             &#125; <span class="keyword">catch</span>( InterruptedException ex ) &#123;</span><br><span class="line">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <span class="comment">// continue and check the flag</span></span><br><span class="line">                                                                                                                                                                                                                                         &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="线程的让步"><a href="#线程的让步" class="headerlink" title="线程的让步"></a>线程的让步</h3><ul>
+<li><code>Thread.yield()</code> ⽅法作⽤是：暂停当前正在执⾏的线程对象（及放弃当前拥有的cup资 源）， 并执⾏其他线程。  </li>
+<li><code>yield()</code>做的是让当前运⾏线程回到可运⾏状态，以允许具有相同优先级的其他线程获得运⾏ 机 会。因此，使⽤<code>yield()</code> 的⽬的是让相同优先级的线程之间能适当的轮转执⾏。但是，实际 中⽆ 法保证 yield() 达到让步⽬的，因为让步的线程还有可能被线程调度程序再次选中。</li>
+</ul>
+<blockquote>
+<p> yield()⽅法并不能保证线程⼀定会让出CPU资源，它只是⼀个提示，告诉调度器当前线程愿意 让出CPU资源。具体是否让出CPU资源，还是由调度器决定。    </p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Task1</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">200</span>;i++)&#123;</span><br><span class="line">             System.out.println(<span class="string">"A:"</span>+i);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Task2</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">10</span>;i++)&#123;</span><br><span class="line">             System.out.println(<span class="string">"B:"</span>+i);</span><br><span class="line">             Thread.yield();</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">new</span> Thread(																																																																						<span class="keyword">new</span> Task2()).start();</span><br><span class="line">     <span class="keyword">new</span> Thread(<span class="keyword">new</span> Task1()).start();</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>sleep()</code>和<code>yield()</code>的区别 <code>sleep()</code>使当前线程进⼊停滞状态，所以执⾏<code>sleep()</code>的线程在指定的时间内肯定不会被执⾏；<code>yield()</code>只是使当前线程重新回到可执⾏状态，所以执⾏<code>yield()</code>的线程有可能在进⼊到可执⾏状态后 ⻢上⼜被执⾏。</p>
+<p><code>sleep</code> ⽅法使当前运⾏中的线程睡眼⼀段时间，进⼊不可运⾏状态，这段时间的⻓短是由程序设 定的，</p>
+<p><code>yield</code> ⽅法使当前线程让出 <code>CPU</code> 占有权，但让出的时间是不可设定的。实际上，<code>yield()</code>⽅ 法对应了如下</p>
+<p>操作：先检测当前是否有相同优先级的线程处于同可运⾏状态，如有，则把 CPU 的占有权交给此线程，</p>
+<p>否则，继续运⾏原来的线程。所以<code>yield()</code>⽅法称为“退让”，它把运⾏机会 让给了同等优先级的其他线程</p>
+<p>另外，<code>sleep</code> ⽅法允许较低优先级的线程获得运⾏机会，但 <code>yield()</code> ⽅法执⾏时，当前线程仍处在 可运</p>
+<p>⾏状态，所以，不可能让出较低优先级的线程些时获得 <code>CPU</code> 占有权。在⼀个运⾏系统中， 如果较⾼优</p>
+<p>先级的线程没有调⽤ <code>sleep</code> ⽅法，⼜没有受到 I<code>\O</code> 阻塞，那么，较低优先级线程只能 等待所有较⾼优先</p>
+<p>级的线程运⾏结束，才有机会运⾏。 </p>
+<h3 id="线程的优先级"><a href="#线程的优先级" class="headerlink" title="线程的优先级"></a>线程的优先级</h3><ul>
+<li>我们可以通过传递参数给线程的<code>setPriority()</code> 来设置线程的优先级别 调整线程优先级：Java线程有优先级</li>
+<li>优先级⾼的线程会获得较多的运⾏机会。优先级 : 只能反 映 线程 的 中或者是 紧急程度 , 不能决定 是否⼀定先执⾏  </li>
+</ul>
+<p>Java线程的优先级⽤整数表示，取值范围是1~10，Thread类有以下三个静态常量：  </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> MAX_PRIORITY</span><br><span class="line">线程可以具有的最⾼优先级，取值为<span class="number">10</span>。</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> MIN_PRIORITY</span><br><span class="line">线程可以具有的最低优先级，取值为<span class="number">1</span>。</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> NORM_PRIORITY</span><br><span class="line">分配给线程的默认优先级，取值为<span class="number">5</span>。</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 优先级</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PriorityThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">50</span>;i++) &#123;</span><br><span class="line">             System.out.println(Thread.currentThread().getName()+<span class="string">"============"</span>+i);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestPriority</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">         PriorityThread p1=<span class="keyword">new</span> PriorityThread();</span><br><span class="line">         p1.setName(<span class="string">"p1"</span>);</span><br><span class="line">         PriorityThread p2=<span class="keyword">new</span> PriorityThread();</span><br><span class="line">         p2.setName(<span class="string">"p2"</span>);</span><br><span class="line">         PriorityThread p3=<span class="keyword">new</span> PriorityThread();</span><br><span class="line">         p3.setName(<span class="string">"p3"</span>);</span><br><span class="line">         p1.setPriority(<span class="number">1</span>);</span><br><span class="line">         p3.setPriority(<span class="number">10</span>);</span><br><span class="line">         <span class="comment">//启动</span></span><br><span class="line">         p1.start();</span><br><span class="line">         p2.start();</span><br><span class="line">         p3.start();</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="线程打断"><a href="#线程打断" class="headerlink" title="线程打断"></a>线程打断</h3><ul>
+<li><code>public void interrupt()</code></li>
+</ul>
+<blockquote>
+<p> 实例⽅法interrupt()仅仅是设置线程的中断状态为true，不会停⽌线程。  </p>
+</blockquote>
+<ul>
+<li><code>public boolean isInterrupted()</code></li>
+</ul>
+<blockquote>
+<p> 通过检查中断标志位，判断当前线程是否被中断。  </p>
+</blockquote>
+<ul>
+<li><code>public static boolean interrupted()</code></li>
+</ul>
+<blockquote>
+<p> 静态⽅法，判断线程是否被中断，并清除当前中断状态 也就是说这个⽅法做了两件事：</p>
+<p>1、返回当前线程的中断状态 </p>
+<p>2、将当前线程的中断状态设为false  </p>
+</blockquote>
+<h4 id="当前线程的中断标识为true，就⽴刻停⽌了吗？"><a href="#当前线程的中断标识为true，就⽴刻停⽌了吗？" class="headerlink" title="当前线程的中断标识为true，就⽴刻停⽌了吗？"></a>当前线程的中断标识为true，就⽴刻停⽌了吗？</h4><p> 先说结论：中断只是⼀种协同机制，只修改中断标识位⽽已，不会⽴刻停⽌线程 </p>
+<ul>
+<li>代码证明：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Thread thread = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">     <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">         System.out.println(<span class="string">"循环输出"</span>);</span><br><span class="line">     &#125;</span><br><span class="line">     &#125;);</span><br><span class="line">     thread.start();</span><br><span class="line">     thread.interrupt();</span><br></pre></td></tr></table></figure>
+
+<p> 可以发现⼀直在输出： 循环输出…  </p>
+<h4 id="如何使⽤中断标识优雅的停⽌线程？"><a href="#如何使⽤中断标识优雅的停⽌线程？" class="headerlink" title="如何使⽤中断标识优雅的停⽌线程？"></a>如何使⽤中断标识优雅的停⽌线程？</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">m3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     Thread t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">     <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">         <span class="comment">//当前线程判断中断标志</span></span><br><span class="line">         <span class="keyword">if</span> (Thread.currentThread().isInterrupted()) &#123;</span><br><span class="line">             System.out.println(<span class="string">"-----程序结束------"</span>);</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         System.out.println(<span class="string">"------hello------"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;, <span class="string">"t1"</span>);</span><br><span class="line">     t1.start();</span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">         TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">     &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">         <span class="comment">//修改t1线程的中断标志位为true</span></span><br><span class="line">         t1.interrupt();</span><br><span class="line">     &#125;, <span class="string">"t2"</span>).start();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="线程的合并"><a href="#线程的合并" class="headerlink" title="线程的合并"></a>线程的合并</h3><p><code>Thread</code> 中，<code>join()</code>⽅法的作⽤是调⽤线程等待该线程完成后，才能继续往下运⾏。</p>
+<p><code>join</code>是<code>Thread</code>类的⼀个⽅法，启动线程后直接调⽤，即<code>join()</code>的作⽤是：“等待该线程终⽌”，这⾥需 要理解的就是该线程是指的主线程等待⼦线程的终⽌。也就是在⼦线程调⽤了<code>join()</code>⽅法后⾯的代 码，只有等到⼦线程结束了才能执⾏。 </p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726817318884-a780f06f-a6f4-47a0-a848-0fbc2b4e0f70.png" alt></p>
+<h4 id="为什么要⽤join-⽅法"><a href="#为什么要⽤join-⽅法" class="headerlink" title="为什么要⽤join()⽅法"></a>为什么要⽤join()⽅法</h4><p>在很多情况下，主线程⽣成并起动了⼦线程，如果⼦线程⾥要进⾏⼤量的耗时的运算，主线程往往 将于</p>
+<p>⼦线程之前结束，但是如果主线程处理完其他的事务后，需要⽤到⼦线程的处理结果，也就是 主线程需</p>
+<p>要等待⼦线程执⾏完成之后再结束，这个时候就要⽤到<code>join()</code>⽅法了。</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JoinThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">JoinThread</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">         <span class="keyword">super</span>(name);</span><br><span class="line">     &#125;</span><br><span class="line">    </span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         System.out.println(Thread.currentThread().getName()+<span class="string">"线程开始运⾏"</span>);</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">             System.out.println(Thread.currentThread().getName()+<span class="string">"--&gt;⼦线程："</span>+i);</span><br><span class="line">         &#125;</span><br><span class="line">         System.out.println(Thread.currentThread().getName()+<span class="string">"线程结束运⾏"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JoinDemo</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">"主线程开始运⾏。。。"</span>);</span><br><span class="line">         JoinThread t1 = <span class="keyword">new</span> JoinThread(<span class="string">"新加⼊的线程"</span>);</span><br><span class="line">         t1.start();</span><br><span class="line">         <span class="comment">// try &#123;</span></span><br><span class="line">                 <span class="comment">// t1.join();</span></span><br><span class="line">         <span class="comment">// &#125; catch (InterruptedException e) &#123;</span></span><br><span class="line">                <span class="comment">// e.printStackTrace();</span></span><br><span class="line">         <span class="comment">// &#125;</span></span><br><span class="line">         System.out.println(<span class="string">"主线程开始结束。。。"</span>);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h3><ul>
+<li>默认情况下我们创建的线程都是⽤户线程（普通线程），进程需要等待所有的线程执⾏完毕后，进 程才会结束。  </li>
+<li>守护线程<code>.setDaemon(true):</code>设置守护线程  </li>
+<li>想要查看线程到底是⽤户线程还是守护线程，可以通过 <code>Thread.isDaemon()</code>⽅法来判断，如果返回 的结果是 true 则为守护线程，反之则为⽤户线程。  </li>
+<li>当所有的⽤户线程退出后，守护线程会⽴⻢结束。</li>
+</ul>
+<p><strong>应用：</strong></p>
+<p>垃圾回收器线程属于守护线程</p>
+<p>tomcat⽤来接受处理外部的请求的线程就是守护线程。  </p>
+<p>tomcat</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeamonThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">50</span>;i++) &#123;</span><br><span class="line">             System.out.println(Thread.currentThread().getName()+<span class="string">"----------"</span>+i);</span><br><span class="line">             <span class="keyword">try</span> &#123;</span><br><span class="line">                 Thread.sleep(<span class="number">500</span>);</span><br><span class="line">             &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                 <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">                 e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDeamon</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">         <span class="comment">//创建线程(默认前台线程)</span></span><br><span class="line">         DeamonThread d1=<span class="keyword">new</span> DeamonThread();</span><br><span class="line">         <span class="comment">//设置线程为守护线程</span></span><br><span class="line">         d1.setDaemon(<span class="keyword">true</span>);<span class="comment">//主线程结束便结束了</span></span><br><span class="line">         d1.start();</span><br><span class="line">         <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++) &#123;</span><br><span class="line">             System.out.println(<span class="string">"主线程:----------"</span>+i);</span><br><span class="line">             <span class="keyword">try</span> &#123;</span><br><span class="line">                 Thread.sleep(<span class="number">200</span>);</span><br><span class="line">             &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                 <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">                 e.printStackTrace();</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="线程6种状态"><a href="#线程6种状态" class="headerlink" title="线程6种状态"></a>线程6种状态</h3><p>Java 线程在运⾏的⽣命周期中的指定时刻只可能处于下⾯ 6 种不同状态的其中⼀个状态</p>
+<table>
+<thead>
+<tr>
+<th>状态名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NEW</td>
+<td>初始状态,线程被构建,但是还没有调⽤start()⽅法</td>
+</tr>
+<tr>
+<td>RUNNABLE</td>
+<td>运⾏状态,Java线程将操作系统中的就绪和运⾏两 种状态统称为”运⾏中”</td>
+</tr>
+<tr>
+<td>BLOCKED</td>
+<td>阻塞状态,表示线程阻塞于锁</td>
+</tr>
+<tr>
+<td>WAITING</td>
+<td>等待状态,表示线程进⼊等待状态，进⼊该状态表 示当前线程需要其他线程通知(notify或者 notifyAll)</td>
+</tr>
+<tr>
+<td>TIME_WAITING</td>
+<td>超时等待状态,可以指定等待时间⾃⼰返回</td>
+</tr>
+<tr>
+<td>TERMINATED</td>
+<td>终⽌状态，表示当前线程已经执⾏完毕</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726817976227-6e81e8ea-45d7-4232-946f-d642610e11e6.png" alt></p>
+<p>查看Thread类中定义了⼀个State枚举类型</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> State &#123;</span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">      * Thread state for a thread which has not yet started.</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">     NEW,</span><br><span class="line">    </span><br><span class="line">     RUNNABLE,</span><br><span class="line">    </span><br><span class="line">     BLOCKED,</span><br><span class="line">    </span><br><span class="line">     WAITING,</span><br><span class="line">    </span><br><span class="line">     TIMED_WAITING,</span><br><span class="line">    </span><br><span class="line">     TERMINATED;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="NEW"><a href="#NEW" class="headerlink" title="NEW"></a>NEW</h4><ul>
+<li>⾸先我们展示⼀下整个线程状态的转换流程图，下⾯我们将进⾏详细的介绍讲解，如下图所示，我</li>
+</ul>
+<p>们可以直观的看到六种状态的转换，⾸先左侧上⽅是 <font style="color:#DF2A3F;">NEW </font>状态，这是创建新线程的状态，相当于</p>
+<p>我们 <font style="color:#DF2A3F;">new Thread() </font>的过程。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123; </span><br><span class="line">    <span class="comment">//NEW</span></span><br><span class="line">    Thread t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">"Thread1~~~~"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    System.out.println(t1.getState());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font style="color:#DF2A3F;">New</font> 表示线程被创建但尚未启动的状态：当我们⽤<font style="color:#DF2A3F;"> new Thread()</font> 新建⼀个线程时，如果线程没有开始运⾏ <font style="color:#DF2A3F;">start()</font>⽅法，那么线程也就没有开始执⾏ <font style="color:#DF2A3F;">run()</font> ⽅法⾥⾯的代码，那么此时它的状态就是<font style="color:#DF2A3F;">New</font>。⽽⼀旦线程调⽤了<font style="color:#DF2A3F;"> start()</font>，它的状态就会从 <font style="color:#DF2A3F;">New </font>变成 <font style="color:#DF2A3F;">Runnable</font>，进⼊到图中绿⾊的⽅框。</li>
+</ul>
+<h4 id="TERMINATED"><a href="#TERMINATED" class="headerlink" title="TERMINATED"></a>TERMINATED</h4><p><font style="color:#DF2A3F;">Terminated </font>终⽌状态，要想进⼊这个状态有两种可能。</p>
+<ul>
+<li>run() ⽅法执⾏完毕，线程正常退出 。</li>
+<li>出现⼀个没有捕获的异常，终⽌了 run() ⽅法，最终导致意外终⽌。  </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123; <span class="comment">//TERMINATED</span></span><br><span class="line">    Thread t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        System.out.println(<span class="string">"线程开始执⾏"</span>);</span><br><span class="line">        System.out.println(<span class="string">"线程结束执⾏"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    t1.start();</span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">    System.out.println(t1.getState());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>线程执⾏结束后查看状态为TERMINATED,加sleep是为了保证在getState的时候线程已经执⾏结束  </p>
+<h4 id="RUNNABLE"><a href="#RUNNABLE" class="headerlink" title="RUNNABLE"></a>RUNNABLE</h4><ul>
+<li><font style="color:#DF2A3F;">Java</font>中的<font style="color:#DF2A3F;">Runable</font> 状态对应操作系统线程状态中的两种状态，分别是 <font style="color:#DF2A3F;">Running</font> 和 <font style="color:#DF2A3F;">Ready</font>也就是说<font style="color:#DF2A3F;">Java</font>中处于 <font style="color:#DF2A3F;">Runnable</font> 状态的线程有可能正在执⾏，也有可能没有正在执⾏，正在等待被分配 CPU 资源。</li>
+<li>所以，如果⼀个正在运⾏的线程是 <font style="color:#DF2A3F;">Runnable</font> 状态，当它运⾏到任务的⼀半时，执⾏该线程的 CPU被调度去做其他事情，导致该线程暂时不运⾏，它的状态依然不变，还是 <font style="color:#DF2A3F;">Runnable</font>，因为它有可能随时被调度回来继续执⾏任务。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span> </span>&#123; </span><br><span class="line">    <span class="comment">//RUNNABLE</span></span><br><span class="line">    Thread t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">    &#125;);</span><br><span class="line">    t1.start();</span><br><span class="line">    System.out.println(t1.getState());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上⾯认识了线程的关键状态 <font style="color:#DF2A3F;">Runnable</font> ，那么接下来我们来看⼀下下⾯的三个状态，这三个状态我 们可以统称为阻塞状态，它们分别是 <font style="color:#DF2A3F;">Blocked</font>(被阻塞)、<font style="color:#DF2A3F;">Waiting</font>(等待)、<font style="color:#DF2A3F;">Timed Waiting</font>(计时等待)。</li>
+</ul>
+<h4 id="BLOCKED"><a href="#BLOCKED" class="headerlink" title="BLOCKED"></a>BLOCKED</h4><p>这边我们模拟⼀个我们模拟找桌⼦⽤餐的场景 学⽣1和学⽣2同时争夺⼀个座位⽤餐，学⽣⼀先抢到座位，学⽣2就处于阻塞的状态，只能等待学⽣1⽤餐结束</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">         System.out.println(Thread.currentThread().getName());</span><br><span class="line">         Table table = <span class="keyword">new</span> Table();</span><br><span class="line">         Thread student1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">             table.use();</span><br><span class="line">         &#125;, <span class="string">"s1"</span>);</span><br><span class="line">         Thread student2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">             table.use();</span><br><span class="line">         &#125;, <span class="string">"s2"</span>);</span><br><span class="line">         student1.start();</span><br><span class="line">         Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">         student2.start();</span><br><span class="line">         Thread.sleep(<span class="number">500</span>);</span><br><span class="line">         System.out.println(student2.getState());</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Table</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         System.out.println(Thread.currentThread().getName() + <span class="string">"-使⽤桌⼦"</span>);</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         System.out.println(Thread.currentThread().getName() + <span class="string">"就餐结束"</span>);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="WAITING"><a href="#WAITING" class="headerlink" title="WAITING"></a>WAITING</h4><p>上⾯我们看完阻塞状态，那么接下来我们了解⼀下 <font style="color:#DF2A3F;">Waiting</font> 状态，对于 <font style="color:#DF2A3F;">Waiting</font> 状态的进⼊有三种情况，如下图中所示，分别为：</p>
+<ul>
+<li><p>当线程中调⽤了没有设置 <font style="color:#DF2A3F;">Timeout</font> 参数的 <font style="color:#DF2A3F;">Object.wait()</font> ⽅法  </p>
+</li>
+<li><p>当线程调⽤了没有设置 <font style="color:#DF2A3F;">Timeout</font> 参数的<font style="color:#DF2A3F;"> Thread.join() </font>⽅法  </p>
+</li>
+<li><p>当线程调⽤了 <font style="color:#DF2A3F;">LockSupport</font>.<font style="color:#DF2A3F;">park()</font> ⽅法  </p>
+<p>这边我们模拟学⽣1在得到座位后发现⾃⼰忘记点餐了，所以只能让出座位这个资源。进⼊wait状态</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">         System.out.println(Thread.currentThread().getName());</span><br><span class="line">         Table1 table = <span class="keyword">new</span> Table1();</span><br><span class="line">         Thread student1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">             <span class="keyword">try</span> &#123;</span><br><span class="line">                 table.use();</span><br><span class="line">             &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                 e.printStackTrace();</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;, <span class="string">"s1"</span>);</span><br><span class="line">         student1.start();</span><br><span class="line">         Thread.sleep(<span class="number">100</span>);</span><br><span class="line">         System.out.println(student1.getState());</span><br><span class="line">         Thread.currentThread().getState();</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Table1</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">use</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">         System.out.println(Thread.currentThread().getName() + <span class="string">"-使⽤桌⼦"</span>);</span><br><span class="line">         <span class="comment">//忘记点餐了</span></span><br><span class="line">         System.out.println(<span class="string">"忘记点餐了"</span>);</span><br><span class="line">         wait(<span class="number">100</span>);</span><br><span class="line">         Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">         System.out.println(Thread.currentThread().getName() + <span class="string">"就餐结束"</span>);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font style="color:#DF2A3F;">Blocked</font>与<font style="color:#DF2A3F;">Waiting</font>的区别<ul>
+<li><font style="color:#DF2A3F;">Blocked</font> 是在等待其他线程释放 <font style="color:#DF2A3F;">monitor</font> 锁</li>
+<li><font style="color:#DF2A3F;">Waiting</font> 则是在等待某个条件，⽐如 <font style="color:#DF2A3F;">join</font> 的线程执⾏完毕，或者是 <font style="color:#DF2A3F;">notify()/notifyAll()</font> 。</li>
+</ul>
+</li>
+</ul>
+<h4 id="TIME-WAITING"><a href="#TIME-WAITING" class="headerlink" title="TIME_WAITING"></a>TIME_WAITING</h4><p>最后我们来说说这个 <font style="color:#DF2A3F;">Timed Waiting</font> 状态，它与 <font style="color:#DF2A3F;">Waiting</font> 状态⾮常相似，其中的区别只在于是否有<strong>时间的限制</strong>，在 <font style="color:#DF2A3F;">Timed Waiting</font> 状态时会等待超时，之后由系统唤醒，或者也可以提前被通知唤醒,如<font style="color:#DF2A3F;">notify</font></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726819000502-c0e8f486-6782-4df7-9904-72154a17f9ac.png" alt></p>
+<p>通过上述图我们可以看到在以下情况会让线程进⼊<font style="color:#DF2A3F;">Timed Waiting</font>状态。</p>
+<ul>
+<li>线程执⾏了设置了时间参数的 <font style="color:#DF2A3F;">Thread.sleep(long millis) </font>⽅法；</li>
+<li>线程执⾏了设置了时间参数的 <font style="color:#DF2A3F;">Object.wait(long timeout)</font> ⽅法；</li>
+<li>线程执⾏了设置了时间参数的 <font style="color:#DF2A3F;">Thread.join(long millis)</font> ⽅法；</li>
+<li>线程执⾏了设置了时间参数的 <font style="color:#DF2A3F;">LockSupport.parkNanos(long nanos)</font> ⽅法和 <font style="color:#DF2A3F;">LockSupport.parkUntil(long deadline)</font> ⽅法。</li>
+</ul>
+<h3 id="线程状态间转换"><a href="#线程状态间转换" class="headerlink" title="线程状态间转换"></a>线程状态间转换</h3><p>上⾯我们讲了各⾃状态的特点和运⾏状态进⼊相应状态的情况 ，那么接下来我们将来分析各⾃状态之间 的转换，其实主要就是<font style="color:#DF2A3F;">Blocked</font>、<font style="color:#DF2A3F;">waiting</font>、<font style="color:#DF2A3F;">Timed Waiting</font>三种状态的转换 ，以及他们是如何进⼊下⼀ 状态最终进⼊ <font style="color:#DF2A3F;">Runnable</font> </p>
+<p><font style="color:#DF2A3F;">Blocked</font> 进⼊ <font style="color:#DF2A3F;">Runnable</font> </p>
+<ul>
+<li>想要从 <font style="color:#DF2A3F;">Blocked</font> 状态进⼊ <font style="color:#DF2A3F;">Runnable</font> 状态，我们上⾯说过必须要线程获得 <font style="color:#DF2A3F;">monitor</font> 锁，但是如果想 进⼊其他状态那么就相对⽐较特殊，因为它是没有超时机制的，也就是不会主动进⼊。 </li>
+</ul>
+<p>如下图中紫⾊加粗表示线路：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726819262013-ae4fcb55-8680-48c5-9edc-32c6292db969.png" alt></p>
+<p><font style="color:#DF2A3F;">Waiting</font> 进⼊ <font style="color:#DF2A3F;">Runnable</font></p>
+<ul>
+<li>只有当执⾏了<font style="color:#DF2A3F;">LockSupport.unpark()</font>，或者<font style="color:#DF2A3F;">join</font>的线程运⾏结束，或者被中断时才可以进⼊<font style="color:#DF2A3F;">Runnable</font> 状态。</li>
+<li>如下图标注</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726819340723-cf47d9a5-f1e9-4106-ae79-b0ccbd511f48.png" alt></p>
+<ul>
+<li>如果通过其他线程调⽤ <font style="color:#DF2A3F;">notify() </font>或 <font style="color:#DF2A3F;">notifyAll()</font>来唤醒它，则它会直接进⼊ <font style="color:#DF2A3F;">Blocked</font> 状态，这⾥⼤家可能会有疑问，不是应该直接进⼊ <font style="color:#DF2A3F;">Runnable</font> 吗？这⾥需要注意⼀点 ，因为唤醒 <font style="color:#DF2A3F;">Waiting</font> 线程的线程如果调⽤ <font style="color:#DF2A3F;">notify()</font> 或 <font style="color:#DF2A3F;">notifyAll()</font>，要求必须⾸先持有该 <font style="color:#DF2A3F;">monitor</font> 锁，这也就是我们说的<font style="color:#DF2A3F;"> wait()</font>、<font style="color:#DF2A3F;">notify</font> 必须在 <font style="color:#DF2A3F;">synchronized</font> 代码块中。</li>
+<li>所以处于 <font style="color:#DF2A3F;">Waiting</font> 状态的线程被唤醒时拿不到该锁，就会进⼊ <font style="color:#DF2A3F;">Blocked</font> 状态，直到执⾏<font style="color:#DF2A3F;">notify()/notifyAll() </font>的唤醒它的线程执⾏完毕并释放 <font style="color:#DF2A3F;">monitor</font> 锁，才可能轮到它去抢夺这把锁，如果它能抢到，就会从 <font style="color:#DF2A3F;">Blocked</font> 状态回到 <font style="color:#DF2A3F;">Runnable</font> 状态。</li>
+</ul>
+<p><font style="color:#DF2A3F;">Timed Waiting</font> 进⼊ <font style="color:#DF2A3F;">Runnable</font></p>
+<ul>
+<li>同样在<font style="color:#DF2A3F;">Timed Waiting</font>中执⾏<font style="color:#DF2A3F;">notify()</font>和<font style="color:#DF2A3F;">notifyAll()</font>也是⼀样的道理，它们会先进⼊<font style="color:#DF2A3F;">Blocked</font>状态，然后抢夺锁成功后，再回到 <font style="color:#DF2A3F;">Runnable</font>状态。 </li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726819507586-e0ce7c70-c994-4361-8d81-ec41d95a8810.png" alt></p>
+<ul>
+<li>但是对于 <font style="color:#DF2A3F;">Timed Waiting</font> ⽽⾔，它存在超时机制，也就是说如果超时时间到了那么就会系统⾃动直 接拿到锁，或者当 <font style="color:#DF2A3F;">join</font>的线程执⾏结束/调⽤了<font style="color:#DF2A3F;">LockSupport.unpark()</font>/被中断等情况都会直接进⼊<font style="color:#DF2A3F;">Runnable</font>状态，⽽不会经历<font style="color:#DF2A3F;">Blocked</font>状态。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/34297780/1726819587869-1db54234-9bec-4d8b-81cb-eb23c4ef72ee.png" alt></p>
+<p><strong>总结</strong></p>
+<ul>
+<li>线程的状态是按照箭头⽅向来⾛的，⽐如线程从 <font style="color:#DF2A3F;">New</font> 状态是不可以直接进⼊ <font style="color:#DF2A3F;">Blocked</font> 状态的，它 需要先经历 <font style="color:#DF2A3F;">Runnable</font> 状态。 </li>
+<li>线程⽣命周期不可逆：⼀旦进⼊ <font style="color:#DF2A3F;">Runnable</font> 状态就不能回到 <font style="color:#DF2A3F;">New</font> 状态；⼀旦被终⽌就不可能再有任 何状态的变化。 </li>
+<li>所以⼀个线程只能有⼀次 <font style="color:#DF2A3F;">New</font> 和 <font style="color:#DF2A3F;">Terminated</font> 状态，只有处于中间状态才可以相互转换。也就是这 两个状态不会参与相互转化。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+        <category>Java</category>
+        <category>JUC</category>
+      </categories>
+      <tags>
+        <tag>编程</tag>
+        <tag>Java</tag>
+        <tag>JUC</tag>
+        <tag>多线程</tag>
       </tags>
   </entry>
 </search>
